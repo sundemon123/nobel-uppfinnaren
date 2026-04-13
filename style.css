@@ -1,0 +1,288 @@
+/*
+ * Nobel: Uppfinnarens väg — Global Styles
+ *
+ * Google Fonts (loaded as backup — primary loading is via webfontloader in BootScene):
+ *   Caveat, Playfair Display, Source Sans 3
+ *
+ * These styles support the diary overlay, card collection HTML elements,
+ * and the game container itself.
+ */
+
+/* ─── Google Fonts (backup @import) ─────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@400;600;700&display=swap');
+
+/* ─── Reset & base ──────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #f5edd6;
+  font-family: 'Source Sans 3', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Game container ────────────────────────────────────────────────────── */
+#game-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+#game-container canvas {
+  display: block;
+}
+
+/* ─── Diary overlay ─────────────────────────────────────────────────────── */
+.diary-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 8, 6, 0.72);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.diary-overlay.visible {
+  opacity: 1;
+}
+
+.diary-card {
+  position: relative;
+  max-width: 600px;
+  width: 92%;
+  max-height: 80vh;
+  padding: 40px 36px 36px;
+  border-radius: 12px;
+  background: linear-gradient(168deg, #f5edd6 0%, #e8dcc4 50%, #ddd0b5 100%);
+  box-shadow:
+    0 12px 48px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  overflow-y: auto;
+  transform: translateY(18px);
+  transition: transform 0.35s ease;
+}
+.diary-overlay.visible .diary-card {
+  transform: translateY(0);
+}
+
+.diary-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: #6b5a3e;
+  cursor: pointer;
+  line-height: 32px;
+  text-align: center;
+  border-radius: 50%;
+  transition: background 0.15s;
+}
+.diary-close:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.diary-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #8b6914;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.diary-entries {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.diary-entry {
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(139, 105, 20, 0.18);
+}
+.diary-entry:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.diary-entry-date {
+  font-family: 'Caveat', cursive;
+  font-size: 0.95rem;
+  color: #8b6914;
+  margin-bottom: 4px;
+}
+
+.diary-entry-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #3d3229;
+  margin-bottom: 8px;
+}
+
+.diary-entry-text {
+  font-family: 'Caveat', cursive;
+  font-size: 1.3rem;
+  color: #3d3229;
+  line-height: 1.55;
+}
+
+.diary-signature {
+  font-family: 'Caveat', cursive;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: #6b5a3e;
+  text-align: right;
+  margin-top: 18px;
+}
+
+/* Typewriter caret blink */
+.diary-entry-text.typewriter {
+  overflow: hidden;
+  border-right: 2px solid #3d3229;
+  white-space: normal;
+  animation: blink-caret 0.75s step-end infinite;
+}
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: #3d3229; }
+}
+
+/* ─── Card collection (HTML fallback styles) ────────────────────────────── */
+.card-collection-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  background: rgba(26, 20, 16, 0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.card-collection-header {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: #d4a843;
+  margin-bottom: 8px;
+}
+
+.card-collection-counter {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1rem;
+  color: #e8dcc4;
+  margin-bottom: 24px;
+}
+
+.card-collection-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 200px);
+  gap: 24px;
+  justify-content: center;
+}
+
+.fact-card {
+  width: 200px;
+  height: 280px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fact-card.unlocked {
+  background: #2c241a;
+  border: 2px solid #d4a843;
+  cursor: pointer;
+}
+.fact-card.unlocked:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(212, 168, 67, 0.25);
+}
+
+.fact-card.locked {
+  background: #1e1a14;
+  border: 2px solid #555;
+}
+
+.fact-card-chapter {
+  font-family: 'Caveat', cursive;
+  font-size: 0.85rem;
+  color: #d4a843;
+  margin-bottom: 8px;
+}
+
+.fact-card-title {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.95rem;
+  color: #e8dcc4;
+}
+
+.fact-card-locked-icon {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  color: #7a7060;
+}
+
+/* ─── Responsive ────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .card-collection-grid {
+    grid-template-columns: repeat(3, 180px);
+    gap: 16px;
+  }
+  .fact-card {
+    width: 180px;
+    height: 250px;
+  }
+}
+
+@media (max-width: 600px) {
+  .card-collection-grid {
+    grid-template-columns: repeat(2, 160px);
+    gap: 12px;
+  }
+  .fact-card {
+    width: 160px;
+    height: 220px;
+  }
+}
+
+@media (max-width: 500px) {
+  .diary-card {
+    padding: 24px 18px 20px;
+    border-radius: 8px;
+  }
+  .diary-heading {
+    font-size: 1.25rem;
+  }
+  .diary-entry-text {
+    font-size: 1.1rem;
+  }
+  .diary-entry-title {
+    font-size: 1.05rem;
+  }
+  .card-collection-header {
+    font-size: 1.4rem;
+  }
+}
