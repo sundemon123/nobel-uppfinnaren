@@ -34,42 +34,48 @@ kapitel (Barndom → Kemilaboratoriet → Farliga experiment → Dynamitens föd
 
 #### 1. Skär ner texten och komplettera uppläsningen
 - Halvera textmängden per skärm. Korta meningar, max 2–3 per textruta.
-- **Uppläsning finns redan** — 40 inspelade berättarröst-klipp som
-  autospelas per skärm. Bygg vidare på den:
-  - **Täck luckorna.** Skärmar som saknar berättarröst idag: `intro` och
-    `ch1-howtoplay` (de allra första skärmarna ett barn möter — viktigast
-    för icke-läsare!), de fyra minispelsskärmarnas instruktioner samt
-    `ch6-newspaper`/`ch6-reflection`.
-  - **"Lyssna igen"-knapp.** Klippen spelas bara en gång, automatiskt när
-    skärmen visas. Barn som missade början behöver en tydlig
-    högtalarknapp för att höra om.
-  - **Koppla berättarrösten till volymkontrollen.** Mute/volym styr idag
-    bara WebAudio-effekterna — `<audio>`-elementen med berättarröst
-    påverkas inte, så spelet "muteat" fortsätter prata.
+- ✅ **KLART: Knappstyrd uppläsning.** Autoplay är ersatt med en tydlig
+  🔊 **Lyssna**-knapp (uppe till vänster) som spelar/stoppar klippet och
+  kan tryckas hur många gånger som helst. Pågående klipp stoppas vid
+  skärmbyte, och berättarrösten följer nu volym/mute-kontrollen.
+  - Knappen hittar ljudet via konventionen
+    `<audio id="narrator-SKÄRM-ID">` — nya klipp behöver bara läggas in
+    med rätt id så dyker knappen upp automatiskt.
+- **Återstår: spela in klipp (ElevenLabs) för skärmar som saknar
+  berättarröst:** `intro`, `ch1-howtoplay`, `ch6-newspaper`,
+  `ch6-reflection` samt de nya minispelsskärmarna `ch1-minigame`,
+  `ch6-minigame`, `ch7-minigame` (och gärna instruktionerna i
+  ch2–ch5-minispelen).
 - Byt svåra ord mot enkla, eller lägg en liten "?"-ikon som förklarar i
   barnspråk (t.ex. "testamente = ett brev om vem som ska få dina saker").
 
 #### 2. Gör minispelen till huvudrätten
-- Fler, kortare och mer varierade minispel — barn minns det de *gjorde*,
-  inte det de läste. Sikta på minst ett interaktivt moment per kapitel,
-  gärna två.
-- Idéer per kapitel:
-  - Kap 1: Hjälp Alfred hitta böcker/saker att experimentera med i
-    Stockholm (peka-och-hitta).
-  - Kap 2: Dra-och-släpp kemikalier till rätt provrör.
-  - Kap 3: "Stoppa mätaren i det gröna fältet" — stabilisera nitroglycerinet.
-  - Kap 4: Pussla ihop gruvgången och spräng på rätt ställe.
-  - Kap 5: Kör dynamitlaster till rätt städer på en Europakarta.
-  - Kap 6: Sortera tidningsrubriker — sant eller falskt om Alfred?
-  - Kap 7: Fördela testamentet med mynt som dras till olika högar.
-- Mer "juice": partiklar, ljud och små animationer vid rätt svar, och en
-  tydlig wow-effekt vid kapitelslut.
+- ✅ **KLART: Alla sju kapitel har nu ett minispel.** Tre nya
+  Canvas-spel byggda i samma NobelMinigames-ramverk som ch2–ch5:
+  - **Kap 1 — "Skattjakten på vinden"** (`ch1-minigame`): peka-och-hitta.
+    Fem gömda uppfinnarprylar (bok, förstoringsglas, magnet, kolv,
+    fjäderpenna) i Alfreds vindsrum. Guldgnistor vid fynd, sakerna flyger
+    ner i en samlarbricka, och en hintpuls hjälper till efter 12 sekunder
+    utan fynd.
+  - **Kap 6 — "Rätta tidningen!"** (`ch6-minigame`): rubriker om Alfred
+    stämplas SANT (grön) eller FALSKT (röd) med stämpelanimation, och
+    varje svar följs av en kort förklaring ("Tidningen blandade ihop
+    Alfred med hans bror Ludvig").
+  - **Kap 7 — "Prisutdelningen"** (`ch7-minigame`): pristagare står i
+    strålkastarljus och berättar vad de gjort — dra rätt medalj (Fysik,
+    Kemi, Medicin, Litteratur, Fred) till rätt person. Konfetti och
+    höjda armar vid rätt svar.
+  - Poängen lagras i `miniGameScores` (ch1_treasure, ch6_headlines,
+    ch7_ceremony) och ger resursbonusar precis som de gamla spelen.
+- Kvar att göra: mer "wow" vid kapitelslut, ev. andra interaktiva moment
+  per kapitel.
 
 #### 3. Byt betygston mot stjärnor och beröm
-- Ersätt omdömen i stil med "Godkänt, men du kan bättre!" med **1–3
-  stjärnor** och en genomgående uppmuntrande ton. Det ska aldrig kännas som
-  ett skolprov eller ett misslyckande.
-- Låt barnet **prova om direkt** med en stor, glad "Försök igen!"-knapp.
+- ✅ **KLART (för de tre nya spelen):** resultatet visas som **1–3
+  stjärnor** med uppmuntrande text (aldrig "underkänt"), plus en
+  🎯 **"Försök igen"-knapp** för att spela om direkt.
+- Återstår: ge ch2–ch5-spelen samma stjärnor/retry-behandling
+  (de visar fortfarande "Godkänt, men du kan bättre!"-omdömen).
 
 ### P2 — Stor effekt
 
@@ -115,6 +121,7 @@ kapitel (Barndom → Kemilaboratoriet → Farliga experiment → Dynamitens föd
   som separata filer (`nobel-diary-system.js`, `nobel-minigames-v2.js`,
   `nobel-sound-system.js`) som inte refereras. Välj en källa, förslagsvis
   `<script src="...">` mot de externa filerna.
-- **Berättarrösten lyder inte volymkontrollen.** Se P1 punkt 1.
+- ~~Berättarrösten lyder inte volymkontrollen.~~ ✅ Fixat — narratorljudet
+  synkas mot NobelSound-volymen medan det spelar.
 - **Externt beroende:** leaderboard mot en Cloudflare Worker
   (`nobel-leaderboard.jonatan-sundemo.workers.dev`).
