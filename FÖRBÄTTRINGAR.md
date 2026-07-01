@@ -11,8 +11,8 @@ kapitel (Barndom → Kemilaboratoriet → Farliga experiment → Dynamitens föd
 → Imperiet → Dödens köpman → Testamentet). Mekaniken består av:
 
 - Berättelsetext med förgrenade val och konsekvenser
-- Fyra minispel (`ch2_chemistry`, `ch3_stabilize`, `ch4_dynamite`,
-  `ch5_logistics`) med poäng och omdömen
+- Inspelad berättarröst (40 klipp) som autospelas per skärm
+- Fyra Canvas-baserade minispel (kapitel 2–5) med poäng och omdömen
 - Faktakort att samla, en dagbok och en HUD med poäng och progress
 
 ### Grundproblem för 7–11-åringar
@@ -32,11 +32,20 @@ kapitel (Barndom → Kemilaboratoriet → Farliga experiment → Dynamitens föd
 
 ### P1 — Störst effekt
 
-#### 1. Skär ner texten och lägg till uppläsning
+#### 1. Skär ner texten och komplettera uppläsningen
 - Halvera textmängden per skärm. Korta meningar, max 2–3 per textruta.
-- Lägg till **uppläsning** (inspelad berättarröst eller text-to-speech via
-  Web Speech API) med en tydlig högtalarknapp, så att de yngsta kan spela
-  utan att läsa allt själva.
+- **Uppläsning finns redan** — 40 inspelade berättarröst-klipp som
+  autospelas per skärm. Bygg vidare på den:
+  - **Täck luckorna.** Skärmar som saknar berättarröst idag: `intro` och
+    `ch1-howtoplay` (de allra första skärmarna ett barn möter — viktigast
+    för icke-läsare!), de fyra minispelsskärmarnas instruktioner samt
+    `ch6-newspaper`/`ch6-reflection`.
+  - **"Lyssna igen"-knapp.** Klippen spelas bara en gång, automatiskt när
+    skärmen visas. Barn som missade början behöver en tydlig
+    högtalarknapp för att höra om.
+  - **Koppla berättarrösten till volymkontrollen.** Mute/volym styr idag
+    bara WebAudio-effekterna — `<audio>`-elementen med berättarröst
+    påverkas inte, så spelet "muteat" fortsätter prata.
 - Byt svåra ord mot enkla, eller lägg en liten "?"-ikon som förklarar i
   barnspråk (t.ex. "testamente = ett brev om vem som ska få dina saker").
 
@@ -96,9 +105,16 @@ kapitel (Barndom → Kemilaboratoriet → Farliga experiment → Dynamitens föd
 
 ---
 
-## Teknisk notering
+## Tekniska noteringar
 
-Repot innehåller i dagsläget endast den **byggda/minifierade koden**
-(`assets/index-*.js`, Phaser-bundle) — inte källprojektet. För att kunna
-genomföra punkterna ovan behöver källkoden (Phaser-scenerna, kapiteldatan,
-byggkonfigurationen) läggas till i repot eller länkas hit.
+- **HTML-versionen (v2) är rätt grund** — spelet är UI-tungt (text, val,
+  kort, dagbok) och DOM/CSS passar det bättre än en spelmotor. Minispelen
+  täcks av Canvas, ljudet av WebAudio. Ingen byggkedja behövs.
+- **Dubblerad kod.** Dagbokssystemet, minispelen och ljudsystemet ligger
+  inlinade som scriptblock i `index.html` — samtidigt som samma kod finns
+  som separata filer (`nobel-diary-system.js`, `nobel-minigames-v2.js`,
+  `nobel-sound-system.js`) som inte refereras. Välj en källa, förslagsvis
+  `<script src="...">` mot de externa filerna.
+- **Berättarrösten lyder inte volymkontrollen.** Se P1 punkt 1.
+- **Externt beroende:** leaderboard mot en Cloudflare Worker
+  (`nobel-leaderboard.jonatan-sundemo.workers.dev`).
