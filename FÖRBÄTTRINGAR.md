@@ -67,15 +67,36 @@ kapitel (Barndom → Kemilaboratoriet → Farliga experiment → Dynamitens föd
     höjda armar vid rätt svar.
   - Poängen lagras i `miniGameScores` (ch1_treasure, ch6_headlines,
     ch7_ceremony) och ger resursbonusar precis som de gamla spelen.
+- ✅ **KLART: Spelmotorn ombyggd och de gamla spelen (ch2–ch5) fixade.**
+  Diagnosen visade två riktiga buggar och flera barnfientliga designval:
+  - **Motorbugg:** "är spelet klart?"-detekteringen räknade *alla*
+    knappar i spelcontainern som en resultatskärm — därför dök
+    "Fortsätt" upp i kapitel 4 innan man ens spelat (spelets egen
+    "Testa!"-knapp matchade). Nu anmäler spelen sig klara direkt via
+    `notifyDone()`; pollern finns kvar enbart som reserv.
+  - **Kap 2:** krävde att man *gissade* rätt ordning på flaskorna.
+    Nu visar statusraden receptet steg för steg ("häll i Glycerin!").
+  - **Kap 3:** gick att fuska (dra rakt till MÅL = full poäng direkt)
+    och var samtidigt frustrerande ärligt spelad (20 s tidspress).
+    Nu måste markören följa banan (fönstrad sökning + korridorkrav),
+    banan är bredare (30→38), tidspressen borta och stabiliteten
+    återhämtar sig när man fortsätter försiktigt.
+  - **Kap 4:** "75 % nitro, 25 % kiselgur" är för abstrakt för en
+    7-åring. Nu: "3 droppar nitro för varje droppe kiselgur", ett
+    tydligt **grönt fält** på mätaren och en statusrad som guidar
+    ("Droppa i mer nitroglycerin!").
+  - **Kap 5:** fel stad brände hela ordern (ett försök!), 45 s
+    tidspress och pyttesmå träffytor. Nu: fel stad = försök igen,
+    90 s, större träffytor för lådan och städerna, och en hintpuls
+    på rätt stad efter 12 s.
 - Kvar att göra: mer "wow" vid kapitelslut, ev. andra interaktiva moment
   per kapitel.
 
 #### 3. Byt betygston mot stjärnor och beröm
-- ✅ **KLART (för de tre nya spelen):** resultatet visas som **1–3
+- ✅ **KLART för alla sju spelen:** resultatet visas som **1–3
   stjärnor** med uppmuntrande text (aldrig "underkänt"), plus en
-  🎯 **"Försök igen"-knapp** för att spela om direkt.
-- Återstår: ge ch2–ch5-spelen samma stjärnor/retry-behandling
-  (de visar fortfarande "Godkänt, men du kan bättre!"-omdömen).
+  🎯 **"Försök igen"-knapp** för att spela om direkt. Renderas av en
+  delad `showResult()`-helper så alla spel beter sig likadant.
 
 ### P2 — Stor effekt
 
