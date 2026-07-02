@@ -1,5 +1,9 @@
 # Speltest med fem barn-personas (juli 2026)
 
+> **Status:** Alla P0-buggar (1–10) och samtliga korrekturfel är
+> åtgärdade och verifierade i browser. P1 (ton/läsbarhet) och P2
+> (design) återstår — se rekommenderad ordning längst ner.
+
 Fem AI-agenter spelade igenom spelet i varsin browser, i roll som barn i
 målgruppen. Varje agent interagerade som en riktig användare (klick,
 drag, skärmdumpar) och rapporterade ur sin personas perspektiv.
