@@ -111,10 +111,15 @@ kapitel (Barndom → Kemilaboratoriet → Farliga experiment → Dynamitens föd
   figur) och ev. färre alternativ per val.
 
 #### 5. Stärk samlandet och belöningsslingan
-- Faktakorten är en bra krok — förstärk den:
-  - Animerad "kortet låses upp!"-effekt med ljud och glitter.
-  - Samlingsbok med tydlig progress ("12 av 20!").
-  - Klistermärken/badges per avklarat kapitel.
+- ✅ **KLART: Samlarboken.** Varje avklarat kapitel ger ett
+  **klistermärke** (🔍 Upptäckaren, 🧪 Kemisten, 💥 Den modige,
+  🧨 Uppfinnaren, 🗺️ Imperiebyggaren, 📰 Sanningssökaren,
+  🏅 Nobelprisets far) med stjärnor från kapitlets minispel:
+  - Upplåsningsoverlay med pop-animation och ljud efter konfettin.
+  - 🎖️ **Samlarboken**-knapp på varje kapitelslut: modal med alla sju
+    platser, låsta som ❓, och progress ("2 av 7 klistermärken").
+  - Märkena sparas i sparfilen och överlever omladdning.
+- Kvar: ev. även samlarkort för faktarutorna.
 
 #### 6. Maskot/följeslagare
 - En liten återkommande karaktär (t.ex. Alfred som barn, eller en labbråtta)
