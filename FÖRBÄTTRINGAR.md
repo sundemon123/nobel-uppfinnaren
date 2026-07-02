@@ -89,8 +89,10 @@ kapitel (Barndom → Kemilaboratoriet → Farliga experiment → Dynamitens föd
     tidspress och pyttesmå träffytor. Nu: fel stad = försök igen,
     90 s, större träffytor för lådan och städerna, och en hintpuls
     på rätt stad efter 12 s.
-- Kvar att göra: mer "wow" vid kapitelslut, ev. andra interaktiva moment
-  per kapitel.
+- ✅ **KLART: mer "wow" vid kapitelslut** — kapitelrubriken stämplas in
+  med en studs-animation och en stjärnexplosion (⭐✨🌟🎉) fyrar av
+  ovanpå konfettin.
+- Kvar att göra: ev. andra interaktiva moment per kapitel.
 
 #### 3. Byt betygston mot stjärnor och beröm
 - ✅ **KLART för alla sju spelen:** resultatet visas som **1–3
@@ -101,10 +103,12 @@ kapitel (Barndom → Kemilaboratoriet → Farliga experiment → Dynamitens föd
 ### P2 — Stor effekt
 
 #### 4. Konkretisera valen visuellt
-- Abstrakta affärsval ska få **synliga** konsekvenser: en karta där
-  fabriker dyker upp, mynt som rullar in eller ut, en glad/orolig figur.
-  Konsekvensen ska synas, inte bara beskrivas i text.
-- Begränsa varje val till två tydliga alternativ med ikon + kort text.
+- ✅ **KLART (första steget):** när man gör ett val **flyger resurserna
+  synligt** från valkortet ner till resursmätaren (📚 böcker, 💰 pengar,
+  ⭐ stjärnor, ✨ eftermäle) och räknaren tickar när de landar. Vid
+  negativa effekter dräneras resurserna ur mätaren i stället.
+- Kvar: större visualiseringar (karta där fabriker dyker upp, glad/orolig
+  figur) och ev. färre alternativ per val.
 
 #### 5. Stärk samlandet och belöningsslingan
 - Faktakorten är en bra krok — förstärk den:
