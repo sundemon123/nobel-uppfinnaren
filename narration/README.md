@@ -23,10 +23,12 @@ export ELEVENLABS_API_KEY=din-nyckel   # committa ALDRIG nyckeln
 node narration/generate-narration.mjs --list-voices
 
 # 2. Provlyssna med några klipp först
-node narration/generate-narration.mjs --voice VOICE_ID --only intro,ch1-title,ch1-minigame
+#    (M336tBVZHWWiWb4R54ui = "David - Deep, Soothing and Sincere",
+#    spelets berättarröst)
+node narration/generate-narration.mjs --voice M336tBVZHWWiWb4R54ui --only intro,ch1-title,ch1-minigame
 
 # 3. Generera allt (klippen hamnar i narration/clips/)
-node narration/generate-narration.mjs --voice VOICE_ID
+node narration/generate-narration.mjs --voice M336tBVZHWWiWb4R54ui
 
 # 4. Bädda in i index.html
 node narration/generate-narration.mjs --inject
