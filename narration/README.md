@@ -41,7 +41,8 @@ howtoplay, alla minispel, tidnings- och reflektionsskärmen).
 
 ## Att tänka på
 
-- Modellen är `eleven_multilingual_v2` som talar bra svenska; välj
+- Modellen är `eleven_v3` i 128 kbps (mest uttrycksfull, matchar
+  originalinspelningarnas kvalitet); välj
   gärna en röst märkt svensk i rösterbiblioteket, annars funkar de
   flesta varma berättarröster.
 - Manuset är ~14 500 tecken — kontrollera teckensaldot med
