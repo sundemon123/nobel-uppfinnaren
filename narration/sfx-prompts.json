@@ -1,11 +1,35 @@
 {
   "_kommentar": "Ljudeffekter genererade med ElevenLabs /v1/sound-generation. Omgenerera: POST med {text, duration_seconds, prompt_influence: 0.4}, bädda in som <audio id=\"nobel-sfx-NAMN\"> — NobelSound.play() hittar dem automatiskt, syntesen är fallback.",
-  "sfx_explosion":        { "text": "Massive dynamite explosion with deep rumbling boom, debris falling, 1860s quarry blast", "duration_seconds": 3.5 },
-  "sfx_kattMjau":         { "text": "single cute friendly cat meow, soft and playful, high pitched kitten", "duration_seconds": 1.2 },
-  "sfx_confetti":         { "text": "short celebratory fanfare with party horn and children cheering happily, festive and warm", "duration_seconds": 2.5 },
-  "sfx_minigameCorrect":  { "text": "short bright success chime, sparkly magical ding, playful and rewarding", "duration_seconds": 1.0 },
-  "sfx_minigameComplete": { "text": "triumphant short victory jingle with warm bells, game level complete, joyful", "duration_seconds": 2.0 },
-  "sfx_minigameWrong":    { "text": "soft gentle cartoon boing, kind playful error sound, not scary", "duration_seconds": 0.8 },
-  "sfx_newspaper":        { "text": "newspaper page rustling and unfolding, crisp paper sounds", "duration_seconds": 1.5 },
-  "sfx_penWrite":         { "text": "quill pen writing on parchment paper, scratchy ink strokes, 19th century", "duration_seconds": 2.0 }
+  "sfx_explosion": {
+    "text": "Massive dynamite explosion with deep rumbling boom, debris falling, 1860s quarry blast",
+    "duration_seconds": 3.5
+  },
+  "sfx_kattMjau": {
+    "text": "single cute friendly cat meow, soft and playful, high pitched kitten",
+    "duration_seconds": 1.2
+  },
+  "sfx_confetti": {
+    "text": "soft gentle warm glockenspiel chime, three calm ascending notes, quiet and cozy, peaceful, no crowd, no horn",
+    "duration_seconds": 2.0
+  },
+  "sfx_minigameCorrect": {
+    "text": "short bright success chime, sparkly magical ding, playful and rewarding",
+    "duration_seconds": 1.0
+  },
+  "sfx_minigameComplete": {
+    "text": "triumphant short victory jingle with warm bells, game level complete, joyful",
+    "duration_seconds": 2.0
+  },
+  "sfx_minigameWrong": {
+    "text": "soft gentle cartoon boing, kind playful error sound, not scary",
+    "duration_seconds": 0.8
+  },
+  "sfx_newspaper": {
+    "text": "newspaper page rustling and unfolding, crisp paper sounds",
+    "duration_seconds": 1.5
+  },
+  "sfx_penWrite": {
+    "text": "quill pen writing on parchment paper, scratchy ink strokes, 19th century",
+    "duration_seconds": 2.0
+  }
 }
