@@ -41,8 +41,10 @@ howtoplay, alla minispel, tidnings- och reflektionsskärmen).
 
 ## Att tänka på
 
-- Modellen är `eleven_v3` i 128 kbps (mest uttrycksfull, matchar
-  originalinspelningarnas kvalitet); välj
+- Modellen är `eleven_v3` (mest uttrycksfull, bäst uttal). Klippen
+  genereras i 128 kbps och komprimeras sedan till 64 kbps mono med
+  ffmpeg (`-ac 1 -b:a 64k`) — uttalet sitter i genereringen, inte i
+  bitraten, och filstorleken halveras; välj
   gärna en röst märkt svensk i rösterbiblioteket, annars funkar de
   flesta varma berättarröster.
 - Manuset är ~14 500 tecken — kontrollera teckensaldot med
