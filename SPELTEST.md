@@ -1,8 +1,12 @@
 # Speltest med fem barn-personas (juli 2026)
 
-> **Status:** Alla P0-buggar (1–10) och samtliga korrekturfel är
-> åtgärdade och verifierade i browser. P1 (ton/läsbarhet) och P2
-> (design) återstår — se rekommenderad ordning längst ner.
+> **Status:** Alla P0-buggar, korrekturfel, P1 (ton/läsbarhet) och
+> P2/P3-designpunkterna är åtgärdade och verifierade i browser:
+> riktig explosion i kap 3, tre svårighetslägen (Lugn/Lagom/Klurig),
+> Nobelkatten-maskoten, samlarbok i HUD + diplom, leaderboard med
+> offline-kö, ljusare kapitelbilder, retcon-fix och fuskskydd.
+> Kvar: textkorridorerna i kap 4–5 (innehållsarbete) och
+> ElevenLabs-inspelningen (paket klart i `narration/`).
 
 Fem AI-agenter spelade igenom spelet i varsin browser, i roll som barn i
 målgruppen. Varje agent interagerade som en riktig användare (klick,
