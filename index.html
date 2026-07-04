@@ -1493,57 +1493,56 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <div class="title-icon">
         <svg viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
           <rect width="220" height="160" fill="var(--parchment)" rx="8"/>
-          <rect x="40" y="20" width="140" height="100" fill="var(--navy)" opacity="0.10" rx="4"/>
-          <path d="M95 35 L95 70 L80 110 L130 110 L115 70 L115 35Z" fill="none" stroke="var(--navy)" stroke-width="1.5" opacity="0.72"/>
-          <rect x="88" y="30" width="34" height="8" fill="var(--navy)" opacity="0.36" rx="2"/>
-          <ellipse cx="105" cy="90" rx="15" ry="8" fill="var(--moss)" opacity="0.36"/>
-          <circle cx="98" cy="80" r="3" fill="var(--copper)" opacity="0.48"/>
-          <circle cx="112" cy="85" r="2" fill="var(--gold)" opacity="0.48"/>
-          <circle cx="105" cy="75" r="2.5" fill="var(--navy)" opacity="0.36"/>
-          <text x="110" y="140" text-anchor="middle" font-family="var(--font-body)" font-size="9" fill="var(--brown-light)" opacity="0.90" font-style="italic">Sankt Petersburg, 1850-talet</text>
+          <rect x="45" y="28" width="130" height="80" fill="var(--navy)" opacity="0.85" rx="4"/>
+          <text x="110" y="80" text-anchor="middle" font-family="var(--font-headline)" font-size="38" fill="var(--parchment-light)" opacity="0.95">?</text>
+          <line x1="60" y1="95" x2="95" y2="95" stroke="var(--parchment-light)" stroke-width="1.5" opacity="0.5"/>
+          <line x1="125" y1="95" x2="160" y2="95" stroke="var(--parchment-light)" stroke-width="1.5" opacity="0.5"/>
+          <rect x="42" y="108" width="136" height="6" fill="var(--brown-medium)" opacity="0.5" rx="2"/>
+          <rect x="70" y="120" width="30" height="14" fill="var(--copper)" opacity="0.35" rx="2"/>
+          <rect x="120" y="120" width="30" height="14" fill="var(--copper)" opacity="0.35" rx="2"/>
+          <text x="110" y="150" text-anchor="middle" font-family="var(--font-body)" font-size="9" fill="var(--brown-light)" opacity="0.9" font-style="italic">M&uuml;nchen, 1889&ndash;1894</text>
         </svg>
       </div>
       <div class="title-ornament"></div>
-      <h1 class="game-title">Nobel</h1>
-      <p class="game-subtitle">Uppfinnarens v&auml;g</p>
-      <div class="chapter-label">Kapitel 2 &mdash; Ryssland &mdash; En ny v&auml;rld</div>
+      <h1 class="game-title">Einstein</h1>
+      <p class="game-subtitle">T&auml;nkarens v&auml;g</p>
+      <div class="chapter-label">Kapitel 2 &mdash; Skolan som inte gillade fr&aring;gor</div>
       <p class="intro-text" id="ch2-introText">
-        <strong>&Aring;ren 1842&ndash;1856.</strong> Familjen har rest till Sankt Petersburg. Allt &auml;r nytt &mdash;
-        spr&aring;ket, kulturen, sn&ouml;n. Alfred f&aring;r de b&auml;sta l&auml;rarna pengar kan k&ouml;pa, och hans
-        intresse f&ouml;r kemi v&auml;xer sig allt starkare.
+        <strong>M&uuml;nchen, 1889&ndash;1894.</strong> Albert g&aring;r i en str&auml;ng skola. Eleverna ska
+        sitta rakt, rabbla utantill och aldrig fr&aring;ga. Men Albert &auml;r full av fr&aring;gor.
+        Hemma &auml;r det b&auml;ttre: farbror Jakob bjuder p&aring; kluriga matteg&aring;tor &mdash; och Max,
+        en fattig student som &auml;ter middag hos familjen varje torsdag, har med sig
+        n&aring;got som &auml;ndrar allt: riktiga vetenskapsb&ouml;cker.
       </p>
       <audio id="narrator-ch2-title" src="" preload="auto"></audio>
       <button class="btn-primary" onclick="goToScreen('ch2-choice1')">Forts&auml;tt</button>
     </div>
   </div>
 
-  <!-- CH2: CHOICE 1 - Education -->
+  <!-- CH2: CHOICE 1 - Skoldagarna -->
   <div class="screen" id="ch2-choice1">
     <div class="narrative-box">
-      <h2 class="narrative-heading">Vad ska Alfred studera?</h2>
-      <p class="narrative-text">Alfreds far vill att han ska bli ingenjör, men Alfred drömmer om annat. Han har talang f&ouml;r b&aring;de spr&aring;k och naturvetenskap. Vad ska han fokusera p&aring;?</p>
+      <h2 class="narrative-heading">Hur klarar Albert skoldagarna?</h2>
+      <p class="narrative-text">L&auml;raren pekar med pinnen och alla rabblar i k&ouml;r. Den som fr&aring;gar n&aring;got f&aring;r skarpa blickar. Albert har hundra fr&aring;gor i huvudet &mdash; och l&aring;nga dagar att komma igenom. Vad g&ouml;r han?</p>
       <audio id="narrator-ch2-choice1" src="" preload="auto"></audio>
     </div>
     <div class="choices-container" id="ch2-choices1">
       <div class="choice-card" onclick="makeChoice('ch2',1,0)" data-choice="0">
         <div class="choice-card-number">1</div>
-        <div class="choice-card-title">Kemi och naturvetenskap</div>
-        <div class="choice-card-desc">Alfred f&ouml;ljer sitt hj&auml;rta och f&ouml;rdjupar sig i kemi. Han experimenterar i hemlighet med sm&aring; explosioner i tr&auml;dg&aring;rden.</div>
-        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F4DA; Kunskap</span></div>
+        <div class="choice-card-title">R&auml;cka upp handen och fr&aring;ga VARF&Ouml;R</div>
+        <div class="choice-card-desc">L&auml;raren blir arg. Klasskompisarna fnissar. Men Albert vill p&aring; riktigt veta varf&ouml;r &mdash; och st&aring;r p&aring; sig.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F981; Mod</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch2',1,1)" data-choice="1">
         <div class="choice-card-number">2</div>
-        <div class="choice-card-title">Litteratur och poesi</div>
-        <div class="choice-card-desc">Alfred &auml;lskar att l&auml;sa och skriva. Han dr&ouml;mmer om att bli f&ouml;rfattare och l&auml;ser Shelley och Byron p&aring; engelska.</div>
-        <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x1F4DA; Kunskap</span>
-          <span class="effect-badge positive">+1 &#x1F981; Mod</span>
-        </div>
+        <div class="choice-card-title">Plugga och klara proven</div>
+        <div class="choice-card-desc">Albert biter ihop och l&auml;r sig l&auml;xorna. Tr&aring;kigt &mdash; men han samlar p&aring; sig massor att t&auml;nka p&aring;.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F4DA; Kunskap</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch2',1,2)" data-choice="2">
         <div class="choice-card-number">3</div>
-        <div class="choice-card-title">Spr&aring;k och resor</div>
-        <div class="choice-card-desc">Alfred reser genom Europa och l&auml;r sig franska, tyska och engelska flytande. Han bes&ouml;ker laboratorier i Paris.</div>
+        <div class="choice-card-title">L&auml;sa Max vetenskapsb&ouml;cker hemma</div>
+        <div class="choice-card-desc">P&aring; kv&auml;llarna slukar Albert b&ouml;ckerna om ljus, krafter och stj&auml;rnor. Skolan har fel: att l&auml;ra sig &auml;r fantastiskt!</div>
         <div class="choice-card-effect">
           <span class="effect-badge positive">+1 &#x1F4DA; Kunskap</span>
           <span class="effect-badge positive">+1 &#x1F4A1; Fantasi</span>
@@ -1551,12 +1550,9 @@ body.narrator-on .screen.active { padding-top: 46px; }
       </div>
       <div class="choice-card" onclick="makeChoice('ch2',1,3)" data-choice="3">
         <div class="choice-card-number">4</div>
-        <div class="choice-card-title">Ingenj&ouml;rskonst &mdash; att bygga maskiner (som pappa vill)</div>
-        <div class="choice-card-desc">Alfred lyder sin far och studerar mekanik och ingenj&ouml;rskonst. Det ger praktisk kunskap och gl&auml;djer familjen.</div>
-        <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x1F4DA; Kunskap</span>
-          <span class="effect-badge positive">+1 &#x1F4A1; Fantasi</span>
-        </div>
+        <div class="choice-card-title">Jaga det hemliga djuret x med farbror Jakob</div>
+        <div class="choice-card-desc">&rdquo;Algebra &auml;r en jakt&rdquo;, s&auml;ger farbror Jakob. &rdquo;Djuret vi jagar heter x &mdash; och n&auml;r vi f&aring;ngar det f&aring;r det sitt riktiga namn!&rdquo;</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F4A1; Fantasi</span></div>
       </div>
     </div>
     <div class="result-box" id="ch2-result1"><div class="result-label">Resultat</div><div class="result-text" id="ch2-result1Text"></div></div>
@@ -1565,23 +1561,34 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
   </div>
 
-  <!-- CH2: FACT -->
+  <!-- CH2: FACT --><!-- CH2: FACT -->
   <div class="screen" id="ch2-fact">
     <div class="fact-box">
       <span class="fact-icon">&#x1F4D6;</span>
       <div class="fact-label">Visste du att&hellip;</div>
       <p class="fact-text">
-        Alfred Nobel kunde fem spr&aring;k flytande. Han &auml;lskade poesi och skrev dikter hela livet
-        &mdash; men hans kemil&auml;rare kallade honom &rdquo;den mest beg&aring;vade elev jag haft&rdquo;.
+        N&auml;r Albert var tolv fick han en geometribok av studenten Max. Han kallade
+        den &rdquo;den heliga lilla boken&rdquo; och r&auml;knade ut alla uppgifter helt sj&auml;lv,
+        l&aring;ngt innan skolan hann dit. Sedan ville han ha sv&aring;rare b&ouml;cker!
       </p>
-      <audio id="narrator-ch2-fact" src="" preload="auto"></audio>
     </div>
+    <div class="discussion-box">
+      <span class="discussion-icon">&#x1F50D;</span>
+      <div class="discussion-label">K&auml;llkoll</div>
+      <p class="discussion-text">
+        M&aring;nga tror att Einstein var d&aring;lig i skolan &mdash; det st&aring;r till och med i vissa
+        b&ouml;cker. Men det &auml;r fel! I matte l&aring;g han l&aring;ngt f&ouml;re alla andra. Ser du:
+        &auml;ven s&aring;dant som &rdquo;alla vet&rdquo; kan vara fel. D&auml;rf&ouml;r &auml;r det smart att
+        kolla mer &auml;n en k&auml;lla.
+      </p>
+    </div>
+      <audio id="narrator-ch2-fact" src="" preload="auto"></audio>
     <div style="text-align:center;">
-      <button class="btn-primary" onclick="goToScreen('ch2-minigame')">Forts&auml;tt till laboratoriet</button>
+      <button class="btn-primary" onclick="goToScreen('ch2-minigame')">Forts&auml;tt till musikrummet</button>
     </div>
   </div>
 
-  <!-- CH2: MINI-GAME - Chemistry Lab -->
+  <!-- CH2: MINI-GAME<!-- CH2: MINI-GAME - Chemistry Lab -->
   <div class="screen" id="ch2-minigame">
     <!-- v2 minigame container (canvas-based) -->
     <div class="minigame-v2-container" id="ch2-minigame-v2-container"></div>
@@ -1592,8 +1599,8 @@ body.narrator-on .screen.active { padding-top: 46px; }
     <!-- Old minigame (hidden, kept as fallback) -->
     <div id="ch2-minigame-old" style="display:none;">
       <div class="narrative-box">
-        <h2 class="narrative-heading">&#x1F9EA; Kemilaboratoriet</h2>
-        <p class="narrative-text">Alfred &auml;r i laboratoriet. Han ska blanda ihop kemikalierna i r&auml;tt ordning f&ouml;r att skapa nitroglycerin. Klicka p&aring; ingredienserna i r&auml;tt ordning!</p>
+        <h2 class="narrative-heading">&#x1F3BB; Fiolens toner</h2>
+        <p class="narrative-text">Mamma Pauline spelar en melodi p&aring; pianot. Lyssna noga och h&auml;rma tonerna p&aring; fiolen &mdash; i r&auml;tt ordning!</p>
       </div>
       <div class="chemistry-lab">
         <div class="chem-progress" id="ch2-chemProgress"></div>
@@ -1611,27 +1618,25 @@ body.narrator-on .screen.active { padding-top: 46px; }
   <!-- CH2: CHOICE 2 - Nitroglycerin -->
   <div class="screen" id="ch2-choice2">
     <div class="narrative-box">
-      <h2 class="narrative-heading">Nitroglycerin &mdash; en farlig dr&ouml;m</h2>
-      <p class="narrative-text">Alfred reser till Paris och m&ouml;ter Ascanio Sobrero. Sobrero visar nitroglycerin men varnar: det &auml;r extremt farligt. Vad g&ouml;r Alfred?</p>
+      <h2 class="narrative-heading">Fabriken g&aring;r omkull</h2>
+      <p class="narrative-text">D&aring;liga nyheter: pappas och farbror Jakobs fabrik f&aring;r inga fler best&auml;llningar. Ett st&ouml;rre f&ouml;retag vann kampen om att bygga stadens elektriska ljus. Familjen m&aring;ste flytta till Italien, d&auml;r det finns arbete. Men Alberts skola &auml;r inte klar &mdash; han ska bo kvar ensam i M&uuml;nchen. M&aring;naderna g&aring;r. Albert l&auml;ngtar s&aring; att det g&ouml;r ont. Vad g&ouml;r han?</p>
       <audio id="narrator-ch2-choice2" src="" preload="auto"></audio>
     </div>
     <div class="choices-container" id="ch2-choices2">
       <div class="choice-card" onclick="makeChoice('ch2',2,0)" data-choice="0">
         <div class="choice-card-number">1</div>
-        <div class="choice-card-title">Forts&auml;tt &mdash; g&ouml;r det s&auml;kert!</div>
-        <div class="choice-card-desc">Alfred beslutar att hitta ett s&auml;tt att g&ouml;ra nitroglycerinet s&auml;kert att hantera. Det &auml;r farligt men kan f&ouml;r&auml;ndra v&auml;rlden.</div>
+        <div class="choice-card-title">Stanna och g&aring; klart skolan</div>
+        <div class="choice-card-desc">Det &auml;r det &rdquo;r&auml;tta&rdquo; att g&ouml;ra. Albert stannar i M&uuml;nchen &mdash; ensam, i en skola han inte trivs i.</div>
         <div class="choice-card-effect">
-          <span class="effect-badge positive">+2 &#x1F4DA; Kunskap</span>
+          <span class="effect-badge positive">+1 &#x1F4DA; Kunskap</span>
           <span class="effect-badge negative">-1 &#x1F981; Mod</span>
         </div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch2',2,1)" data-choice="1">
         <div class="choice-card-number">2</div>
-        <div class="choice-card-title">F&ouml;r farligt &mdash; l&auml;gg ner</div>
-        <div class="choice-card-desc">Alfred inser att det &auml;r f&ouml;r riskabelt. Han forts&auml;tter med s&auml;krare experiment ist&auml;llet. Klokare, men utan den stora uppfinningen.</div>
-        <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x1F981; Mod</span>
-        </div>
+        <div class="choice-card-title">V&aring;ga resa till familjen i Italien</div>
+        <div class="choice-card-desc">Albert packar v&auml;skan och kliver p&aring; t&aring;get s&ouml;derut &mdash; utan att fr&aring;ga n&aring;gon om lov. Ibland m&aring;ste man v&auml;lja sitt eget liv.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F981; Mod</span></div>
       </div>
     </div>
     <div class="result-box" id="ch2-result2"><div class="result-label">Resultat</div><div class="result-text" id="ch2-result2Text"></div></div>
@@ -1640,13 +1645,13 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
   </div>
 
-  <!-- CH2: CONCLUSION -->
+  <!-- CH2: CONCLUSION --><!-- CH2: CONCLUSION -->
   <div class="screen" id="ch2-conclusion">
     <div style="text-align:center; margin-bottom: 8px;"><div class="chapter-label" style="margin-bottom:8px;">Kapitel 2 avklarat</div></div>
-    <div class="celebration-text">&#x2728; Ryssland &mdash; En ny v&auml;rld &auml;r avklarat! &#x2728;</div>
+    <div class="celebration-text">&#x2728; Kapitel 2 &auml;r avklarat! &#x2728;</div>
     <div class="divider"></div>
-    <div class="narrative-box"><h2 class="narrative-heading">Alfreds kunskap v&auml;xer&hellip;</h2><p class="narrative-text" id="ch2-conclusionText"></p></div>
-    <div class="lesson-box"><div class="lesson-label">L&auml;rdom</div><p class="lesson-text">Kunskap kan vara farlig, men ocks&aring; v&auml;rldsf&ouml;r&auml;ndrande. Det viktiga &auml;r vad man g&ouml;r med den.</p></div>
+    <div class="narrative-box"><h2 class="narrative-heading">Alberts fr&aring;gor v&auml;xer&hellip;</h2><p class="narrative-text" id="ch2-conclusionText"></p></div>
+    <div class="lesson-box"><div class="lesson-label">L&auml;rdom</div><p class="lesson-text">Att fr&aring;ga &rdquo;varf&ouml;r?&rdquo; &auml;r inte fr&auml;ckt &mdash; det &auml;r s&aring; all vetenskap b&ouml;rjar. Och ibland &auml;r det modigaste man kan g&ouml;ra att v&auml;lja sin egen v&auml;g.</p></div>
     <div class="divider"></div>
     <h3 style="text-align:center; font-family:var(--font-headline); font-size:1.1rem; color:var(--brown-medium); margin-bottom:16px;">Dina resurser efter kapitel 2</h3>
     <div class="final-resources">
@@ -1654,7 +1659,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F4A1;</span><span class="final-resource-label">Fantasi</span><span class="final-resource-value" id="ch2-finalFantasi">0</span></div>
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F981;</span><span class="final-resource-label">Mod</span><span class="final-resource-value" id="ch2-finalMod">0</span></div>
     </div>
-    <p class="teaser-text">Forts&auml;ttning f&ouml;ljer&hellip;<br><em>Kapitel 3: Farliga experiment</em></p>
+    <p class="teaser-text">Forts&auml;ttning f&ouml;ljer&hellip;<br><em>Kapitel 3: Ljusstr&aring;len och Mileva</em></p>
       <audio id="narrator-ch2-conclusion" src="" preload="auto"></audio>
     <div style="text-align:center; margin-top: 16px; margin-bottom: 12px;">
       <button class="diary-btn" onclick="NobelDiary.show(2)">&#x1F4D6; Alberts fr&aring;gebok</button>
@@ -1671,7 +1676,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
     <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:80vh; padding:32px 24px; text-align:center;">
       <div style="font-size:2rem; margin-bottom:24px; opacity:0.6;">&#x23F3;</div>
       <p style="font-family:var(--font-headline); font-size:1.15rem; line-height:1.8; color:var(--brown-medium); font-style:italic; max-width:340px; margin:0 auto 32px;">
-        &Aring;ren gick. Familjen Nobel &aring;terv&auml;nde till Sverige. Pappas aff&auml;rer kraschade. Men Alfred hade inte gl&ouml;mt det han sett i Paris &mdash; nitroglycerinet som kunde f&ouml;r&auml;ndra allt. Nu, &aring;tta &aring;r senare, driver han ett eget labb utanf&ouml;r Stockholm&hellip;
+        Italien! Sol, frihet och ingen skola. Albert vandrade i bergen och t&auml;nkte. Men utan betyg &mdash; ingen framtid. I Schweiz fanns en ber&ouml;md teknisk h&ouml;gskola som l&auml;t unga f&ouml;rs&ouml;ka komma in genom ett prov. Albert var tv&aring; &aring;r yngre &auml;n alla andra som s&ouml;kte. Han f&ouml;rs&ouml;kte &auml;nd&aring;&hellip;
       </p>
       <audio id="narrator-bridge" src="" preload="auto"></audio>
       <button class="btn-primary" onclick="goToScreen('ch3-title')" style="margin-top:8px;">Forts&auml;tt till kapitel 3 &rarr;</button>
@@ -2793,7 +2798,7 @@ var gameState = {
   currentScreen: 'ch1-title',
   choices: {
     ch1_kompass: null, ch1_fiol: null,
-    ch2_education: null, ch2_nitro: null,
+    ch2_skolan: null, ch2_italien: null,
     ch3_speed: null, ch3_aftermath: null,
     ch4_factory: null, ch4_sales: null, ch4_motivation: null,
     ch5_military: null, ch5_bofors: null, ch5_journalist: null,
@@ -2840,14 +2845,14 @@ var choiceData = {
   },
   ch2: {
     1: [
-      { effects: { kunskap: 2 }, resultText: 'Alfred kastar sig in i kemin med brinnande passion. Han experimenterar dag och natt och imponerar p\u00e5 sina l\u00e4rare.' },
-      { effects: { kunskap: 1, mod: 1 }, resultText: 'Alfred l\u00e4ser Shelley, Byron och Voltaire. Hans spr\u00e5k och stil imponerar p\u00e5 alla runt honom.' },
-      { effects: { kunskap: 1, fantasi: 1 }, requires: { fantasi: 2 }, resultText: 'Alfred reser genom Europa och l\u00e4r sig fr\u00e5n de b\u00e4sta. I Paris bes\u00f6ker han ber\u00f6mda laboratorier.' },
-      { effects: { kunskap: 1, fantasi: 1 }, resultText: 'Alfred f\u00f6ljer faderns vilja och studerar ingenj\u00f6rskonst. Praktisk kunskap som kommer vara ov\u00e4rderlig.' }
+      { effects: { mod: 2 }, resultText: 'L\u00e4raren blir r\u00f6d i ansiktet. Men Albert st\u00e5r p\u00e5 sig \u2014 han VILL veta varf\u00f6r. En l\u00e4rare s\u00e4ger surt att det aldrig blir n\u00e5got av honom. Vi vet hur fel han fick.' },
+      { effects: { kunskap: 2 }, resultText: 'Albert pluggar och klarar proven galant \u2014 s\u00e4rskilt i matte, d\u00e4r han snart ligger f\u00f6re l\u00e4raren. Fr\u00e5gorna sparar han till hemma.' },
+      { effects: { kunskap: 1, fantasi: 1 }, resultText: 'Varje kv\u00e4ll f\u00f6rsvinner Albert in i Max b\u00f6cker om ljus, krafter och stj\u00e4rnor. Skolan har fel: att l\u00e4ra sig \u00e4r det roligaste som finns.' },
+      { effects: { fantasi: 2 }, resultText: 'Albert och farbror Jakob jagar djuret x genom ekvationerna. N\u00e4r Albert f\u00e5ngar det ropar han h\u00f6gt. Matte \u00e4r en lek \u2014 om man leker den r\u00e4tt.' }
     ],
     2: [
-      { effects: { kunskap: 2, mod: -1 }, resultText: 'Alfred kastar sig in i nitroglycerinforskningen. Det \u00e4r farligt, men hans beslutsamhet \u00e4r j\u00e4rnfast. Han m\u00e5ste g\u00f6ra det s\u00e4kert. Men grannarna tycker experimenten \u00e4r l\u00e4skiga \u2014 modt f\u00e5r sig en t\u00f6rn.' },
-      { effects: { mod: 1 }, resultText: 'Alfred v\u00e4ljer den s\u00e4kra v\u00e4gen. Han forts\u00e4tter forska, men med s\u00e4krare \u00e4mnen. M\u00e4nniskor respekterar hans f\u00f6rsiktighet.' }
+      { effects: { kunskap: 1, mod: -1 }, resultText: 'Albert stannar och pluggar vidare. Men han blir ledsnare f\u00f6r varje vecka, och till slut s\u00e4ger l\u00e4karen att han beh\u00f6ver sin familj. Ibland \u00e4r den \u201dr\u00e4tta\u201d v\u00e4gen inte r\u00e4tt f\u00f6r en sj\u00e4lv.' },
+      { effects: { mod: 2 }, resultText: 'Albert kliver p\u00e5 t\u00e5get s\u00f6derut. L\u00e4rarna blir arga \u2014 men i Italien v\u00e4ntar familjen med \u00f6ppna armar. Det h\u00e4r gjorde Einstein p\u00e5 riktigt, femton \u00e5r gammal!' }
     ]
   },
   ch3: {
@@ -2926,19 +2931,19 @@ var choiceData = {
    ============================================ */
 function applyChapterStart(chapter) {
   if (chapter === 2) {
-    // Ch1 -> Ch2: Russia choice affects intro text
-    if (gameState.choices.ch1_fiol === 0) {
+    // Ch1 -> Ch2: egna melodier-valet f\u00e5r ett eko i introt
+    if (gameState.choices.ch1_fiol === 1) {
       var el = document.getElementById('ch2-introText');
-      if (el) el.innerHTML = '<strong>\u00c5ren 1842\u20131856.</strong> Alfred \u00e4r nu ton\u00e5ring i Sankt Petersburg. Familjen lever v\u00e4l \u2014 resan tillsammans st\u00e4rkte dem. Hans far Immanuel har blivit framg\u00e5ngsrik, och Alfred f\u00e5r de b\u00e4sta l\u00e4rarna.';
+      if (el) el.innerHTML = '<strong>M\u00fcnchen, 1889\u20131894.</strong> Albert spelar fortfarande sina egna p\u00e5hittade melodier p\u00e5 fiolen. Men i skolan finns inget utrymme f\u00f6r p\u00e5hitt: eleverna ska sitta rakt, rabbla utantill och aldrig fr\u00e5ga. Hemma \u00e4r det b\u00e4ttre \u2014 farbror Jakob bjuder p\u00e5 matteg\u00e5tor, och studenten Max har med sig riktiga vetenskapsb\u00f6cker.';
     }
   }
   if (chapter === 3) {
     // Ch2 -> Ch3: Chemistry education gives +1 Kunskap bonus
-    if (gameState.choices.ch2_education === 0) {
+    if (gameState.choices.ch2_skolan === 0) {
       setTimeout(function() { animateResource('kunskap', 1); }, 800);
     }
     // Ch2 -> Ch3: nitro=dangerous modifies intro
-    if (gameState.choices.ch2_nitro === 1) {
+    if (gameState.choices.ch2_italien === 1) {
       var el = document.getElementById('ch3-introText');
       if (el) el.innerHTML = '<strong>September 1864.</strong> Trots att Alfred tidigare valde att inte arbeta med nitroglycerin, har andra uppfinnare drivit p\u00e5. Nu \u00e4r han tillbaka i Stockholm, och faran lurar fortfarande.';
     }
@@ -3155,7 +3160,7 @@ function goToScreen(screenId) {
         // Bemöt "stanna kvar"-valet i stället för att låtsas att det inte hänt
         if (gameState.choices && gameState.choices.ch1_fiol === 1) {
           var _c2i = document.getElementById('ch2-introText');
-          if (_c2i) _c2i.innerHTML = '<strong>\u00c5ren 1842\u20131856.</strong> Alfred stannade f\u00f6rst kvar i Stockholm och studerade \u2014 men efter ett ensamt \u00e5r lockade pappas brev honom \u00f6ver havet till Sankt Petersburg. Allt \u00e4r nytt \u2014 spr\u00e5ket, kulturen, sn\u00f6n. Alfred f\u00e5r de b\u00e4sta l\u00e4rarna pengar kan k\u00f6pa, och hans intresse f\u00f6r kemi v\u00e4xer sig allt starkare.';
+          if (_c2i) _c2i.innerHTML = '<strong>M\u00fcnchen, 1889\u20131894.</strong> Albert spelar fortfarande sina egna p\u00e5hittade melodier p\u00e5 fiolen. Men i skolan finns inget utrymme f\u00f6r p\u00e5hitt: eleverna ska sitta rakt, rabbla utantill och aldrig fr\u00e5ga. Hemma \u00e4r det b\u00e4ttre \u2014 farbror Jakob bjuder p\u00e5 matteg\u00e5tor, och studenten Max har med sig riktiga vetenskapsb\u00f6cker.';
         }
       }
       if (screenId === 'ch3-title') applyChapterStart(3);
@@ -3246,8 +3251,8 @@ function makeChoice(chapter, choiceGroup, choiceIndex) {
   // Store choice in gameState
   if (chapter === 'ch1' && choiceGroup === 1) gameState.choices.ch1_kompass = choiceIndex;
   if (chapter === 'ch1' && choiceGroup === 2) gameState.choices.ch1_fiol = choiceIndex;
-  if (chapter === 'ch2' && choiceGroup === 1) gameState.choices.ch2_education = choiceIndex;
-  if (chapter === 'ch2' && choiceGroup === 2) gameState.choices.ch2_nitro = choiceIndex;
+  if (chapter === 'ch2' && choiceGroup === 1) gameState.choices.ch2_skolan = choiceIndex;
+  if (chapter === 'ch2' && choiceGroup === 2) gameState.choices.ch2_italien = choiceIndex;
   if (chapter === 'ch3' && choiceGroup === 1) gameState.choices.ch3_speed = choiceIndex;
   if (chapter === 'ch3' && choiceGroup === 2) gameState.choices.ch3_aftermath = choiceIndex;
   if (chapter === 'ch4' && choiceGroup === 1) gameState.choices.ch4_factory = choiceIndex;
@@ -3368,7 +3373,7 @@ function getConclusionText(chapter) {
     return text;
   }
   if (chapter === 'ch2') {
-    return 'Alfred v\u00e4xte fr\u00e5n en nyfiken ton\u00e5ring till en driven ung kemist. Hans val har format hans v\u00e4g \u2014 och snart ska han m\u00f6ta sitt livs st\u00f6rsta utmaning.';
+    return 'Albert v\u00e4xte fr\u00e5n tyst pojke till n\u00e5gon som v\u00e5gar t\u00e4nka sj\u00e4lv. Skolan gav honom inte svaren \u2014 men fr\u00e5gorna blev bara starkare. N\u00e4sta steg: ett prov som inte alls g\u00e5r som planerat.';
   }
   if (chapter === 'ch3') {
     return 'Explosionen p\u00e5 Heleneborg f\u00f6r\u00e4ndrade Alfred f\u00f6r alltid. Ur sorgen och skulden f\u00f6ddes en j\u00e4rnfast beslutsamhet: han skulle g\u00f6ra spr\u00e4ng\u00e4mnena s\u00e4kra.';
@@ -4408,7 +4413,7 @@ function restartGame() {
   gameState.kunskap = 2; gameState.fantasi = 1; gameState.mod = 1; gameState.eftermale = 0;
   gameState.currentChapter = 1; gameState.currentScreen = 'ch1-title';
   gameState.choices = {
-    ch1_kompass: null, ch1_fiol: null, ch2_education: null, ch2_nitro: null,
+    ch1_kompass: null, ch1_fiol: null, ch2_skolan: null, ch2_italien: null,
     ch3_speed: null, ch3_aftermath: null, ch4_factory: null, ch4_sales: null, ch4_motivation: null,
     ch5_military: null, ch5_bofors: null, ch5_journalist: null, ch6_reaction: null,
     ch7_fortune: null, ch7_prizes: [], ch7_institution: null
@@ -6588,36 +6593,34 @@ var NobelDiary = (function () {
     return { date: date, text: lines.join('\n') };
   };
 
-  // ── CHAPTER 2 — 1850-talet, Sankt Petersburg ──────────────
+  // ── CHAPTER 2 — München/Milano, 1894 ─────────────────────
   entryGenerators[2] = function (ch) {
-    var date = 'Sankt Petersburg, den 14 mars 1852';
+    var date = 'Milano, vintern 1894';
     var lines = [];
 
-    lines.push('Kära dagbok,');
+    lines.push('Hej fr\u00e5gebok!');
     lines.push('');
 
-    // ch2_education
-    if (ch.ch2_education === 0) {
-      lines.push('Kemin har blivit mitt allt. Professor Zinin visar mig ting som förvandlar min förståelse av världen — att materien själv kan tämjas och omformas! Jag arbetar vid laboratoriebänken tills ljusen brinner ned, och ändå vill jag icke sluta.');
-    } else if (ch.ch2_education === 1) {
-      lines.push('Jag har läst Shelley ånyo idag, och hans ord brinner i mig som eld. Kanhända borde jag blivit poet snarare än kemist. Orden forsar ur mig, men världen vill ha uppfinnare, icke drömmare. Ändå — är icke varje uppfinning först en dröm?');
-    } else if (ch.ch2_education === 2) {
-      lines.push('Paris! London! Vilka städer, vilka sinnen jag mött! Resorna har öppnat mina ögon för hur stor och underbar världen är. Varje nytt laboratorium, varje ny filosof jag talat med har lagt ännu en sten i den grund jag bygger mitt liv uppå.');
+    if (ch.ch2_skolan === 0) {
+      lines.push('Jag fr\u00e5gade VARF\u00d6R idag igen. L\u00e4raren bl\u00e4ngde. En l\u00e4rare sa till och med att det aldrig blir n\u00e5got av mig. Men om ingen fr\u00e5gar varf\u00f6r \u2014 hur ska man d\u00e5 f\u00e5 veta n\u00e5got NYTT?');
+    } else if (ch.ch2_skolan === 1) {
+      lines.push('Jag har pluggat s\u00e5 mycket att det knakar i huvudet. Proven g\u00e5r bra, s\u00e4rskilt matten. Men det k\u00e4nns som att skolan vill att jag ska svara, inte fr\u00e5ga. Jag sparar fr\u00e5gorna h\u00e4r i boken s\u00e5 l\u00e4nge.');
+    } else if (ch.ch2_skolan === 2) {
+      lines.push('Max b\u00f6cker \u00e4r det B\u00c4STA som finns. Igår l\u00e4ste jag om ljuset \u2014 att det far fram genom rymden fortare \u00e4n n\u00e5got annat. Jag fick geometriboken ocks\u00e5. Jag kallar den den heliga lilla boken.');
     } else {
-      lines.push('Fader önskar att jag studerar ingenjörskonst, och jag lyder. Det är praktiskt och nyttigt, säger han. Jag kan icke neka att det finns skönhet i att bygga maskiner — men mitt hjärta dras till de kemiska mysterierna bakom allt.');
+      lines.push('Farbror Jakob och jag jagade djuret x igen. Det g\u00f6mde sig i en riktigt klurig ekvation, men jag F\u00c5NGADE det! Farbror Jakob skrattade och sa att snart f\u00e5r jag jaga sv\u00e5rare djur.');
     }
 
     lines.push('');
 
-    // ch2_nitro
-    if (ch.ch2_nitro === 0) {
-      lines.push('Nitroglycerinet. Vilken fruktansvärd och förunderlig substans! Alla varnar mig, men jag kan icke låta bli. Det finns en kraft i den vätskan som kan förändra hela världen — spränga berg, bana väg för järnvägar genom klippor. Jag måste tämja den, koste vad det koste vill.');
+    if (ch.ch2_italien === 0) {
+      lines.push('Familjen \u00e4r i Italien och jag var kvar i M\u00fcnchen. Det var det ensammaste jag varit med om. Nu \u00e4r jag \u00e4ntligen h\u00e4r hos dem. Jag vill aldrig vara s\u00e5 ensam igen.');
     } else {
-      lines.push('Jag valde den säkrare vägen. Kanhända är jag feg — men jag minns professorns ord om försiktighet. Varje experiment skall göras med respekt för krafterna man handskas med. Världen har tid att vänta på mina upptäckter.');
+      lines.push('Jag tog t\u00e5get till Italien HELT SJ\u00c4LV. Ingen sa att jag fick. Men n\u00e4r mamma \u00f6ppnade d\u00f6rren kramade hon mig s\u00e5 h\u00e5rt att det knakade. Ibland m\u00e5ste man v\u00e5ga.');
     }
 
     lines.push('');
-    lines.push('Nätterna här är kalla, men tankarna brinner. Jag vet att mitt livs stora arbete ligger framför mig, likt en ofärdskriven bok med blanka sidor.');
+    lines.push('Nya fr\u00e5gor: Vad h\u00e4nder om man springer ikapp en ljusstr\u00e5le? Varf\u00f6r lyser stj\u00e4rnor? Kan man t\u00e4nka sig fram till svar som ingen vet?');
 
     return { date: date, text: lines.join('\n') };
   };
