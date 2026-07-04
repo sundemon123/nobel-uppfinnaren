@@ -7501,12 +7501,12 @@ var NobelMinigames = (function () {
 
       var wrapper = createDiv(container, 'nmg-wrapper');
       var titleEl = createDiv(wrapper, 'nmg-title');
-      titleEl.textContent = 'Stabilisera nitroglycerinet!';
+      titleEl.textContent = 'Rid p\u00e5 ljusstr\u00e5len!';
       var subEl = createDiv(wrapper, 'nmg-subtitle');
-      subEl.textContent = 'F\u00f6r mark\u00f6ren genom den smala banan utan att r\u00f6ra v\u00e4ggarna.';
+      subEl.textContent = 'F\u00f6lj ljusets v\u00e4g genom rymden \u2014 utan att tappa str\u00e5len.';
 
       var instrEl = createDiv(wrapper, 'nmg-instructions');
-      instrEl.innerHTML = 'H\u00e5ll fingret (eller musen) nedtryckt och f\u00f6lj v\u00e4gen fr\u00e5n START till M\u00c5L \u2014 lugnt och fint! Nuddar du kanterna skakar det till, men stabiliteten kommer tillbaka om du forts\u00e4tter f\u00f6rsiktigt.';
+      instrEl.innerHTML = 'Alberts tankeexperiment: t\u00e4nk om man kunde rida p\u00e5 en ljusstr\u00e5le! H\u00e5ll fingret (eller musen) nedtryckt och f\u00f6lj str\u00e5lens v\u00e4g fr\u00e5n START till M\u00c5L. Halkar du av skakar det till \u2014 men str\u00e5len kommer tillbaka om du forts\u00e4tter lugnt.';
 
       state = {
         phase: 'ready',
@@ -7604,7 +7604,7 @@ var NobelMinigames = (function () {
       state.cursorX = state.pathPoints[0].cx;
       state.cursorY = state.pathPoints[0].cy;
       state.tremorT = 0;
-      state.statusEl.textContent = 'Stabilitet: 100% \u2014 f\u00f6lj v\u00e4gen lugnt och fint!';
+      state.statusEl.textContent = 'Ljuskraft: 100% \u2014 f\u00f6lj str\u00e5len lugnt och fint!';
       state.instrEl.classList.remove('nmg-hidden');
       state.resultEl.classList.add('nmg-hidden');
       state.progFill.style.width = '100%';
@@ -7732,7 +7732,7 @@ var NobelMinigames = (function () {
         state.beakerFill = state.progress;
 
         // Update status
-        state.statusEl.textContent = 'Stabilitet: ' + Math.round(state.stability) + '%';
+        state.statusEl.textContent = 'Ljuskraft: ' + Math.round(state.stability) + '%';
         state.progFill.style.width = state.stability + '%';
         if (state.stability < 40) {
           state.progFill.style.background = 'linear-gradient(to right, ' + COLORS.red + ', ' + COLORS.redLight + ')';
@@ -7767,9 +7767,9 @@ var NobelMinigames = (function () {
       if (state.progress < 0.5) state.score = 0;
 
       showResult(state, 'ch3', state.score, {
-        2: 'Vilken stadig hand! Alfred stabiliserade nitroglycerinet perfekt.<br><strong>+1 \ud83d\udcda Kunskap och +1 \ud83d\udcb0 Fantasi</strong>',
-        1: 'Bra jobbat! Det skakade lite, men Alfred klarade det.<br><strong>+1 \ud83d\udcb0 Fantasi</strong>',
-        0: 'Det skakade en hel del \u2014 men \u00f6vning ger f\u00e4rdighet. Prova igen!'
+        2: 'Vilken ljusryttare! Albert red hela v\u00e4gen \u2014 och t\u00e4nkte en tanke ingen t\u00e4nkt f\u00f6rut.<br><strong>+1 \ud83d\udcda Kunskap och +1 \ud83d\udca1 Fantasi</strong>',
+        1: 'Bra jobbat! Det skakade lite, men Albert h\u00f6ll sig kvar p\u00e5 str\u00e5len.<br><strong>+1 \ud83d\udca1 Fantasi</strong>',
+        0: 'Str\u00e5len \u00e4r knepig att rida p\u00e5 \u2014 till och med f\u00f6r Albert! Prova igen!'
       }, start);
     }
 
@@ -7781,8 +7781,18 @@ var NobelMinigames = (function () {
       ctx.translate(tremorX, 0);
 
       // Background
-      ctx.fillStyle = COLORS.parchment;
+      ctx.fillStyle = '#101a33';
       ctx.fillRect(0, 0, W, H);
+
+      // Stj\u00e4rnhimmel
+      for (var st = 0; st < 24; st++) {
+        var sx = (st * 97 + 31) % W;
+        var sy = (st * 61 + 17) % H;
+        ctx.globalAlpha = 0.35 + 0.3 * Math.sin((performance.now() / 900) + st);
+        ctx.fillStyle = '#fff3c4';
+        ctx.fillRect(sx, sy, 2, 2);
+      }
+      ctx.globalAlpha = 1;
 
       // Draw path corridor
       drawPathCorridor(ctx);
@@ -7812,7 +7822,7 @@ var NobelMinigames = (function () {
       var startP = state.pathPoints[0];
       var endP = state.pathPoints[state.pathPoints.length - 1];
 
-      ctx.fillStyle = COLORS.mossLight;
+      ctx.fillStyle = '#7fe0a0';
       ctx.font = 'bold 0.75rem ' + FONT_BODY;
       ctx.textAlign = 'center';
       ctx.fillText('START', startP.cx, startP.cy - 20);
@@ -7842,7 +7852,7 @@ var NobelMinigames = (function () {
       var hw = state.pathWidth;
 
       // Outer (wall) fill
-      ctx.fillStyle = COLORS.parchDark;
+      ctx.fillStyle = '#0b1226';
       ctx.beginPath();
       // Left edge
       for (var i = 0; i < pts.length; i++) {
@@ -7875,7 +7885,7 @@ var NobelMinigames = (function () {
       ctx.fill();
 
       // Inner path (walkable area) - lighter
-      ctx.fillStyle = '#f0e8d0';
+      ctx.fillStyle = 'rgba(255,216,77,0.42)';
       var ihw = hw - 4;
       ctx.beginPath();
       for (var i = 0; i < pts.length; i++) {
@@ -7909,7 +7919,7 @@ var NobelMinigames = (function () {
       // Progress highlight (how far the player has gotten)
       if (state.progress > 0) {
         var upTo = Math.floor(state.progress * (pts.length - 1));
-        ctx.strokeStyle = COLORS.mossLight;
+        ctx.strokeStyle = '#ffd84d';
         ctx.lineWidth = 3;
         ctx.globalAlpha = 0.4;
         ctx.beginPath();
