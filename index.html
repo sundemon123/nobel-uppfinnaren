@@ -1520,7 +1520,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
     <p class="teaser-text">Forts&auml;ttning f&ouml;ljer&hellip;<br><em>Kapitel 2: Skolan som inte gillade fr&aring;gor</em></p>
       <audio id="narrator-ch1-conclusion" src="" preload="auto"></audio>
     <div style="text-align:center; margin-top: 16px; margin-bottom: 12px;">
-      <button class="diary-btn" onclick="NobelDiary.show(1)">&#x1F4D6; Alberts fr&aring;gebok</button>
+      <button class="diary-btn" onclick="NobelDiary.show(1)">&#x1F4D6; Kr&ouml;nikan</button>
       <button class="diary-btn" onclick="showStickerBook()">&#x1F396;&#xFE0F; Samlarboken</button>
     </div>
     <div style="text-align:center; margin-top: 8px; margin-bottom: 40px;">
@@ -3757,7 +3757,7 @@ function showStickerBook() {
   html += '</div>';
   if (count >= 7) {
     html += '<div class="sticker-diploma">🏆 DIPLOM 🏆<br>' +
-      '<span style="font-weight:400; font-size:0.85rem;">Du har följt Albert Einstein genom hela livet och samlat alla märken. Du är en riktig tänkare!' +
+      '<span style="font-weight:400; font-size:0.85rem;">Du har följt rikets hela resa — från uppror till stormakt till fall — och samlat alla märken. Korpen Minne bugar!' +
       (starSum >= 21 ? '<br><span style="color:var(--gold);">Alla 21 stjärnor — en perfekt resa! ⭐⭐⭐</span>' : '') +
       '</div>';
   }
@@ -5116,7 +5116,7 @@ function v2FallbackToOldMinigame(chPrefix) {
    laddar om spelet med ny query-sträng (= färsk hämtning).
    Sparningen ligger i localStorage så inget går förlorat.
    VID DEPLOY: bumpa GAME_BUILD här OCH siffran i version.txt. */
-var GAME_BUILD = 1;
+var GAME_BUILD = 2;
 
 function checkForNewVersion() {
   try {
@@ -6843,7 +6843,7 @@ var NobelDiary = (function () {
     overlayEl = document.createElement('div');
     overlayEl.className = 'diary-overlay';
     overlayEl.setAttribute('role', 'dialog');
-    overlayEl.setAttribute('aria-label', 'Alberts fr\u00e5gebok');
+    overlayEl.setAttribute('aria-label', 'Korpen Minnes kr\u00f6nika');
 
     overlayEl.innerHTML = ''
       + '<div class="diary-card">'
@@ -6851,12 +6851,12 @@ var NobelDiary = (function () {
       +   '<div class="diary-stain diary-stain--1"></div>'
       +   '<div class="diary-stain diary-stain--2"></div>'
       +   '<div class="diary-header">'
-      +     '<div class="diary-title">Alberts fr\u00e5gebok</div>'
+      +     '<div class="diary-title">Kr\u00f6nikan</div>'
       +     '<div class="diary-date" id="diary-date"></div>'
       +   '</div>'
       +   '<div class="diary-divider"></div>'
       +   '<div class="diary-text" id="diary-text"></div>'
-      +   '<div class="diary-signature" id="diary-signature">— Albert</div>'
+      +   '<div class="diary-signature" id="diary-signature">— Minne</div>'
       +   '<button class="diary-close-btn" id="diary-close-btn">St\u00e4ng dagboken</button>'
       +   '<div class="diary-skip-hint" id="diary-skip-hint">Tryck f\u00f6r att visa allt</div>'
       + '</div>';
