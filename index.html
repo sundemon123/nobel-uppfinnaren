@@ -7244,33 +7244,13 @@ var NobelMinigames = (function () {
      CH2: CHEMISTRY LAB  --  Drag ingredients to beaker
      ============================================================ */
   var ch2 = (function () {
-    var state, container, canvasObj, animFrame;
-    var W = 360, H = 420;
-
-    // Ingredients
-    var INGREDIENTS = [
-      { id: 'glycerin',  label: 'Glycerin',  color: '#e2d4a0', pourColor: '#e8dca8' },
-      { id: 'syra',      label: 'Syra',      color: '#6abf5e', pourColor: '#7ed974' },
-      { id: 'kylning',   label: 'Kylning',   color: '#8ec8e8', pourColor: '#a4d8f2' },
-      { id: 'blandning', label: 'Blandning', color: '#c96f3c', pourColor: '#d98850' }
+    var state, container, audioCtx;
+    var NOTES = [
+      { freq: 392.0, color: '#14213d', label: '\u266a' },
+      { freq: 440.0, color: '#1b5e56', label: '\u266b' },
+      { freq: 523.3, color: '#9a7208', label: '\u266a' },
+      { freq: 659.3, color: '#d97b29', label: '\u266b' }
     ];
-    var CORRECT_ORDER = ['glycerin', 'syra', 'kylning', 'blandning'];
-
-    function nextLabel() {
-      var id = CORRECT_ORDER[state.currentStep];
-      for (var i = 0; i < INGREDIENTS.length; i++) {
-        if (INGREDIENTS[i].id === id) return INGREDIENTS[i].label;
-      }
-      return '';
-    }
-
-    /* På 'klurig' nivå visas inte vilken flaska som är rätt —
-       äldre barn får lista ut ordningen själva (Noahs önskan) */
-    function stepStatus() {
-      var n = state.currentStep + 1;
-      if (nmgDifficulty() === 'klurig') return 'Steg ' + n + ' av 4 \u2014 lista ut ordningen!';
-      return 'Steg ' + n + ' av 4 \u2014 h\u00e4ll i ' + nextLabel() + '!';
-    }
 
     function init(containerId) {
       container = document.getElementById(containerId);
@@ -7278,458 +7258,238 @@ var NobelMinigames = (function () {
       container.innerHTML = '';
 
       var wrapper = createDiv(container, 'nmg-wrapper');
-
       var titleEl = createDiv(wrapper, 'nmg-title');
-      titleEl.textContent = 'Kemilaboratoriet';
+      titleEl.textContent = 'Fiolens toner';
       var subEl = createDiv(wrapper, 'nmg-subtitle');
-      subEl.textContent = 'Dra ingredienserna till b\u00e4garen i r\u00e4tt ordning!';
+      subEl.textContent = 'H\u00e4rma mammas melodi!';
 
       var instrEl = createDiv(wrapper, 'nmg-instructions');
-      instrEl.innerHTML = 'Alfred ska blanda nitroglycerin! Titta i rutan under \u2014 den ber\u00e4ttar vilken flaska som ska h\u00e4llas i h\u00e4rn\u00e4st. Dra r\u00e4tt flaska fr\u00e5n hyllan ner till b\u00e4garen.';
-
-      state = {
-        phase: 'ready',  // ready | playing | pouring | done
-        bottles: [],      // { x, y, w, h, ingredient, dragging, homeX, homeY, used }
-        currentStep: 0,
-        attempts: 0,
-        errors: 0,
-        beakerFills: [],  // colors added to beaker
-        pourAnim: null,   // { t, ingredient, color }
-        shakeAnim: null,  // { t }
-        poofParticles: [],
-        resultShown: false,
-        score: 0,
-        wrapper: wrapper,
-        instrEl: instrEl,
-        statusEl: null,
-        resultEl: null,
-        dragging: null,
-        dragOffsetX: 0,
-        dragOffsetY: 0
-      };
+      instrEl.innerHTML = 'Mamma Pauline spelar en melodi p\u00e5 pianot. <strong>Lyssna</strong> \u2014 och spela sedan samma toner p\u00e5 fiolen, i samma ordning!';
 
       var statusEl = createDiv(wrapper, 'nmg-status');
-      state.statusEl = statusEl;
-      statusEl.textContent = stepStatus();
+      statusEl.textContent = 'Tryck Starta n\u00e4r du \u00e4r redo!';
 
-      canvasObj = createCanvas(wrapper, W, H);
+      var padWrap = document.createElement('div');
+      padWrap.style.cssText = 'display:flex;gap:12px;justify-content:center;margin:18px auto;max-width:340px;flex-wrap:wrap;';
+      wrapper.appendChild(padWrap);
 
-      var resultEl = createDiv(wrapper, 'nmg-hidden');
-      state.resultEl = resultEl;
-
-      // Build bottles in shuffled order
-      var shuffled = shuffle(INGREDIENTS);
-      var bottleW = 64, bottleH = 80;
-      var shelfY = 18;
-      var spacing = (W - shuffled.length * bottleW) / (shuffled.length + 1);
-      for (var i = 0; i < shuffled.length; i++) {
-        var bx = spacing + i * (bottleW + spacing);
-        state.bottles.push({
-          x: bx, y: shelfY, w: bottleW, h: bottleH,
-          homeX: bx, homeY: shelfY,
-          ingredient: shuffled[i],
-          dragging: false, used: false
-        });
+      var pads = [];
+      for (var n = 0; n < NOTES.length; n++) {
+        (function (idx) {
+          var pad = document.createElement('button');
+          pad.type = 'button';
+          pad.style.cssText = 'width:72px;height:96px;border-radius:14px;border:3px solid rgba(20,33,61,0.25);' +
+            'background:' + NOTES[idx].color + ';color:#fff;font-size:1.8rem;cursor:pointer;' +
+            'transition:transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;filter:brightness(0.92);' +
+            'box-shadow:0 3px 8px rgba(20,33,61,0.25);touch-action:manipulation;';
+          pad.textContent = NOTES[idx].label;
+          pad.setAttribute('aria-label', 'Ton ' + (idx + 1));
+          pad.addEventListener('click', function () { onPad(idx); });
+          padWrap.appendChild(pad);
+          pads.push(pad);
+        })(n);
       }
 
-      // Events
-      var cv = canvasObj.canvas;
-      cv.addEventListener('mousedown',  onDown, false);
-      cv.addEventListener('mousemove',  onMove, false);
-      cv.addEventListener('mouseup',    onUp,   false);
-      cv.addEventListener('touchstart', onDown, { passive: false });
-      cv.addEventListener('touchmove',  onMove, { passive: false });
-      cv.addEventListener('touchend',   onUp,   false);
+      var startBtn = document.createElement('button');
+      startBtn.className = 'nmg-btn nmg-btn-gold';
+      startBtn.textContent = '\u25b6 Starta';
+      startBtn.style.display = 'block';
+      startBtn.style.margin = '4px auto 8px';
+      startBtn.addEventListener('click', function () {
+        if (state && (state.phase === 'ready' || state.phase === 'idle')) beginRound(0);
+      });
+      wrapper.appendChild(startBtn);
+
+      var resultEl = createDiv(wrapper, 'nmg-hidden');
+
+      state = {
+        phase: 'ready',
+        pads: pads,
+        padWrap: padWrap,
+        startBtn: startBtn,
+        instrEl: instrEl,
+        statusEl: statusEl,
+        resultEl: resultEl,
+        wrapper: wrapper,
+        seq: [],
+        inputPos: 0,
+        round: 0,
+        misses: 0,
+        score: 0,
+        timers: []
+      };
+    }
+
+    function roundLengths() {
+      var d = nmgDifficulty();
+      return d === 'lugn' ? [2, 3, 4] : d === 'klurig' ? [4, 5, 6] : [3, 4, 5];
+    }
+    function stepMs() {
+      var d = nmgDifficulty();
+      return d === 'lugn' ? 560 : d === 'klurig' ? 360 : 460;
     }
 
     function start() {
       if (!state) return;
-      state.phase = 'playing';
-      state.currentStep = 0;
-      state.attempts = 1;
-      state.errors = 0;
-      state.beakerFills = [];
-      state.resultShown = false;
+      clearTimers();
+      state.phase = 'ready';
+      state.round = 0;
+      state.misses = 0;
       state.score = 0;
-      state.statusEl.textContent = stepStatus();
+      state.seq = [];
+      state.inputPos = 0;
+      state.startBtn.style.display = 'block';
       state.instrEl.classList.remove('nmg-hidden');
+      state.statusEl.textContent = 'Tryck Starta n\u00e4r du \u00e4r redo!';
       state.resultEl.innerHTML = '';
       state.resultEl.classList.add('nmg-hidden');
-      // Reset bottles
-      for (var i = 0; i < state.bottles.length; i++) {
-        state.bottles[i].x = state.bottles[i].homeX;
-        state.bottles[i].y = state.bottles[i].homeY;
-        state.bottles[i].used = false;
-        state.bottles[i].dragging = false;
-      }
-      loop();
     }
 
-    function getScore() {
-      return state ? state.score : 0;
-    }
+    function getScore() { return state ? state.score : 0; }
 
     function destroy() {
-      if (animFrame) cancelAnimationFrame(animFrame);
-      animFrame = null;
+      clearTimers();
       if (container) container.innerHTML = '';
       state = null;
     }
 
-    // ── Pointer events ──
-    function onDown(e) {
-      if (!state || state.phase !== 'playing') return;
-      e.preventDefault();
-      var pos = getPointerPos(canvasObj.canvas, e);
-      // Check if touching a bottle (reverse order so topmost first)
-      for (var i = state.bottles.length - 1; i >= 0; i--) {
-        var b = state.bottles[i];
-        if (b.used) continue;
-        if (pos.x >= b.x && pos.x <= b.x + b.w && pos.y >= b.y && pos.y <= b.y + b.h) {
-          b.dragging = true;
-          state.dragging = b;
-          state.dragOffsetX = pos.x - b.x;
-          state.dragOffsetY = pos.y - b.y;
-          break;
+    function clearTimers() {
+      if (!state) return;
+      for (var t = 0; t < state.timers.length; t++) clearTimeout(state.timers[t]);
+      state.timers = [];
+    }
+
+    function later(fn, ms) {
+      if (!state) return;
+      state.timers.push(setTimeout(fn, ms));
+    }
+
+    function tone(idx, dur, violin) {
+      try {
+        if (typeof NobelSound !== 'undefined' && NobelSound.isMuted && NobelSound.isMuted()) return;
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        var vol = 0.16;
+        try { if (typeof NobelSound !== 'undefined' && NobelSound._volume != null) vol = 0.22 * NobelSound._volume; } catch (e) {}
+        var t = audioCtx.currentTime;
+        var o = audioCtx.createOscillator();
+        var g = audioCtx.createGain();
+        o.type = violin ? 'sawtooth' : 'triangle';
+        o.frequency.setValueAtTime(NOTES[idx].freq, t);
+        if (violin) {
+          var lfo = audioCtx.createOscillator();
+          var lfoG = audioCtx.createGain();
+          lfo.frequency.value = 6;
+          lfoG.gain.value = 4;
+          lfo.connect(lfoG); lfoG.connect(o.frequency);
+          lfo.start(t); lfo.stop(t + dur / 1000);
         }
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.linearRampToValueAtTime(violin ? vol * 0.8 : vol, t + 0.03);
+        g.gain.linearRampToValueAtTime(0.0001, t + dur / 1000);
+        o.connect(g); g.connect(audioCtx.destination);
+        o.start(t); o.stop(t + dur / 1000 + 0.05);
+      } catch (e) { /* ljud är grädde på moset */ }
+    }
+
+    function flash(idx, ms) {
+      var pad = state.pads[idx];
+      pad.style.filter = 'brightness(1.35)';
+      pad.style.transform = 'scale(1.08)';
+      pad.style.boxShadow = '0 0 18px rgba(212,167,44,0.8)';
+      later(function () {
+        if (!state) return;
+        pad.style.filter = 'brightness(0.92)';
+        pad.style.transform = 'scale(1)';
+        pad.style.boxShadow = '0 3px 8px rgba(20,33,61,0.25)';
+      }, ms);
+    }
+
+    function beginRound(r) {
+      clearTimers();
+      state.round = r;
+      state.startBtn.style.display = 'none';
+      var len = roundLengths()[r];
+      state.seq = [];
+      for (var k = 0; k < len; k++) {
+        var next = Math.floor(Math.random() * NOTES.length);
+        // undvik tre likadana i rad — tråkigt att härma
+        if (k >= 2 && state.seq[k - 1] === next && state.seq[k - 2] === next) next = (next + 1) % NOTES.length;
+        state.seq.push(next);
+      }
+      playSequence();
+    }
+
+    function playSequence() {
+      state.phase = 'listen';
+      state.inputPos = 0;
+      state.statusEl.textContent = '\uD83C\uDFB9 Melodi ' + (state.round + 1) + ' av 3 \u2014 lyssna\u2026';
+      var ms = stepMs();
+      for (var k = 0; k < state.seq.length; k++) {
+        (function (kk) {
+          later(function () {
+            if (!state) return;
+            flash(state.seq[kk], ms * 0.62);
+            tone(state.seq[kk], ms * 0.7, false);
+            if (kk === state.seq.length - 1) {
+              later(function () {
+                if (!state) return;
+                state.phase = 'input';
+                state.statusEl.textContent = '\uD83C\uDFBB Din tur! Spela ' + state.seq.length + ' toner.';
+              }, ms * 0.8);
+            }
+          }, 600 + kk * ms);
+        })(k);
       }
     }
 
-    function onMove(e) {
-      if (!state || !state.dragging) return;
-      e.preventDefault();
-      var pos = getPointerPos(canvasObj.canvas, e);
-      state.dragging.x = pos.x - state.dragOffsetX;
-      state.dragging.y = pos.y - state.dragOffsetY;
-    }
-
-    function onUp(e) {
-      if (!state || !state.dragging) return;
-      e.preventDefault();
-      var b = state.dragging;
-      b.dragging = false;
-      state.dragging = null;
-
-      // Check if dropped on beaker zone
-      var beakerX = W / 2 - 50, beakerY = 200, beakerW = 100, beakerH = 160;
-      var bCenterX = b.x + b.w / 2;
-      var bCenterY = b.y + b.h / 2;
-
-      if (bCenterX > beakerX && bCenterX < beakerX + beakerW &&
-          bCenterY > beakerY && bCenterY < beakerY + beakerH + 40) {
-        // Dropped on beaker - check if correct
-        var expected = CORRECT_ORDER[state.currentStep];
-        if (b.ingredient.id === expected) {
-          // Correct!
-          b.used = true;
-          state.beakerFills.push(b.ingredient.color);
-          state.pourAnim = { t: 0, color: b.ingredient.pourColor };
-          state.currentStep++;
-          if (state.currentStep >= CORRECT_ORDER.length) {
-            state.statusEl.textContent = 'Klart!';
-            setTimeout(finishGame, 800);
+    function onPad(idx) {
+      if (!state) return;
+      if (state.phase !== 'input') return;
+      flash(idx, 240);
+      if (idx === state.seq[state.inputPos]) {
+        tone(idx, 300, true);
+        state.inputPos++;
+        if (state.inputPos >= state.seq.length) {
+          state.phase = 'between';
+          playSfx('sfx_minigameCorrect');
+          if (state.round >= 2) {
+            state.statusEl.textContent = 'Vilken duett!';
+            later(finishGame, 700);
           } else {
-            state.statusEl.textContent = stepStatus();
+            state.statusEl.textContent = '\u2728 R\u00e4tt! N\u00e4sta melodi\u2026';
+            later(function () { beginRound(state.round + 1); }, 1100);
           }
-          // Move bottle off screen
-          b.x = -200;
-          b.y = -200;
-        } else {
-          // Wrong!
-          state.errors++;
-          state.shakeAnim = { t: 0 };
-          spawnPoof(W / 2, beakerY + 40);
-          state.statusEl.textContent = nmgDifficulty() === 'klurig' ? 'Puff! Fel flaska \u2014 prova en annan!' : 'Puff! Testa flaskan med ' + nextLabel() + ' i st\u00e4llet!';
-          // Snap back
-          b.x = b.homeX;
-          b.y = b.homeY;
         }
       } else {
-        // Dropped elsewhere - snap back
-        b.x = b.homeX;
-        b.y = b.homeY;
+        state.misses++;
+        state.phase = 'between';
+        playSfx('sfx_minigameWrong');
+        state.statusEl.textContent = 'Hoppsan, fel ton! Lyssna en g\u00e5ng till\u2026';
+        later(playSequence, 1000);
       }
     }
 
-    function spawnPoof(cx, cy) {
-      state.poofParticles = [];
-      for (var i = 0; i < 20; i++) {
-        var angle = Math.random() * Math.PI * 2;
-        var speed = 1 + Math.random() * 3;
-        state.poofParticles.push({
-          x: cx, y: cy,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed - 1,
-          life: 1,
-          size: 3 + Math.random() * 5,
-          color: Math.random() > 0.5 ? COLORS.copperLight : COLORS.goldLight
-        });
+    function playSfx(name) {
+      if (typeof NobelSound !== 'undefined' && NobelSound._initialized) {
+        try { NobelSound.play(name); } catch (e) { /* ignore */ }
       }
     }
 
     function finishGame() {
-      if (!state) return;
+      if (!state || state.phase === 'done') return;
       state.phase = 'done';
-      // Score: 0 errors = 2, 1-2 errors = 1, 3+ errors = 0
-      if (state.errors === 0) state.score = 2;
-      else if (state.errors <= 2) state.score = 1;
-      else state.score = 0;
-
+      state.score = state.misses === 0 ? 2 : state.misses <= 2 ? 1 : 0;
       showResult(state, 'ch2', state.score, {
-        2: 'Perfekt! Alfred blandar nitroglycerinet felfritt.<br><strong>+1 \ud83d\udcda Kunskap och +1 \ud83d\udcb0 Fantasi</strong>',
-        1: 'Bra jobbat! N\u00e5gra puffar, men Alfred l\u00e4r sig.<br><strong>+1 \ud83d\udcb0 Fantasi</strong>',
-        0: 'Blandningen blev klar till slut \u2014 Alfred ger aldrig upp, precis som du!'
+        2: 'Perfekt geh\u00f6r! Albert och mamma spelar hela kv\u00e4llen.<br><strong>+1 \uD83D\uDCDA Kunskap och +1 \uD83D\uDCA1 Fantasi</strong>',
+        1: 'Fint spelat! N\u00e5gra toner hamnade snett, men musiken b\u00e4r.<br><strong>+1 \uD83D\uDCA1 Fantasi</strong>',
+        0: 'Melodierna kom fram till slut \u2014 att \u00f6va \u00e4r s\u00e5 man l\u00e4r sig, precis som Albert!'
       }, start);
-    }
-
-    // ── Render loop ──
-    function loop() {
-      if (!state) return;
-      draw();
-      if (state.phase !== 'done' || state.poofParticles.length > 0 || state.pourAnim) {
-        animFrame = requestAnimationFrame(loop);
-      }
-    }
-
-    function draw() {
-      var ctx = canvasObj.ctx;
-      var shakeX = 0;
-
-      // Shake animation
-      if (state.shakeAnim) {
-        state.shakeAnim.t += 0.12;
-        if (state.shakeAnim.t >= 1) {
-          state.shakeAnim = null;
-        } else {
-          shakeX = Math.sin(state.shakeAnim.t * 20) * 6 * (1 - state.shakeAnim.t);
-        }
-      }
-
-      ctx.save();
-      ctx.translate(shakeX, 0);
-
-      // Background
-      ctx.fillStyle = COLORS.parchment;
-      ctx.fillRect(0, 0, W, H);
-
-      // Shelf
-      drawShelf(ctx);
-
-      // Beaker
-      drawBeaker(ctx);
-
-      // Pour animation
-      if (state.pourAnim) {
-        state.pourAnim.t += 0.03;
-        if (state.pourAnim.t >= 1) {
-          state.pourAnim = null;
-        } else {
-          drawPourStream(ctx, state.pourAnim);
-        }
-      }
-
-      // Bottles
-      for (var i = 0; i < state.bottles.length; i++) {
-        var b = state.bottles[i];
-        if (!b.used) drawBottle(ctx, b);
-      }
-
-      // Poof particles
-      for (var i = state.poofParticles.length - 1; i >= 0; i--) {
-        var p = state.poofParticles[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vy += 0.05;
-        p.life -= 0.025;
-        if (p.life <= 0) {
-          state.poofParticles.splice(i, 1);
-          continue;
-        }
-        ctx.globalAlpha = p.life;
-        ctx.fillStyle = p.color;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.globalAlpha = 1;
-      }
-
-      // Drop zone hint
-      if (state.phase === 'playing' && !state.dragging) {
-        ctx.fillStyle = COLORS.brownLight;
-        ctx.font = '0.75rem ' + FONT_BODY;
-        ctx.textAlign = 'center';
-        ctx.fillText('Dra en flaska hit \u2193', W / 2, 195);
-      }
-
-      // Completion sparkle
-      if (state.phase === 'done') {
-        drawCompletionSparkle(ctx);
-      }
-
-      ctx.restore();
-    }
-
-    function drawShelf(ctx) {
-      // Wooden shelf
-      ctx.fillStyle = COLORS.brown;
-      roundRect(ctx, 10, 102, W - 20, 10, 3);
-      ctx.fill();
-      // Shelf shadow
-      ctx.fillStyle = 'rgba(42,31,20,0.1)';
-      ctx.fillRect(10, 112, W - 20, 4);
-    }
-
-    function drawBeaker(ctx) {
-      var bx = W / 2 - 50, by = 220, bw = 100, bh = 140;
-
-      // Beaker body (glass look)
-      ctx.strokeStyle = COLORS.brownLight;
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(bx + 5, by);
-      ctx.lineTo(bx, by + bh);
-      ctx.lineTo(bx + bw, by + bh);
-      ctx.lineTo(bx + bw - 5, by);
-      ctx.stroke();
-
-      // Beaker fill
-      var fillCount = state.beakerFills.length;
-      if (fillCount > 0) {
-        var segH = (bh - 10) / 4;
-        for (var i = 0; i < fillCount; i++) {
-          var fy = by + bh - (i + 1) * segH;
-          var fw = bw - 10 + (5 * (bh - (fy - by)) / bh);
-          var fx = bx + (bw - fw) / 2;
-          ctx.fillStyle = state.beakerFills[i];
-          ctx.globalAlpha = 0.7;
-          ctx.fillRect(fx + 2, fy, fw - 4, segH);
-          ctx.globalAlpha = 1;
-        }
-      }
-
-      // Beaker rim
-      ctx.strokeStyle = COLORS.copper;
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.moveTo(bx - 5, by);
-      ctx.lineTo(bx + bw + 5, by);
-      ctx.stroke();
-
-      // Beaker lip marks
-      ctx.strokeStyle = 'rgba(90,58,40,0.15)';
-      ctx.lineWidth = 1;
-      for (var i = 1; i <= 3; i++) {
-        var my = by + bh * i / 4;
-        ctx.beginPath();
-        ctx.moveTo(bx + 8, my);
-        ctx.lineTo(bx + 22, my);
-        ctx.stroke();
-      }
-
-      // Label
-      ctx.fillStyle = COLORS.brown;
-      ctx.font = 'bold 0.8rem ' + FONT_BODY;
-      ctx.textAlign = 'center';
-      ctx.fillText('B\u00e4gare', W / 2, by + bh + 22);
-    }
-
-    function drawPourStream(ctx, anim) {
-      var pourX = W / 2;
-      var startY = 130;
-      var endY = 230 + 100 * anim.t;
-      ctx.strokeStyle = anim.color;
-      ctx.lineWidth = 4;
-      ctx.globalAlpha = 1 - anim.t * 0.5;
-      ctx.beginPath();
-      ctx.moveTo(pourX, startY);
-      ctx.lineTo(pourX + Math.sin(anim.t * 10) * 3, endY);
-      ctx.stroke();
-      ctx.globalAlpha = 1;
-      // Splash at bottom
-      if (anim.t > 0.3) {
-        var splashR = (anim.t - 0.3) * 15;
-        ctx.fillStyle = anim.color;
-        ctx.globalAlpha = 0.4 * (1 - anim.t);
-        ctx.beginPath();
-        ctx.arc(pourX, 340, splashR, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.globalAlpha = 1;
-      }
-    }
-
-    function drawBottle(ctx, b) {
-      var x = b.x, y = b.y, w = b.w, h = b.h;
-      var ing = b.ingredient;
-
-      // Shadow when dragging
-      if (b.dragging) {
-        ctx.fillStyle = 'rgba(42,31,20,0.15)';
-        roundRect(ctx, x + 3, y + 3, w, h, 8);
-        ctx.fill();
-      }
-
-      // Bottle body
-      ctx.fillStyle = COLORS.parchDark;
-      roundRect(ctx, x, y, w, h, 8);
-      ctx.fill();
-      ctx.strokeStyle = b.dragging ? COLORS.gold : COLORS.copper;
-      ctx.lineWidth = b.dragging ? 2.5 : 1.5;
-      roundRect(ctx, x, y, w, h, 8);
-      ctx.stroke();
-
-      // Liquid inside
-      ctx.fillStyle = ing.color;
-      ctx.globalAlpha = 0.6;
-      roundRect(ctx, x + 6, y + h * 0.35, w - 12, h * 0.5, 4);
-      ctx.fill();
-      ctx.globalAlpha = 1;
-
-      // Neck
-      ctx.fillStyle = COLORS.brown;
-      roundRect(ctx, x + w / 2 - 8, y - 2, 16, 12, 3);
-      ctx.fill();
-
-      // Label (centered inside bottle, using px for predictable Canvas sizing)
-      ctx.fillStyle = COLORS.dark;
-      ctx.font = 'bold 11px ' + FONT_BODY;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      // Small label background for readability
-      var labelY = y + h * 0.62;
-      var labelW = ctx.measureText(ing.label).width + 8;
-      ctx.fillStyle = 'rgba(255,252,240,0.7)';
-      roundRect(ctx, x + w / 2 - labelW / 2, labelY - 8, labelW, 16, 3);
-      ctx.fill();
-      ctx.fillStyle = COLORS.dark;
-      ctx.fillText(ing.label, x + w / 2, labelY);
-      ctx.textBaseline = 'alphabetic';
-    }
-
-    var sparkleTime = 0;
-    function drawCompletionSparkle(ctx) {
-      sparkleTime += 0.05;
-      for (var i = 0; i < 8; i++) {
-        var angle = sparkleTime + i * Math.PI / 4;
-        var r = 40 + Math.sin(sparkleTime * 2 + i) * 10;
-        var sx = W / 2 + Math.cos(angle) * r;
-        var sy = 300 + Math.sin(angle) * r * 0.5;
-        var size = 2 + Math.sin(sparkleTime * 3 + i) * 1.5;
-        ctx.fillStyle = i % 2 === 0 ? COLORS.gold : COLORS.copper;
-        ctx.globalAlpha = 0.5 + Math.sin(sparkleTime * 4 + i) * 0.3;
-        ctx.beginPath();
-        ctx.arc(sx, sy, size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      ctx.globalAlpha = 1;
     }
 
     return { init: init, start: start, getScore: getScore, destroy: destroy };
   })();
 
 
-  /* ============================================================
-     CH3: NITROGLYCERIN STABILIZATION  --  Steady-hand path
-     ============================================================ */
   var ch3 = (function () {
     var state, container, canvasObj, animFrame;
     var W = 360, H = 460;
