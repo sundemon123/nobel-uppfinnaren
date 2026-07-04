@@ -5116,7 +5116,7 @@ function v2FallbackToOldMinigame(chPrefix) {
    laddar om spelet med ny query-sträng (= färsk hämtning).
    Sparningen ligger i localStorage så inget går förlorat.
    VID DEPLOY: bumpa GAME_BUILD här OCH siffran i version.txt. */
-var GAME_BUILD = 2;
+var GAME_BUILD = 3;
 
 function checkForNewVersion() {
   try {
@@ -7223,2420 +7223,453 @@ var NobelMinigames = (function () {
     '.nmg-hidden { display: none !important; }'
   ].join('\n'));
 
+  // ── Stormaktstiden-hjälpare: enhetligt resultat ──────────────
+  function nmgFinish(container, score, headline, body) {
+    container.innerHTML = '';
+    var w = createDiv(container, 'nmg-wrapper');
+    var stars = score >= 2 ? '⭐⭐⭐' : score === 1 ? '⭐⭐' : '⭐';
+    var sd = createDiv(w, 'nmg-score-display'); sd.textContent = stars;
+    var h = createDiv(w, 'nmg-title'); h.textContent = headline;
+    var rt = createDiv(w, 'nmg-result-text'); rt.innerHTML = body;
+  }
+  function nmgBtnStyle(bg) {
+    return 'padding:13px 14px;border:2px solid rgba(90,58,40,0.25);border-radius:10px;background:' + (bg || COLORS.parchment) +
+      ';color:' + COLORS.dark + ';font-family:' + FONT_BODY + ';font-size:0.95rem;cursor:pointer;text-align:left;width:100%;transition:transform .12s,background .2s;box-shadow:0 2px 6px rgba(90,58,40,0.15);';
+  }
+
+
 
   /* ============================================================
      CH2: CHEMISTRY LAB  --  Drag ingredients to beaker
      ============================================================ */
   var ch2 = (function () {
-    var state, container, audioCtx;
-    var NOTES = [
-      { freq: 392.0, color: '#14213d', label: '\u266a' },
-      { freq: 440.0, color: '#1b5e56', label: '\u266b' },
-      { freq: 523.3, color: '#9a7208', label: '\u266a' },
-      { freq: 659.3, color: '#d97b29', label: '\u266b' }
-    ];
-
-    function init(containerId) {
-      container = document.getElementById(containerId);
-      if (!container) return;
-      container.innerHTML = '';
-
-      var wrapper = createDiv(container, 'nmg-wrapper');
-      var titleEl = createDiv(wrapper, 'nmg-title');
-      titleEl.textContent = 'Fiolens toner';
-      var subEl = createDiv(wrapper, 'nmg-subtitle');
-      subEl.textContent = 'H\u00e4rma mammas melodi!';
-
-      var instrEl = createDiv(wrapper, 'nmg-instructions');
-      instrEl.innerHTML = 'Mamma Pauline spelar en melodi p\u00e5 pianot. <strong>Lyssna</strong> \u2014 och spela sedan samma toner p\u00e5 fiolen, i samma ordning!';
-
-      var statusEl = createDiv(wrapper, 'nmg-status');
-      statusEl.textContent = 'Tryck Starta n\u00e4r du \u00e4r redo!';
-
-      var padWrap = document.createElement('div');
-      padWrap.style.cssText = 'display:flex;gap:12px;justify-content:center;margin:18px auto;max-width:340px;flex-wrap:wrap;';
-      wrapper.appendChild(padWrap);
-
-      var pads = [];
-      for (var n = 0; n < NOTES.length; n++) {
-        (function (idx) {
-          var pad = document.createElement('button');
-          pad.type = 'button';
-          pad.style.cssText = 'width:72px;height:96px;border-radius:14px;border:3px solid rgba(20,33,61,0.25);' +
-            'background:' + NOTES[idx].color + ';color:#fff;font-size:1.8rem;cursor:pointer;' +
-            'transition:transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;filter:brightness(0.92);' +
-            'box-shadow:0 3px 8px rgba(20,33,61,0.25);touch-action:manipulation;';
-          pad.textContent = NOTES[idx].label;
-          pad.setAttribute('aria-label', 'Ton ' + (idx + 1));
-          pad.addEventListener('click', function () { onPad(idx); });
-          padWrap.appendChild(pad);
-          pads.push(pad);
-        })(n);
+    var container, status, slotWrap, bankWrap, _score = 0, mistakes = 0, WORD = 'BIBEL', placed = [];
+    var WORDS = ['BIBEL', 'SVERIGE', 'KRONAN', 'KYRKAN'];
+    function init(id) {
+      container = document.getElementById(id); if (!container) return; container.innerHTML = '';
+      _score = 0; mistakes = 0; placed = [];
+      var d = nmgDifficulty();
+      WORD = d === 'lugn' ? 'BIBEL' : d === 'klurig' ? WORDS[3] : WORDS[Math.floor(Math.random() * 2)];
+      var w = createDiv(container, 'nmg-wrapper');
+      createDiv(w, 'nmg-title').textContent = 'Sätt trycktypen';
+      createDiv(w, 'nmg-subtitle').textContent = 'Den första svenska bibeln';
+      createDiv(w, 'nmg-instructions').innerHTML = 'Tryckaren behöver sätta bokstäverna i rätt ordning. Tryck på bokstäverna <strong>i tur och ordning</strong> så att ordet blir rätt!';
+      status = createDiv(w, 'nmg-status');
+      var target = createDiv(w, 'nmg-status'); target.style.cssText = 'font-family:' + FONT_HEADLINE + ';font-size:1.1rem;color:' + COLORS.brown + ';letter-spacing:2px;';
+      target.textContent = 'Ord att sätta: ' + WORD;
+      slotWrap = document.createElement('div'); slotWrap.style.cssText = 'display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:12px auto;min-height:52px;'; w.appendChild(slotWrap);
+      bankWrap = document.createElement('div'); bankWrap.style.cssText = 'display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px auto;max-width:340px;'; w.appendChild(bankWrap);
+    }
+    function tile(ch) {
+      var b = document.createElement('button');
+      b.style.cssText = 'width:46px;height:52px;border-radius:8px;border:2px solid ' + COLORS.brown + ';background:' + COLORS.parchDark +
+        ';color:' + COLORS.dark + ';font-family:' + FONT_HEADLINE + ';font-size:1.4rem;font-weight:700;cursor:pointer;box-shadow:0 2px 4px rgba(90,58,40,0.2);';
+      b.textContent = ch; return b;
+    }
+    function start() { render(); }
+    function render() {
+      slotWrap.innerHTML = ''; bankWrap.innerHTML = '';
+      for (var i = 0; i < WORD.length; i++) {
+        var sl = document.createElement('div');
+        sl.style.cssText = 'width:46px;height:52px;border-radius:8px;border:2px dashed ' + COLORS.brownLight + ';display:flex;align-items:center;justify-content:center;font-family:' + FONT_HEADLINE + ';font-size:1.4rem;color:' + COLORS.moss + ';background:rgba(196,155,42,0.08);';
+        sl.textContent = placed[i] || '';
+        slotWrap.appendChild(sl);
       }
-
-      var startBtn = document.createElement('button');
-      startBtn.className = 'nmg-btn nmg-btn-gold';
-      startBtn.textContent = '\u25b6 Starta';
-      startBtn.style.display = 'block';
-      startBtn.style.margin = '4px auto 8px';
-      startBtn.addEventListener('click', function () {
-        if (state && (state.phase === 'ready' || state.phase === 'idle')) beginRound(0);
+      var remaining = WORD.split('');
+      for (var k = 0; k < placed.length; k++) { var idx = remaining.indexOf(placed[k]); if (idx >= 0) remaining.splice(idx, 1); }
+      shuffle(remaining).forEach(function (ch) {
+        var b = tile(ch);
+        b.onclick = function () { onPick(ch, b); };
+        bankWrap.appendChild(b);
       });
-      wrapper.appendChild(startBtn);
-
-      var resultEl = createDiv(wrapper, 'nmg-hidden');
-
-      state = {
-        phase: 'ready',
-        pads: pads,
-        padWrap: padWrap,
-        startBtn: startBtn,
-        instrEl: instrEl,
-        statusEl: statusEl,
-        resultEl: resultEl,
-        wrapper: wrapper,
-        seq: [],
-        inputPos: 0,
-        round: 0,
-        misses: 0,
-        score: 0,
-        timers: []
-      };
+      status.textContent = placed.length ? 'Bra! Fortsätt.' : 'Tryck på första bokstaven: ' + WORD.charAt(0);
     }
-
-    function roundLengths() {
-      var d = nmgDifficulty();
-      return d === 'lugn' ? [2, 3, 4] : d === 'klurig' ? [4, 5, 6] : [3, 4, 5];
-    }
-    function stepMs() {
-      var d = nmgDifficulty();
-      return d === 'lugn' ? 560 : d === 'klurig' ? 360 : 460;
-    }
-
-    function start() {
-      if (!state) return;
-      clearTimers();
-      state.phase = 'ready';
-      state.round = 0;
-      state.misses = 0;
-      state.score = 0;
-      state.seq = [];
-      state.inputPos = 0;
-      state.startBtn.style.display = 'block';
-      state.instrEl.classList.remove('nmg-hidden');
-      state.statusEl.textContent = 'Tryck Starta n\u00e4r du \u00e4r redo!';
-      state.resultEl.innerHTML = '';
-      state.resultEl.classList.add('nmg-hidden');
-    }
-
-    function getScore() { return state ? state.score : 0; }
-
-    function destroy() {
-      clearTimers();
-      if (container) container.innerHTML = '';
-      state = null;
-    }
-
-    function clearTimers() {
-      if (!state) return;
-      for (var t = 0; t < state.timers.length; t++) clearTimeout(state.timers[t]);
-      state.timers = [];
-    }
-
-    function later(fn, ms) {
-      if (!state) return;
-      state.timers.push(setTimeout(fn, ms));
-    }
-
-    function tone(idx, dur, violin) {
-      try {
-        if (typeof NobelSound !== 'undefined' && NobelSound.isMuted && NobelSound.isMuted()) return;
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        var vol = 0.16;
-        try { if (typeof NobelSound !== 'undefined' && NobelSound._volume != null) vol = 0.22 * NobelSound._volume; } catch (e) {}
-        var t = audioCtx.currentTime;
-        var o = audioCtx.createOscillator();
-        var g = audioCtx.createGain();
-        o.type = violin ? 'sawtooth' : 'triangle';
-        o.frequency.setValueAtTime(NOTES[idx].freq, t);
-        if (violin) {
-          var lfo = audioCtx.createOscillator();
-          var lfoG = audioCtx.createGain();
-          lfo.frequency.value = 6;
-          lfoG.gain.value = 4;
-          lfo.connect(lfoG); lfoG.connect(o.frequency);
-          lfo.start(t); lfo.stop(t + dur / 1000);
-        }
-        g.gain.setValueAtTime(0.0001, t);
-        g.gain.linearRampToValueAtTime(violin ? vol * 0.8 : vol, t + 0.03);
-        g.gain.linearRampToValueAtTime(0.0001, t + dur / 1000);
-        o.connect(g); g.connect(audioCtx.destination);
-        o.start(t); o.stop(t + dur / 1000 + 0.05);
-      } catch (e) { /* ljud är grädde på moset */ }
-    }
-
-    function flash(idx, ms) {
-      var pad = state.pads[idx];
-      pad.style.filter = 'brightness(1.35)';
-      pad.style.transform = 'scale(1.08)';
-      pad.style.boxShadow = '0 0 18px rgba(212,167,44,0.8)';
-      later(function () {
-        if (!state) return;
-        pad.style.filter = 'brightness(0.92)';
-        pad.style.transform = 'scale(1)';
-        pad.style.boxShadow = '0 3px 8px rgba(20,33,61,0.25)';
-      }, ms);
-    }
-
-    function beginRound(r) {
-      clearTimers();
-      state.round = r;
-      state.startBtn.style.display = 'none';
-      var len = roundLengths()[r];
-      state.seq = [];
-      for (var k = 0; k < len; k++) {
-        var next = Math.floor(Math.random() * NOTES.length);
-        // undvik tre likadana i rad — tråkigt att härma
-        if (k >= 2 && state.seq[k - 1] === next && state.seq[k - 2] === next) next = (next + 1) % NOTES.length;
-        state.seq.push(next);
-      }
-      playSequence();
-    }
-
-    function playSequence() {
-      state.phase = 'listen';
-      state.inputPos = 0;
-      state.statusEl.textContent = '\uD83C\uDFB9 Melodi ' + (state.round + 1) + ' av 3 \u2014 lyssna\u2026';
-      var ms = stepMs();
-      for (var k = 0; k < state.seq.length; k++) {
-        (function (kk) {
-          later(function () {
-            if (!state) return;
-            flash(state.seq[kk], ms * 0.62);
-            tone(state.seq[kk], ms * 0.7, false);
-            if (kk === state.seq.length - 1) {
-              later(function () {
-                if (!state) return;
-                state.phase = 'input';
-                state.statusEl.textContent = '\uD83C\uDFBB Din tur! Spela ' + state.seq.length + ' toner.';
-              }, ms * 0.8);
-            }
-          }, 600 + kk * ms);
-        })(k);
-      }
-    }
-
-    function onPad(idx) {
-      if (!state) return;
-      if (state.phase !== 'input') return;
-      flash(idx, 240);
-      if (idx === state.seq[state.inputPos]) {
-        tone(idx, 300, true);
-        state.inputPos++;
-        if (state.inputPos >= state.seq.length) {
-          state.phase = 'between';
-          playSfx('sfx_minigameCorrect');
-          if (state.round >= 2) {
-            state.statusEl.textContent = 'Vilken duett!';
-            later(finishGame, 700);
-          } else {
-            state.statusEl.textContent = '\u2728 R\u00e4tt! N\u00e4sta melodi\u2026';
-            later(function () { beginRound(state.round + 1); }, 1100);
-          }
-        }
+    function onPick(ch, b) {
+      var next = WORD.charAt(placed.length);
+      if (ch === next) {
+        placed.push(ch); render();
+        if (placed.length === WORD.length) finish();
       } else {
-        state.misses++;
-        state.phase = 'between';
-        playSfx('sfx_minigameWrong');
-        state.statusEl.textContent = 'Hoppsan, fel ton! Lyssna en g\u00e5ng till\u2026';
-        later(playSequence, 1000);
+        mistakes++; b.style.background = COLORS.redLight; b.style.color = '#fff';
+        status.textContent = 'Inte den — försök med en annan!';
+        setTimeout(function () { b.style.background = COLORS.parchDark; b.style.color = COLORS.dark; }, 500);
       }
     }
-
-    function playSfx(name) {
-      if (typeof NobelSound !== 'undefined' && NobelSound._initialized) {
-        try { NobelSound.play(name); } catch (e) { /* ignore */ }
-      }
+    function finish() {
+      _score = mistakes === 0 ? 2 : mistakes <= 2 ? 1 : 0;
+      var body = _score === 2 ? 'Perfekt satt! Nu kan bibeln tryckas på svenska — och folk kan läsa den själva.' :
+        _score === 1 ? 'Ordet blev rätt till slut. Tryckpressen rullar!' :
+        'Det tog några försök, men ordet står rätt nu. Bra kämpat!';
+      setTimeout(function () { nmgFinish(container, _score, WORD + ' — klart!', body); }, 600);
     }
-
-    function finishGame() {
-      if (!state || state.phase === 'done') return;
-      state.phase = 'done';
-      var perfLimit = nmgDifficulty() === 'klurig' ? 1 : 0;
-      state.score = state.misses <= perfLimit ? 2 : state.misses <= perfLimit + 2 ? 1 : 0;
-      showResult(state, 'ch2', state.score, {
-        2: 'Perfekt geh\u00f6r! Albert och mamma spelar hela kv\u00e4llen.<br><strong>+1 \uD83D\uDCDA Makt och +1 \uD83D\uDCA1 Välstånd</strong>',
-        1: 'Fint spelat! N\u00e5gra toner hamnade snett, men musiken b\u00e4r.<br><strong>+1 \uD83D\uDCA1 Välstånd</strong>',
-        0: 'Melodierna kom fram till slut \u2014 att \u00f6va \u00e4r s\u00e5 man l\u00e4r sig, precis som Albert!'
-      }, start);
-    }
-
+    function getScore() { return _score; }
+    function destroy() { if (container) container.innerHTML = ''; }
     return { init: init, start: start, getScore: getScore, destroy: destroy };
   })();
-
-
   var ch3 = (function () {
-    var state, container, canvasObj, animFrame;
-    var W = 360, H = 440;
-
-    // Nivåer: startpunkt (vänster), mål (höger), och speglar att vrida.
-    // Varje spegel har fast position; barnet vrider den till rätt vinkel.
-    // riktig strålgång beräknas med reflektion, så exakt vinkel behövs ej —
-    // bara "tillräckligt nära" så strålen träffar målrutan.
-    function levels() {
-      var d = nmgDifficulty();
-      if (d === 'lugn') {
-        return [
-          { start: { x: 30, y: 90 },  goal: { x: 320, y: 90, r: 30 },
-            mirrors: [ { x: 180, y: 90, angle: 0, locked: false } ] },
-          { start: { x: 30, y: 70 },  goal: { x: 320, y: 330, r: 30 },
-            mirrors: [ { x: 180, y: 70, angle: 0, locked: false } ] }
-        ];
-      }
-      if (d === 'klurig') {
-        return [
-          { start: { x: 30, y: 60 }, goal: { x: 320, y: 360, r: 22 },
-            mirrors: [ { x: 130, y: 60, angle: 0.3, locked: false },
-                       { x: 130, y: 250, angle: -0.3, locked: false },
-                       { x: 280, y: 250, angle: 0.5, locked: false } ] },
-          { start: { x: 30, y: 360 }, goal: { x: 320, y: 60, r: 22 },
-            mirrors: [ { x: 120, y: 360, angle: 0.2, locked: false },
-                       { x: 120, y: 150, angle: 0.5, locked: false },
-                       { x: 280, y: 150, angle: -0.4, locked: false } ] }
-        ];
-      }
-      return [
-        { start: { x: 30, y: 80 }, goal: { x: 320, y: 340, r: 26 },
-          mirrors: [ { x: 160, y: 80, angle: 0.2, locked: false },
-                     { x: 160, y: 300, angle: -0.3, locked: false } ] },
-        { start: { x: 30, y: 340 }, goal: { x: 320, y: 90, r: 26 },
-          mirrors: [ { x: 150, y: 340, angle: 0.3, locked: false },
-                     { x: 150, y: 130, angle: -0.4, locked: false } ] }
-      ];
+    var container, status, rows, moves, _score = 0, MAX = 12, TARGET = 5, LOW = 4, HIGH = 6;
+    var villages;
+    function init(id) {
+      container = document.getElementById(id); if (!container) return; container.innerHTML = '';
+      _score = 0; moves = 0;
+      villages = [ { n: 'Näsby', v: 2 }, { n: 'Lida', v: 8 }, { n: 'Torp', v: 3 } ];
+      var d = nmgDifficulty(); MAX = d === 'lugn' ? 16 : d === 'klurig' ? 8 : 12;
+      var w = createDiv(container, 'nmg-wrapper');
+      createDiv(w, 'nmg-title').textContent = 'Samla byarna';
+      createDiv(w, 'nmg-subtitle').textContent = 'Håll stödet i balans';
+      createDiv(w, 'nmg-instructions').innerHTML = 'Tre byar ska enas mot kungen — men ingen får känna sig lurad. Ge och ta så att <strong>alla tre</strong> hamnar i det gröna (4–6). Du har ' + MAX + ' drag.';
+      status = createDiv(w, 'nmg-status');
+      rows = document.createElement('div'); rows.style.cssText = 'display:flex;flex-direction:column;gap:12px;max-width:340px;margin:10px auto;'; w.appendChild(rows);
     }
-
-    function init(containerId) {
-      container = document.getElementById(containerId);
-      if (!container) return;
-      container.innerHTML = '';
-
-      var wrapper = createDiv(container, 'nmg-wrapper');
-      var titleEl = createDiv(wrapper, 'nmg-title');
-      titleEl.textContent = 'Speglarnas gåta';
-      var subEl = createDiv(wrapper, 'nmg-subtitle');
-      subEl.textContent = 'Vrid speglarna så ljuset når fram!';
-
-      var instrEl = createDiv(wrapper, 'nmg-instructions');
-      instrEl.innerHTML = 'Alberts tankeexperiment: ljus färdas spikrakt — tills en spegel styr det! ' +
-        '<strong>Dra på en spegel</strong> för att vrida den. Få ljusstrålen att studsa hela vägen ' +
-        'fram till den lysande målrutan.';
-
-      var statusEl = createDiv(wrapper, 'nmg-status');
-      state = {
-        phase: 'ready', wrapper: wrapper, instrEl: instrEl, statusEl: statusEl,
-        resultEl: null, score: 0, levelIdx: 0, levelSet: [], level: null,
-        dragMirror: null, ray: [], solvedFlash: 0, moves: 0
-      };
-      state.statusEl.textContent = '';
-
-      canvasObj = createCanvas(wrapper, W, H);
-      var resultEl = createDiv(wrapper, 'nmg-hidden');
-      state.resultEl = resultEl;
-
-      var cv = canvasObj.canvas;
-      cv.addEventListener('mousedown',  onDown, false);
-      cv.addEventListener('mousemove',  onMove, false);
-      cv.addEventListener('mouseup',    onUp,   false);
-      cv.addEventListener('mouseleave', onUp,   false);
-      cv.addEventListener('touchstart', onDown, { passive: false });
-      cv.addEventListener('touchmove',  onMove, { passive: false });
-      cv.addEventListener('touchend',   onUp,   false);
+    function start() { render(); }
+    function render() {
+      rows.innerHTML = '';
+      villages.forEach(function (vil, i) {
+        var row = document.createElement('div'); row.style.cssText = 'display:flex;align-items:center;gap:8px;';
+        var name = document.createElement('div'); name.style.cssText = 'width:56px;text-align:right;font-weight:600;color:' + COLORS.brown + ';'; name.textContent = vil.n;
+        var minus = mkBtn('−', function () { adj(i, -1); });
+        var bar = document.createElement('div'); bar.style.cssText = 'flex:1;height:22px;border-radius:6px;background:' + COLORS.parchDark + ';position:relative;overflow:hidden;';
+        var fill = document.createElement('div');
+        var ok = vil.v >= LOW && vil.v <= HIGH;
+        fill.style.cssText = 'height:100%;width:' + (vil.v / 10 * 100) + '%;background:' + (ok ? COLORS.mossLight : COLORS.copper) + ';transition:width .2s,background .2s;';
+        bar.appendChild(fill);
+        var val = document.createElement('div'); val.style.cssText = 'position:absolute;right:6px;top:2px;font-size:0.8rem;font-weight:700;color:' + COLORS.dark + ';'; val.textContent = vil.v; bar.appendChild(val);
+        var plus = mkBtn('+', function () { adj(i, 1); });
+        row.appendChild(name); row.appendChild(minus); row.appendChild(bar); row.appendChild(plus);
+        rows.appendChild(row);
+      });
+      var left = MAX - moves;
+      var allOk = villages.every(function (v) { return v.v >= LOW && v.v <= HIGH; });
+      status.textContent = allOk ? 'Alla i balans! Tryck igen för att avsluta.' : ('Drag kvar: ' + left);
+      if (allOk) { finish(); }
+      else if (left <= 0) { finish(); }
     }
-
-    function start() {
-      if (!state) return;
-      state.phase = 'playing';
-      state.score = 0;
-      state.levelIdx = 0;
-      state.levelSet = levels();
-      state.moves = 0;
-      state.solvedFlash = 0;
-      loadLevel(0);
-      state.instrEl.classList.remove('nmg-hidden');
-      state.resultEl.innerHTML = '';
-      state.resultEl.classList.add('nmg-hidden');
-      loop();
+    function mkBtn(t, fn) {
+      var b = document.createElement('button');
+      b.style.cssText = 'width:34px;height:34px;border-radius:8px;border:2px solid ' + COLORS.brown + ';background:' + COLORS.parchment + ';color:' + COLORS.dark + ';font-size:1.2rem;font-weight:700;cursor:pointer;';
+      b.textContent = t; b.onclick = fn; return b;
     }
-
-    function loadLevel(i) {
-      // djupkopiera nivån så omspel börjar om från grundvinklarna
-      var lv = state.levelSet[i];
-      state.level = {
-        start: { x: lv.start.x, y: lv.start.y },
-        goal: { x: lv.goal.x, y: lv.goal.y, r: lv.goal.r },
-        mirrors: lv.mirrors.map(function (m) { return { x: m.x, y: m.y, angle: m.angle, locked: m.locked }; })
-      };
-      state.levelIdx = i;
-      state.statusEl.textContent = 'Stråle ' + (i + 1) + ' av ' + state.levelSet.length + ' — dra på en spegel!';
-      computeRay();
+    var finished = false;
+    function adj(i, d) {
+      if (finished) return;
+      var nv = villages[i].v + d; if (nv < 0 || nv > 10) return;
+      villages[i].v = nv; moves++; render();
     }
-
-    function getScore() { return state ? state.score : 0; }
-
-    function destroy() {
-      if (animFrame) cancelAnimationFrame(animFrame);
-      animFrame = null;
-      if (container) container.innerHTML = '';
-      state = null;
+    function finish() {
+      if (finished) return; finished = true;
+      var inBand = villages.filter(function (v) { return v.v >= LOW && v.v <= HIGH; }).length;
+      _score = inBand === 3 ? 2 : inBand === 2 ? 1 : 0;
+      var body = _score === 2 ? 'Alla tre byarna känner sig rättvist behandlade — de reser sig tillsammans!' :
+        _score === 1 ? 'Två byar är med er, den tredje tvekar. Det räcker för att börja.' :
+        'Det var svårt att ena alla — men några byar följer er ändå.';
+      setTimeout(function () { nmgFinish(container, _score, inBand + ' av 3 byar i balans', body); }, 500);
     }
-
-    function playSfx(name) {
-      if (typeof NobelSound !== 'undefined' && NobelSound._initialized) {
-        try { NobelSound.play(name); } catch (e) { /* ignore */ }
-      }
-    }
-
-    var MIRROR_LEN = 46, MIRROR_HIT = 34;
-
-    function onDown(e) {
-      if (!state || state.phase !== 'playing') return;
-      e.preventDefault();
-      var p = getPointerPos(canvasObj.canvas, e);
-      var best = null, bestD = MIRROR_HIT * MIRROR_HIT;
-      for (var i = 0; i < state.level.mirrors.length; i++) {
-        var m = state.level.mirrors[i];
-        if (m.locked) continue;
-        var dx = p.x - m.x, dy = p.y - m.y, d = dx * dx + dy * dy;
-        if (d < bestD) { bestD = d; best = m; }
-      }
-      state.dragMirror = best;
-    }
-
-    function onMove(e) {
-      if (!state || !state.dragMirror) return;
-      e.preventDefault();
-      var p = getPointerPos(canvasObj.canvas, e);
-      var m = state.dragMirror;
-      m.angle = Math.atan2(p.y - m.y, p.x - m.x);
-      state.moves++;
-      computeRay();
-    }
-
-    function onUp() {
-      if (!state) return;
-      state.dragMirror = null;
-    }
-
-    // Reflektera strålen genom scenen och spara polylinjen. Returnerar true om mål träffas.
-    function computeRay() {
-      var lv = state.level;
-      var pts = [{ x: lv.start.x, y: lv.start.y }];
-      var dir = { x: 1, y: 0 };
-      var pos = { x: lv.start.x, y: lv.start.y };
-      var hitGoal = false;
-      for (var bounce = 0; bounce < 12; bounce++) {
-        // hitta närmaste spegelträff längs dir
-        var closest = null, closestT = Infinity, closestM = null;
-        for (var i = 0; i < lv.mirrors.length; i++) {
-          var m = lv.mirrors[i];
-          var half = { x: Math.cos(m.angle) * MIRROR_LEN / 2, y: Math.sin(m.angle) * MIRROR_LEN / 2 };
-          var a = { x: m.x - half.x, y: m.y - half.y };
-          var b = { x: m.x + half.x, y: m.y + half.y };
-          var hit = raySeg(pos, dir, a, b);
-          if (hit && hit.t > 0.5 && hit.t < closestT) { closestT = hit.t; closest = hit.point; closestM = m; }
-        }
-        // målträff innan spegel?
-        var gt = rayCircle(pos, dir, lv.goal);
-        if (gt !== null && (closest === null || gt < closestT)) {
-          pts.push({ x: pos.x + dir.x * gt, y: pos.y + dir.y * gt });
-          hitGoal = true;
-          break;
-        }
-        if (closest === null) {
-          // ut ur bild
-          pts.push({ x: pos.x + dir.x * 900, y: pos.y + dir.y * 900 });
-          break;
-        }
-        pts.push(closest);
-        // reflektera dir kring spegelns normal
-        var mn = closestM.angle + Math.PI / 2;
-        var nx = Math.cos(mn), ny = Math.sin(mn);
-        var dot = dir.x * nx + dir.y * ny;
-        dir = { x: dir.x - 2 * dot * nx, y: dir.y - 2 * dot * ny };
-        pos = { x: closest.x + dir.x * 0.5, y: closest.y + dir.y * 0.5 };
-      }
-      state.ray = pts;
-      if (hitGoal && state.phase === 'playing') onSolved();
-      return hitGoal;
-    }
-
-    function raySeg(o, d, a, b) {
-      var v1 = { x: o.x - a.x, y: o.y - a.y };
-      var v2 = { x: b.x - a.x, y: b.y - a.y };
-      var v3 = { x: -d.y, y: d.x };
-      var denom = v2.x * v3.x + v2.y * v3.y;
-      if (Math.abs(denom) < 1e-6) return null;
-      var t1 = (v2.x * v1.y - v2.y * v1.x) / denom;
-      var t2 = (v1.x * v3.x + v1.y * v3.y) / denom;
-      if (t1 >= 0 && t2 >= 0 && t2 <= 1) return { t: t1, point: { x: o.x + d.x * t1, y: o.y + d.y * t1 } };
-      return null;
-    }
-
-    function rayCircle(o, d, c) {
-      var ox = o.x - c.x, oy = o.y - c.y;
-      var b = ox * d.x + oy * d.y;
-      var cc = ox * ox + oy * oy - c.r * c.r;
-      var disc = b * b - cc;
-      if (disc < 0) return null;
-      var t = -b - Math.sqrt(disc);
-      return t > 0.5 ? t : null;
-    }
-
-    function onSolved() {
-      state.phase = 'between';
-      state.solvedFlash = 1;
-      playSfx('sfx_minigameCorrect');
-      state.statusEl.textContent = '✨ Ljuset nådde fram!';
-      var next = state.levelIdx + 1;
-      if (next >= state.levelSet.length) {
-        setTimeout(finishGame, 900);
-      } else {
-        setTimeout(function () { if (state) { state.phase = 'playing'; loadLevel(next); } }, 1100);
-      }
-    }
-
-    function finishGame() {
-      if (!state || state.phase === 'done') return;
-      state.phase = 'done';
-      // få drag = skicklig; skala mot antal speglar totalt
-      var par = 0;
-      for (var i = 0; i < state.levelSet.length; i++) par += state.levelSet[i].mirrors.length * 6;
-      state.score = state.moves <= par ? 2 : state.moves <= par * 2.2 ? 1 : 0;
-      showResult(state, 'ch3', state.score, {
-        2: 'Vilket ljusöga! Du styrde strålen rakt i mål — som Albert tänkte sig på sin promenad.<br><strong>+1 👑 Makt och +1 💰 Välstånd</strong>',
-        1: 'Fint speglat! Ljuset hittade fram till slut.<br><strong>+1 💰 Välstånd</strong>',
-        0: 'Ljus är kluriga saker — men alla strålar kom i mål till slut. Övning ger färdighet!'
-      }, start);
-    }
-
-    function loop() {
-      if (!state) return;
-      draw();
-      if (state.phase !== 'done') animFrame = requestAnimationFrame(loop);
-    }
-
-    function draw() {
-      var ctx = canvasObj.ctx;
-      var now = performance.now();
-      // rymdbakgrund
-      ctx.fillStyle = '#0b1226';
-      ctx.fillRect(0, 0, W, H);
-      for (var st = 0; st < 22; st++) {
-        var sx = (st * 91 + 19) % W, sy = (st * 57 + 13) % H;
-        ctx.globalAlpha = 0.3 + 0.3 * Math.sin(now / 850 + st);
-        ctx.fillStyle = '#fff3c4';
-        ctx.fillRect(sx, sy, 2, 2);
-      }
-      ctx.globalAlpha = 1;
-
-      var lv = state.level;
-      if (!lv) return;
-
-      // strålkälla (stjärna)
-      ctx.fillStyle = '#fff';
-      ctx.beginPath(); ctx.arc(lv.start.x, lv.start.y, 9, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#aab8d0'; ctx.font = '10px sans-serif'; ctx.textAlign = 'center';
-      ctx.fillText('start', lv.start.x, lv.start.y - 16);
-
-      // mål (lysande ruta)
-      var glow = 0.5 + 0.3 * Math.sin(now / 400);
-      ctx.save();
-      ctx.shadowColor = '#ffd84d'; ctx.shadowBlur = 18 * glow;
-      ctx.fillStyle = state.solvedFlash > 0 ? '#7fe0a0' : 'rgba(255,216,77,0.9)';
-      ctx.beginPath(); ctx.arc(lv.goal.x, lv.goal.y, lv.goal.r, 0, Math.PI * 2); ctx.fill();
-      ctx.restore();
-      ctx.fillStyle = '#1c2333'; ctx.font = '11px sans-serif';
-      ctx.fillText('mål', lv.goal.x, lv.goal.y + 4);
-      if (state.solvedFlash > 0) state.solvedFlash = Math.max(0, state.solvedFlash - 0.02);
-
-      // strålen (gyllene polylinje)
-      if (state.ray && state.ray.length > 1) {
-        ctx.strokeStyle = 'rgba(255,216,77,0.9)'; ctx.lineWidth = 3; ctx.lineCap = 'round';
-        ctx.beginPath();
-        for (var p = 0; p < state.ray.length; p++) {
-          if (p === 0) ctx.moveTo(state.ray[p].x, state.ray[p].y);
-          else ctx.lineTo(state.ray[p].x, state.ray[p].y);
-        }
-        ctx.stroke();
-      }
-
-      // speglar
-      for (var i = 0; i < lv.mirrors.length; i++) {
-        var m = lv.mirrors[i];
-        var half = { x: Math.cos(m.angle) * MIRROR_LEN / 2, y: Math.sin(m.angle) * MIRROR_LEN / 2 };
-        // ram
-        ctx.strokeStyle = m.locked ? '#5a6a8a' : '#d4a72c';
-        ctx.lineWidth = 6; ctx.lineCap = 'round';
-        ctx.beginPath();
-        ctx.moveTo(m.x - half.x, m.y - half.y);
-        ctx.lineTo(m.x + half.x, m.y + half.y);
-        ctx.stroke();
-        // spegelyta
-        ctx.strokeStyle = m.locked ? '#8fa0c0' : '#eaf4ff';
-        ctx.lineWidth = 2.5;
-        ctx.beginPath();
-        ctx.moveTo(m.x - half.x, m.y - half.y);
-        ctx.lineTo(m.x + half.x, m.y + half.y);
-        ctx.stroke();
-        // vrid-nav
-        if (!m.locked) {
-          ctx.fillStyle = '#d4a72c';
-          ctx.beginPath(); ctx.arc(m.x, m.y, 4, 0, Math.PI * 2); ctx.fill();
-        }
-      }
-    }
-
+    function getScore() { return _score; }
+    function destroy() { if (container) container.innerHTML = ''; finished = false; }
     return { init: init, start: start, getScore: getScore, destroy: destroy };
   })();
-
-
-  /* ============================================================
-     CH4: DYNAMITE MIXING  --  Drop-based mixing simulation
-     ============================================================ */
   var ch4 = (function () {
-    var state, container, canvasObj, animFrame;
-    var W = 360, H = 400;
-
-    // Varje uppfinning har EN sak som är fel. Barnet trycker på den.
-    // hot = klickzon (x,y,r). draw ritar hela ritningen. why = kort förklaring.
-    var PATENTS = [
-      { id: 'magnetbat', title: 'Magnetbåten', hint: 'Den ska dra sig själv framåt…',
-        hot: { x: 180, y: 120, r: 34 },
-        why: 'Magneten sitter på båtens egen mast — man kan inte dra sig själv framåt! (Testa att lyfta dig själv i håret.)' },
-      { id: 'vattenhjul', title: 'Hjulet som snurrar för evigt', hint: 'Vattnet ska aldrig ta slut…',
-        hot: { x: 250, y: 150, r: 40 },
-        why: 'Röret leder vattnet uppför av sig självt — men vatten rinner nedåt! Ingenting snurrar för evigt utan energi.' },
-      { id: 'cykel', title: 'Cykeln', hint: 'Något gör åkturen guppig…',
-        hot: { x: 110, y: 250, r: 42 },
-        why: 'Fyrkantiga hjul! De rullar inte alls bra. Ett hjul måste vara runt.' },
-      { id: 'glasogon', title: 'Läsglasögonen', hint: 'Något fattas…',
-        hot: { x: 232, y: 175, r: 40 },
-        why: 'Det ena glaset saknas! Glasögon behöver två glas för att hjälpa båda ögonen.' },
-      { id: 'paraply', title: 'Paraplyet', hint: 'Det ska hålla regnet ute…',
-        hot: { x: 150, y: 96, r: 30 },
-        why: 'Det är ett hål i paraplyet — regnet rinner rakt igenom! Ett paraply måste vara helt.' }
-    ];
-
-    function init(containerId) {
-      container = document.getElementById(containerId);
-      if (!container) return;
-      container.innerHTML = '';
-
-      var wrapper = createDiv(container, 'nmg-wrapper');
-      var titleEl = createDiv(wrapper, 'nmg-title');
-      titleEl.textContent = 'Patentgranskaren';
-      var subEl = createDiv(wrapper, 'nmg-subtitle');
-      subEl.textContent = 'Hitta felet i uppfinningen!';
-
-      var instrEl = createDiv(wrapper, 'nmg-instructions');
-      instrEl.innerHTML = 'Uppfinnarna köar utanför kontoret. Varje ritning har <strong>en sak som är fel</strong>. ' +
-        'Titta noga som en riktig fysiker och <strong>tryck på det som inte fungerar</strong>!';
-
-      var statusEl = createDiv(wrapper, 'nmg-status');
-      state = {
-        phase: 'ready', wrapper: wrapper, instrEl: instrEl, statusEl: statusEl,
-        resultEl: null, score: 0, order: [], index: 0, misses: 0,
-        found: false, feedback: '', feedbackUntil: 0, sparkles: [], wrongPoke: null,
-        lastTapAt: 0, showHint: false
-      };
-      canvasObj = createCanvas(wrapper, W, H);
-      var resultEl = createDiv(wrapper, 'nmg-hidden');
-      state.resultEl = resultEl;
-      var cv = canvasObj.canvas;
-      cv.addEventListener('mousedown',  onTap, false);
-      cv.addEventListener('touchstart', onTap, { passive: false });
+    var container, status, grid, _score = 0, placed, budget, COLS = 5, ROWS = 4;
+    var approaches; // celler fienden angriper (kolumn 0, dvs havet)
+    function init(id) {
+      container = document.getElementById(id); if (!container) return; container.innerHTML = '';
+      _score = 0; placed = {};
+      var d = nmgDifficulty(); budget = d === 'lugn' ? 8 : d === 'klurig' ? 5 : 6;
+      // hamnen ligger i mittkolumnen; fienden kommer från vänster (havet)
+      approaches = [ {r:0,c:0}, {r:1,c:0}, {r:2,c:0}, {r:3,c:0} ];
+      var w = createDiv(container, 'nmg-wrapper');
+      createDiv(w, 'nmg-title').textContent = 'Bygg fästningen';
+      createDiv(w, 'nmg-subtitle').textContent = 'Skydda Saltebys hamn';
+      createDiv(w, 'nmg-instructions').innerHTML = 'Fiendens skepp kommer från havet (vänster). Placera <strong>murar</strong> ⛰ så att varje rad har minst en mur mellan havet och hamnen ⚓ (höger). Du har ' + budget + ' murar.';
+      status = createDiv(w, 'nmg-status');
+      grid = document.createElement('div'); grid.style.cssText = 'display:grid;grid-template-columns:repeat(' + COLS + ',48px);gap:4px;justify-content:center;margin:12px auto;'; w.appendChild(grid);
     }
-
-    function start() {
-      if (!state) return;
-      state.phase = 'playing';
-      state.order = shuffle(PATENTS);
-      state.index = 0;
-      state.misses = 0;
-      state.score = 0;
-      state.found = false;
-      state.sparkles = [];
-      state.wrongPoke = null;
-      state.lastTapAt = performance.now();
-      state.statusEl.textContent = 'Uppfinning 1 av ' + state.order.length;
-      state.instrEl.classList.remove('nmg-hidden');
-      state.resultEl.innerHTML = '';
-      state.resultEl.classList.add('nmg-hidden');
-      loop();
-    }
-
-    function getScore() { return state ? state.score : 0; }
-
-    function destroy() {
-      if (animFrame) cancelAnimationFrame(animFrame);
-      animFrame = null;
-      if (container) container.innerHTML = '';
-      state = null;
-    }
-
-    function playSfx(name) {
-      if (typeof NobelSound !== 'undefined' && NobelSound._initialized) {
-        try { NobelSound.play(name); } catch (e) { /* ignore */ }
-      }
-    }
-
-    function hotRadius() {
-      var d = nmgDifficulty();
-      return d === 'lugn' ? 1.35 : d === 'klurig' ? 0.8 : 1;
-    }
-    function hintDelay() {
-      var d = nmgDifficulty();
-      return d === 'lugn' ? 4000 : d === 'klurig' ? Infinity : 8000;
-    }
-
-    function onTap(e) {
-      if (!state || state.phase !== 'playing' || state.found) return;
-      e.preventDefault();
-      var p = getPointerPos(canvasObj.canvas, e);
-      var pat = state.order[state.index];
-      var dx = p.x - pat.hot.x, dy = p.y - pat.hot.y;
-      var r = pat.hot.r * hotRadius();
-      if (dx * dx + dy * dy <= r * r) {
-        state.found = true;
-        state.feedback = pat.why;
-        for (var i = 0; i < 16; i++) spawnSparkle(pat.hot.x, pat.hot.y);
-        playSfx('sfx_minigameCorrect');
-        state.statusEl.textContent = 'Rätt! Du hittade felet.';
-        setTimeout(nextPatent, 2100);
-      } else {
-        state.misses++;
-        state.wrongPoke = { x: p.x, y: p.y, t: 0 };
-        playSfx('sfx_minigameWrong');
-        state.statusEl.textContent = 'Hmm, det där ser ut att funka. Leta vidare!';
-        state.lastTapAt = performance.now();
-      }
-    }
-
-    function nextPatent() {
-      if (!state) return;
-      state.found = false;
-      state.feedback = '';
-      state.index++;
-      state.lastTapAt = performance.now();
-      if (state.index >= state.order.length) {
-        state.statusEl.textContent = 'Alla uppfinningar granskade!';
-        finishGame();
-      } else {
-        state.statusEl.textContent = 'Uppfinning ' + (state.index + 1) + ' av ' + state.order.length;
-      }
-    }
-
-    function spawnSparkle(x, y) {
-      var a = Math.random() * Math.PI * 2, sp = 0.8 + Math.random() * 2.6;
-      state.sparkles.push({ x: x, y: y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 0.8, life: 1, size: 2 + Math.random() * 4 });
-    }
-
-    function finishGame() {
-      if (!state || state.phase === 'done') return;
-      state.phase = 'done';
-      state.score = state.misses <= 1 ? 2 : state.misses <= 4 ? 1 : 0;
-      showResult(state, 'ch4', state.score, {
-        2: 'Kontorets skarpaste öga! Du synade varje fel som en riktig fysiker.<br><strong>+1 👑 Makt och +1 💰 Välstånd</strong>',
-        1: 'Bra granskat! De flesta felen hittade du direkt.<br><strong>+1 💰 Välstånd</strong>',
-        0: 'Kluriga uppfinningar — men du kom på alla fel till slut. Så tänker en granskare!'
-      }, start);
-    }
-
-    function loop() {
-      if (!state) return;
-      draw();
-      if (state.phase !== 'done') animFrame = requestAnimationFrame(loop);
-    }
-
-    function draw() {
-      var ctx = canvasObj.ctx, now = performance.now();
-      var pat = state.order[state.index];
-      // blåkopiepapper
-      ctx.fillStyle = '#1b3a63';
-      ctx.fillRect(0, 0, W, H);
-      ctx.strokeStyle = 'rgba(255,255,255,0.07)'; ctx.lineWidth = 1;
-      for (var gx = 0; gx < W; gx += 20) { ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke(); }
-      for (var gy = 0; gy < H; gy += 20) { ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke(); }
-      if (!pat) return;
-
-      // ritningens titel (kort) uppe
-      ctx.fillStyle = '#dbe8ff'; ctx.font = 'bold 14px sans-serif'; ctx.textAlign = 'center';
-      ctx.fillText(pat.title, W / 2, 26);
-
-      ctx.save();
-      ctx.strokeStyle = '#eaf2ff'; ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-      ctx.fillStyle = 'rgba(234,242,255,0.12)';
-      drawPatent(ctx, pat.id, now);
-      ctx.restore();
-
-      // ledtråd: pulsande ring efter en stund (per nivå)
-      if (!state.found && state.phase === 'playing' && now - state.lastTapAt > hintDelay()) {
-        var pulse = 1 + 0.22 * Math.sin(now / 220);
-        ctx.strokeStyle = 'rgba(255,216,77,0.7)'; ctx.lineWidth = 2.5;
-        ctx.beginPath(); ctx.arc(pat.hot.x, pat.hot.y, pat.hot.r * hotRadius() * pulse, 0, Math.PI * 2); ctx.stroke();
-      }
-
-      // markera funnet fel + förklaring
-      if (state.found) {
-        ctx.strokeStyle = '#ff6b5a'; ctx.lineWidth = 3;
-        ctx.beginPath(); ctx.arc(pat.hot.x, pat.hot.y, pat.hot.r, 0, Math.PI * 2); ctx.stroke();
-        // förklaringsruta
-        ctx.fillStyle = 'rgba(11,18,38,0.92)';
-        roundRect(ctx, 12, H - 96, W - 24, 84, 8); ctx.fill();
-        ctx.strokeStyle = 'rgba(255,216,77,0.5)'; ctx.lineWidth = 1.5;
-        roundRect(ctx, 12, H - 96, W - 24, 84, 8); ctx.stroke();
-        ctx.fillStyle = '#f5f8ff'; ctx.font = '12px sans-serif';
-        wrapText(ctx, pat.why, W / 2, H - 76, W - 44, 16);
-      }
-
-      // felklicks-poff
-      if (state.wrongPoke) {
-        state.wrongPoke.t += 0.05;
-        if (state.wrongPoke.t >= 1) state.wrongPoke = null;
-        else {
-          ctx.globalAlpha = 1 - state.wrongPoke.t;
-          ctx.strokeStyle = '#9fb4d8'; ctx.lineWidth = 2;
-          ctx.beginPath(); ctx.arc(state.wrongPoke.x, state.wrongPoke.y, 4 + state.wrongPoke.t * 16, 0, Math.PI * 2); ctx.stroke();
-          ctx.globalAlpha = 1;
+    function key(r, c) { return r + ',' + c; }
+    function start() { render(); }
+    function render() {
+      grid.innerHTML = '';
+      for (var r = 0; r < ROWS; r++) {
+        for (var c = 0; c < COLS; c++) {
+          (function (r, c) {
+            var cell = document.createElement('button');
+            var isSea = c === 0, isHarbor = c === COLS - 1;
+            cell.style.cssText = 'width:48px;height:48px;border-radius:6px;border:1px solid ' + COLORS.brownLight + ';font-size:1.3rem;cursor:' + (isSea || isHarbor ? 'default' : 'pointer') + ';' +
+              'background:' + (isSea ? '#1a2744' : isHarbor ? COLORS.copper : COLORS.parchDark) + ';';
+            if (isSea) cell.textContent = '🌊';
+            else if (isHarbor) cell.textContent = '⚓';
+            else if (placed[key(r, c)]) { cell.textContent = '⛰️'; cell.style.background = COLORS.brownLight; }
+            if (!isSea && !isHarbor) cell.onclick = function () { toggle(r, c); };
+            grid.appendChild(cell);
+          })(r, c);
         }
       }
-      // sparkles
-      for (var i = state.sparkles.length - 1; i >= 0; i--) {
-        var s = state.sparkles[i];
-        s.x += s.vx; s.y += s.vy; s.vy += 0.06; s.life -= 0.03;
-        if (s.life <= 0) { state.sparkles.splice(i, 1); continue; }
-        ctx.globalAlpha = s.life; ctx.fillStyle = '#ffd84d';
-        ctx.beginPath(); ctx.arc(s.x, s.y, s.size * s.life, 0, Math.PI * 2); ctx.fill();
-        ctx.globalAlpha = 1;
-      }
+      var used = Object.keys(placed).length;
+      status.textContent = 'Murar kvar: ' + (budget - used);
     }
-
-    function wrapText(ctx, text, cx, y, maxW, lh) {
-      var words = text.split(' '), line = '', yy = y;
-      for (var i = 0; i < words.length; i++) {
-        var test = line + words[i] + ' ';
-        if (ctx.measureText(test).width > maxW && line) { ctx.fillText(line.trim(), cx, yy); line = words[i] + ' '; yy += lh; }
-        else line = test;
-      }
-      if (line) ctx.fillText(line.trim(), cx, yy);
+    var finished = false;
+    function toggle(r, c) {
+      if (finished) return;
+      var k = key(r, c);
+      if (placed[k]) { delete placed[k]; }
+      else { if (Object.keys(placed).length >= budget) { status.textContent = 'Inga murar kvar! Tryck Klar.'; showDone(); return; } placed[k] = true; }
+      render();
+      if (Object.keys(placed).length >= 1) showDone();
     }
-
-    // ── Ritningarna (enkel blåkopie-stil) ──
-    function drawPatent(ctx, id, now) {
-      if (id === 'magnetbat') {
-        // vatten
-        ctx.beginPath(); ctx.moveTo(20, 300);
-        for (var x = 20; x <= 340; x += 20) ctx.lineTo(x, 300 + Math.sin((x + now / 300) / 22) * 4);
-        ctx.strokeStyle = 'rgba(120,180,255,0.5)'; ctx.stroke();
-        ctx.strokeStyle = '#eaf2ff';
-        // skrov
-        ctx.beginPath(); ctx.moveTo(90, 260); ctx.lineTo(270, 260); ctx.lineTo(240, 300); ctx.lineTo(120, 300); ctx.closePath();
-        ctx.fillStyle = 'rgba(234,242,255,0.12)'; ctx.fill(); ctx.stroke();
-        // mast
-        ctx.beginPath(); ctx.moveTo(180, 260); ctx.lineTo(180, 90); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(180, 100); ctx.lineTo(180, 150); ctx.stroke();
-        // magnet (FEL) hängande, pekar mot båten själv
-        ctx.strokeStyle = '#ff8a5a'; ctx.lineWidth = 8; ctx.lineCap = 'butt';
-        ctx.beginPath(); ctx.arc(180, 120, 16, Math.PI, 0, false); ctx.lineTo(196, 138); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(164, 120); ctx.lineTo(164, 138); ctx.stroke();
-        ctx.strokeStyle = '#d0d0d0'; ctx.lineWidth = 6;
-        ctx.beginPath(); ctx.moveTo(164, 138); ctx.lineTo(164, 146); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(196, 138); ctx.lineTo(196, 146); ctx.stroke();
-      } else if (id === 'vattenhjul') {
-        // hjul
-        ctx.save(); ctx.translate(110, 220); ctx.rotate(now / 900);
-        ctx.beginPath(); ctx.arc(0, 0, 55, 0, Math.PI * 2); ctx.stroke();
-        for (var s = 0; s < 8; s++) { var a = s * Math.PI / 4; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(Math.cos(a) * 55, Math.sin(a) * 55); ctx.stroke(); }
-        ctx.restore();
-        // ränna nedåt
-        ctx.beginPath(); ctx.moveTo(110, 160); ctx.lineTo(150, 190); ctx.stroke();
-        // FEL: rör som leder vatten UPPFÖR tillbaka till toppen av sig självt
-        ctx.strokeStyle = '#ff8a5a'; ctx.lineWidth = 5;
-        ctx.beginPath(); ctx.moveTo(155, 275); ctx.lineTo(250, 275); ctx.lineTo(250, 150); ctx.lineTo(120, 150); ctx.stroke();
-        // pilar uppåt i röret
-        ctx.fillStyle = '#ff8a5a';
-        ctx.beginPath(); ctx.moveTo(250, 210); ctx.lineTo(245, 220); ctx.lineTo(255, 220); ctx.closePath(); ctx.fill();
-        ctx.beginPath(); ctx.moveTo(250, 175); ctx.lineTo(245, 185); ctx.lineTo(255, 185); ctx.closePath(); ctx.fill();
-      } else if (id === 'cykel') {
-        ctx.lineWidth = 2.5;
-        // FEL: fyrkantiga hjul
-        ctx.strokeStyle = '#ff8a5a';
-        ctx.strokeRect(80, 220, 60, 60);
-        ctx.strokeRect(220, 220, 60, 60);
-        ctx.strokeStyle = '#eaf2ff';
-        // ram
-        ctx.beginPath();
-        ctx.moveTo(110, 250); ctx.lineTo(180, 250); ctx.lineTo(150, 180); ctx.lineTo(110, 250);
-        ctx.moveTo(180, 250); ctx.lineTo(250, 250); ctx.moveTo(180, 250); ctx.lineTo(200, 175);
-        ctx.stroke();
-        // styre + sadel
-        ctx.beginPath(); ctx.moveTo(200, 175); ctx.lineTo(220, 168); ctx.moveTo(150, 180); ctx.lineTo(140, 170); ctx.lineTo(158, 170); ctx.stroke();
-        // pedaler
-        ctx.beginPath(); ctx.arc(180, 250, 12, 0, Math.PI * 2); ctx.stroke();
-      } else if (id === 'glasogon') {
-        ctx.lineWidth = 3;
-        // vänster glas OK
-        ctx.beginPath(); ctx.arc(128, 175, 38, 0, Math.PI * 2); ctx.stroke();
-        ctx.fillStyle = 'rgba(150,200,255,0.18)'; ctx.beginPath(); ctx.arc(128, 175, 38, 0, Math.PI * 2); ctx.fill();
-        // FEL: höger båge tom (glas saknas) — bara båge, inget glas
-        ctx.strokeStyle = '#ff8a5a';
-        ctx.beginPath(); ctx.arc(232, 175, 38, 0, Math.PI * 2); ctx.stroke();
-        ctx.strokeStyle = '#eaf2ff';
-        // brygga + skalmar
-        ctx.beginPath(); ctx.moveTo(166, 175); ctx.lineTo(194, 175);
-        ctx.moveTo(90, 168); ctx.lineTo(64, 150); ctx.moveTo(270, 168); ctx.lineTo(296, 150); ctx.stroke();
-      } else if (id === 'paraply') {
-        ctx.lineWidth = 2.5;
-        // kupol
-        ctx.beginPath(); ctx.arc(180, 120, 100, Math.PI, 0); ctx.stroke();
-        ctx.fillStyle = 'rgba(234,242,255,0.12)';
-        ctx.beginPath(); ctx.arc(180, 120, 100, Math.PI, 0); ctx.fill();
-        // revben
-        for (var rr = -2; rr <= 2; rr++) { ctx.beginPath(); ctx.moveTo(180, 120); ctx.lineTo(180 + rr * 45, 120 - Math.sqrt(Math.max(0, 10000 - Math.pow(rr * 45, 2)))); ctx.stroke(); }
-        // käpp
-        ctx.beginPath(); ctx.moveTo(180, 120); ctx.lineTo(180, 320); ctx.stroke();
-        ctx.beginPath(); ctx.arc(172, 320, 8, 0, Math.PI, false); ctx.stroke();
-        // FEL: hål i duken
-        ctx.strokeStyle = '#ff8a5a'; ctx.lineWidth = 2.5;
-        ctx.beginPath();
-        ctx.moveTo(138, 96); ctx.lineTo(150, 84); ctx.lineTo(164, 98); ctx.lineTo(152, 108); ctx.closePath(); ctx.stroke();
-        // regndroppar som far igenom
-        ctx.fillStyle = 'rgba(120,180,255,0.7)';
-        ctx.beginPath(); ctx.arc(150, 130, 2, 0, Math.PI * 2); ctx.fill();
-        ctx.beginPath(); ctx.arc(150, 160, 2, 0, Math.PI * 2); ctx.fill();
-      }
+    function showDone() {
+      if (document.getElementById('ch4-donebtn')) return;
+      var b = document.createElement('button'); b.id = 'ch4-donebtn'; b.className = 'nmg-btn nmg-btn-primary'; b.style.marginTop = '10px';
+      b.textContent = 'Klar — försvara hamnen!'; b.onclick = finish;
+      container.querySelector('.nmg-wrapper').appendChild(b);
     }
-
+    function finish() {
+      if (finished) return; finished = true;
+      var covered = 0;
+      for (var r = 0; r < ROWS; r++) {
+        var has = false;
+        for (var c = 1; c < COLS - 1; c++) { if (placed[key(r, c)]) has = true; }
+        if (has) covered++;
+      }
+      _score = covered === ROWS ? 2 : covered >= ROWS - 1 ? 1 : 0;
+      var body = _score === 2 ? 'Varje rad har en mur — hamnen är helt skyddad! Fienden vänder om.' :
+        _score === 1 ? 'Nästan hela hamnen är skyddad. Ett par skepp slank förbi, men staden står.' :
+        'Fästningen höll delvis. Salteby klarade sig — den här gången.';
+      nmgFinish(container, _score, covered + ' av ' + ROWS + ' rader skyddade', body);
+    }
+    function getScore() { return _score; }
+    function destroy() { if (container) container.innerHTML = ''; finished = false; }
     return { init: init, start: start, getScore: getScore, destroy: destroy };
   })();
-
-
-  /* ============================================================
-     CH7: PRISUTDELNINGEN  --  Drag the right medal to each laureate
-     Alfred dreams of the future: hand out the very first prizes.
-     ============================================================ */
   var ch5 = (function () {
-    var state, container, canvasObj, animFrame;
-    var W = 360, H = 420;
-    var STAR = { x: 34, y: 116 };
-    var SUN = { x: 186, y: 232 };
-
-    function init(containerId) {
-      container = document.getElementById(containerId);
-      if (!container) return;
-      container.innerHTML = '';
-
-      var wrapper = createDiv(container, 'nmg-wrapper');
-      var titleEl = createDiv(wrapper, 'nmg-title');
-      titleEl.textContent = 'B\u00f6j ljuset!';
-      var subEl = createDiv(wrapper, 'nmg-subtitle');
-      subEl.textContent = 'Anv\u00e4nd solens tyngdkraft \u2014 tr\u00e4ffa fotoplattan.';
-
-      var instrEl = createDiv(wrapper, 'nmg-instructions');
-      instrEl.innerHTML = 'Stj\u00e4rnans ljus ska fram till Eddingtons fotoplatta \u2014 men solen ligger i v\u00e4gen och <strong>b\u00f6jer ljuset</strong> med sin tyngdkraft! Dra upp och ner f\u00f6r att sikta, sl\u00e4pp f\u00f6r att skicka ljuset. Kommer str\u00e5len f\u00f6r n\u00e4ra solen slukas den! (P\u00e5 riktigt b\u00f6js ljuset bara pyttelite \u2014 men det r\u00e4ckte f\u00f6r att bevisa teorin.)';
-
-      state = {
-        phase: 'ready',
-        wrapper: wrapper,
-        instrEl: instrEl,
-        statusEl: null,
-        resultEl: null,
-        round: 0,
-        attempts: 0,
-        hits: 0,
-        aimAngle: -0.15,
-        aiming: false,
-        photon: null,   // { x, y, vx, vy, trail: [] }
-        poof: null,     // { x, y, t }
-        hitFlash: 0,
-        score: 0,
-        gravity: 3800,
-        plate: { y: 120, h: 70 }
-      };
-
-      var statusEl = createDiv(wrapper, 'nmg-status');
-      state.statusEl = statusEl;
-
-      canvasObj = createCanvas(wrapper, W, H);
-
-      var resultEl = createDiv(wrapper, 'nmg-hidden');
-      state.resultEl = resultEl;
-
-      var cv = canvasObj.canvas;
-      cv.addEventListener('mousedown',  onDown, false);
-      cv.addEventListener('mousemove',  onMove, false);
-      cv.addEventListener('mouseup',    onUp,   false);
-      cv.addEventListener('mouseleave', onUp,   false);
-      cv.addEventListener('touchstart', onDown, { passive: false });
-      cv.addEventListener('touchmove',  onMove, { passive: false });
-      cv.addEventListener('touchend',   onUp,   false);
-    }
-
-    function roundPlates() {
-      // Fotoplattans läge per runda: allt längre från "rakt fram" = mer böj krävs
-      var d = nmgDifficulty();
-      var h = d === 'lugn' ? 96 : d === 'klurig' ? 52 : 70;
-      return [
-        { y: 96,  h: h },
-        { y: 196, h: h },
-        { y: 300, h: h }
+    var container, status, beam, leftPan, rightPan, _score = 0, assigned, ITEMS, rounds, cur;
+    function init(id) {
+      container = document.getElementById(id); if (!container) return; container.innerHTML = '';
+      _score = 0; cur = 0;
+      // varje stånd: vad de GER (bör vägas mot vad de FÅR)
+      ITEMS = [
+        { st: 'Bonden', give: 'skatt och arbete', fair: 'lite', ans: 'ger mycket, får lite' },
+        { st: 'Adeln', give: 'lite skatt', fair: 'mycket', ans: 'ger lite, får mycket' },
+        { st: 'Borgaren', give: 'handel och tull', fair: 'lagom', ans: 'ger lagom, får lagom' },
+        { st: 'Prästen', give: 'lärdom och tröst', fair: 'lagom', ans: 'ger lagom, får lagom' }
       ];
+      rounds = ITEMS.length; assigned = 0;
+      var w = createDiv(container, 'nmg-wrapper');
+      createDiv(w, 'nmg-title').textContent = 'Ståndsvågen';
+      createDiv(w, 'nmg-subtitle').textContent = 'Väg vad varje stånd ger mot vad de får';
+      createDiv(w, 'nmg-instructions').innerHTML = 'I ståndssamhället gav och fick de fyra stånden olika mycket. Läs vad ståndet <strong>ger</strong> — och välj hur vågen lutar.';
+      status = createDiv(w, 'nmg-status');
+      var card = createDiv(w, 'nmg-instructions'); card.id = 'ch5-card'; card.style.minHeight = '46px';
+      area = document.createElement('div'); area.id = 'ch5-area'; area.style.cssText = 'display:flex;flex-direction:column;gap:8px;max-width:340px;margin:0 auto;'; w.appendChild(area);
     }
-
-    function start() {
-      if (!state) return;
-      var d = nmgDifficulty();
-      state.phase = 'playing';
-      state.round = 0;
-      state.attempts = 0;
-      state.hits = 0;
-      state.aimAngle = -0.15;
-      state.photon = null;
-      state.poof = null;
-      state.score = 0;
-      state.gravity = d === 'lugn' ? 260 : d === 'klurig' ? 430 : 340;
-      state.plate = roundPlates()[0];
-      state.statusEl.textContent = 'Fotografi 1 av 3 \u2014 dra f\u00f6r att sikta, sl\u00e4pp f\u00f6r att skicka!';
-      state.instrEl.classList.remove('nmg-hidden');
-      state.resultEl.innerHTML = '';
-      state.resultEl.classList.add('nmg-hidden');
-      loop();
+    var area;
+    function start() { renderRound(); }
+    function renderRound() {
+      if (cur >= rounds) { finish(); return; }
+      var it = ITEMS[cur];
+      document.getElementById('ch5-card').innerHTML = '<strong>' + it.st + '</strong> ger: <em>' + it.give + '</em>. Hur ska vågen luta?';
+      status.textContent = 'Stånd ' + (cur + 1) + ' av ' + rounds;
+      area.innerHTML = '';
+      var opts = shuffle([
+        { t: 'Ger mycket, får lite', v: 'ger mycket, får lite' },
+        { t: 'Ger lagom, får lagom', v: 'ger lagom, får lagom' },
+        { t: 'Ger lite, får mycket', v: 'ger lite, får mycket' }
+      ]);
+      opts.forEach(function (o) {
+        var b = document.createElement('button'); b.style.cssText = nmgBtnStyle();
+        b.textContent = o.t; b.onclick = function () { choose(o.v, it, b); };
+        area.appendChild(b);
+      });
     }
-
-    function getScore() { return state ? state.score : 0; }
-
-    function destroy() {
-      if (animFrame) cancelAnimationFrame(animFrame);
-      animFrame = null;
-      if (container) container.innerHTML = '';
-      state = null;
+    function choose(v, it, b) {
+      var bs = area.querySelectorAll('button'); for (var i = 0; i < bs.length; i++) bs[i].disabled = true;
+      if (v === it.ans) { assigned++; b.style.background = COLORS.mossLight; b.style.color = '#fff'; status.textContent = 'Rätt vägt!'; }
+      else { b.style.background = COLORS.redLight; b.style.color = '#fff'; status.textContent = 'Inte riktigt. Rätt: ' + it.ans + '.'; }
+      cur++; setTimeout(renderRound, 950);
     }
-
-    function playSfx(name) {
-      if (typeof NobelSound !== 'undefined' && NobelSound._initialized) {
-        try { NobelSound.play(name); } catch (e) { /* ignore */ }
-      }
+    function finish() {
+      _score = assigned >= rounds ? 2 : assigned >= rounds - 1 ? 1 : 0;
+      var body = _score === 2 ? 'Du såg hela ståndssamhället klart: bönderna bar mest, adeln fick mest. Så var det — var det rättvist?' :
+        _score === 1 ? 'Du förstod det mesta av hur stånden levde olika. Bra tänkt!' :
+        'Ståndssamhället var krångligt — men nu vet du att alla inte levde lika.';
+      nmgFinish(container, _score, assigned + ' av ' + rounds + ' rätt vägda', body);
     }
-
-    function aimFromPos(pos) {
-      var dx = Math.max(40, pos.x - STAR.x);
-      var dy = pos.y - STAR.y;
-      state.aimAngle = Math.max(-0.9, Math.min(0.9, Math.atan2(dy, dx)));
-    }
-
-    function onDown(e) {
-      if (!state || state.phase !== 'playing' || state.photon) return;
-      e.preventDefault();
-      state.aiming = true;
-      aimFromPos(getPointerPos(canvasObj.canvas, e));
-    }
-
-    function onMove(e) {
-      if (!state || !state.aiming || state.photon) return;
-      e.preventDefault();
-      aimFromPos(getPointerPos(canvasObj.canvas, e));
-    }
-
-    function onUp(e) {
-      if (!state || !state.aiming) return;
-      state.aiming = false;
-      if (state.phase !== 'playing' || state.photon) return;
-      // Skjut!
-      var speed = 3.4;
-      state.photon = {
-        x: STAR.x, y: STAR.y,
-        vx: Math.cos(state.aimAngle) * speed,
-        vy: Math.sin(state.aimAngle) * speed,
-        trail: []
-      };
-      state.attempts++;
-    }
-
-    function stepPhoton() {
-      var p = state.photon;
-      if (!p) return;
-      for (var sub = 0; sub < 3; sub++) {
-        var dx = SUN.x - p.x, dy = SUN.y - p.y;
-        var r2 = dx * dx + dy * dy;
-        var r = Math.sqrt(r2);
-        // Gravitationsböj (starkare nära solen)
-        var acc = state.gravity / (r2 * r);
-        p.vx += dx * acc;
-        p.vy += dy * acc;
-        p.x += p.vx;
-        p.y += p.vy;
-        p.trail.push({ x: p.x, y: p.y });
-        if (p.trail.length > 220) p.trail.shift();
-
-        if (r < 36) { // slukad av solen
-          state.poof = { x: p.x, y: p.y, t: 0 };
-          state.photon = null;
-          playSfx('sfx_minigameWrong');
-          state.statusEl.textContent = 'Oj! Solen slukade ljuset \u2014 sikta lite l\u00e4ngre bort och prova igen!';
-          return;
-        }
-        if (p.x > W - 26) { // nådde högerkanten: träff eller miss?
-          var pl = state.plate;
-          if (p.y >= pl.y && p.y <= pl.y + pl.h) {
-            state.hits++;
-            state.hitFlash = 1;
-            playSfx('sfx_minigameCorrect');
-            state.photon = null;
-            if (state.hits >= 3) {
-              state.statusEl.textContent = 'Alla tre fotografier tagna!';
-              setTimeout(finishGame, 900);
-            } else {
-              state.round++;
-              state.plate = roundPlates()[state.round];
-              state.statusEl.textContent = 'Fotografi ' + (state.hits + 1) + ' av 3 \u2014 plattan har flyttats!';
-            }
-          } else {
-            state.photon = null;
-            state.statusEl.textContent = 'N\u00e4ra! Ljuset missade plattan \u2014 sikta om och prova igen!';
-          }
-          return;
-        }
-        if (p.y < -20 || p.y > H + 20 || p.x < -20) {
-          state.photon = null;
-          state.statusEl.textContent = 'Ljuset f\u00f6rsvann ut i rymden \u2014 prova igen!';
-          return;
-        }
-      }
-    }
-
-    function finishGame() {
-      if (!state || state.phase === 'done') return;
-      state.phase = 'done';
-      var extra = state.attempts - 3; // bomskott
-      state.score = extra <= 1 ? 2 : extra <= 4 ? 1 : 0;
-      showResult(state, 'ch5', state.score, {
-        2: 'Vilket sikt\u00f6ga! Precis som Eddington f\u00e5ngade du ljuset som b\u00f6jer sig runt solen.<br><strong>+1 \ud83d\udcda Makt och +1 \ud83d\udca1 Välstånd</strong>',
-        1: 'Bra fotograferat! N\u00e5gra str\u00e5lar for vilse, men bevisen \u00e4r i hamn.<br><strong>+1 \ud83d\udca1 Välstånd</strong>',
-        0: 'Ljus \u00e4r kluriga saker \u2014 men alla foton kom i hamn till slut. Eddington hade ocks\u00e5 m\u00e5nga suddiga plåtar!'
-      }, start);
-    }
-
-    function loop() {
-      if (!state) return;
-      if (state.phase === 'playing' || state.poof || state.hitFlash > 0) {
-        stepPhoton();
-        draw();
-      }
-      if (state.phase !== 'done') {
-        animFrame = requestAnimationFrame(loop);
-      }
-    }
-
-    function draw() {
-      var ctx = canvasObj.ctx;
-      var now = performance.now();
-
-      ctx.fillStyle = '#0b1226';
-      ctx.fillRect(0, 0, W, H);
-      // Stjärnhimmel
-      for (var st = 0; st < 26; st++) {
-        var sx = (st * 89 + 23) % W;
-        var sy = (st * 53 + 11) % H;
-        ctx.globalAlpha = 0.3 + 0.3 * Math.sin(now / 800 + st);
-        ctx.fillStyle = '#fff3c4';
-        ctx.fillRect(sx, sy, 2, 2);
-      }
-      ctx.globalAlpha = 1;
-
-      // Solen (med förmörkelse-ring — månen täcker den)
-      ctx.fillStyle = '#ffd84d';
-      ctx.beginPath(); ctx.arc(SUN.x, SUN.y, 40, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#101a33';
-      ctx.beginPath(); ctx.arc(SUN.x, SUN.y, 33, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = 'rgba(255,216,77,0.5)';
-      ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.arc(SUN.x, SUN.y, 46 + 2 * Math.sin(now / 500), 0, Math.PI * 2); ctx.stroke();
-
-      // Stjärnan
-      ctx.fillStyle = '#fff';
-      ctx.beginPath(); ctx.arc(STAR.x, STAR.y, 8, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = 'rgba(255,255,255,0.6)'; ctx.lineWidth = 1.5;
-      for (var rr = 0; rr < 4; rr++) {
-        var ra = rr * Math.PI / 2 + Math.PI / 4;
-        ctx.beginPath();
-        ctx.moveTo(STAR.x + Math.cos(ra) * 10, STAR.y + Math.sin(ra) * 10);
-        ctx.lineTo(STAR.x + Math.cos(ra) * 15, STAR.y + Math.sin(ra) * 15);
-        ctx.stroke();
-      }
-      ctx.fillStyle = '#aab8d0';
-      ctx.font = '10px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('stj\u00e4rnan', STAR.x + 2, STAR.y - 18);
-
-      // Fotoplattan (kameran)
-      var pl = state.plate;
-      ctx.fillStyle = state.hitFlash > 0 ? 'rgba(127,224,160,' + (0.4 + state.hitFlash * 0.5) + ')' : 'rgba(248,251,254,0.85)';
-      roundRect(ctx, W - 22, pl.y, 14, pl.h, 4); ctx.fill();
-      ctx.strokeStyle = '#d97b29'; ctx.lineWidth = 2;
-      roundRect(ctx, W - 22, pl.y, 14, pl.h, 4); ctx.stroke();
-      ctx.fillStyle = '#aab8d0';
-      ctx.save();
-      ctx.translate(W - 30, pl.y + pl.h / 2);
-      ctx.rotate(-Math.PI / 2);
-      ctx.fillText('fotoplattan', 0, 0);
-      ctx.restore();
-      if (state.hitFlash > 0) state.hitFlash = Math.max(0, state.hitFlash - 0.03);
-
-      // Siktlinje (bara början — resten får tyngdkraften bestämma!)
-      if (!state.photon && state.phase === 'playing') {
-        ctx.strokeStyle = 'rgba(255,240,190,0.55)';
-        ctx.lineWidth = 2;
-        ctx.setLineDash([5, 6]);
-        ctx.beginPath();
-        ctx.moveTo(STAR.x, STAR.y);
-        ctx.lineTo(STAR.x + Math.cos(state.aimAngle) * 68, STAR.y + Math.sin(state.aimAngle) * 68);
-        ctx.stroke();
-        ctx.setLineDash([]);
-        // pil-spets
-        var ax = STAR.x + Math.cos(state.aimAngle) * 68;
-        var ay = STAR.y + Math.sin(state.aimAngle) * 68;
-        ctx.fillStyle = 'rgba(255,240,190,0.8)';
-        ctx.beginPath(); ctx.arc(ax, ay, 3, 0, Math.PI * 2); ctx.fill();
-      }
-
-      // Fotonens spår + huvud
-      if (state.photon) {
-        var tr = state.photon.trail;
-        ctx.strokeStyle = 'rgba(255,216,77,0.75)';
-        ctx.lineWidth = 2.5;
-        ctx.beginPath();
-        for (var t = 0; t < tr.length; t++) {
-          if (t === 0) ctx.moveTo(tr[t].x, tr[t].y);
-          else ctx.lineTo(tr[t].x, tr[t].y);
-        }
-        ctx.stroke();
-        ctx.fillStyle = '#fff3c4';
-        ctx.beginPath(); ctx.arc(state.photon.x, state.photon.y, 5, 0, Math.PI * 2); ctx.fill();
-      }
-
-      // Sol-sluk-poff
-      if (state.poof) {
-        state.poof.t += 0.04;
-        if (state.poof.t >= 1) { state.poof = null; }
-        else {
-          ctx.globalAlpha = 1 - state.poof.t;
-          ctx.strokeStyle = '#ffd84d';
-          ctx.lineWidth = 3;
-          ctx.beginPath();
-          ctx.arc(state.poof.x, state.poof.y, 6 + state.poof.t * 24, 0, Math.PI * 2);
-          ctx.stroke();
-          ctx.globalAlpha = 1;
-        }
-      }
-
-      // Räknare
-      ctx.fillStyle = '#aab8d0';
-      ctx.textAlign = 'left';
-      ctx.fillText('\ud83d\udcf8 ' + state.hits + ' av 3', 10, H - 12);
-      ctx.textAlign = 'center';
-    }
-
+    function getScore() { return _score; }
+    function destroy() { if (container) container.innerHTML = ''; }
     return { init: init, start: start, getScore: getScore, destroy: destroy };
   })();
-
-
   var ch1 = (function () {
-    var state, container, canvasObj, animFrame;
-    var W = 360, H = 420;
-    var TRAY_Y = 368;
-
-    // Items: position, hit radius (generous for small fingers), draw fn key
-    var ITEMS = [
-      { id: 'nyckel', label: 'Nyckeln',      x: 236, y: 268, r: 26 },
-      { id: 'skruv',  label: 'Skruvnyckeln', x: 224, y: 52,  r: 24 },
-      { id: 'magnet', label: 'Magneten',     x: 96,  y: 258, r: 24 },
-      { id: 'spik',   label: 'Spiken',       x: 312, y: 108, r: 24 },
-      { id: 'sax',    label: 'Saxen',        x: 118, y: 336, r: 24 }
+    var container, status, area, _score = 0, safe = 0, round = 0, ROUNDS = 4;
+    var POOL = [
+      [ {t:'Genom den täta granskogen', safe:true, hint:'Snåren döljer er.'},
+        {t:'Över den öppna isen', safe:false, hint:'Snabbt — men ni syns vida omkring.'},
+        {t:'Längs den upptrampade vägen', safe:false, hint:'Där letar ryttarna först.'} ],
+      [ {t:'Följ den frusna bäcken', safe:false, hint:'Isen kan brista.'},
+        {t:'Ta stigen bakom höjden', safe:true, hint:'Höjden skymmer er.'},
+        {t:'Spring rakt över ängen', safe:false, hint:'Ingenstans att gömma sig.'} ],
+      [ {t:'Göm er i kölarens koja', safe:true, hint:'En vän böljer dörren.'},
+        {t:'Vila vid bystugan', safe:false, hint:'Där kommer folk och går.'},
+        {t:'Fortsätt utan att stanna', safe:false, hint:'Tröttheten gör er oförsiktiga.'} ],
+      [ {t:'Skiåk i mörkret', safe:true, hint:'Natten gömmer er spår.'},
+        {t:'Vänta på dagsljus', safe:false, hint:'Då ser ryttarna er lika bra.'},
+        {t:'Tänd en eld och värm er', safe:false, hint:'Röken syns långt bort.'} ],
+      [ {t:'Lita på den gamla lappens råd', safe:true, hint:'Han känner fjället.'},
+        {t:'Ta genvägen över myren', safe:false, hint:'Blöt och farlig.'},
+        {t:'Gå mot ljusen i dalen', safe:false, hint:'Där finns danskarna.'} ]
     ];
-
-    function init(containerId) {
-      container = document.getElementById(containerId);
-      if (!container) return;
-      container.innerHTML = '';
-
-      var wrapper = createDiv(container, 'nmg-wrapper');
-      var titleEl = createDiv(wrapper, 'nmg-title');
-      titleEl.textContent = 'Kompassjakten';
-      var subEl = createDiv(wrapper, 'nmg-subtitle');
-      subEl.textContent = 'Följ kompassnålen — hitta det magnetiska!';
-
-      var instrEl = createDiv(wrapper, 'nmg-instructions');
-      instrEl.innerHTML = 'I pappas verkstad gömmer sig fem magnetiska saker — en <strong>nyckel</strong>, en <strong>skruvnyckel</strong>, en <strong>magnet</strong>, en <strong>spik</strong> och en <strong>sax</strong>. Kompassnålen pekar mot den närmaste. Tryck när du hittar dem! (En riktig kompass pekar bara mot norr — Alberts spelkompass är lite magisk.)';
-
-      state = {
-        phase: 'ready',
-        found: {},
-        foundCount: 0,
-        misses: 0,
-        sparkles: [],
-        flyAnims: [],   // { id, t, fromX, fromY, toX, toY }
-        lastFindAt: 0,
-        hintIndex: -1,
-        score: 0,
-        wrapper: wrapper,
-        instrEl: instrEl,
-        statusEl: null,
-        resultEl: null
-      };
-
-      var statusEl = createDiv(wrapper, 'nmg-status');
-      statusEl.textContent = '0 av 5 hittade';
-      state.statusEl = statusEl;
-
-      canvasObj = createCanvas(wrapper, W, H);
-
-      var resultEl = createDiv(wrapper, 'nmg-hidden');
-      state.resultEl = resultEl;
-
-      var cv = canvasObj.canvas;
-      cv.addEventListener('mousedown',  onTap, false);
-      cv.addEventListener('touchstart', onTap, { passive: false });
+    function init(id) {
+      container = document.getElementById(id); if (!container) return; container.innerHTML = '';
+      _score = 0; safe = 0; round = 0;
+      var d = nmgDifficulty(); ROUNDS = d === 'lugn' ? 3 : d === 'klurig' ? 5 : 4;
+      var w = createDiv(container, 'nmg-wrapper');
+      createDiv(w, 'nmg-title').textContent = 'Flykten över fjället';
+      createDiv(w, 'nmg-subtitle').textContent = 'Hjälp Gustav välja säker väg';
+      createDiv(w, 'nmg-instructions').innerHTML = 'De danska ryttarna är efter er! Vid varje vägskäl: läs ledtrådarna och välj den <strong>säkraste</strong> vägen genom snön.';
+      status = createDiv(w, 'nmg-status');
+      area = document.createElement('div'); area.style.cssText = 'display:flex;flex-direction:column;gap:10px;max-width:360px;margin:6px auto;'; w.appendChild(area);
     }
-
-    function start() {
-      if (!state) return;
-      state.phase = 'playing';
-      state.found = {};
-      state.foundCount = 0;
-      state.misses = 0;
-      state.sparkles = [];
-      state.flyAnims = [];
-      state.lastFindAt = performance.now();
-      state.hintIndex = -1;
-      var d1 = nmgDifficulty();
-      state.hintDelay = d1 === 'lugn' ? 6000 : d1 === 'klurig' ? Infinity : 12000;
-      state.missLimits = d1 === 'lugn' ? [6, 12] : d1 === 'klurig' ? [2, 5] : [3, 8];
-      state.score = 0;
-      state.statusEl.textContent = '0 av 5 hittade';
-      state.instrEl.classList.remove('nmg-hidden');
-      state.resultEl.innerHTML = '';
-      state.resultEl.classList.add('nmg-hidden');
-      loop();
+    function start() { nextRound(); }
+    function nextRound() {
+      if (round >= ROUNDS) { finish(); return; }
+      status.textContent = 'Vägskäl ' + (round + 1) + ' av ' + ROUNDS;
+      area.innerHTML = '';
+      var routes = shuffle(POOL[round % POOL.length]);
+      routes.forEach(function (r) {
+        var b = document.createElement('button'); b.style.cssText = nmgBtnStyle();
+        b.innerHTML = '<strong>' + r.t + '</strong><br><span style="font-size:0.82rem;opacity:0.75;">' + r.hint + '</span>';
+        b.onclick = function () { pick(r, b); };
+        area.appendChild(b);
+      });
     }
-
-    function getScore() { return state ? state.score : 0; }
-
-    function destroy() {
-      if (animFrame) cancelAnimationFrame(animFrame);
-      animFrame = null;
-      if (container) container.innerHTML = '';
-      state = null;
+    function pick(r, b) {
+      var bs = area.querySelectorAll('button'); for (var i = 0; i < bs.length; i++) bs[i].disabled = true;
+      if (r.safe) { safe++; b.style.background = COLORS.mossLight; b.style.color = '#fff'; status.textContent = 'Bra val! Ni slank undan.'; }
+      else { b.style.background = COLORS.redLight; b.style.color = '#fff'; status.textContent = 'Nära ögat! Ryttarna nästan såg er.'; }
+      round++; setTimeout(nextRound, 850);
     }
-
-    function playSfx(name) {
-      if (typeof NobelSound !== 'undefined' && NobelSound._initialized) {
-        try { NobelSound.play(name); } catch (e) { /* ignore */ }
-      }
+    function finish() {
+      _score = safe >= ROUNDS ? 2 : safe >= Math.ceil(ROUNDS / 2) ? 1 : 0;
+      var body = _score === 2 ? 'Ni tog er hela vägen genom fjället utan att bli sedda. Gustav når Dalarna — upproret kan börja!' :
+        _score === 1 ? 'Ni kom fram, men det var nära ibland. Gustav är i säkerhet.' :
+        'Det blev en dramatisk flykt, men ni kom fram till slut. Gustav lever — och det är det som räknas.';
+      nmgFinish(container, _score, safe + ' av ' + ROUNDS + ' säkra vägval', body);
     }
-
-    function onTap(e) {
-      if (!state || state.phase !== 'playing') return;
-      e.preventDefault();
-      // Brief lockout after a miss so blind tap-spam can't sweep the room
-      if (state.lockUntil && performance.now() < state.lockUntil) return;
-      var pos = getPointerPos(canvasObj.canvas, e);
-      for (var i = 0; i < ITEMS.length; i++) {
-        var it = ITEMS[i];
-        if (state.found[it.id]) continue;
-        var dx = pos.x - it.x, dy = pos.y - it.y;
-        if (dx * dx + dy * dy <= it.r * it.r) {
-          foundItem(i);
-          return;
-        }
-      }
-      // Miss: soft dust poof, no scolding — but a short lockout
-      state.misses++;
-      state.lockUntil = performance.now() + 350;
-      spawnSparkles(pos.x, pos.y, COLORS.brownLight, 8);
-    }
-
-    function foundItem(index) {
-      var it = ITEMS[index];
-      state.found[it.id] = true;
-      state.foundCount++;
-      state.lastFindAt = performance.now();
-      state.hintIndex = -1;
-      playSfx('sfx_minigameCorrect');
-      spawnSparkles(it.x, it.y, COLORS.goldLight, 18);
-      // Fly to tray slot
-      var slotX = 44 + index * 68;
-      state.flyAnims.push({ id: it.id, t: 0, fromX: it.x, fromY: it.y, toX: slotX, toY: TRAY_Y + 24 });
-      state.statusEl.textContent = state.foundCount + ' av 5 hittade — ' + it.label + '!';
-      if (state.foundCount >= ITEMS.length) {
-        state.statusEl.textContent = 'Alla hittade!';
-        setTimeout(finishGame, 900);
-      }
-    }
-
-    function spawnSparkles(cx, cy, color, n) {
-      for (var i = 0; i < n; i++) {
-        var angle = Math.random() * Math.PI * 2;
-        var speed = 0.6 + Math.random() * 2.4;
-        state.sparkles.push({
-          x: cx, y: cy,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed - 0.8,
-          life: 1,
-          size: 2 + Math.random() * 4,
-          color: color
-        });
-      }
-    }
-
-    function finishGame() {
-      if (!state || state.phase === 'done') return;
-      state.phase = 'done';
-      var lim = state.missLimits || [3, 8];
-      if (state.misses <= lim[0]) state.score = 2;
-      else if (state.misses <= lim[1]) state.score = 1;
-      else state.score = 0;
-
-      state.instrEl.classList.add('nmg-hidden');
-      state.resultEl.classList.remove('nmg-hidden');
-      state.resultEl.innerHTML = '';
-      var scoreDisp = createDiv(state.resultEl, 'nmg-score-display');
-      scoreDisp.textContent = '⭐'.repeat(Math.max(1, state.score + 1));
-      var txt = createDiv(state.resultEl, 'nmg-result-text');
-      if (state.score === 2) {
-        txt.innerHTML = 'Vilken upptäckare! Albert hittade allt magnetiskt i hela verkstan.<br><strong>+1 👑 Makt och +1 💰 Välstånd</strong>';
-      } else if (state.score === 1) {
-        txt.innerHTML = 'Bra letat! Kompassen och Albert är ett riktigt bra lag.<br><strong>+1 💰 Välstånd</strong>';
-      } else {
-        txt.innerHTML = 'Alla saker hittade till slut — Albert ger aldrig upp, precis som du!';
-      }
-      addRetryButton(state.resultEl, 'ch1', start);
-      notifyDone('ch1');
-    }
-
-    function loop() {
-      if (!state) return;
-      draw();
-      if (state.phase !== 'done' || state.sparkles.length > 0 || state.flyAnims.length > 0) {
-        animFrame = requestAnimationFrame(loop);
-      }
-    }
-
-    function draw() {
-      var ctx = canvasObj.ctx;
-      var now = performance.now();
-
-      // Background: attic wall + floor
-      ctx.fillStyle = '#efe4cc';
-      ctx.fillRect(0, 0, W, H);
-      ctx.fillStyle = '#c9ab7e';
-      ctx.fillRect(0, 300, W, H - 300);
-      // Floor boards
-      ctx.strokeStyle = 'rgba(90,58,40,0.25)';
-      ctx.lineWidth = 1;
-      for (var fy = 316; fy < H; fy += 16) {
-        ctx.beginPath(); ctx.moveTo(0, fy); ctx.lineTo(W, fy); ctx.stroke();
-      }
-
-      // Window (top-left) with moonlight
-      ctx.fillStyle = '#5a3a28';
-      ctx.fillRect(26, 26, 92, 92);
-      ctx.fillStyle = '#bcd8e8';
-      ctx.fillRect(32, 32, 38, 38); ctx.fillRect(74, 32, 38, 38);
-      ctx.fillRect(32, 74, 38, 38); ctx.fillRect(74, 74, 38, 38);
-      ctx.fillStyle = 'rgba(255,244,200,0.6)';
-      ctx.beginPath(); ctx.arc(92, 52, 12, 0, Math.PI * 2); ctx.fill();
-
-      // Shelf (top-right): two boards
-      ctx.fillStyle = COLORS.brown;
-      ctx.fillRect(196, 70, 150, 8);
-      ctx.fillRect(196, 130, 150, 8);
-      // Jars on top board
-      drawJar(ctx, 258, 44, '#9db8a0');
-      drawJar(ctx, 290, 44, '#c9a06a');
-      // Box on lower board
-      ctx.fillStyle = '#8b7a62';
-      ctx.fillRect(210, 100, 44, 30);
-      ctx.strokeStyle = COLORS.dark; ctx.lineWidth = 1;
-      ctx.strokeRect(210, 100, 44, 30);
-
-      // Table (center-left)
-      ctx.fillStyle = COLORS.brown;
-      ctx.fillRect(40, 200, 124, 10);
-      ctx.fillRect(48, 210, 10, 82);
-      ctx.fillRect(146, 210, 10, 82);
-      // Pappas elektriska lampa hänger från taket
-      ctx.strokeStyle = 'rgba(42,31,20,0.5)'; ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.moveTo(160, 0); ctx.lineTo(160, 24); ctx.stroke();
-      ctx.fillStyle = '#3a3a3a';
-      ctx.fillRect(155, 24, 10, 7);
-      ctx.fillStyle = 'rgba(255,236,150,0.95)';
-      ctx.beginPath(); ctx.arc(160, 40, 9, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = 'rgba(255,236,150,0.18)';
-      ctx.beginPath(); ctx.arc(160, 40, 20, 0, Math.PI * 2); ctx.fill();
-
-      // Barrel (right)
-      ctx.fillStyle = '#8a6034';
-      roundRect(ctx, 252, 232, 66, 88, 10); ctx.fill();
-      ctx.strokeStyle = COLORS.dark; ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.moveTo(252, 258); ctx.lineTo(318, 258); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(252, 294); ctx.lineTo(318, 294); ctx.stroke();
-
-      // Sack (bottom-left)
-      ctx.fillStyle = '#b09468';
-      ctx.beginPath();
-      ctx.moveTo(34, 360); ctx.quadraticCurveTo(28, 300, 58, 296);
-      ctx.quadraticCurveTo(88, 300, 84, 360); ctx.closePath(); ctx.fill();
-      ctx.strokeStyle = 'rgba(42,31,20,0.4)'; ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.moveTo(48, 300); ctx.lineTo(66, 300); ctx.stroke();
-
-      // ── Hidden items (drawn unless found) ──
-      var camo = nmgDifficulty() === 'klurig' ? 0.5 : 1;
-      ctx.globalAlpha = camo;
-      if (!state.found.nyckel) drawNyckel(ctx, ITEMS[0].x, ITEMS[0].y);
-      if (!state.found.skruv)  drawSkruvnyckel(ctx, ITEMS[1].x, ITEMS[1].y);
-      if (!state.found.magnet) drawMagnet(ctx, ITEMS[2].x, ITEMS[2].y);
-      if (!state.found.spik)   drawSpik(ctx, ITEMS[3].x, ITEMS[3].y);
-      if (!state.found.sax)    drawSax(ctx, ITEMS[4].x, ITEMS[4].y);
-      ctx.globalAlpha = 1;
-
-      // ── Kompassen: nålen pekar mot närmaste ohittade sak ──
-      var showCompass = state.phase === 'playing';
-      if (nmgDifficulty() === 'klurig' && now - state.lastFindAt < 5000) showCompass = false;
-      if (showCompass) {
-        var nearest = null, best = Infinity;
-        for (var ci = 0; ci < ITEMS.length; ci++) {
-          if (state.found[ITEMS[ci].id]) continue;
-          var cdx = ITEMS[ci].x - 178, cdy = ITEMS[ci].y - 34;
-          var cd = cdx * cdx + cdy * cdy;
-          if (cd < best) { best = cd; nearest = ITEMS[ci]; }
-        }
-        if (nearest) {
-          var ang = Math.atan2(nearest.y - 34, nearest.x - 178) + Math.sin(now / 300) * 0.06;
-          ctx.save();
-          ctx.translate(178, 34);
-          ctx.fillStyle = 'rgba(248,251,254,0.95)';
-          ctx.beginPath(); ctx.arc(0, 0, 19, 0, Math.PI * 2); ctx.fill();
-          ctx.strokeStyle = COLORS.navy || '#14213d'; ctx.lineWidth = 2.5;
-          ctx.beginPath(); ctx.arc(0, 0, 19, 0, Math.PI * 2); ctx.stroke();
-          ctx.rotate(ang);
-          ctx.fillStyle = '#c0392b';
-          ctx.beginPath(); ctx.moveTo(14, 0); ctx.lineTo(-3, -4); ctx.lineTo(-3, 4); ctx.closePath(); ctx.fill();
-          ctx.fillStyle = '#14213d';
-          ctx.beginPath(); ctx.moveTo(-12, 0); ctx.lineTo(-3, -3); ctx.lineTo(-3, 3); ctx.closePath(); ctx.fill();
-          ctx.rotate(-ang);
-          ctx.fillStyle = COLORS.gold;
-          ctx.beginPath(); ctx.arc(0, 0, 2.5, 0, Math.PI * 2); ctx.fill();
-          ctx.restore();
-        }
-      }
-
-      // Hint pulse: after a while without a find, help out (per nivå)
-      if (state.phase === 'playing' && now - state.lastFindAt > (state.hintDelay || 12000)) {
-        if (state.hintIndex < 0) {
-          for (var hi = 0; hi < ITEMS.length; hi++) {
-            if (!state.found[ITEMS[hi].id]) { state.hintIndex = hi; break; }
-          }
-        }
-        if (state.hintIndex >= 0) {
-          var hit = ITEMS[state.hintIndex];
-          var pulse = 1 + 0.25 * Math.sin(now / 220);
-          ctx.strokeStyle = 'rgba(196,155,42,0.75)';
-          ctx.lineWidth = 3;
-          ctx.beginPath();
-          ctx.arc(hit.x, hit.y, hit.r * pulse, 0, Math.PI * 2);
-          ctx.stroke();
-        }
-      }
-
-      // ── Collection tray ──
-      ctx.fillStyle = 'rgba(90,58,40,0.14)';
-      roundRect(ctx, 10, TRAY_Y - 8, W - 20, 54, 8); ctx.fill();
-      ctx.strokeStyle = COLORS.copper; ctx.lineWidth = 1.5;
-      roundRect(ctx, 10, TRAY_Y - 8, W - 20, 54, 8); ctx.stroke();
-      for (var s = 0; s < ITEMS.length; s++) {
-        var sx = 44 + s * 68;
-        ctx.strokeStyle = 'rgba(90,58,40,0.35)';
-        ctx.setLineDash([4, 3]);
-        ctx.beginPath(); ctx.arc(sx, TRAY_Y + 18, 18, 0, Math.PI * 2); ctx.stroke();
-        ctx.setLineDash([]);
-        if (state.found[ITEMS[s].id]) {
-          var flying = false;
-          for (var f = 0; f < state.flyAnims.length; f++) {
-            if (state.flyAnims[f].id === ITEMS[s].id) { flying = true; break; }
-          }
-          if (!flying) drawTrayIcon(ctx, ITEMS[s].id, sx, TRAY_Y + 18);
-        }
-      }
-
-      // Fly animations (item soars into its tray slot)
-      for (var a = state.flyAnims.length - 1; a >= 0; a--) {
-        var fa = state.flyAnims[a];
-        fa.t += 0.05;
-        if (fa.t >= 1) { state.flyAnims.splice(a, 1); continue; }
-        var et = easeInOutQuad(fa.t);
-        var fx = fa.fromX + (fa.toX - fa.fromX) * et;
-        var fyy = fa.fromY + (fa.toY - fa.fromY) * et - Math.sin(fa.t * Math.PI) * 40;
-        ctx.save();
-        ctx.globalAlpha = 0.9;
-        drawTrayIcon(ctx, fa.id, fx, fyy);
-        ctx.restore();
-      }
-
-      // Sparkles
-      for (var p = state.sparkles.length - 1; p >= 0; p--) {
-        var sp = state.sparkles[p];
-        sp.x += sp.vx; sp.y += sp.vy; sp.vy += 0.06; sp.life -= 0.03;
-        if (sp.life <= 0) { state.sparkles.splice(p, 1); continue; }
-        ctx.globalAlpha = sp.life;
-        ctx.fillStyle = sp.color;
-        ctx.beginPath(); ctx.arc(sp.x, sp.y, sp.size * sp.life, 0, Math.PI * 2); ctx.fill();
-        ctx.globalAlpha = 1;
-      }
-    }
-
-    function drawJar(ctx, x, y, color) {
-      ctx.fillStyle = color;
-      roundRect(ctx, x - 10, y, 20, 26, 4); ctx.fill();
-      ctx.fillStyle = COLORS.dark;
-      ctx.fillRect(x - 7, y - 4, 14, 5);
-    }
-
-    function drawNyckel(ctx, x, y) {
-      ctx.save();
-      ctx.translate(x, y); ctx.rotate(-0.35);
-      ctx.strokeStyle = '#8a8f96'; ctx.lineWidth = 4; ctx.lineCap = 'round';
-      ctx.beginPath(); ctx.arc(-9, 0, 6.5, 0, Math.PI * 2); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(-2.5, 0); ctx.lineTo(16, 0); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(11, 0); ctx.lineTo(11, 6); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(16, 0); ctx.lineTo(16, 8); ctx.stroke();
-      ctx.restore();
-    }
-
-    function drawSkruvnyckel(ctx, x, y) {
-      ctx.save();
-      ctx.translate(x, y); ctx.rotate(0.6);
-      ctx.strokeStyle = '#9aa2ad'; ctx.lineWidth = 6; ctx.lineCap = 'round';
-      ctx.beginPath(); ctx.moveTo(-8, -8); ctx.lineTo(10, 10); ctx.stroke();
-      ctx.strokeStyle = '#b9c0c9'; ctx.lineWidth = 7;
-      ctx.beginPath(); ctx.arc(-12, -12, 7, -0.6, Math.PI * 0.85, false); ctx.stroke();
-      ctx.beginPath(); ctx.arc(14, 14, 7, Math.PI - 0.6, Math.PI * 1.85, false); ctx.stroke();
-      ctx.restore();
-    }
-
-    function drawSpik(ctx, x, y) {
-      ctx.save();
-      ctx.translate(x, y); ctx.rotate(0.9);
-      ctx.strokeStyle = '#8a8f96'; ctx.lineWidth = 3.2; ctx.lineCap = 'round';
-      ctx.beginPath(); ctx.moveTo(0, -13); ctx.lineTo(0, 12); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(0, 12); ctx.lineTo(0, 15); ctx.stroke();
-      ctx.strokeStyle = '#b9c0c9'; ctx.lineWidth = 3;
-      ctx.beginPath(); ctx.moveTo(-6, -13); ctx.lineTo(6, -13); ctx.stroke();
-      ctx.restore();
-    }
-
-    function drawSax(ctx, x, y) {
-      ctx.save();
-      ctx.translate(x, y); ctx.rotate(-0.5);
-      ctx.strokeStyle = '#9aa2ad'; ctx.lineWidth = 3.4; ctx.lineCap = 'round';
-      ctx.beginPath(); ctx.moveTo(-5, 14); ctx.lineTo(6, -12); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(5, 14); ctx.lineTo(-6, -12); ctx.stroke();
-      ctx.fillStyle = 'rgba(192,57,43,0.9)';
-      ctx.lineWidth = 2.6; ctx.strokeStyle = '#c0392b';
-      ctx.beginPath(); ctx.arc(-8, 17, 4.5, 0, Math.PI * 2); ctx.stroke();
-      ctx.beginPath(); ctx.arc(8, 17, 4.5, 0, Math.PI * 2); ctx.stroke();
-      ctx.fillStyle = COLORS.gold;
-      ctx.beginPath(); ctx.arc(0, 1, 2, 0, Math.PI * 2); ctx.fill();
-      ctx.restore();
-    }
-
-    function drawMagnet(ctx, x, y) {
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.lineCap = 'butt';
-      // Röd hästskoform
-      ctx.strokeStyle = '#c0392b'; ctx.lineWidth = 9;
-      ctx.beginPath();
-      ctx.arc(0, -3, 10, Math.PI, 0, false);
-      ctx.lineTo(10, 8);
-      ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(-10, -3); ctx.lineTo(-10, 8); ctx.stroke();
-      // Silvriga poler
-      ctx.strokeStyle = '#dcdcdc'; ctx.lineWidth = 9;
-      ctx.beginPath(); ctx.moveTo(-10, 8); ctx.lineTo(-10, 16); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(10, 8); ctx.lineTo(10, 16); ctx.stroke();
-      // Tunn kontur på polerna
-      ctx.strokeStyle = 'rgba(42,31,20,0.35)'; ctx.lineWidth = 1;
-      ctx.strokeRect(-14.5, 8, 9, 8);
-      ctx.strokeRect(5.5, 8, 9, 8);
-      ctx.restore();
-    }
-
-    function drawTrayIcon(ctx, id, x, y) {
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.scale(0.72, 0.72);
-      if (id === 'nyckel') drawNyckel(ctx, 0, 0);
-      if (id === 'skruv')  drawSkruvnyckel(ctx, 0, 0);
-      if (id === 'magnet') drawMagnet(ctx, 0, 0);
-      if (id === 'spik')   drawSpik(ctx, 0, 0);
-      if (id === 'sax')    drawSax(ctx, 0, 0);
-      ctx.restore();
-    }
-
+    function getScore() { return _score; }
+    function destroy() { if (container) container.innerHTML = ''; }
     return { init: init, start: start, getScore: getScore, destroy: destroy };
   })();
-
-
-  /* ============================================================
-     CH6: RÄTTA TIDNINGEN  --  Stamp headlines as SANT or FALSKT
-     The newspaper got it wrong. What is actually true about Alfred?
-     ============================================================ */
   var ch6 = (function () {
-    var state, container, canvasObj, animFrame;
-    var W = 360, H = 420;
-
-    var CLAIMS = [
-      { text: 'Einstein har gjort n\u00e5got brottsligt.', truth: false,
-        why: 'Propaganda! Han pekades ut f\u00f6r VEM han \u00e4r \u2014 inte f\u00f6r n\u00e5got han gjort.' },
-      { text: 'Einsteins b\u00f6cker br\u00e4nns p\u00e5 b\u00e5l.', truth: true,
-        why: 'Tyv\u00e4rr sant. Den som br\u00e4nner b\u00f6cker \u00e4r r\u00e4dd f\u00f6r tankarna i dem.' },
-      { text: 'Hundra f\u00f6rfattare bevisar att Einstein har fel.', truth: false,
-        why: 'Propaganda! Antal \u00e4r inte bevis. \u201dHade jag fel hade det r\u00e4ckt med EN\u201d, sa Albert.' },
-      { text: 'Einstein har l\u00e4mnat Tyskland.', truth: true,
-        why: 'Sant. Han kunde aldrig \u00e5ka hem igen.' },
-      { text: 'Alla riktiga forskare tycker som de nya makthavarna.', truth: false,
-        why: 'Propaganda! Forskare m\u00e5ste f\u00e5 t\u00e4nka fritt \u2014 annars \u00e4r det inte forskning.' },
-      { text: 'M\u00e5nga forskare flyr fr\u00e5n Tyskland.', truth: true,
-        why: 'Sant. Landet jagade bort n\u00e5gra av sina klokaste \u2014 vetenskapen f\u00f6rlorade.' }
-    ];
-
-    // Stamp zones on canvas
-    var STAMP_FALSE = { x: 84,  y: 296, r: 44 };
-    var STAMP_TRUE  = { x: 276, y: 296, r: 44 };
-
-    function init(containerId) {
-      container = document.getElementById(containerId);
-      if (!container) return;
-      container.innerHTML = '';
-
-      var wrapper = createDiv(container, 'nmg-wrapper');
-      var titleEl = createDiv(wrapper, 'nmg-title');
-      titleEl.textContent = 'Sant eller propaganda?';
-      var subEl = createDiv(wrapper, 'nmg-subtitle');
-      subEl.textContent = 'Granska p\u00e5st\u00e5endena \u2014 vem tj\u00e4nar p\u00e5 att du tror?';
-
-      var instrEl = createDiv(wrapper, 'nmg-instructions');
-      instrEl.innerHTML = 'Tidningarna \u00e4r fulla av p\u00e5st\u00e5enden om Albert. St\u00e4mpla varje p\u00e5st\u00e5ende: gr\u00f6nt om det \u00e4r <strong>SANT</strong> \u2014 r\u00f6tt om det \u00e4r <strong>FALSKT</strong> (propaganda).';
-
-      state = {
-        phase: 'ready',
-        order: [],
-        index: 0,
-        errors: 0,
-        stampAnim: null,   // { correct, t, truth }
-        cardAnim: null,    // { t, dir } fly-out
-        feedback: '',
-        feedbackUntil: 0,
-        shakeAnim: null,
-        score: 0,
-        wrapper: wrapper,
-        instrEl: instrEl,
-        statusEl: null,
-        resultEl: null
-      };
-
-      var statusEl = createDiv(wrapper, 'nmg-status');
-      statusEl.textContent = 'Rubrik 1 av ' + CLAIMS.length;
-      state.statusEl = statusEl;
-
-      canvasObj = createCanvas(wrapper, W, H);
-
-      var resultEl = createDiv(wrapper, 'nmg-hidden');
-      state.resultEl = resultEl;
-
-      var cv = canvasObj.canvas;
-      cv.addEventListener('mousedown',  onTap, false);
-      cv.addEventListener('touchstart', onTap, { passive: false });
+    var container, status, torg, _score = 2, lit, TOTAL = 6;
+    function init(id) {
+      container = document.getElementById(id); if (!container) return; container.innerHTML = '';
+      _score = 2; lit = 0;
+      var w = createDiv(container, 'nmg-wrapper');
+      createDiv(w, 'nmg-title').textContent = 'Ljus för de fallna';
+      createDiv(w, 'nmg-subtitle').textContent = 'Ett stilla ögonblick';
+      createDiv(w, 'nmg-instructions').innerHTML = 'På Saltebys torg bränner folk ljus för dem som gick bort i kriget och pesten. Tänd ett ljus för var och en. Ingen brådska.';
+      status = createDiv(w, 'nmg-status');
+      torg = document.createElement('div'); torg.style.cssText = 'display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:18px auto;max-width:320px;'; w.appendChild(torg);
     }
-
     function start() {
-      if (!state) return;
-      state.phase = 'playing';
-      state.order = shuffle(CLAIMS);
-      state.index = 0;
-      state.errors = 0;
-      state.stampAnim = null;
-      state.cardAnim = null;
-      state.feedback = '';
-      state.shakeAnim = null;
-      state.score = 0;
-      state.statusEl.textContent = 'Rubrik 1 av ' + CLAIMS.length;
-      state.instrEl.classList.remove('nmg-hidden');
-      state.resultEl.innerHTML = '';
-      state.resultEl.classList.add('nmg-hidden');
-      loop();
-    }
-
-    function getScore() { return state ? state.score : 0; }
-
-    function destroy() {
-      if (animFrame) cancelAnimationFrame(animFrame);
-      animFrame = null;
-      if (container) container.innerHTML = '';
-      state = null;
-    }
-
-    function playSfx(name) {
-      if (typeof NobelSound !== 'undefined' && NobelSound._initialized) {
-        try { NobelSound.play(name); } catch (e) { /* ignore */ }
+      for (var i = 0; i < TOTAL; i++) {
+        (function () {
+          var c = document.createElement('button');
+          c.style.cssText = 'width:40px;height:64px;border:none;background:transparent;cursor:pointer;font-size:2rem;filter:grayscale(1) brightness(0.6);transition:filter .4s,transform .2s;';
+          c.textContent = '🕯️';
+          c.onclick = function () {
+            if (c.dataset.lit) return; c.dataset.lit = '1';
+            c.style.filter = 'none'; c.style.transform = 'translateY(-3px)';
+            lit++;
+            if (typeof NobelSound !== 'undefined' && NobelSound._initialized) { try { NobelSound.play('sfx_choiceSelect'); } catch (e) {} }
+            status.textContent = lit + ' av ' + TOTAL + ' ljus tända';
+            if (lit >= TOTAL) finish();
+          };
+          torg.appendChild(c);
+        })();
       }
+      status.textContent = 'Tryck för att tända ett ljus';
     }
-
-    function onTap(e) {
-      if (!state || state.phase !== 'playing' || state.stampAnim || state.cardAnim) return;
-      e.preventDefault();
-      var pos = getPointerPos(canvasObj.canvas, e);
-      var dxT = pos.x - STAMP_TRUE.x,  dyT = pos.y - STAMP_TRUE.y;
-      var dxF = pos.x - STAMP_FALSE.x, dyF = pos.y - STAMP_FALSE.y;
-      if (dxT * dxT + dyT * dyT <= STAMP_TRUE.r * STAMP_TRUE.r) answer(true);
-      else if (dxF * dxF + dyF * dyF <= STAMP_FALSE.r * STAMP_FALSE.r) answer(false);
-    }
-
-    function answer(saidTrue) {
-      var claim = state.order[state.index];
-      var correct = (saidTrue === claim.truth);
-      state.feedback = claim.why;
-      state.feedbackUntil = performance.now() + 2400;
-      state.stampAnim = { correct: correct, t: 0, saidTrue: saidTrue };
-      if (correct) {
-        playSfx('sfx_minigameCorrect');
-      } else {
-        state.errors++;
-        state.shakeAnim = { t: 0 };
-        playSfx('sfx_minigameWrong');
-      }
-      // After the stamp lands, fly the card out and advance
+    function finish() {
+      _score = 2;
       setTimeout(function () {
-        if (!state) return;
-        state.cardAnim = { t: 0, dir: saidTrue ? 1 : -1 };
-        setTimeout(function () {
-          if (!state) return;
-          state.index++;
-          state.stampAnim = null;
-          state.cardAnim = null;
-          state.feedback = '';
-          if (state.index >= state.order.length) {
-            state.statusEl.textContent = 'Alla rubriker rättade!';
-            finishGame();
-          } else {
-            state.statusEl.textContent = 'Rubrik ' + (state.index + 1) + ' av ' + state.order.length;
-          }
-        }, 450);
-      }, 950);
+        nmgFinish(container, 2, 'Alla ljus bränner', 'Torget lyser stilla i mörkret. Salteby minns sina döda. Korpen Minne sitter tyst på tornet. — Här finns inget att vinna eller förlora, bara att minnas.');
+      }, 700);
     }
-
-    function finishGame() {
-      if (!state || state.phase === 'done') return;
-      state.phase = 'done';
-      if (state.errors === 0) state.score = 2;
-      else if (state.errors <= 2) state.score = 1;
-      else state.score = 0;
-
-      state.instrEl.classList.add('nmg-hidden');
-      state.resultEl.classList.remove('nmg-hidden');
-      state.resultEl.innerHTML = '';
-      var scoreDisp = createDiv(state.resultEl, 'nmg-score-display');
-      scoreDisp.textContent = '⭐'.repeat(Math.max(1, state.score + 1));
-      var txt = createDiv(state.resultEl, 'nmg-result-text');
-      if (state.score === 2) {
-        txt.innerHTML = 'Perfekt granskat! Propaganda biter inte p\u00e5 dig.<br><strong>+1 \ud83d\udcda Makt och +1 \ud83d\udca1 Välstånd</strong>';
-      } else if (state.score === 1) {
-        txt.innerHTML = 'Bra jobbat! N\u00e4stan alla p\u00e5st\u00e5enden r\u00e4tt granskade.<br><strong>+1 \ud83d\udca1 Välstånd</strong>';
-      } else {
-        txt.innerHTML = 'Kluriga p\u00e5st\u00e5enden! Nu vet du hur propaganda l\u00e5ter \u2014 och hur man synar den.';
-      }
-      addRetryButton(state.resultEl, 'ch6', start);
-      notifyDone('ch6');
-    }
-
-    function loop() {
-      if (!state) return;
-      draw();
-      if (state.phase !== 'done') {
-        animFrame = requestAnimationFrame(loop);
-      }
-    }
-
-    function draw() {
-      var ctx = canvasObj.ctx;
-      var now = performance.now();
-      var shakeX = 0;
-
-      if (state.shakeAnim) {
-        state.shakeAnim.t += 0.1;
-        if (state.shakeAnim.t >= 1) state.shakeAnim = null;
-        else shakeX = Math.sin(state.shakeAnim.t * 18) * 5 * (1 - state.shakeAnim.t);
-      }
-
-      // Background
-      ctx.fillStyle = '#33281c';
-      ctx.fillRect(0, 0, W, H);
-
-      ctx.save();
-      ctx.translate(shakeX, 0);
-
-      // The newspaper card
-      var cardX = 30, cardY = 34, cardW = W - 60, cardH = 170;
-      if (state.cardAnim) {
-        state.cardAnim.t += 0.07;
-        var ct = easeInOutQuad(Math.min(1, state.cardAnim.t));
-        cardX += state.cardAnim.dir * ct * 380;
-        ctx.globalAlpha = 1 - ct;
-      }
-      ctx.fillStyle = COLORS.parchment;
-      roundRect(ctx, cardX, cardY, cardW, cardH, 6); ctx.fill();
-      ctx.strokeStyle = COLORS.brownLight; ctx.lineWidth = 1.5;
-      roundRect(ctx, cardX, cardY, cardW, cardH, 6); ctx.stroke();
-
-      // Masthead
-      ctx.fillStyle = COLORS.dark;
-      ctx.font = 'bold 13px ' + FONT_HEADLINE;
-      ctx.textAlign = 'center';
-      ctx.fillText('Der Berliner Beobachter', cardX + cardW / 2, cardY + 24);
-      ctx.strokeStyle = 'rgba(42,31,20,0.35)';
-      ctx.beginPath();
-      ctx.moveTo(cardX + 20, cardY + 34); ctx.lineTo(cardX + cardW - 20, cardY + 34);
-      ctx.stroke();
-
-      // Headline text (wrapped)
-      if (state.index < state.order.length) {
-        var claim = state.order[state.index];
-        ctx.fillStyle = COLORS.dark;
-        ctx.font = 'bold 19px ' + FONT_HEADLINE;
-        wrapText(ctx, '”' + claim.text + '”', cardX + cardW / 2, cardY + 74, cardW - 40, 26);
-      }
-
-      // Stamp result on the card
-      if (state.stampAnim) {
-        state.stampAnim.t = Math.min(1, state.stampAnim.t + 0.09);
-        var st = easeOutCubic(state.stampAnim.t);
-        ctx.save();
-        ctx.translate(cardX + cardW / 2, cardY + 120);
-        ctx.rotate(-0.18);
-        ctx.scale(1.8 - 0.8 * st, 1.8 - 0.8 * st);
-        ctx.globalAlpha = st;
-        var stampColor = state.stampAnim.saidTrue ? COLORS.moss : '#a33';
-        ctx.strokeStyle = stampColor;
-        ctx.lineWidth = 3;
-        roundRect(ctx, -62, -20, 124, 40, 6); ctx.stroke();
-        ctx.fillStyle = stampColor;
-        ctx.font = 'bold 22px ' + FONT_BODY;
-        ctx.fillText(state.stampAnim.saidTrue ? 'SANT' : 'FALSKT', 0, 8);
-        ctx.restore();
-        // Correct / wrong marker
-        ctx.font = '30px ' + FONT_BODY;
-        ctx.fillText(state.stampAnim.correct ? '✅' : '🤔', cardX + cardW - 34, cardY + 36);
-      }
-      ctx.globalAlpha = 1;
-
-      // Stamps (buttons)
-      drawStamp(ctx, STAMP_FALSE, '#a33', 'FALSKT', '✗');
-      drawStamp(ctx, STAMP_TRUE,  COLORS.moss, 'SANT', '✓');
-
-      // Feedback line
-      if (state.feedback && now < state.feedbackUntil) {
-        ctx.fillStyle = COLORS.parchment;
-        ctx.font = '600 13px ' + FONT_BODY;
-        wrapText(ctx, state.feedback, W / 2, 372, W - 40, 18);
-      }
-
-      ctx.restore();
-      ctx.textAlign = 'left';
-    }
-
-    function drawStamp(ctx, zone, color, label, mark) {
-      ctx.save();
-      ctx.translate(zone.x, zone.y);
-      // Wooden handle
-      ctx.fillStyle = COLORS.brown;
-      roundRect(ctx, -10, -zone.r - 18, 20, 26, 6); ctx.fill();
-      // Stamp base
-      ctx.fillStyle = color;
-      ctx.beginPath(); ctx.arc(0, 0, zone.r, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = 'rgba(255,255,255,0.5)';
-      ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.arc(0, 0, zone.r - 5, 0, Math.PI * 2); ctx.stroke();
-      ctx.fillStyle = '#fff';
-      ctx.textAlign = 'center';
-      ctx.font = 'bold 26px ' + FONT_BODY;
-      ctx.fillText(mark, 0, -2);
-      ctx.font = 'bold 13px ' + FONT_BODY;
-      ctx.fillText(label, 0, 20);
-      ctx.restore();
-    }
-
-    /** Draw centered wrapped text. */
-    function wrapText(ctx, text, cx, startY, maxWidth, lineHeight) {
-      var words = text.split(' ');
-      var line = '', y = startY;
-      ctx.textAlign = 'center';
-      for (var i = 0; i < words.length; i++) {
-        var test = line ? line + ' ' + words[i] : words[i];
-        if (ctx.measureText(test).width > maxWidth && line) {
-          ctx.fillText(line, cx, y);
-          line = words[i];
-          y += lineHeight;
-        } else {
-          line = test;
-        }
-      }
-      if (line) ctx.fillText(line, cx, y);
-    }
-
+    function getScore() { return _score; }
+    function destroy() { if (container) container.innerHTML = ''; }
     return { init: init, start: start, getScore: getScore, destroy: destroy };
   })();
-
-
-  /* ============================================================
-     CH7: PRISUTDELNINGEN  --  Drag the right medal to each laureate
-     Alfred dreams of the future: hand out the very first prizes.
-     ============================================================ */
   var ch7 = (function () {
-    var state, container, canvasObj, animFrame;
-    var W = 360, H = 440;
-    var MEDAL_Y = 384, MEDAL_R = 26;
-
-    var PRIZES = [
-      { id: 'tid',    label: 'Tiden',      emoji: '⏰' },
-      { id: 'paket',  label: 'Ljuspaket',  emoji: '☀️' },
-      { id: 'emc',    label: 'E = mc²',   emoji: '⚛️' },
-      { id: 'atom',   label: 'Atomer',     emoji: '🔬' },
-      { id: 'boj',    label: 'Ljusböjen', emoji: '🌟' }
-    ];
-
-    var LAUREATES = [
-      { prize: 'tid',   icon: '📱', clue: 'GPS:en i mobilen: Utan mig visar kartan fel! Jag m\u00e5ste veta att tiden g\u00e5r lite olika fort uppe vid satelliterna.' },
-      { prize: 'paket', icon: '🏠', clue: 'Solcellen p\u00e5 taket: Jag f\u00e5ngar ljusets sm\u00e5 energipaket och g\u00f6r el av dem!' },
-      { prize: 'emc',   icon: '⚡', clue: 'K\u00e4rnkraftverket: Jag g\u00f6r el av en pytteliten bit materia \u2014 energi och massa \u00e4r samma sak!' },
-      { prize: 'atom',  icon: '🧫', clue: 'Forskaren vid mikroskopet: Jag ser sm\u00e5 korn dansa i vattnet \u2014 det \u00e4r osynliga atomer som knuffas!' },
-      { prize: 'boj',   icon: '🔭', clue: 'Rymdteleskopet: Jag ser bakom hela galaxer \u2014 deras tyngdkraft b\u00f6jer ljuset som en lins!' }
-    ];
-
-    // Laureate drop zone (the podium area)
-    var DROP = { x: W / 2, y: 210, r: 70 };
-
-    function init(containerId) {
-      container = document.getElementById(containerId);
-      if (!container) return;
-      container.innerHTML = '';
-
-      var wrapper = createDiv(container, 'nmg-wrapper');
-      var titleEl = createDiv(wrapper, 'nmg-title');
-      titleEl.textContent = 'Då och nu';
-      var subEl = createDiv(wrapper, 'nmg-subtitle');
-      subEl.textContent = 'Alberts idéer lever i din vardag!';
-
-      var instrEl = createDiv(wrapper, 'nmg-instructions');
-      instrEl.innerHTML = 'Sakerna från idag berättar vad de behöver. <strong>Dra rätt upptäckt</strong> till varje sak — så ser du att Einsteins idéer finns överallt omkring dig!';
-
-      state = {
-        phase: 'ready',
-        order: [],
-        index: 0,
-        errors: 0,
-        medals: [],       // { prize, x, y, homeX, homeY, used, dragging }
-        dragging: null,
-        dragOffsetX: 0,
-        dragOffsetY: 0,
-        celebrate: null,  // { t }
-        confetti: [],
-        shakeAnim: null,
-        score: 0,
-        wrapper: wrapper,
-        instrEl: instrEl,
-        statusEl: null,
-        resultEl: null
-      };
-
-      var statusEl = createDiv(wrapper, 'nmg-status');
-      statusEl.textContent = 'Sak 1 av ' + LAUREATES.length;
-      state.statusEl = statusEl;
-
-      canvasObj = createCanvas(wrapper, W, H);
-
-      var resultEl = createDiv(wrapper, 'nmg-hidden');
-      state.resultEl = resultEl;
-
-      var cv = canvasObj.canvas;
-      cv.addEventListener('mousedown',  onDown, false);
-      cv.addEventListener('mousemove',  onMove, false);
-      cv.addEventListener('mouseup',    onUp,   false);
-      cv.addEventListener('touchstart', onDown, { passive: false });
-      cv.addEventListener('touchmove',  onMove, { passive: false });
-      cv.addEventListener('touchend',   onUp,   false);
+    var container, status, area, _score = 0, matched, PAIRS, picks, cur;
+    function init(id) {
+      container = document.getElementById(id); if (!container) return; container.innerHTML = '';
+      _score = 0; matched = 0; cur = null;
+      PAIRS = [
+        { a: 'En gata som heter Kungsgatan', b: 'Gatunamn från kungarnas tid' },
+        { a: 'En gammal fästning vid hamnen', b: 'Byggnad från stormaktstiden' },
+        { a: 'Uttrycket ”gå över ån efter vatten”', b: 'Gammalt ordspråk som lever kvar' },
+        { a: 'Sverige gränsar till Finland', b: 'Gränser som formades för länge sedan' }
+      ];
+      var w = createDiv(container, 'nmg-wrapper');
+      createDiv(w, 'nmg-title').textContent = 'Då och nu';
+      createDiv(w, 'nmg-subtitle').textContent = 'Spåren som lever kvar';
+      createDiv(w, 'nmg-instructions').innerHTML = 'Stormaktstiden syns ännu idag. Tryck på ett <strong>spår</strong> till vänster och sedan på vad det är till höger — para ihop dem!';
+      status = createDiv(w, 'nmg-status');
+      area = document.createElement('div'); area.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:420px;margin:10px auto;'; w.appendChild(area);
     }
-
-    function start() {
-      if (!state) return;
-      state.phase = 'playing';
-      state.order = shuffle(LAUREATES);
-      state.index = 0;
-      state.errors = 0;
-      state.celebrate = null;
-      state.confetti = [];
-      state.shakeAnim = null;
-      state.score = 0;
-      state.medals = [];
-      var spacing = W / (PRIZES.length + 1);
-      for (var i = 0; i < PRIZES.length; i++) {
-        var mx = spacing * (i + 1);
-        state.medals.push({
-          prize: PRIZES[i].id, emoji: PRIZES[i].emoji, label: PRIZES[i].label,
-          x: mx, y: MEDAL_Y, homeX: mx, homeY: MEDAL_Y,
-          used: false, dragging: false
-        });
+    function start() { render(); }
+    function render() {
+      area.innerHTML = '';
+      var lefts = shuffle(PAIRS.map(function (p, i) { return { txt: p.a, i: i }; }));
+      var rights = shuffle(PAIRS.map(function (p, i) { return { txt: p.b, i: i }; }));
+      var lcol = document.createElement('div'); lcol.style.cssText = 'display:flex;flex-direction:column;gap:8px;';
+      var rcol = document.createElement('div'); rcol.style.cssText = 'display:flex;flex-direction:column;gap:8px;';
+      lefts.forEach(function (o) { lcol.appendChild(mk(o, 'L')); });
+      rights.forEach(function (o) { rcol.appendChild(mk(o, 'R')); });
+      area.appendChild(lcol); area.appendChild(rcol);
+      status.textContent = 'Välj ett spår till vänster';
+    }
+    function mk(o, side) {
+      var b = document.createElement('button'); b.style.cssText = nmgBtnStyle(); b.style.fontSize = '0.85rem';
+      b.textContent = o.txt; b.dataset.i = o.i; b.dataset.side = side; b.dataset.done = '';
+      b.onclick = function () { onClick(b); };
+      return b;
+    }
+    function onClick(b) {
+      if (b.dataset.done) return;
+      if (!cur) {
+        if (b.dataset.side !== 'L') { status.textContent = 'Börja med ett spår till vänster!'; return; }
+        cur = b; b.style.background = COLORS.gold; b.style.color = '#fff'; status.textContent = '…och vad hör det ihop med?';
+        return;
       }
-      state.statusEl.textContent = 'Sak 1 av ' + LAUREATES.length;
-      state.instrEl.classList.remove('nmg-hidden');
-      state.resultEl.innerHTML = '';
-      state.resultEl.classList.add('nmg-hidden');
-      loop();
-    }
-
-    function getScore() { return state ? state.score : 0; }
-
-    function destroy() {
-      if (animFrame) cancelAnimationFrame(animFrame);
-      animFrame = null;
-      if (container) container.innerHTML = '';
-      state = null;
-    }
-
-    function playSfx(name) {
-      if (typeof NobelSound !== 'undefined' && NobelSound._initialized) {
-        try { NobelSound.play(name); } catch (e) { /* ignore */ }
-      }
-    }
-
-    function onDown(e) {
-      if (!state || state.phase !== 'playing' || state.celebrate) return;
-      e.preventDefault();
-      var pos = getPointerPos(canvasObj.canvas, e);
-      for (var i = state.medals.length - 1; i >= 0; i--) {
-        var m = state.medals[i];
-        if (m.used) continue;
-        var dx = pos.x - m.x, dy = pos.y - m.y;
-        if (dx * dx + dy * dy <= (MEDAL_R + 10) * (MEDAL_R + 10)) {
-          m.dragging = true;
-          state.dragging = m;
-          state.dragOffsetX = dx;
-          state.dragOffsetY = dy;
-          break;
-        }
-      }
-    }
-
-    function onMove(e) {
-      if (!state || !state.dragging) return;
-      e.preventDefault();
-      var pos = getPointerPos(canvasObj.canvas, e);
-      state.dragging.x = pos.x - state.dragOffsetX;
-      state.dragging.y = pos.y - state.dragOffsetY;
-    }
-
-    function onUp(e) {
-      if (!state || !state.dragging) return;
-      e.preventDefault();
-      var m = state.dragging;
-      m.dragging = false;
-      state.dragging = null;
-
-      var dx = m.x - DROP.x, dy = m.y - DROP.y;
-      if (dx * dx + dy * dy <= DROP.r * DROP.r) {
-        var laureate = state.order[state.index];
-        if (m.prize === laureate.prize) {
-          // Correct!
-          m.used = true;
-          playSfx('sfx_minigameCorrect');
-          spawnConfetti();
-          state.celebrate = { t: 0 };
-          state.statusEl.textContent = 'Rätt! ' + m.label + ' — precis vad som behövdes! 🎉';
-          setTimeout(function () {
-            if (!state) return;
-            state.celebrate = null;
-            state.index++;
-            if (state.index >= state.order.length) {
-              state.statusEl.textContent = 'Alla par ihopparade!';
-              finishGame();
-            } else {
-              state.statusEl.textContent = 'Sak ' + (state.index + 1) + ' av ' + state.order.length;
-            }
-          }, 1400);
-        } else {
-          // Wrong medal — gentle shake, snap back
-          state.errors++;
-          state.shakeAnim = { t: 0 };
-          playSfx('sfx_minigameWrong');
-          state.statusEl.textContent = 'Hmm, inte den upptäckten. Läs ledtråden igen!';
-          m.x = m.homeX; m.y = m.homeY;
-        }
+      if (b.dataset.side !== 'R') { return; }
+      if (b.dataset.i === cur.dataset.i) {
+        cur.dataset.done = b.dataset.done = '1';
+        cur.style.background = COLORS.mossLight; b.style.background = COLORS.mossLight; cur.style.color = b.style.color = '#fff';
+        cur.disabled = b.disabled = true; matched++;
+        status.textContent = 'Rätt! ' + matched + ' av ' + PAIRS.length;
+        cur = null;
+        if (matched >= PAIRS.length) finish();
       } else {
-        m.x = m.homeX; m.y = m.homeY;
+        b.style.background = COLORS.redLight; b.style.color = '#fff';
+        var wrong = b, c = cur; cur = null; c.style.background = COLORS.parchment; c.style.color = COLORS.dark;
+        status.textContent = 'De hörde inte ihop — försök igen.';
+        _score = _score; // track misses via matched only
+        setTimeout(function () { wrong.style.background = COLORS.parchment; wrong.style.color = COLORS.dark; }, 500);
+        misses++;
       }
     }
-
-    function spawnConfetti() {
-      var colors = [COLORS.gold, COLORS.goldLight, COLORS.copper, '#e85a5a', '#6abf5e', '#8ec8e8'];
-      for (var i = 0; i < 44; i++) {
-        state.confetti.push({
-          x: DROP.x + (Math.random() - 0.5) * 80,
-          y: DROP.y - 40,
-          vx: (Math.random() - 0.5) * 4,
-          vy: -2 - Math.random() * 3,
-          life: 1,
-          size: 3 + Math.random() * 4,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          spin: Math.random() * Math.PI * 2
-        });
-      }
+    var misses = 0;
+    function finish() {
+      _score = misses === 0 ? 2 : misses <= 2 ? 1 : 0;
+      var body = _score === 2 ? 'Du hittade alla spår! Stormaktstiden finns överallt runt oss — om man vet var man ska titta.' :
+        _score === 1 ? 'Bra! Du parade ihop det mesta av hur historien syns idag.' :
+        'Klart till slut! Nu vet du att historien lever kvar i gatunamn, hus och ord.';
+      setTimeout(function () { nmgFinish(container, _score, matched + ' av ' + PAIRS.length + ' par rätt', body); }, 500);
     }
-
-    function finishGame() {
-      if (!state || state.phase === 'done') return;
-      state.phase = 'done';
-      if (state.errors === 0) state.score = 2;
-      else if (state.errors <= 2) state.score = 1;
-      else state.score = 0;
-
-      state.instrEl.classList.add('nmg-hidden');
-      state.resultEl.classList.remove('nmg-hidden');
-      state.resultEl.innerHTML = '';
-      var scoreDisp = createDiv(state.resultEl, 'nmg-score-display');
-      scoreDisp.textContent = '⭐'.repeat(Math.max(1, state.score + 1));
-      var txt = createDiv(state.resultEl, 'nmg-result-text');
-      if (state.score === 2) {
-        txt.innerHTML = 'Perfekt! Du ser Einsteins idéer överallt — från mobilen till stjärnorna.<br><strong>+1 👑 Makt och +1 💰 Välstånd</strong>';
-      } else if (state.score === 1) {
-        txt.innerHTML = 'Bra parat! Alla upptäckter hittade hem till sin nutid.<br><strong>+1 💰 Välstånd</strong>';
-      } else {
-        txt.innerHTML = 'Alla par hittade varandra till slut — och nu vet du var Einstein gömmer sig i din vardag!';
-      }
-      addRetryButton(state.resultEl, 'ch7', start);
-      notifyDone('ch7');
-    }
-
-    function loop() {
-      if (!state) return;
-      draw();
-      if (state.phase !== 'done' || state.confetti.length > 0) {
-        animFrame = requestAnimationFrame(loop);
-      }
-    }
-
-    function draw() {
-      var ctx = canvasObj.ctx;
-      var shakeX = 0;
-
-      if (state.shakeAnim) {
-        state.shakeAnim.t += 0.1;
-        if (state.shakeAnim.t >= 1) state.shakeAnim = null;
-        else shakeX = Math.sin(state.shakeAnim.t * 18) * 5 * (1 - state.shakeAnim.t);
-      }
-
-      // Festive hall background
-      ctx.fillStyle = '#2a1f2e';
-      ctx.fillRect(0, 0, W, H);
-      // Curtains
-      ctx.fillStyle = '#6e2432';
-      ctx.fillRect(0, 0, 34, H);
-      ctx.fillRect(W - 34, 0, 34, H);
-      // Spotlight
-      var grad = ctx.createRadialGradient(W / 2, DROP.y, 20, W / 2, DROP.y, 190);
-      grad.addColorStop(0, 'rgba(245,214,128,0.30)');
-      grad.addColorStop(1, 'rgba(245,214,128,0)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, W, H);
-
-      ctx.save();
-      ctx.translate(shakeX, 0);
-
-      // Stage / podium
-      ctx.fillStyle = '#4a3628';
-      ctx.fillRect(60, 268, W - 120, 16);
-      ctx.fillStyle = '#5a3a28';
-      ctx.fillRect(W / 2 - 44, 284, 88, 30);
-
-      // Current laureate
-      if (state.index < state.order.length) {
-        var laureate = state.order[state.index];
-        ctx.font = '64px serif';
-        ctx.textAlign = 'center';
-        ctx.fillText(laureate.icon || '\u2b50', W / 2, 246);
-        ctx.font = '13px sans-serif';
-        // Speech bubble with clue
-        ctx.fillStyle = COLORS.parchment;
-        roundRect(ctx, 42, 44, W - 84, 66, 12); ctx.fill();
-        ctx.strokeStyle = COLORS.copper; ctx.lineWidth = 1.5;
-        roundRect(ctx, 42, 44, W - 84, 66, 12); ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(W / 2 - 10, 110); ctx.lineTo(W / 2 + 10, 110); ctx.lineTo(W / 2, 128);
-        ctx.closePath();
-        ctx.fillStyle = COLORS.parchment; ctx.fill();
-        ctx.fillStyle = COLORS.dark;
-        ctx.font = '600 14px ' + FONT_BODY;
-        wrapClue(ctx, laureate.clue, W / 2, 70, W - 116, 19);
-        // Drop hint ring while dragging
-        if (state.dragging) {
-          ctx.strokeStyle = 'rgba(224,190,90,0.8)';
-          ctx.lineWidth = 3;
-          ctx.setLineDash([8, 6]);
-          ctx.beginPath(); ctx.arc(DROP.x, DROP.y, DROP.r, 0, Math.PI * 2); ctx.stroke();
-          ctx.setLineDash([]);
-        }
-      }
-
-      // Medal shelf label
-      ctx.fillStyle = 'rgba(250,242,232,0.75)';
-      ctx.font = '600 12px ' + FONT_BODY;
-      ctx.textAlign = 'center';
-      ctx.fillText('Dra rätt upptäckt till saken:', W / 2, MEDAL_Y - 44);
-
-      // Medals
-      for (var i = 0; i < state.medals.length; i++) {
-        var m = state.medals[i];
-        if (m.used) continue;
-        if (m !== state.dragging) drawMedal(ctx, m);
-      }
-      if (state.dragging) drawMedal(ctx, state.dragging);
-
-      // Confetti
-      for (var p = state.confetti.length - 1; p >= 0; p--) {
-        var c = state.confetti[p];
-        c.x += c.vx; c.y += c.vy; c.vy += 0.12; c.life -= 0.012; c.spin += 0.15;
-        if (c.life <= 0 || c.y > H) { state.confetti.splice(p, 1); continue; }
-        ctx.save();
-        ctx.translate(c.x, c.y);
-        ctx.rotate(c.spin);
-        ctx.globalAlpha = Math.min(1, c.life * 1.6);
-        ctx.fillStyle = c.color;
-        ctx.fillRect(-c.size / 2, -c.size / 4, c.size, c.size / 2);
-        ctx.restore();
-      }
-
-      ctx.restore();
-      ctx.textAlign = 'left';
-    }
-
-
-    function drawMedal(ctx, m) {
-      ctx.save();
-      ctx.translate(m.x, m.y);
-      // Ribbon
-      ctx.fillStyle = '#28527a';
-      ctx.beginPath();
-      ctx.moveTo(-8, -MEDAL_R - 12); ctx.lineTo(8, -MEDAL_R - 12);
-      ctx.lineTo(3, -MEDAL_R + 6); ctx.lineTo(-3, -MEDAL_R + 6);
-      ctx.closePath(); ctx.fill();
-      // Gold disc
-      ctx.fillStyle = COLORS.gold;
-      ctx.beginPath(); ctx.arc(0, 0, MEDAL_R, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = COLORS.goldLight; ctx.lineWidth = 3;
-      ctx.beginPath(); ctx.arc(0, 0, MEDAL_R - 4, 0, Math.PI * 2); ctx.stroke();
-      // Symbol
-      ctx.font = '22px ' + FONT_BODY;
-      ctx.textAlign = 'center';
-      ctx.fillText(m.emoji, 0, 8);
-      // Label under medal
-      ctx.fillStyle = 'rgba(250,242,232,0.9)';
-      ctx.font = '600 11px ' + FONT_BODY;
-      ctx.fillStyle = '#1c2333';
-      ctx.fillText(m.label, 0, MEDAL_R + 16);
-      ctx.restore();
-    }
-
-    function wrapClue(ctx, text, cx, startY, maxWidth, lineHeight) {
-      var words = text.split(' ');
-      var line = '', y = startY;
-      ctx.textAlign = 'center';
-      for (var i = 0; i < words.length; i++) {
-        var test = line ? line + ' ' + words[i] : words[i];
-        if (ctx.measureText(test).width > maxWidth && line) {
-          ctx.fillText(line, cx, y);
-          line = words[i];
-          y += lineHeight;
-        } else {
-          line = test;
-        }
-      }
-      if (line) ctx.fillText(line, cx, y);
-    }
-
+    function getScore() { return _score; }
+    function destroy() { if (container) { container.innerHTML = ''; } misses = 0; }
     return { init: init, start: start, getScore: getScore, destroy: destroy };
   })();
 
-
-  /* ── Shared result/finish helpers (used by all minigames) ────────
-     showResult renders the child-friendly star screen (1-3 stars,
-     encouraging text, retry button) and notifies the game shell so
-     the continue button appears immediately — no polling needed. */
-  function showResult(state, chKey, score, texts, startFn) {
-    state.instrEl.classList.add('nmg-hidden');
-    state.resultEl.classList.remove('nmg-hidden');
-    state.resultEl.innerHTML = '';
-    var scoreDisp = createDiv(state.resultEl, 'nmg-score-display');
-    scoreDisp.textContent = score >= 2 ? '⭐⭐⭐' : score >= 1 ? '⭐⭐' : '⭐';
-    var txt = createDiv(state.resultEl, 'nmg-result-text');
-    txt.innerHTML = texts[score >= 2 ? 2 : score >= 1 ? 1 : 0];
-    addRetryButton(state.resultEl, chKey, startFn);
-    notifyDone(chKey);
-  }
-
-  /* Reveal the continue button for the given chapter and stop the
-     fallback completion poller. */
-  function notifyDone(chKey) {
-    var cont = document.getElementById(chKey + '-minigame-v2-continue');
-    if (cont && cont.style.display === 'none') {
-      cont.style.display = 'block';
-      if (typeof NobelSound !== 'undefined' && NobelSound._initialized) {
-        try { NobelSound.play('sfx_minigameComplete'); } catch (e) { /* ignore */ }
-      }
-    }
-    if (typeof v2MinigameCompletionCheckers !== 'undefined' && v2MinigameCompletionCheckers[chKey]) {
-      clearInterval(v2MinigameCompletionCheckers[chKey]);
-    }
-  }
-
-  /* Shared: "Försök igen"-knapp på resultatskärmen (barnvänlig retry).
-     Clears the result (so the completion checker's button detection
-     resets), hides the outer continue button, and restarts the game. */
-  function addRetryButton(resultEl, chKey, startFn) {
-    var btn = document.createElement('button');
-    btn.className = 'nmg-btn nmg-btn-gold';
-    btn.textContent = '🎯 Försök igen';
-    btn.style.marginTop = '4px';
-    btn.onclick = function () {
-      var cont = document.getElementById(chKey + '-minigame-v2-continue');
-      if (cont) cont.style.display = 'none';
-      resultEl.innerHTML = '';
-      startFn();
-      if (typeof v2StartCompletionChecker === 'function') {
-        v2StartCompletionChecker(chKey);
-      }
-    };
-    resultEl.appendChild(btn);
-  }
-
-  // ── Public API ──────────────────────────────────────────
   return {
     ch1: ch1,
     ch2: ch2,
