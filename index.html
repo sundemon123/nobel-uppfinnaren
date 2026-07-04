@@ -2630,33 +2630,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
       </div>
     </div>
     <div style="text-align:center; margin-top: 32px;">
-      <button class="btn-somber" onclick="goToScreen('ch7-medals')">G&aring; vidare</button>
-    </div>
-  </div>
-
-  <!-- CH7: MEDAL SELECTION --><!-- CH7: MEDAL SELECTION --><!-- CH7: MEDAL SELECTION --><!-- CH7: MEDAL SELECTION -->
-  <div class="screen" id="ch7-medals">
-    <div class="narrative-box">
-      <h2 class="narrative-heading">Vad blev kvar av stormaktstiden?</h2>
-      <p class="narrative-text">Mycket av stormaktstiden finns kvar runt oss &auml;n idag &mdash; om man vet var man letar. V&auml;lj de FEM sp&aring;r som verkligen lever vidare!</p>
-      <audio id="narrator-ch7-medals" src="" preload="auto"></audio>
-    </div>
-    <div class="medal-grid" id="ch7-medalGrid">
-      <div class="medal-card" onclick="ch7ToggleMedal(0)" id="ch7-medal-0" data-medal="gatunamn"><span class="medal-emoji">&#x1FAA7;</span><span class="medal-name">Gatunamn</span></div>
-      <div class="medal-card" onclick="ch7ToggleMedal(1)" id="ch7-medal-1" data-medal="monument"><span class="medal-emoji">&#x1F5FF;</span><span class="medal-name">Monument &amp; statyer</span></div>
-      <div class="medal-card" onclick="ch7ToggleMedal(2)" id="ch7-medal-2" data-medal="ord"><span class="medal-emoji">&#x1F4AC;</span><span class="medal-name">Gamla ord &amp; uttryck</span></div>
-      <div class="medal-card" onclick="ch7ToggleMedal(3)" id="ch7-medal-3" data-medal="granser"><span class="medal-emoji">&#x1F5FA;&#xFE0F;</span><span class="medal-name">Gr&auml;nser p&aring; kartan</span></div>
-      <div class="medal-card" onclick="ch7ToggleMedal(4)" id="ch7-medal-4" data-medal="byggnader"><span class="medal-emoji">&#x1F3F0;</span><span class="medal-name">Gamla byggnader</span></div>
-      <div class="medal-card" onclick="ch7ToggleMedal(5)" id="ch7-medal-5" data-medal="kungaara"><span class="medal-emoji">&#x1F451;</span><span class="medal-name">Kungens egen &auml;ra</span></div>
-    </div>
-    <div class="medal-counter" id="ch7-medalCounter">Valda: <strong>0</strong> / 5</div>
-    <div class="medal-confirm-area" id="ch7-medalConfirmArea" style="display:none;">
-      <button class="btn-grand" onclick="ch7ConfirmMedals()">Bekr&auml;fta val</button>
-    </div>
-    <div class="minigame-result" id="ch7-medalResult">
-      <div class="minigame-result-score" id="ch7-medalResultScore"></div>
-      <div class="minigame-result-text" id="ch7-medalResultText"></div>
-      <button class="btn-grand" onclick="goToScreen('ch7-minigame')">Forts&auml;tt</button>
+      <button class="btn-somber" onclick="goToScreen('ch7-minigame')">G&aring; vidare</button>
     </div>
   </div>
 
@@ -2894,7 +2868,7 @@ var allScreens = [
   'ch4-title','ch4-minigame','ch4-choice1','ch4-choice2','ch4-choice3','ch4-fact','ch4-conclusion',
   'ch5-title','ch5-minigame','ch5-choice1','ch5-choice2','ch5-choice3','ch5-fact','ch5-conclusion',
   'ch6-title','ch6-scene','ch6-newspaper','ch6-minigame','ch6-choice','ch6-reflection','ch6-fact','ch6-conclusion',
-  'ch7-title','ch7-intro','ch7-choice1','ch7-cost','ch7-medals','ch7-minigame','ch7-choice3','ch7-finale'
+  'ch7-title','ch7-intro','ch7-choice1','ch7-cost','ch7-minigame','ch7-choice3','ch7-finale'
 ];
 
 var titleScreens = ['intro','ch1-title','ch1-howtoplay','ch2-title','ch3-title','ch4-title','ch5-title','ch6-title','ch7-title'];
@@ -5093,7 +5067,7 @@ function v2FallbackToOldMinigame(chPrefix) {
    laddar om spelet med ny query-sträng (= färsk hämtning).
    Sparningen ligger i localStorage så inget går förlorat.
    VID DEPLOY: bumpa GAME_BUILD här OCH siffran i version.txt. */
-var GAME_BUILD = 4;
+var GAME_BUILD = 5;
 
 function checkForNewVersion() {
   try {
@@ -7220,64 +7194,66 @@ var NobelMinigames = (function () {
      CH2: CHEMISTRY LAB  --  Drag ingredients to beaker
      ============================================================ */
   var ch2 = (function () {
-    var container, status, slotWrap, bankWrap, _score = 0, mistakes = 0, WORD = 'BIBEL', placed = [];
-    var WORDS = ['BIBEL', 'SVERIGE', 'KRONAN', 'KYRKAN'];
+    var container, status, slotWrap, bankWrap, _score = 0, mistakes = 0, WORDS = [], placed = [];
+    var SENTENCES = {
+      lugn:   ['Nu', 'kan', 'folk', 'läsa', 'själva'],
+      lagom:  ['Kungen', 'lät', 'trycka', 'bibeln', 'på', 'svenska'],
+      klurig: ['Genom', 'trycket', 'nådde', 'orden', 'ut', 'i', 'hela', 'riket']
+    };
     function init(id) {
       container = document.getElementById(id); if (!container) return; container.innerHTML = '';
       _score = 0; mistakes = 0; placed = [];
-      var d = nmgDifficulty();
-      WORD = d === 'lugn' ? 'BIBEL' : d === 'klurig' ? WORDS[3] : WORDS[Math.floor(Math.random() * 2)];
+      var d = nmgDifficulty(); WORDS = (SENTENCES[d] || SENTENCES.lagom).slice();
       var w = createDiv(container, 'nmg-wrapper');
       createDiv(w, 'nmg-title').textContent = 'Sätt trycktypen';
       createDiv(w, 'nmg-subtitle').textContent = 'Den första svenska bibeln';
-      createDiv(w, 'nmg-instructions').innerHTML = 'Tryckaren behöver sätta bokstäverna i rätt ordning. Tryck på bokstäverna <strong>i tur och ordning</strong> så att ordet blir rätt!';
+      createDiv(w, 'nmg-instructions').innerHTML = 'Tryckaren ska sätta en hel mening — men ordbrickorna ligger huller om buller. Tryck orden i <strong>rätt ordning</strong> så att meningen blir riktig!';
       status = createDiv(w, 'nmg-status');
-      var target = createDiv(w, 'nmg-status'); target.style.cssText = 'font-family:' + FONT_HEADLINE + ';font-size:1.1rem;color:' + COLORS.brown + ';letter-spacing:2px;';
-      target.textContent = 'Ord att sätta: ' + WORD;
-      slotWrap = document.createElement('div'); slotWrap.style.cssText = 'display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:12px auto;min-height:52px;'; w.appendChild(slotWrap);
-      bankWrap = document.createElement('div'); bankWrap.style.cssText = 'display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px auto;max-width:340px;'; w.appendChild(bankWrap);
+      slotWrap = document.createElement('div'); slotWrap.style.cssText = 'display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:14px auto;min-height:40px;'; w.appendChild(slotWrap);
+      bankWrap = document.createElement('div'); bankWrap.style.cssText = 'display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:10px auto;max-width:380px;'; w.appendChild(bankWrap);
     }
-    function tile(ch) {
+    function wordTile(txt, big) {
       var b = document.createElement('button');
-      b.style.cssText = 'width:46px;height:52px;border-radius:8px;border:2px solid ' + COLORS.brown + ';background:' + COLORS.parchDark +
-        ';color:' + COLORS.dark + ';font-family:' + FONT_HEADLINE + ';font-size:1.4rem;font-weight:700;cursor:pointer;box-shadow:0 2px 4px rgba(90,58,40,0.2);';
-      b.textContent = ch; return b;
+      b.style.cssText = 'padding:9px 13px;border-radius:8px;border:2px solid ' + COLORS.brown + ';background:' + (big ? COLORS.parchDark : COLORS.parchment) +
+        ';color:' + COLORS.dark + ';font-family:' + FONT_HEADLINE + ';font-size:1.05rem;cursor:pointer;box-shadow:0 2px 4px rgba(90,58,40,0.2);';
+      b.textContent = txt; return b;
     }
     function start() { render(); }
     function render() {
       slotWrap.innerHTML = ''; bankWrap.innerHTML = '';
-      for (var i = 0; i < WORD.length; i++) {
+      for (var i = 0; i < WORDS.length; i++) {
         var sl = document.createElement('div');
-        sl.style.cssText = 'width:46px;height:52px;border-radius:8px;border:2px dashed ' + COLORS.brownLight + ';display:flex;align-items:center;justify-content:center;font-family:' + FONT_HEADLINE + ';font-size:1.4rem;color:' + COLORS.moss + ';background:rgba(196,155,42,0.08);';
-        sl.textContent = placed[i] || '';
+        sl.style.cssText = 'min-width:44px;height:40px;padding:0 8px;border-radius:8px;border:2px dashed ' + COLORS.brownLight + ';display:flex;align-items:center;justify-content:center;font-family:' + FONT_HEADLINE + ';font-size:1.02rem;color:' + COLORS.moss + ';background:rgba(196,155,42,0.08);';
+        sl.textContent = placed[i] || (i + 1);
+        if (!placed[i]) sl.style.color = COLORS.brownLight;
         slotWrap.appendChild(sl);
       }
-      var remaining = WORD.split('');
+      var remaining = WORDS.slice();
       for (var k = 0; k < placed.length; k++) { var idx = remaining.indexOf(placed[k]); if (idx >= 0) remaining.splice(idx, 1); }
-      shuffle(remaining).forEach(function (ch) {
-        var b = tile(ch);
-        b.onclick = function () { onPick(ch, b); };
+      shuffle(remaining).forEach(function (word) {
+        var b = wordTile(word, true);
+        b.onclick = function () { onPick(word, b); };
         bankWrap.appendChild(b);
       });
-      status.textContent = placed.length ? 'Bra! Fortsätt.' : 'Tryck på första bokstaven: ' + WORD.charAt(0);
+      status.textContent = placed.length ? ('Meningen hittills: ”' + placed.join(' ') + '…”') : 'Vilket ord börjar meningen?';
     }
-    function onPick(ch, b) {
-      var next = WORD.charAt(placed.length);
-      if (ch === next) {
-        placed.push(ch); render();
-        if (placed.length === WORD.length) finish();
+    function onPick(word, b) {
+      var next = WORDS[placed.length];
+      if (word === next) {
+        placed.push(word); render();
+        if (placed.length === WORDS.length) finish();
       } else {
         mistakes++; b.style.background = COLORS.redLight; b.style.color = '#fff';
-        status.textContent = 'Inte den — försök med en annan!';
-        setTimeout(function () { b.style.background = COLORS.parchDark; b.style.color = COLORS.dark; }, 500);
+        status.textContent = 'Det ordet kommer inte här — tänk på hur meningen låter!';
+        setTimeout(function () { b.style.background = COLORS.parchDark; b.style.color = COLORS.dark; }, 550);
       }
     }
     function finish() {
       _score = mistakes === 0 ? 2 : mistakes <= 2 ? 1 : 0;
-      var body = _score === 2 ? 'Perfekt satt! Nu kan bibeln tryckas på svenska — och folk kan läsa den själva.' :
-        _score === 1 ? 'Ordet blev rätt till slut. Tryckpressen rullar!' :
-        'Det tog några försök, men ordet står rätt nu. Bra kämpat!';
-      setTimeout(function () { nmgFinish(container, _score, WORD + ' — klart!', body); }, 600);
+      var body = _score === 2 ? 'Perfekt satt! ”' + WORDS.join(' ') + '” — nu kan bibeln tryckas på svenska.' :
+        _score === 1 ? 'Meningen blev rätt till slut: ”' + WORDS.join(' ') + '”. Tryckpressen rullar!' :
+        'Det tog några försök, men meningen står rätt nu. Bra kämpat!';
+      setTimeout(function () { nmgFinish(container, _score, 'Meningen är satt!', body); }, 500);
     }
     function getScore() { return _score; }
     function destroy() { if (container) container.innerHTML = ''; }
@@ -7290,7 +7266,7 @@ var NobelMinigames = (function () {
       container = document.getElementById(id); if (!container) return; container.innerHTML = '';
       _score = 0; moves = 0;
       villages = [ { n: 'Näsby', v: 2 }, { n: 'Lida', v: 8 }, { n: 'Torp', v: 3 } ];
-      var d = nmgDifficulty(); MAX = d === 'lugn' ? 16 : d === 'klurig' ? 8 : 12;
+      var d = nmgDifficulty(); MAX = d === 'lugn' ? 14 : d === 'klurig' ? 7 : 10;
       var w = createDiv(container, 'nmg-wrapper');
       createDiv(w, 'nmg-title').textContent = 'Samla byarna';
       createDiv(w, 'nmg-subtitle').textContent = 'Håll stödet i balans';
@@ -7351,7 +7327,7 @@ var NobelMinigames = (function () {
     function init(id) {
       container = document.getElementById(id); if (!container) return; container.innerHTML = '';
       _score = 0; placed = {};
-      var d = nmgDifficulty(); budget = d === 'lugn' ? 8 : d === 'klurig' ? 5 : 6;
+      var d = nmgDifficulty(); budget = d === 'lugn' ? 7 : d === 'klurig' ? 4 : 5;
       // hamnen ligger i mittkolumnen; fienden kommer från vänster (havet)
       approaches = [ {r:0,c:0}, {r:1,c:0}, {r:2,c:0}, {r:3,c:0} ];
       var w = createDiv(container, 'nmg-wrapper');
@@ -7495,7 +7471,7 @@ var NobelMinigames = (function () {
     function init(id) {
       container = document.getElementById(id); if (!container) return; container.innerHTML = '';
       _score = 0; safe = 0; round = 0;
-      var d = nmgDifficulty(); ROUNDS = d === 'lugn' ? 3 : d === 'klurig' ? 5 : 4;
+      var d = nmgDifficulty(); ROUNDS = d === 'lugn' ? 4 : d === 'klurig' ? 6 : 5;
       var w = createDiv(container, 'nmg-wrapper');
       createDiv(w, 'nmg-title').textContent = 'Flykten över fjället';
       createDiv(w, 'nmg-subtitle').textContent = 'Saltebys vägvisare hjälper Gustav';
@@ -7579,12 +7555,16 @@ var NobelMinigames = (function () {
     function init(id) {
       container = document.getElementById(id); if (!container) return; container.innerHTML = '';
       _score = 0; matched = 0; cur = null;
-      PAIRS = [
+      var ALL_PAIRS = [
         { a: 'En gata som heter Kungsgatan', b: 'Gatunamn från kungarnas tid' },
         { a: 'En gammal fästning vid hamnen', b: 'Byggnad från stormaktstiden' },
         { a: 'Uttrycket ”gå över ån efter vatten”', b: 'Gammalt ordspråk som lever kvar' },
-        { a: 'Sverige gränsar till Finland', b: 'Gränser som formades för länge sedan' }
+        { a: 'Sverige gränsar till Finland', b: 'Gränser som formades för länge sedan' },
+        { a: 'En staty av en kung på torget', b: 'Monument som minns makten' },
+        { a: 'Det gamla ordet ”fogde”', b: 'Namn på den som drev in skatt' }
       ];
+      var dd = nmgDifficulty(); var np = dd === 'lugn' ? 3 : dd === 'klurig' ? 6 : 5;
+      PAIRS = shuffle(ALL_PAIRS).slice(0, np);
       var w = createDiv(container, 'nmg-wrapper');
       createDiv(w, 'nmg-title').textContent = 'Då och nu';
       createDiv(w, 'nmg-subtitle').textContent = 'Spåren som lever kvar';
