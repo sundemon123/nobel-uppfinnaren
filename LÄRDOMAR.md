@@ -154,6 +154,41 @@ maskotmodulen, leaderboard med offline-kö, versionskontrollen (nedan).
     skriv ut landsnamn. Och Storbritannien är en ö.
 12. Låga SVG-opaciteter ser ut som trasiga platshållare.
 
+## 8. Variera formen — återanvänd motorn, inte upplevelsen (direktiv)
+
+Efter spel 2 (Einstein) kom det viktigaste seriedirektivet: **spelen
+får inte bli för lika varandra — varken innehållet eller minispelen.**
+Einstein lånade Nobels hela skelett (7 kapitel, dagbok, mörkt kapitel 6
+med tidnings-setpiece, tre resurser + finallås, stämpel-/leta-/para
+ihop-mekanikerna). Två spel som rimmar är charmigt; tre är en mall.
+
+**Återanvänd osynligt, variera synligt:**
+- *Osynligt (återanvänd fritt):* spelmotorn, ljudsystemet,
+  narrator-konventionen, sparande, versionskontroll, speltestmetoden,
+  ElevenLabs-pipelinen, buggklass-listan.
+- *Synligt (variera aktivt per spel):*
+  1. **Kapitelstruktur** — antal, rytm, kronologi. Våga in medias res,
+     ramberättelse eller två tidsplan.
+  2. **Dagboks-greppet** — Nobel: dagbok; Einstein: frågebok. Nästa:
+     brev till systern? klippbok? manuskortlek? Bör kännas uppfunnet
+     för personen, inte ärvt.
+  3. **Mörka kapitlets FORM** — inte en tidning igen. Telegram,
+     fotografi, tom stol, radiosändning…
+  4. **Resurserna** — namn OCH dynamik. Tre staplar med finallås är
+     använt två gånger; prova motstridiga resurser, en resurs som
+     måste offras, eller en dold.
+  5. **Minispelen** — max 2 av 7 får dela mekanik med tidigare spel.
+     Ogrävda genrer: rytm/timing i rörelse, bygga/konstruera, odla
+     något över flera kapitel, kart-/vägval, ord- och berättarlekar,
+     smyga, mäta och jämföra.
+  6. **Maskot, samlarmetafor, palett, typografi** — allt synligt.
+- *Seriens signatur (behåll):* du-form, källkoll-rutorna, aldrig
+  underkänt, misslyckande som vändpunkt, dramaturgiskt allvar, och
+  att huvudpersonens röst minns spelarens val.
+
+**Test:** beskriv nya spelet för ett barn som spelat de förra. Om
+barnet kan gissa vad som händer i kapitel 6 — börja om.
+
 ## 7. Snabbstart för Einstein-spelet
 
 **Återanvänd omodifierat:** minispelsramverket, showResult/notifyDone,
