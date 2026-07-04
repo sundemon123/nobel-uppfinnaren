@@ -8,7 +8,7 @@
 > Mileva-dagboken, Hiroshima-skärmen (ny!), Mileva-epilogen (ny!),
 > "Vad gjorde Albert på riktigt?"-facit (nytt!), Avtryck i st.f.
 > Eftermäle, fysik-ärlighetsnoter, klurig-kamouflage i Kompassjakten,
-> mjukare fiolkrav, maskot dold i kap 6. Kvar: Liams rapport. Rösten och ljudeffekterna är nu inspelade och inbäddade (52 klipp, David/eleven_v3).
+> mjukare fiolkrav, maskot dold i kap 6. **Variationsbatch A–C:** spegelpussel (kap 3), hitta-felet-i-ritningen (kap 4) och radio-set-piece (kap 6) ersätter de mest Nobel-lika momenten. Rösten inspelad (52 klipp, David/eleven_v3). Kvar: Liams rapport, riktiga barn.
 
 | Persona | Profil | Dom |
 |---|---|---|

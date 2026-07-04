@@ -38,10 +38,10 @@ uppmuntrande fakta. Döljs på minispelsskärmar.
 |---|---|---|---|---|
 | 1 | Kompassen | Ulm/München 1879–1889 | Pojken som pratade sent men undrade mycket; kompassens magi; pappans elektriska fabrik (elektrifieringens tid = strukturkontext) | **Kompassjakten** — hitta gömda magnetiska saker i verkstan med kompassnålen |
 | 2 | Skolan som inte gillade frågor | München 1889–1895 | Skola med utantillplugg; fiolen och Mozart; fabriken går omkull, familjen flyttar till Italien — Albert lämnas ensam och väljer att våga resa efter | **Fiolens toner** — härma melodislingor (eko-spel) |
-| 3 | Ljusstrålen och Mileva | Aarau/Zürich 1895–1900 | Kuggad på inträdesprovet (bäst i fysik, sämst i franska!) = misslyckande-är-ok; tankeexperimentet "rida på en ljusstråle"; Mileva Marić — enda kvinnan på fysikprogrammet (strukturmoment: kvinnors väg till studier) | **Rid på ljusstrålen** — styr ljuset med speglar till målet |
-| 4 | Patentkontoret och mirakelåret | Bern 1902–1905 | Fick inget universitetsjobb; granskar patent, tänker emellan; 1905: fyra artiklar som ändrar allt (ljuspaket, atomer, relativitet, E=mc²). Källkritikruta: forskare är oense om hur mycket Mileva bidrog | **Patentgranskaren** — funkar uppfinningen eller inte? Hitta felet |
+| 3 | Ljusstrålen och Mileva | Aarau/Zürich 1895–1900 | Kuggad på inträdesprovet (bäst i fysik, sämst i franska!) = misslyckande-är-ok; tankeexperimentet "rida på en ljusstråle"; Mileva Marić — enda kvinnan på fysikprogrammet (strukturmoment: kvinnors väg till studier) | **Speglarnas gåta** — vrid speglar så ljuset studsar i mål (pusselmekanik) |
+| 4 | Patentkontoret och mirakelåret | Bern 1902–1905 | Fick inget universitetsjobb; granskar patent, tänker emellan; 1905: fyra artiklar som ändrar allt (ljuspaket, atomer, relativitet, E=mc²). Källkritikruta: forskare är oense om hur mycket Mileva bidrog | **Patentgranskaren** — hitta felet i ritningen, tryck på det som inte fungerar (visuellt) |
 | 5 | Solförmörkelsen | 1915–1922 | Gravitationen böjer ljus; kriget runt omkring (Einstein skrev under fredsupprop när andra hyllade kriget → Mod); Eddington 1919 bekräftar; världspressen exploderar = **historiebruk-moment** ("Newton fel!" — vad skriver tidningarna och varför?); Nobelpriset 1921 — för ljuspaketen, INTE relativiteten (brygga till Nobel-spelet!) | **Böj ljuset** — led stjärnljuset förbi solen till fotoplåten |
-| 6 | Flykten | 1933 | Mörka kapitlet (som Nobels dödsruna): nazisterna tar makten, böcker bränns, Einstein är jude och vågar inte åka hem; lämnar Tyskland för alltid; forskare flyr = vetenskapen förlorar (struktur). Stillsamt ljud, ingen konfetti | **Sant eller propaganda?** — granska påståenden: vem säger det och varför? (källkritik) |
+| 6 | Flykten | 1933 | Mörka kapitlet: nazisterna tar makten, böcker bränns, Einstein är jude och vågar inte åka hem. **Set-piece: RADION** (inte en tidning som Nobel) — propagandan tonar fram ur bruset när barnet vrider ratten. Stillsamt ljud, ingen konfetti | **Sant eller propaganda?** — granska påståenden: vem säger det och varför? (källkritik) |
 | 7 | Brevet och freden | 1939–1955 | Brevet till Roosevelt av rädsla för Hitlers bomb; Hiroshima; ångern ("hade jag vetat..."); fredsarbetet, mot rasism i USA, Russell–Einstein-manifestet dagar före hans död. Konsekvenslås på Mod. Final: arvet | **Då och nu** — para ihop upptäckter med nutidsteknik (GPS↔relativitet, solceller↔ljuspaket, atomklockor) |
 
 ## Läroplansförankring (inbyggd, ur LÄROPLAN.md)
@@ -97,3 +97,16 @@ till resultat, overlay-städning vid skärmbyte, timers startar vid
 första interaktion, ärliga sluttexter vid timeout, facit städas,
 klickspam-lockout, makeChoice-guard, retcon-bryggor, faktakoll av
 dynamiska texter, landsnamn på kartor, inga bleka SVG:er.
+
+
+## Variation från Nobel (seriedirektivet §7 i LÄRDOMAR)
+
+Efter direktivet "återanvänd motorn, inte upplevelsen" gjordes tre
+byten så att Einstein delar **max 2 av 7 minispelsmekaniker** med
+Nobel (leta-saker i kap 1, para-ihop i kap 7):
+- **Kap 3:** banspel → **spegelpussel** (seriens första pusselmekanik).
+- **Kap 4:** stämpelspel → **hitta-felet-i-ritningen** (visuellt, löser
+  läsproblemet för 7-åringar).
+- **Kap 6 set-piece:** tidning → **radio** (1933 var radions årtionde
+  och nazisternas propagandavapen — historiskt vassare, och Nobels
+  tidningsnummer återanvänds inte).

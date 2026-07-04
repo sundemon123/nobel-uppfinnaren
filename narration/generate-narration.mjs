@@ -55,7 +55,8 @@ if (flag('--list-voices')) {
 
 if (flag('--inject')) {
   let html = readFileSync(INDEX, 'utf-8');
-  const files = existsSync(CLIPS) ? readdirSync(CLIPS).filter(f => f.endsWith('.mp3')) : [];
+  const manusKeys = new Set(Object.keys(JSON.parse(readFileSync(join(DIR, 'manus.json'), 'utf-8'))));
+  const files = existsSync(CLIPS) ? readdirSync(CLIPS).filter(f => f.endsWith('.mp3') && manusKeys.has(f.replace(/\.mp3$/, ''))) : [];
   if (!files.length) { console.error('Inga klipp i narration/clips/ — kör med --voice först.'); process.exit(1); }
   let replaced = 0, added = 0;
   const missing = [];
