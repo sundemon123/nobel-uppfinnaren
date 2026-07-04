@@ -201,6 +201,16 @@ per definition är olika format. Nobel och Einstein är i praktiken
 *nedslag i epoken 1800/1900-tal*. Fullständig modell + epok-karta i
 seriens hubb-repo (`historieresan/SERIE.md`).
 
+**Klassrumsmodularitet — en lektion, ett kapitel:** för spel som ska
+användas i undervisning, bygg varje kapitel som en självbärande
+lektionsenhet (~10–15 min): krok → val → minispel → reflektion →
+teaser. Lägg en kapitelväljare + "detta hände sist"-recap på
+startskärmen så en lärare kan hoppa rakt till dagens kapitel; låt
+kapitel gå att kallstarta med neutralt utgångsläge (konsekvenssystemet
+degraderar elegant). Lärarhandledningen blir en sida per lektion med
+tips för att spela *före* genomgången (krok) eller *efter* (fördjupning).
+Nedslagen är redan lektionsstora och passar detta bäst.
+
 ## 8. Snabbstart för Einstein-spelet
 
 **Återanvänd omodifierat:** minispelsramverket, showResult/notifyDone,

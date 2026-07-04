@@ -70,6 +70,29 @@ kvinnor, män och andra grupper**. Nedslagen bär historisk empati bättre
 tidigare spel i serien. Äventyr och nedslag i samma epok ska kännas
 olika i formen (LÄRDOMAR §7).
 
+## Klassrumsmodularitet — en lektion, ett kapitel
+
+Spelen ska fungera i undervisningen, inte bara hemma. Varje kapitel
+byggs därför som en **självbärande lektionsenhet (~10–15 min)**: krok →
+val → minispel → reflektion → "till nästa gång"-teaser. Ett kapitel ska
+kännas helt även om man aldrig spelar de andra.
+
+- **Kapitelväljare** på startskärmen — läraren hoppar rakt till dagens
+  kapitel (ingen omspelning av 1–3 för att nå 4).
+- **"Detta hände sist"-recap** vid kapitelstart (det kan gå en vecka
+  mellan lektionerna).
+- **Fristående kallstart** med neutralt utgångsläge; konsekvenssystemet
+  körs fullt ut vid sparning men degraderar elegant vid kallstart.
+- **Före eller efter genomgång:** varje kapitel funkar som *krok* före
+  lärarens genomgång (väcker frågor) eller *fördjupning* efter (låter
+  dem uppleva/känna). Lärarhandledningen ger båda per kapitel — en sida
+  per lektion.
+- **Nedslagen är redan lektionsstora** och fristående — idealiska för
+  "en lektion, ett nedslag", utan sparningsberoende.
+
+Retrofit i Nobel/Einstein (kapitelväljare + recap) när tid finns.
+Sparning över delade skolenheter löses separat, längre fram.
+
 ## Repostruktur (se README)
 
 Ett repo per epok. Epoklandningen binder ihop äventyr + nedslag som

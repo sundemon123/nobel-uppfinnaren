@@ -33,6 +33,7 @@ enskilt spel:
 |---|---|---|---|---|
 | Nobel: Uppfinnarens väg | 1800-tal | åk 4–6 | 🟢 live | `nobel-uppfinnaren` |
 | Einstein: Tänkarens väg | 1900-tal | åk 4–6 | 🟡 klar, ej deployad | `einstein-tankarens-vag` |
+| Stormaktstiden: Rikets väg | ca 1500–1800 | åk 5 | 🔵 koncept | `stormaktstiden` |
 | _(kommande)_ Vikingaresan | ca 800–1500 | åk 4 | ⚪ planerad | — |
 
 ## Repostruktur — varför polyrepo + hubb
