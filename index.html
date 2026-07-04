@@ -2992,13 +2992,6 @@ function applyChapterStart(chapter) {
     }
   }
   if (chapter === 4) {
-    // Ch3 -> Ch4: Speed choice affects intro
-    if (gameState.choices.ch3_provet === 1) {
-      var el = document.getElementById('ch4-introText');
-      if (el) el.innerHTML = '<strong>\u00c5ret \u00e4r 1867.</strong> Efter det h\u00f6ga tempot och explosionen har Alfred l\u00e4rt sig att t\u00e5lamod l\u00f6nar sig. Nu har han \u00e4ntligen skapat dynamit \u2014 s\u00e4kert och kraftfullt.';
-    }
-  }
-  if (chapter === 4) {
     // Ch3 -> Ch4: den som skippade f\u00f6rel\u00e4sningarna f\u00e5r k\u00e4nna av det
     if (gameState.choices.ch3_studier === 1) {
       var el4 = document.getElementById('ch4-introText');
@@ -3653,13 +3646,13 @@ function flyResources(resource, change, fromEl) {
    save file and browsable via showStickerBook().
    ============================================ */
 var STICKERS = {
-  1: { emoji: '🔍', name: 'Upptäckaren' },
-  2: { emoji: '🧪', name: 'Kemisten' },
-  3: { emoji: '💥', name: 'Den modige' },
-  4: { emoji: '🧨', name: 'Uppfinnaren' },
-  5: { emoji: '🗺️', name: 'Imperiebyggaren' },
-  6: { emoji: '📰', name: 'Sanningssökaren' },
-  7: { emoji: '🏅', name: 'Nobelprisets far' }
+  1: { emoji: '🧭', name: 'Undraren' },
+  2: { emoji: '🎻', name: 'Frågeställaren' },
+  3: { emoji: '✨', name: 'Ljusryttaren' },
+  4: { emoji: '💡', name: 'Mirakelmakaren' },
+  5: { emoji: '🌞', name: 'Stjärntydaren' },
+  6: { emoji: '🕊️', name: 'Den modiga rösten' },
+  7: { emoji: '⚛️', name: 'Fredstänkaren' }
 };
 var STICKER_STAR_KEYS = {
   1: 'ch1_treasure', 2: 'ch2_chemistry', 3: 'ch3_stabilize', 4: 'ch4_dynamite',
@@ -3732,7 +3725,7 @@ function showStickerBook() {
   html += '</div>';
   if (count >= 7) {
     html += '<div class="sticker-diploma">🏆 DIPLOM 🏆<br>' +
-      '<span style="font-weight:400; font-size:0.85rem;">Du har följt Alfred Nobel genom hela livet och samlat alla sju klistermärken!</span>' +
+      '<span style="font-weight:400; font-size:0.85rem;">Du har följt Albert Einstein genom hela livet och samlat alla märken. Du är en riktig tänkare!' +
       (starSum >= 21 ? '<br><span style="color:var(--gold);">Alla 21 stjärnor — en perfekt resa! ⭐⭐⭐</span>' : '') +
       '</div>';
   }
@@ -3751,15 +3744,15 @@ function showStickerBook() {
    ============================================ */
 var nobelKatt = (function () {
   var el = null, bubble = null, bubbleTimer = null, audioCtx = null;
-  var PHRASES = ['Mjau!', 'Mjau mjau!', 'Prrrr\u2026', 'Mjau! Bra jobbat!', 'Mjau? Tryck p\u00e5 Lyssna om texten \u00e4r sv\u00e5r!', 'Prrr\u2026 vidare, vidare!'];
+  var PHRASES = ['Pling!', 'Norr \u00e4r dit\u00e5t!', 'Vilken bra fr\u00e5ga!', 'Snurr snurr\u2026 klick!', 'Tryck p\u00e5 Lyssna om texten \u00e4r sv\u00e5r!', 'Vidare, uppt\u00e4ckare!'];
 
   function ensure() {
     if (el) return;
     el = document.createElement('div');
     el.id = 'nobel-katt';
     el.setAttribute('role', 'button');
-    el.setAttribute('aria-label', 'Nobelkatten');
-    el.textContent = '\ud83d\udc08';
+    el.setAttribute('aria-label', 'Kompis Kompassen');
+    el.textContent = '\ud83e\udded';
     el.addEventListener('click', poke);
     document.body.appendChild(el);
     bubble = document.createElement('div');
@@ -3782,10 +3775,10 @@ var nobelKatt = (function () {
       var t = audioCtx.currentTime;
       var o = audioCtx.createOscillator();
       var g = audioCtx.createGain();
-      o.type = 'triangle';
-      o.frequency.setValueAtTime(520, t);
-      o.frequency.linearRampToValueAtTime(880, t + 0.12);
-      o.frequency.linearRampToValueAtTime(390, t + 0.38);
+      o.type = 'sine';
+      o.frequency.setValueAtTime(660, t);
+      o.frequency.linearRampToValueAtTime(990, t + 0.1);
+      o.frequency.linearRampToValueAtTime(880, t + 0.3);
       g.gain.setValueAtTime(0.0001, t);
       g.gain.linearRampToValueAtTime(vol, t + 0.05);
       g.gain.linearRampToValueAtTime(0.0001, t + 0.42);
@@ -6866,7 +6859,7 @@ var NobelDiary = (function () {
     overlayEl = document.createElement('div');
     overlayEl.className = 'diary-overlay';
     overlayEl.setAttribute('role', 'dialog');
-    overlayEl.setAttribute('aria-label', 'Alfreds dagbok');
+    overlayEl.setAttribute('aria-label', 'Alberts fr\u00e5gebok');
 
     overlayEl.innerHTML = ''
       + '<div class="diary-card">'
@@ -6874,12 +6867,12 @@ var NobelDiary = (function () {
       +   '<div class="diary-stain diary-stain--1"></div>'
       +   '<div class="diary-stain diary-stain--2"></div>'
       +   '<div class="diary-header">'
-      +     '<div class="diary-title">Alfreds dagbok</div>'
+      +     '<div class="diary-title">Alberts fr\u00e5gebok</div>'
       +     '<div class="diary-date" id="diary-date"></div>'
       +   '</div>'
       +   '<div class="diary-divider"></div>'
       +   '<div class="diary-text" id="diary-text"></div>'
-      +   '<div class="diary-signature" id="diary-signature">— Alfred Nobel</div>'
+      +   '<div class="diary-signature" id="diary-signature">— Albert</div>'
       +   '<button class="diary-close-btn" id="diary-close-btn">St\u00e4ng dagboken</button>'
       +   '<div class="diary-skip-hint" id="diary-skip-hint">Tryck f\u00f6r att visa allt</div>'
       + '</div>';
