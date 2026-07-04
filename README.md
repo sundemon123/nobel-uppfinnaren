@@ -21,8 +21,8 @@ enskilt spel:
   verifierad mot Skolverket) som styr person-/temaurval och
   läroplansförankring.
 - **[LÄROPLAN-MELLANSTADIET.md](LÄROPLAN-MELLANSTADIET.md)** — fokuserad
-  åk 4–6-analys: epok-för-epok-karta, årskursfördelning, nedslagsförslag.
-  *(genereras av den fokuserade deep-researchen)*
+  åk 4–6-analys: de tre verifierade epokblocken, betygskriterier→mekanik,
+  angränsande SO, samt designförslag på årskursfördelning och nedslag.
 - **`motor/`** — röst-/ljudpipelinen (`generate-narration.mjs`,
   `sfx-prompts.json`) och motormallen som spelen delar.
 - **`index.html`** — seriens landningssida.

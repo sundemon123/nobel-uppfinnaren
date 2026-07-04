@@ -91,16 +91,24 @@ Personspel som Nobel och Einstein är i praktiken **nedslag i epoken
 
 ## Epok-för-epok-karta (åk 4–6)
 
-> Fylls i från den fokuserade deep-researchen (`LÄROPLAN-MELLANSTADIET.md`)
-> som verifierar exakta tidsblock, årskursfördelning och nedslagsförslag.
-> Preliminär skiss nedan — uppdateras när rapporten är klar.
+Grundad i den verifierade `LÄROPLAN-MELLANSTADIET.md`. **Lgr22 har TRE
+epokblock för åk 4–6-historia** (inte fyra — 1700-talet ligger ihop med
+1500-talet). Exakta rubriker + verifierat innehåll finns i den rapporten;
+årskursfördelning och nedslag nedan är designförslag.
 
-| Epok | Äventyr | Nedslag (skiss) | Årskurs |
+| Block (verifierad rubrik) | Äventyr | Nedslag (designförslag) | Årskurs* |
 |---|---|---|---|
-| Norden ca 800–1500 | Vikingaresan | Trälflickan · Völvan · Runristaren (källkritik) | ~åk 4 |
-| Norden ca 1500–1700 | (Vasa/stormaktstid) | Gustav Vasa · en soldathustru · häxprocess-nedslag | ~åk 5 |
-| ca 1700–1850 | (upplysning/jordbruk) | Linné (med skuggsida) · en piga · en skiftesbonde | ~åk 5–6 |
-| ca 1800–1900 | (industri/emigration) | **Nobel ✓** · **Einstein ✓** · Curie · Emigranterna | ~åk 6 |
+| Kulturmöten och statsbildning i Norden, ca **800–1500** | Vikingaresan | Trälflickan (ofria) · Völvan (kvinnor) · Runristaren (historiebruk + källkritik) | ~åk 4 |
+| Maktförhållanden och levnadsvillkor i Norden, ca **1500–1800** | Maktens tid (Vasa → östersjövälde) | Gustav Vasa · ett liv i ståndssamhället · häxprocessen (källor) | ~åk 5 |
+| Folkökning, ändrade maktförhållanden och emigration, ca **1800–1900** | Industri & utvandring | **Nobel ✓** · Emigranterna · en kvinnlig 1800-talsröst | ~åk 6 |
+
+*Årskursfördelningen är vårt designförslag, inte ett läroplanskrav.
+
+**Om Einstein/Curie:** åk 4–6-historia är Sverige/Norden-fokuserad.
+Einstein och Curie ligger utanför det centrala innehållet för åk 4–6
+(de hör till NO/teknik och åk 7–9:s världshistoria) — värdefulla spel,
+men marknadsför dem inte som åk 4–6-historia. Där vinner de
+svensk/nordiskt förankrade berättelserna.
 
 ## Byggordning per spel (från LÄRDOMAR)
 
