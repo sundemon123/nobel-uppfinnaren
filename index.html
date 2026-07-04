@@ -1296,43 +1296,39 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <div class="title-icon">
         <svg viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
           <rect width="220" height="160" fill="var(--parchment)" rx="8"/>
-          <circle cx="110" cy="74" r="50" fill="var(--parchment-light)" stroke="var(--navy)" stroke-width="3"/>
-          <circle cx="110" cy="74" r="41" fill="none" stroke="var(--brown-light)" stroke-width="1" stroke-dasharray="3 5" opacity="0.7"/>
-          <polygon points="110,36 118,74 110,68 102,74" fill="var(--copper)"/>
-          <polygon points="110,112 118,74 110,80 102,74" fill="var(--navy)" opacity="0.75"/>
-          <circle cx="110" cy="74" r="4.5" fill="var(--gold)"/>
-          <text x="110" y="30" text-anchor="middle" font-family="var(--font-headline)" font-size="12" fill="var(--navy)" font-weight="bold">N</text>
-          <text x="110" y="132" text-anchor="middle" font-family="var(--font-headline)" font-size="10" fill="var(--brown-light)">S</text>
-          <text x="166" y="78" text-anchor="middle" font-family="var(--font-headline)" font-size="10" fill="var(--brown-light)">&Ouml;</text>
-          <text x="54" y="78" text-anchor="middle" font-family="var(--font-headline)" font-size="10" fill="var(--brown-light)">V</text>
-          <circle cx="35" cy="30" r="2.5" fill="var(--gold)" opacity="0.8"/>
-          <circle cx="190" cy="42" r="2" fill="var(--gold)" opacity="0.6"/>
-          <circle cx="182" cy="120" r="2.5" fill="var(--gold)" opacity="0.7"/>
-          <text x="110" y="152" text-anchor="middle" font-family="var(--font-body)" font-size="9" fill="var(--brown-light)" opacity="0.9" font-style="italic">M&uuml;nchen, 1885</text>
+          <rect x="30" y="120" width="160" height="30" fill="var(--brown-medium)" opacity="0.2"/>
+          <rect x="46" y="80" width="34" height="42" fill="var(--brown-medium)" opacity="0.4"/><polygon points="42,80 63,58 84,80" fill="var(--copper)" opacity="0.6"/>
+          <rect x="92" y="62" width="28" height="60" fill="var(--brown-medium)" opacity="0.5"/><polygon points="88,62 106,38 124,62" fill="var(--copper)" opacity="0.6"/><rect x="103" y="46" width="6" height="10" fill="var(--gold)"/>
+          <rect x="132" y="86" width="30" height="36" fill="var(--brown-medium)" opacity="0.4"/><polygon points="128,86 147,66 166,86" fill="var(--copper)" opacity="0.6"/>
+          <g transform="translate(106,34)"><ellipse cx="0" cy="0" rx="5" ry="3" fill="var(--brown-dark)"/><circle cx="4" cy="-1.5" r="2.5" fill="var(--brown-dark)"/><polygon points="6,-1.5 10,-1 6,1" fill="var(--gold)"/></g>
+          <path d="M20 130 Q60 126 110 130 Q160 134 200 130" stroke="var(--navy)" stroke-width="2" fill="none" opacity="0.4"/>
+          <text x="110" y="152" text-anchor="middle" font-family="var(--font-body)" font-size="9" fill="var(--brown-light)" opacity="0.9" font-style="italic">Salteby vid &Ouml;stersj&ouml;n, omkring 1520</text>
         </svg>
       </div>
       <div class="title-ornament"></div>
-      <h1 class="game-title">Einstein</h1>
-      <p class="game-subtitle">T&auml;nkarens v&auml;g</p>
-      <div class="chapter-label">Kapitel 1 &mdash; Kompassen</div>
+      <h1 class="game-title">Stormaktstiden</h1>
+      <p class="game-subtitle">Rikets v&auml;g</p>
+      <div class="chapter-label">Kapitel 1 &mdash; Unionen skakar</div>
+      <div class="discussion-box" id="ch1-recap" style="display:none;text-align:left;"><div class="discussion-label">&#x1F4D6; Detta har h&auml;nt</div><p class="discussion-text">Sverige, Danmark och Norge styrs av en enda kung i Kalmarunionen. M&aring;nga svenskar &auml;r missn&ouml;jda.</p></div>
       <p class="intro-text">
-        <strong>Tyskland, 1879&ndash;1889.</strong> Albert f&ouml;ds i staden Ulm och v&auml;xer upp i M&uuml;nchen. Han &auml;r en tyst pojke. Han b&ouml;rjar prata
-        s&aring; sent att familjen oroar sig. Men i hans huvud &auml;r det fullt av fr&aring;gor.
-        Pappa Hermann och farbror Jakob bygger elektriska lampor i sin fabrik &mdash;
-        v&auml;rlden h&aring;ller p&aring; att f&aring; ljus. Och snart ska en liten kompass &auml;ndra allt.
+        <strong>Omkring 1520.</strong> Sverige, Danmark och Norge styrs av en enda kung
+        i Kalmarunionen. Den danske kungen Kristian har just l&aring;tit halshugga m&aring;nga
+        svenska storm&auml;n i Stockholm. I den lilla staden Salteby viskar folk p&aring;
+        torget: en ung man vid namn Gustav har flytt till Dalarna f&ouml;r att resa uppror.
+        Ska vi f&ouml;lja honom?
       </p>
       <audio id="narrator-ch1-title" src="" preload="auto"></audio>
-      <button class="btn-primary" onclick="goToScreen('ch1-choice1')">B&ouml;rja spela</button>
+      <button class="btn-primary" onclick="goToScreen('ch1-choice1')">B&ouml;rja</button>
     </div>
   </div>
 
-  <!-- CH1: HOW TO PLAY -->
+  <!-- CH1: HOW TO PLAY --><!-- CH1: HOW TO PLAY -->
   <div class="screen" id="ch1-howtoplay">
     <div class="narrative-box">
       <h2 class="narrative-heading">S&aring; h&auml;r spelar du</h2>
       <p class="narrative-text">
-        I det h&auml;r spelet f&ouml;ljer du Albert Einsteins liv fr&aring;n nyfiket barn till v&auml;rldens
-        mest ber&ouml;mda t&auml;nkare. Du g&ouml;r val som bygger tre resurser:
+        I det h&auml;r spelet f&ouml;ljer du ett helt rike &mdash; fr&aring;n att Sverige bryter sig loss ur
+        unionen, blir en stormakt, och till slut faller. Dina val bygger tre resurser:
       </p>
     </div>
     <div class="how-to-play-grid">
@@ -1340,21 +1336,21 @@ body.narrator-on .screen.active { padding-top: 46px; }
         <span class="htp-icon">&#x1F451;</span>
         <div class="htp-text">
           <div class="htp-title">Makt</div>
-          <div class="htp-desc">Hur mycket Albert l&auml;r sig om matematik, fysik och v&auml;rlden. Makt &ouml;ppnar nya m&ouml;jligheter.</div>
+          <div class="htp-desc">Kungens och kronans styrka. H&ouml;g makt g&ouml;r riket starkt &mdash; men makt utan folkets st&ouml;d st&aring;r ostadigt.</div>
         </div>
       </div>
       <div class="htp-item">
         <span class="htp-icon">&#x1F4B0;</span>
         <div class="htp-text">
           <div class="htp-title">Välstånd</div>
-          <div class="htp-desc">Alberts superkraft: att t&auml;nka ut saker ingen har sett &mdash; tankeexperiment! Välstånd l&aring;ser upp ov&auml;ntade v&auml;gar.</div>
+          <div class="htp-desc">Rikets och st&auml;dernas rikedom &mdash; handel, silver, skatter. V&auml;lst&aring;nd h&aring;ller riket ig&aring;ng.</div>
         </div>
       </div>
       <div class="htp-item">
         <span class="htp-icon">&#x1F91D;</span>
         <div class="htp-text">
           <div class="htp-title">Folkets stöd</div>
-          <div class="htp-desc">Att v&aring;ga fr&aring;ga, v&aring;ga misslyckas och v&aring;ga s&auml;ga emot n&auml;r n&aring;got &auml;r fel. Mod beh&ouml;vs n&auml;r det verkligen g&auml;ller.</div>
+          <div class="htp-desc">Vad bönder, borgare och vanligt folk tycker om dig. Ett rike &auml;r inte starkare &auml;n folkets f&ouml;rtroende.</div>
         </div>
       </div>
     </div>
@@ -1380,8 +1376,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <div class="discussion-label">Lyssna &amp; spela</div>
       <p class="discussion-text">
         Tryck p&aring; <strong>Lyssna</strong>-knappen uppe till v&auml;nster s&aring; l&auml;ser ber&auml;ttaren
-        upp texten. I varje kapitel v&auml;ntar dessutom ett litet spel &mdash; leta, spegla,
-        granska och para ihop!
+        upp texten. Varje kapitel &auml;r en egen liten lektion, och i varje v&auml;ntar ett litet spel.
       </p>
     </div>
     <div style="text-align:center;">
@@ -1389,53 +1384,35 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
   </div>
 
-  <!-- CH1: CHOICE 1 - Days in Stockholm -->
+  <!-- CH1: CHOICE 1 -->
   <div class="screen" id="ch1-choice1">
-    <div class="scene-illustration">
-      <svg viewBox="0 0 360 140" xmlns="http://www.w3.org/2000/svg" style="max-width:340px;">
-        <rect width="360" height="140" fill="var(--parchment)" rx="8"/>
-        <rect x="40" y="60" width="130" height="50" fill="var(--navy)" opacity="0.10" rx="6"/>
-        <rect x="48" y="48" width="30" height="26" fill="var(--parchment-light)" rx="3"/>
-        <circle cx="245" cy="62" r="30" fill="var(--parchment-light)" stroke="var(--navy)" stroke-width="2.5"/>
-        <polygon points="245,40 250,62 245,58 240,62" fill="var(--copper)"/>
-        <polygon points="245,84 250,62 245,66 240,62" fill="var(--navy)" opacity="0.7"/>
-        <circle cx="245" cy="62" r="3" fill="var(--gold)"/>
-        <circle cx="300" cy="35" r="3" fill="var(--gold)" opacity="0.7"/>
-        <circle cx="315" cy="55" r="2" fill="var(--gold)" opacity="0.5"/>
-        <text x="180" y="130" text-anchor="middle" font-family="var(--font-body)" font-size="9" fill="var(--brown-light)" opacity="0.4" font-style="italic">M&uuml;nchen, 1885</text>
-      </svg>
-    </div>
     <div class="narrative-box">
-      <h2 class="narrative-heading">En magisk g&aring;va</h2>
+      <h2 class="narrative-heading">Vad g&ouml;r Salteby?</h2>
       <p class="narrative-text">
-        Albert &auml;r fem &aring;r och ligger sjuk i s&auml;ngen. Pappa Hermann s&auml;tter sig p&aring;
-        s&auml;ngkanten och ger honom en sak att titta p&aring;: en kompass. N&aring;len pekar
-        alltid mot norr, hur Albert &auml;n vrider och v&auml;nder p&aring; den. Ingen r&ouml;r n&aring;len
-        &mdash; &auml;nd&aring; r&ouml;r den sig! Vad g&ouml;r Albert?
+        Gustavs budb&auml;rare kommer till torget. Bönderna i Dalarna har redan rest sig.
+        Nu fr&aring;gar han: vill Salteby vara med och k&auml;mpa mot den danske kungen? Det
+        &auml;r farligt &mdash; men frihet lockar. Vad best&auml;mmer staden?
       </p>
       <audio id="narrator-ch1-choice1" src="" preload="auto"></audio>
     </div>
     <div class="choices-container" id="ch1-choices1">
       <div class="choice-card" onclick="makeChoice('ch1',1,0)" data-choice="0">
         <div class="choice-card-number">1</div>
-        <div class="choice-card-title">Fr&aring;ga pappa hur den fungerar</div>
-        <div class="choice-card-desc">Albert fr&aring;gar och fr&aring;gar. Pappa ber&auml;ttar om magneter och om jorden som drar i n&aring;len.</div>
-        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F451; Makt</span></div>
+        <div class="choice-card-title">Skicka m&auml;n med Gustav</div>
+        <div class="choice-card-desc">Saltebyborna tar sina yxor och f&ouml;ljer. Farligt &mdash; men modigt, och Gustav minns vilka som kom.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F451; Makt</span><span class="effect-badge positive">+1 &#x1F91D; Folkets st&ouml;d</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch1',1,1)" data-choice="1">
         <div class="choice-card-number">2</div>
-        <div class="choice-card-title">Fundera sj&auml;lv &mdash; vad &auml;r det som drar?</div>
-        <div class="choice-card-desc">Albert ligger l&auml;nge och t&auml;nker. N&aring;got osynligt m&aring;ste finnas runt omkring oss &mdash; n&aring;got man inte kan se, men som &auml;nd&aring; finns.</div>
-        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F4B0; Välstånd</span></div>
+        <div class="choice-card-title">V&auml;nta och se</div>
+        <div class="choice-card-desc">Staden h&aring;ller sig undan tills det syns vem som vinner. Klokt kanske &mdash; men Gustav minns vilka som INTE kom.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F4B0; V&auml;lst&aring;nd</span><span class="effect-badge negative">-1 &#x1F91D; Folkets st&ouml;d</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch1',1,2)" data-choice="2">
         <div class="choice-card-number">3</div>
-        <div class="choice-card-title">Visa Maja och leka skattletare</div>
-        <div class="choice-card-desc">Albert och lillasyster Maja f&ouml;ljer n&aring;len genom hela huset, som uppt&auml;cktsresande p&aring; jakt.</div>
-        <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x1F4B0; Välstånd</span>
-          <span class="effect-badge positive">+1 &#x1F91D; Folkets stöd</span>
-        </div>
+        <div class="choice-card-title">Varna danskarna</div>
+        <div class="choice-card-desc">N&aring;gon skickar bud till den danske kungen. Staden skonas nu &mdash; men grannarna ser snett p&aring; er f&ouml;r alltid.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F4B0; V&auml;lst&aring;nd</span><span class="effect-badge negative">-1 &#x1F91D; Folkets st&ouml;d</span></div>
       </div>
     </div>
     <div class="result-box" id="ch1-result1"><div class="result-label">Resultat</div><div class="result-text" id="ch1-result1Text"></div></div>
@@ -1444,7 +1421,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
   </div>
 
-  <!-- CH1: MINIGAME<!-- CH1: MINIGAME - Skattjakten på vinden -->
+  <!-- CH1: MINIGAME<!-- CH1: MINIGAME<!-- CH1: MINIGAME - Skattjakten på vinden -->
   <div class="screen" id="ch1-minigame">
     <div class="minigame-v2-container" id="ch1-minigame-v2-container"></div>
     <div style="text-align:center; display:none;" id="ch1-minigame-v2-continue">
@@ -1452,8 +1429,8 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
     <div id="ch1-minigame-old" style="display:none;">
       <div class="narrative-box">
-        <h2 class="narrative-heading">&#x1F9ED; Kompassjakten</h2>
-        <p class="narrative-text">Albert f&ouml;ljer kompassn&aring;len genom pappas verkstad och hittar allt som &auml;r magnetiskt &mdash; en ung t&auml;nkares f&ouml;rsta uppt&auml;cktsf&auml;rd!</p>
+        <h2 class="narrative-heading">&#x26F7;&#xFE0F; Flykten &ouml;ver fj&auml;llet</h2>
+        <p class="narrative-text">Hj&auml;lp Gustav v&auml;lja s&auml;ker v&auml;g genom Dalarnas sn&ouml; undan de danska ryttarna!</p>
       </div>
       <div style="text-align:center;">
         <button class="btn-primary" onclick="goToScreen('ch1-fact')">Forts&auml;tt</button>
@@ -1467,29 +1444,18 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <span class="fact-icon">&#x1F4D6;</span>
       <div class="fact-label">Visste du att&hellip;</div>
       <p class="fact-text">
-        Det h&auml;r h&auml;nde p&aring; riktigt! Albert fick en kompass av sin pappa n&auml;r han var
-        ungef&auml;r fem &aring;r och l&aring;g sjuk. Han gl&ouml;mde den aldrig. Som vuxen sa han att
-        kompassen var det som fick honom att b&ouml;rja undra &ouml;ver osynliga krafter.
+        Det h&auml;r h&auml;nde p&aring; riktigt! Gustav Eriksson (Vasa) flydde genom Dalarna och
+        fick b&ouml;nderna att g&ouml;ra uppror. &Aring;r 1523 blev han Sveriges kung, och
+        Kalmarunionen sprack. Den l&aring;nga skid&aring;kningen firas &auml;n idag &mdash; i Vasaloppet.
       </p>
     </div>
     <div class="discussion-box">
       <span class="discussion-icon">&#x1F50D;</span>
       <div class="discussion-label">K&auml;llkoll</div>
       <p class="discussion-text">
-        Vem har ber&auml;ttat det h&auml;r? Einstein sj&auml;lv &mdash; m&aring;nga &aring;r senare, n&auml;r han var
-        gammal och ber&ouml;md. Minnen kan &auml;ndra sig med tiden. Kanske minns han det
-        finare &auml;n det var? N&auml;r du h&ouml;r en ber&auml;ttelse: fundera p&aring; vem som ber&auml;ttar,
-        och n&auml;r.
-      </p>
-    </div>
-    <div class="discussion-box">
-      <span class="discussion-icon">&#x1F3ED;</span>
-      <div class="discussion-label">Samtidigt i v&auml;rlden</div>
-      <p class="discussion-text">
-        Alberts pappa och farbror byggde elektriska lampor i sin fabrik. Just d&aring;
-        h&ouml;ll st&auml;derna p&aring; att f&aring; elektriskt ljus f&ouml;r allra f&ouml;rsta g&aring;ngen. &Ouml;verallt
-        fanns nya osynliga krafter &mdash; el och magnetism &mdash; och m&aring;nga m&auml;nniskor
-        undrade hur de fungerade. Albert var inte ensam om att undra.
+        Mycket av det vi &rdquo;vet&rdquo; om Gustavs flykt kommer fr&aring;n ber&auml;ttelser som skrevs ned
+        l&aring;ngt senare &mdash; ofta f&ouml;r att g&ouml;ra kungen till en hj&auml;lte. N&auml;r du h&ouml;r en
+        spännande historia: fundera p&aring; vem som ber&auml;ttar den, och varf&ouml;r.
       </p>
     </div>
       <audio id="narrator-ch1-fact" src="" preload="auto"></audio>
@@ -1498,34 +1464,29 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
   </div>
 
-  <!-- CH1: CHOICE 2<!-- CH1: CHOICE 2 - Russia decision -->
+  <!-- CH1: CHOICE 2<!-- CH1: CHOICE 2<!-- CH1: CHOICE 2 - Russia decision -->
   <div class="screen" id="ch1-choice2">
     <div class="narrative-box">
-      <h2 class="narrative-heading">Fiolen</h2>
+      <h2 class="narrative-heading">Den nya kungen</h2>
       <p class="narrative-text">
-        Mamma Pauline &auml;lskar musik och spelar piano n&auml;stan varje kv&auml;ll. Hon best&auml;mmer
-        att Albert ska l&auml;ra sig spela fiol. Albert tycker &ouml;vningarna &auml;r
-        tr&aring;&aring;&aring;kiga. Men mamma ger sig inte. Vad g&ouml;r Albert?
+        Gustav har vunnit. Unionen &auml;r spr&auml;ngd, Sverige &auml;r eget rike &mdash; och Gustav
+        &auml;r kung. Men riket &auml;r fattigt och skuldsatt, och kungen ber st&auml;derna om hj&auml;lp.
+        Ett bud kommer till Salteby: vad ger ni den nye kungen?
       </p>
       <audio id="narrator-ch1-choice2" src="" preload="auto"></audio>
     </div>
     <div class="choices-container" id="ch1-choices2">
       <div class="choice-card" onclick="makeChoice('ch1',2,0)" data-choice="0">
         <div class="choice-card-number">1</div>
-        <div class="choice-card-title">&Ouml;va, fast det &auml;r tr&aring;kigt</div>
-        <div class="choice-card-desc">Albert biter ihop och &ouml;var varje dag. Det &auml;r sv&aring;rt att l&auml;ra sig n&aring;got nytt &mdash; men det brukar l&ouml;na sig.</div>
-        <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x1F451; Makt</span>
-          <span class="effect-badge positive">+1 &#x1F91D; Folkets stöd</span>
-        </div>
+        <div class="choice-card-title">Skicka en gåva till kungen</div>
+        <div class="choice-card-desc">Silver och lojalitet. Kungen blir n&ouml;jd och minns Salteby v&auml;l &mdash; men stadens kassa krymper.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F451; Makt</span><span class="effect-badge negative">-1 &#x1F4B0; V&auml;lst&aring;nd</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch1',2,1)" data-choice="1">
         <div class="choice-card-number">2</div>
-        <div class="choice-card-title">Hitta p&aring; egna melodier i st&auml;llet</div>
-        <div class="choice-card-desc">Albert struntar i noterna och spelar egna p&aring;hittade slingor. Mamma suckar &mdash; men ler i smyg.</div>
-        <div class="choice-card-effect">
-          <span class="effect-badge positive">+2 &#x1F4B0; Välstånd</span>
-        </div>
+        <div class="choice-card-title">Fira med hela staden p&aring; torget</div>
+        <div class="choice-card-desc">Ni beh&aring;ller pengarna och firar friheten tillsammans. Folket &auml;lskar det &mdash; men kungen f&aring;r inget.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F91D; Folkets st&ouml;d</span></div>
       </div>
     </div>
     <div class="result-box" id="ch1-result2"><div class="result-label">Resultat</div><div class="result-text" id="ch1-result2Text"></div></div>
@@ -1534,20 +1495,20 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
   </div>
 
-  <!-- CH1: CONCLUSION --><!-- CH1: CONCLUSION -->
+  <!-- CH1: CONCLUSION --><!-- CH1: CONCLUSION --><!-- CH1: CONCLUSION -->
   <div class="screen" id="ch1-conclusion">
     <div style="text-align:center; margin-bottom: 8px;">
       <div class="chapter-label" style="margin-bottom:8px;">Kapitel 1 avklarat</div>
     </div>
-    <div class="celebration-text" id="ch1-celebrationText">Kapitel 1 avklarat &mdash; Alberts resa har b&ouml;rjat!</div>
+    <div class="celebration-text" id="ch1-celebrationText">Kapitel 1 avklarat &mdash; ett nytt rike &auml;r f&ouml;tt!</div>
     <div class="divider"></div>
     <div class="narrative-box">
-      <h2 class="narrative-heading">Alberts resa har b&ouml;rjat&hellip;</h2>
+      <h2 class="narrative-heading">Ett nytt rike &auml;r f&ouml;tt&hellip;</h2>
       <p class="narrative-text" id="ch1-conclusionText"></p>
     </div>
     <div class="lesson-box">
       <div class="lesson-label">L&auml;rdom</div>
-      <p class="lesson-text">Stora id&eacute;er b&ouml;rjar med sm&aring; fr&aring;gor. Albert fick inget f&auml;rdigt svar om kompassen &mdash; han fick n&aring;got b&auml;ttre: lusten att ta reda p&aring; det sj&auml;lv.</p>
+      <p class="lesson-text">Ett rike byggs inte av en enda man. Gustav ledde &mdash; men det var b&ouml;nder och st&auml;der som b&auml;rde upproret. Makt vilar alltid p&aring; m&aring;nga axlar.</p>
     </div>
     <div class="divider"></div>
     <h3 style="text-align:center; font-family:var(--font-headline); font-size:1.1rem; color:var(--brown-medium); margin-bottom:16px;">Dina resurser efter kapitel 1</h3>
@@ -2925,7 +2886,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
     <div class="resource-item">
       <span class="resource-icon">&#x1F4B0;</span>
       <span class="resource-label">Välstånd</span>
-      <div class="resource-value-container"><span class="resource-value" id="resVälstånd">1</span><span class="resource-max">/ 10</span></div>
+      <div class="resource-value-container"><span class="resource-value" id="resValstand">1</span><span class="resource-max">/ 10</span></div>
       <div class="resource-bar-dots" id="dotsVälstånd"></div>
     </div>
     <div class="resource-item">
@@ -2957,7 +2918,7 @@ var gameState = {
   currentChapter: 1,
   currentScreen: 'ch1-title',
   choices: {
-    ch1_kompass: null, ch1_fiol: null,
+    ch1_uppror: null, ch1_gava: null,
     ch2_skolan: null, ch2_italien: null,
     ch3_provet: null, ch3_studier: null,
     ch4_bern: null, ch4_artikel: null, ch4_mileva: null,
@@ -2994,13 +2955,13 @@ var titleScreens = ['intro','ch1-title','ch1-howtoplay','ch2-title','ch3-title',
 var choiceData = {
   ch1: {
     1: [
-      { effects: { makt: 2 }, resultText: 'Albert fr\u00e5gar och fr\u00e5gar. Pappa ber\u00e4ttar om magneter och om jorden som drar i kompassn\u00e5len. Varje svar ger Albert tre nya fr\u00e5gor \u2014 och han \u00e4lskar det.' },
-      { effects: { valstand: 2 }, resultText: 'Albert ligger l\u00e4nge och t\u00e4nker. N\u00e5got osynligt drar i n\u00e5len. N\u00e5got man inte kan se, men som \u00e4nd\u00e5 finns \u00f6verallt. Den tanken sl\u00e4pper aldrig taget om honom.' },
-      { effects: { valstand: 1, stod: 1 }, resultText: 'Albert och Maja f\u00f6ljer n\u00e5len genom hela huset som tv\u00e5 uppt\u00e4cktsresande. Att undra tillsammans \u00e4r dubbelt s\u00e5 roligt.' }
+      { effects: { makt: 1, stod: 1 }, resultText: 'Saltebyborna f\u00f6ljer Gustav med yxor och mod. N\u00e5gra kommer aldrig hem \u2014 men staden st\u00e5r p\u00e5 frihetens sida, och det minns Gustav.' },
+      { effects: { valstand: 1, stod: -1 }, resultText: 'Salteby h\u00e5ller sig undan och avvaktar. Stadens kassa \u00e4r tryggad \u2014 men n\u00e4r Gustav vinner minns han vilka som t\u00f6vade.' },
+      { effects: { valstand: 2, stod: -1 }, resultText: 'N\u00e5gon i staden varnar danskarna. Salteby skonas och tj\u00e4nar p\u00e5 handeln \u2014 men grannbyarna kallar er f\u00f6rr\u00e4dare i \u00e5ratal.' }
     ],
     2: [
-      { effects: { makt: 1, stod: 1 }, resultText: 'Albert biter ihop och \u00f6var. En dag uppt\u00e4cker han Mozarts musik \u2014 och pl\u00f6tsligt \u00e4r fiolen inte tr\u00e5kig l\u00e4ngre. Den blir hans v\u00e4n f\u00f6r hela livet.' },
-      { effects: { valstand: 2 }, resultText: 'Albert hittar p\u00e5 egna melodier. Mamma Pauline suckar \u2014 och ler i smyg. Att skapa eget \u00e4r ocks\u00e5 ett s\u00e4tt att \u00e4lska musiken.' }
+      { effects: { makt: 1, valstand: -1 }, resultText: 'Salteby skickar silver till den nye kungen. Kronan v\u00e4xer sig starkare, och kungen minns en lojal stad \u2014 men kassan i Salteby krymper.' },
+      { effects: { stod: 2 }, resultText: 'Salteby firar friheten p\u00e5 torget i tre dagar. Folket \u00e4lskar det \u2014 men kungen, som beh\u00f6vde pengar, h\u00f6jer p\u00e5 \u00f6gonbrynen.' }
     ]
   },
   ch2: {
@@ -3090,63 +3051,13 @@ var choiceData = {
    CROSS-CHAPTER CONSEQUENCE FUNCTIONS
    ============================================ */
 function applyChapterStart(chapter) {
-  if (chapter === 2) {
-    // Ch1 -> Ch2: egna melodier-valet f\u00e5r ett eko i introt
-    if (gameState.choices.ch1_fiol === 1) {
-      var el = document.getElementById('ch2-introText');
-      if (el) el.innerHTML = '<strong>M\u00fcnchen, 1889\u20131894.</strong> Albert spelar fortfarande sina egna p\u00e5hittade melodier p\u00e5 fiolen. Men i skolan finns inget utrymme f\u00f6r p\u00e5hitt: eleverna ska sitta rakt, rabbla utantill och aldrig fr\u00e5ga. Hemma \u00e4r det b\u00e4ttre \u2014 farbror Jakob bjuder p\u00e5 matteg\u00e5tor, och studenten Max har med sig riktiga vetenskapsb\u00f6cker.';
-    }
-  }
-  if (chapter === 3) {
-    // Ch2 -> Ch3: den som v\u00e5gade fr\u00e5ga i skolan har tr\u00e4nat sitt mod
-    if (gameState.choices.ch2_skolan === 0) {
-      setTimeout(function() { animateResource('stod', 1); }, 800);
-    }
-    // Ch2 -> Ch3: den som stannade ensam i M\u00fcnchen b\u00e4r med sig det
-    if (gameState.choices.ch2_italien === 0) {
-      var el = document.getElementById('ch3-introText');
-      if (el) el.innerHTML = '<strong>Schweiz, 1895.</strong> Efter det ensamma \u00e5ret i M\u00fcnchen har Albert lovat sig sj\u00e4lv en sak: aldrig mer en skola som k\u00e4nns som ett f\u00e4ngelse. Nu ska han s\u00f6ka in p\u00e5 den ber\u00f6mda tekniska h\u00f6gskolan i Z\u00fcrich \u2014 tv\u00e5 \u00e5r yngre \u00e4n alla andra. Ett enda stort prov avg\u00f6r allt.';
-    }
-  }
-  if (chapter === 4) {
-    // Ch3 -> Ch4: den som skippade f\u00f6rel\u00e4sningarna f\u00e5r k\u00e4nna av det
-    if (gameState.choices.ch3_studier === 1) {
-      var el4 = document.getElementById('ch4-introText');
-      if (el4) el4.innerHTML = '<strong>Bern, 1902.</strong> Albert s\u00f6ker jobb p\u00e5 universiteten \u2014 men professorerna minns studenten som aldrig kom p\u00e5 f\u00f6rel\u00e4sningarna. Alla s\u00e4ger nej. Till slut f\u00e5r han jobb p\u00e5 patentkontoret: d\u00e4r granskar man uppfinningar och avg\u00f6r om de fungerar. Albert och Mileva gifter sig och f\u00e5r sonen Hans Albert. Och mellan patenten\u2026 t\u00e4nker Albert.';
-    }
-  }
-  if (chapter === 5) {
-    // Ch4 -> Ch5: den dj\u00e4rvaste id\u00e9n (relativiteten) f\u00e5r sin bekr\u00e4ftelse
-    if (gameState.choices.ch4_artikel === 1) {
-      setTimeout(function() {
-        animateResource('valstand', 2);
-        animateResource('stod', 2);
-        var bonus = document.createElement('div');
-        bonus.style.cssText = 'text-align:center;font-family:var(--font-headline);font-size:0.95rem;color:var(--moss);margin:12px 0;animation:slideIn 0.5s ease;';
-        bonus.innerHTML = '\u2728 Alberts dj\u00e4rvaste id\u00e9 ska nu pr\u00f6vas mot stj\u00e4rnorna! +2 \uD83D\uDCA1 +2 \uD83E\uDD81';
-        var titleScreen = document.getElementById('ch5-title');
-        if (titleScreen) titleScreen.appendChild(bonus);
-      }, 1200);
-    }
-  }
-  if (chapter === 7) {
-    // Show Eftermale resource
-    document.getElementById('eftermaleItem').style.display = '';
-    // Ch6 -> Ch7: Lawyer choice gives special intro
-    if (gameState.choices.ch6_reaction === 2) {
-      var el = document.getElementById('ch7-introText');
-      if (el) el.innerHTML = '<strong>Long Island, augusti 1939.</strong> Alberts sommarhus \u00e4r sedan flera \u00e5r ett nav f\u00f6r forskare p\u00e5 flykt \u2014 han har hj\u00e4lpt m\u00e5nga hit. Men de tv\u00e5 som kommer idag b\u00e4r de m\u00f6rkaste nyheterna hittills: tyska forskare har l\u00e4rt sig klyva atomen. P\u00e5 bordet ligger ett papper: <em>ett brev till Amerikas president</em>.';
-    }
-    // Ch6 -> Ch7: Diary gives +1 Mod
-    if (gameState.choices.ch6_reaction === 0) {
-      setTimeout(function() { animateResource('stod', 1); }, 800);
-    }
-  }
+  // Kapitel-till-kapitel-konsekvenser byggs in per kapitel efter hand.
+  // Salteby-stadens hum\u00f6r speglar folkets st\u00f6d:
+  if (gameState.stod >= 6) gameState.saltebyHumor = 'lojal';
+  else if (gameState.stod <= 3) gameState.saltebyHumor = 'orolig';
+  else gameState.saltebyHumor = 'neutral';
 }
 
-/* ============================================
-   RESOURCE RENDERING
-   ============================================ */
 function renderDots(containerId, value) {
   var container = document.getElementById(containerId);
   if (!container) return;
@@ -3160,7 +3071,7 @@ function renderDots(containerId, value) {
 
 function updateResourceDisplay() {
   document.getElementById('resMakt').textContent = gameState.makt;
-  document.getElementById('resVälstånd').textContent = gameState.valstand;
+  document.getElementById('resValstand').textContent = gameState.valstand;
   document.getElementById('resStod').textContent = gameState.stod;
   document.getElementById('resEftermale').textContent = gameState.eftermale;
   renderDots('dotsMakt', gameState.makt);
@@ -3321,7 +3232,7 @@ function goToScreen(screenId) {
       if (screenId === 'ch2-title') {
         applyChapterStart(2);
         // Bemöt "stanna kvar"-valet i stället för att låtsas att det inte hänt
-        if (gameState.choices && gameState.choices.ch1_fiol === 1) {
+        if (gameState.choices && gameState.choices.ch1_gava === 1) {
           var _c2i = document.getElementById('ch2-introText');
           if (_c2i) _c2i.innerHTML = '<strong>M\u00fcnchen, 1889\u20131894.</strong> Albert spelar fortfarande sina egna p\u00e5hittade melodier p\u00e5 fiolen. Men i skolan finns inget utrymme f\u00f6r p\u00e5hitt: eleverna ska sitta rakt, rabbla utantill och aldrig fr\u00e5ga. Hemma \u00e4r det b\u00e4ttre \u2014 farbror Jakob bjuder p\u00e5 matteg\u00e5tor, och studenten Max har med sig riktiga vetenskapsb\u00f6cker.';
         }
@@ -3333,6 +3244,7 @@ function goToScreen(screenId) {
 
       // ── V2: Minigame triggers (new canvas-based versions) ──
       if (screenId === 'ch1-howtoplay') updateDifficultyUI();
+      if (screenId === 'ch1-title' && gameState._coldStart) { var _r = document.getElementById('ch1-recap'); if (_r) _r.style.display = 'block'; }
       if (screenId === 'ch1-minigame') v2InitMinigame('ch1');
       if (screenId === 'ch2-minigame') v2InitMinigame('ch2');
       if (screenId === 'ch3-minigame') v2InitMinigame('ch3');
@@ -3412,8 +3324,8 @@ function makeChoice(chapter, choiceGroup, choiceIndex) {
   }
 
   // Store choice in gameState
-  if (chapter === 'ch1' && choiceGroup === 1) gameState.choices.ch1_kompass = choiceIndex;
-  if (chapter === 'ch1' && choiceGroup === 2) gameState.choices.ch1_fiol = choiceIndex;
+  if (chapter === 'ch1' && choiceGroup === 1) gameState.choices.ch1_uppror = choiceIndex;
+  if (chapter === 'ch1' && choiceGroup === 2) gameState.choices.ch1_gava = choiceIndex;
   if (chapter === 'ch2' && choiceGroup === 1) gameState.choices.ch2_skolan = choiceIndex;
   if (chapter === 'ch2' && choiceGroup === 2) gameState.choices.ch2_italien = choiceIndex;
   if (chapter === 'ch3' && choiceGroup === 1) gameState.choices.ch3_provet = choiceIndex;
@@ -3516,15 +3428,14 @@ function setupConclusion(screenId) {
 
 function getConclusionText(chapter) {
   if (chapter === 'ch1') {
-    var kompass = gameState.choices.ch1_kompass;
-    var fiol = gameState.choices.ch1_fiol;
+    var u = gameState.choices.ch1_uppror;
+    var g = gameState.choices.ch1_gava;
     var text = '';
-    if (kompass === 0) text += 'Albert fr\u00e5gade tills pappa inte kunde svara l\u00e4ngre. ';
-    else if (kompass === 1) text += 'Albert beh\u00f6ll kompassg\u00e5tan i huvudet \u2014 n\u00e5got osynligt finns d\u00e4r ute. ';
-    else text += 'Albert och Maja f\u00f6ljde kompassn\u00e5len genom hela huset. ';
-    if (fiol === 0) text += 'Fiolen k\u00e4ndes tr\u00e5kig f\u00f6rst, men blev hans v\u00e4n f\u00f6r livet. ';
-    else text += 'De egna melodierna gjorde musiken till hans alldeles egen. ';
-    text += 'En tyst pojke med ett huvud fullt av fr\u00e5gor \u2014 s\u00e5 b\u00f6rjar historien.';
+    if (u === 0) text += 'Salteby valde frihetens sida och skickade m\u00e4n med Gustav. ';
+    else if (u === 1) text += 'Salteby avvaktade tills segern var s\u00e4ker. ';
+    else text += 'Salteby varnade danskarna \u2014 ett val som staden f\u00e5r b\u00e4ra l\u00e4nge. ';
+    if (g === 0) text += 'Nu har staden gett den nye kungen en gåva, och kronan v\u00e4xer.';
+    else text += 'Nu har staden firat friheten med folket, medan kungen v\u00e4ntar p\u00e5 sin del.';
     return text;
   }
   if (chapter === 'ch2') {
@@ -4638,7 +4549,7 @@ function restartGame() {
   gameState.makt = 2; gameState.valstand = 1; gameState.stod = 1; gameState.eftermale = 0;
   gameState.currentChapter = 1; gameState.currentScreen = 'ch1-title';
   gameState.choices = {
-    ch1_kompass: null, ch1_fiol: null, ch2_skolan: null, ch2_italien: null,
+    ch1_uppror: null, ch1_gava: null, ch2_skolan: null, ch2_italien: null,
     ch3_provet: null, ch3_studier: null, ch4_bern: null, ch4_artikel: null, ch4_mileva: null,
     ch5_kriget: null, ch5_eddington: null, ch5_pressen: null, ch6_reaction: null,
     ch7_brevet: null, ch7_kamp: [], ch7_arvet: null
@@ -6837,9 +6748,9 @@ var NobelDiary = (function () {
     lines.push('Hej fr\u00e5gebok!');
     lines.push('');
 
-    if (ch.ch1_kompass === 0) {
+    if (ch.ch1_uppror === 0) {
       lines.push('Pappa gav mig en KOMPASS! Jag fr\u00e5gade hundra saker. Han sa att jorden \u00e4r som en j\u00e4ttestor magnet som drar i n\u00e5len. Men VEM drar i jorden d\u00e5? Det visste inte pappa. Jag ska ta reda p\u00e5 det.');
-    } else if (ch.ch1_kompass === 1) {
+    } else if (ch.ch1_uppror === 1) {
       lines.push('Pappa gav mig en KOMPASS! N\u00e5len r\u00f6r sig fast ingen r\u00f6r den. Jag l\u00e5g vaken i natt och t\u00e4nkte: det m\u00e5ste finnas n\u00e5got osynligt \u00f6verallt omkring oss. Man kan inte se det. Men det FINNS. Jag f\u00e5r pirr i magen n\u00e4r jag t\u00e4nker p\u00e5 det.');
     } else {
       lines.push('Pappa gav mig en KOMPASS! Jag och Maja f\u00f6ljde n\u00e5len genom hela huset. Den hittade sked-l\u00e5dan! Maja sa att jag \u00e4r knasig. Men hon skrattade hela tiden.');
@@ -6847,7 +6758,7 @@ var NobelDiary = (function () {
 
     lines.push('');
 
-    if (ch.ch1_fiol === 0) {
+    if (ch.ch1_gava === 0) {
       lines.push('Mamma s\u00e4ger att jag M\u00c5STE \u00f6va fiol. Det \u00e4r tr\u00e5kigt. Men idag spelade hon Mozart p\u00e5 pianot och det l\u00e4t som... jag vet inte. Som n\u00e4r man f\u00f6rst\u00e5r n\u00e5got. Jag kanske \u00f6var lite till i morgon.');
     } else {
       lines.push('Jag hittade p\u00e5 en egen melodi p\u00e5 fiolen idag. Mamma h\u00f6rde det och suckade. Men jag s\u00e5g att hon log. Min melodi l\u00e5ter som regn p\u00e5 f\u00f6nstret.');
