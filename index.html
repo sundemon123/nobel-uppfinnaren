@@ -298,6 +298,8 @@ body {
   z-index: 40; transform: translateY(100%); transition: transform 0.4s ease;
 }
 .resource-bar-inner { display: flex; justify-content: center; gap: 20px; max-width: 460px; margin: 0 auto; }
+[id$="-minigame-v2-continue"] { margin-bottom: 110px; }
+#ch6-newspaperContinue { margin-bottom: 110px; }
 .resource-item { display: flex; flex-direction: column; align-items: center; gap: 2px; flex: 1; min-width: 60px; }
 .resource-icon { font-size: 1.15rem; margin-bottom: 1px; }
 .resource-label {
@@ -1186,7 +1188,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
   <div class="screen active" id="intro">
     <div class="screen-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:48px 24px;text-align:center;background:#0b1226;box-sizing:border-box;">
       <div style="width:200px;height:200px;border-radius:50%;border:3px solid #c49b2a;overflow:hidden;margin:0 auto 32px;box-shadow:0 0 40px rgba(196,155,42,0.2),0 0 0 1px rgba(196,155,42,0.1);">
-        <img src="data:image/svg+xml," style="width:100%;height:100%;object-fit:cover;object-position:center 20%;" alt="Albert Einstein">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;background:#101a33;" role="img" aria-label="Albert Einstein"><circle cx="50" cy="94" r="34" fill="#3a4a6b"/><path d="M22 46 Q14 30 26 20 Q30 8 44 10 Q52 2 62 8 Q76 6 80 20 Q90 30 82 44 Q88 52 80 56 L76 44 Q74 32 68 30 Q56 24 44 28 Q32 30 30 42 L26 56 Q16 54 22 46Z" fill="#e8e8e8"/><ellipse cx="52" cy="46" rx="22" ry="24" fill="#e8c39e"/><circle cx="44" cy="42" r="2.5" fill="#1c2333"/><circle cx="62" cy="42" r="2.5" fill="#1c2333"/><path d="M40 37 Q44 34 48 37 M58 37 Q62 34 66 37" stroke="#cfcfcf" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M50 44 Q53 50 50 53" stroke="#c99b72" stroke-width="1.5" fill="none"/><path d="M42 60 Q53 64 64 60 L63 65 Q53 70 43 65Z" fill="#d9d9d9"/><path d="M44 70 Q53 76 62 70 Q58 78 53 78 Q48 78 44 70Z" fill="#8a5a3a" opacity="0.55"/></svg>
       </div>
       <div style="font-family:var(--font-headline);font-size:0.85rem;letter-spacing:0.25em;color:#c49b2a;text-transform:uppercase;margin-bottom:12px;opacity:0.8;">Den nyfikne t&auml;nkaren</div>
       <h1 style="font-family:var(--font-headline);font-size:2rem;color:#faf2e8;margin:0 0 8px;line-height:1.15;">Albert Einstein</h1>
@@ -2392,7 +2394,8 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <div class="newspaper" id="ch6-theNewspaper">
         <div class="newspaper-masthead">
           <div class="newspaper-name">Der Berliner Beobachter</div>
-          <div class="newspaper-date">M&auml;rz 1933 &mdash; Nr. 1.427</div>
+          <div class="newspaper-date">Mai 1933 &mdash; Nr. 1.427</div>
+          <div style="font-size:0.72rem;font-style:italic;opacity:0.75;margin-top:2px;">&#x1F1E9;&#x1F1EA; en tysk tidning &mdash; l&auml;s vidare s&aring; f&ouml;rklarar vi</div>
         </div>
         <hr class="newspaper-rule">
         <div class="newspaper-headline" id="ch6-nHeadline">EINSTEINS LEHRE IST VOLKSFEINDLICH</div>
@@ -2619,7 +2622,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
   <div class="screen" id="ch7-medals">
     <div class="narrative-box">
       <h2 class="narrative-heading">Vad ska Albert k&auml;mpa f&ouml;r nu?</h2>
-      <p class="narrative-text">Kriget tog slut &mdash; men bomben f&ouml;ll &ouml;ver Hiroshima, och Albert b&auml;r p&aring; tunga tankar. Hans r&ouml;st n&aring;r hela v&auml;rlden. V&auml;lj 3&ndash;5 saker han ska anv&auml;nda den till!</p>
+      <p class="narrative-text">Kriget tog slut &mdash; men bomben f&ouml;ll &ouml;ver Hiroshima, och Albert b&auml;r p&aring; tunga tankar. Hans r&ouml;st n&aring;r hela v&auml;rlden. V&auml;lj de FEM saker han ska anv&auml;nda den till!</p>
       <audio id="narrator-ch7-medals" src="" preload="auto"></audio>
     </div>
     <div class="medal-grid" id="ch7-medalGrid">
@@ -2630,7 +2633,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <div class="medal-card" onclick="ch7ToggleMedal(4)" id="ch7-medal-4" data-medal="samarbete"><span class="medal-emoji">&#x1F30D;</span><span class="medal-name">L&auml;nder som samarbetar</span></div>
       <div class="medal-card" onclick="ch7ToggleMedal(5)" id="ch7-medal-5" data-medal="beromd"><span class="medal-emoji">&#x1F3AC;</span><span class="medal-name">Egen ber&ouml;mmelse</span></div>
     </div>
-    <div class="medal-counter" id="ch7-medalCounter">Valda: <strong>0</strong> / 3&ndash;5</div>
+    <div class="medal-counter" id="ch7-medalCounter">Valda: <strong>0</strong> / 5</div>
     <div class="medal-confirm-area" id="ch7-medalConfirmArea" style="display:none;">
       <button class="btn-grand" onclick="ch7ConfirmMedals()">Bekr&auml;fta val</button>
     </div>
@@ -2693,8 +2696,9 @@ body.narrator-on .screen.active { padding-top: 46px; }
   <div class="screen" id="ch7-finale">
     <div class="death-scene">
       <div class="death-date">18 april 1955 &mdash; Princeton, USA</div>
-      <div class="death-text">Albert Einstein d&ouml;r stilla p&aring; sjukhuset i Princeton. Han &auml;r 76 &aring;r. P&aring; nattduksbordet ligger hans sista anteckningar &mdash; fulla av ekvationer, och ett halvskrivet tal om fred.</div>
+      <div class="death-text" style="margin-bottom:4px;">Albert Einstein d&ouml;r stilla p&aring; sjukhuset i Princeton. Han &auml;r 76 &aring;r. P&aring; nattduksbordet ligger hans sista anteckningar &mdash; fulla av ekvationer, och ett halvskrivet tal om fred.</div>
     </div>
+    <p style="text-align:center;font-size:0.78rem;font-style:italic;opacity:0.6;margin:6px 0 0;">Ber&auml;ttelsen forts&auml;tter av sig sj&auml;lv &mdash; luta dig tillbaka&hellip;</p>
     <div class="divider-wide"></div>
       <audio id="narrator-ch7-finale" src="" preload="auto"></audio>
     <div class="zoom-scene" id="ch7-zoomScene">
@@ -2713,7 +2717,12 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <div class="zoom-layer hidden" id="ch7-zoomWorld">
         <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
           <rect width="400" height="250" fill="#1a2744"/>
-          <ellipse cx="200" cy="125" rx="120" ry="80" fill="#2d3f5e" opacity="0.3"/>
+          <circle cx="200" cy="125" r="92" fill="#16294a"/>
+          <path d="M150 70 Q170 58 188 66 L196 80 Q186 92 172 90 L158 96 Q146 84 150 70Z" fill="#2e5e46" opacity="0.85"/>
+          <path d="M168 104 Q182 100 190 112 L186 136 Q176 150 168 142 Q160 124 168 104Z" fill="#2e5e46" opacity="0.85"/>
+          <path d="M206 74 Q226 64 244 74 L252 92 Q244 104 230 100 L216 92 Q206 84 206 74Z" fill="#3a6b52" opacity="0.85"/>
+          <path d="M214 104 Q230 100 238 114 L232 138 Q220 146 212 132 Q208 116 214 104Z" fill="#3a6b52" opacity="0.85"/>
+          <path d="M252 116 Q266 112 272 122 L266 134 Q254 136 250 128Z" fill="#2e5e46" opacity="0.8"/>
           <circle cx="150" cy="100" r="4" fill="#c49b2a" opacity="0.8"><animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/></circle>
           <circle cx="200" cy="80" r="4" fill="#c49b2a" opacity="0.8"><animate attributeName="opacity" values="0.6;1;0.6" dur="2.3s" repeatCount="indefinite"/></circle>
           <circle cx="250" cy="110" r="4" fill="#c49b2a" opacity="0.8"><animate attributeName="opacity" values="0.4;0.9;0.4" dur="1.8s" repeatCount="indefinite"/></circle>
@@ -2747,7 +2756,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
       </div>
       <div class="total-score-area" id="ch7-starsArea" style="margin-top:8px;">
         <div class="total-label">Dina minispelsstj&auml;rnor</div>
-        <div class="total-value" id="ch7-starsScore" style="font-size:1.5rem;">&#x1F981; 0</div>
+        <div class="total-value" id="ch7-starsScore" style="font-size:1.5rem;">&#x2B50; 0</div>
         <div class="total-max">av 21</div>
       </div>
       <p id="ch7-kindNote" style="text-align:center; font-family:var(--font-headline); font-style:italic; color:var(--brown-medium); font-size:0.95rem; max-width:340px; margin:14px auto 0;">
@@ -3087,7 +3096,7 @@ function animateResource(resource, change) {
 /* ============================================
    RESOURCE REQUIREMENTS FOR CHOICES
    ============================================ */
-var resourceEmojis = { kunskap: '\uD83D\uDCDA', fantasi: '\uD83D\uDCB0', mod: '\u2B50', eftermale: '\u2728' };
+var resourceEmojis = { kunskap: '\uD83D\uDCDA', fantasi: '\uD83D\uDCA1', mod: '\uD83E\uDD81', eftermale: '\u2728' };
 var resourceNames = { kunskap: 'Kunskap', fantasi: 'Fantasi', mod: 'Mod', eftermale: 'Efterm\u00e4le' };
 
 function checkRequirements(chapter, choiceGroup) {
@@ -3188,6 +3197,8 @@ function goToScreen(screenId) {
     var progress = idx >= 0 ? (idx / (allScreens.length - 1)) * 100 : 0;
     document.getElementById('progressBar').style.width = progress + '%';
 
+    var _cc = document.getElementById('confettiContainer');
+    if (_cc) _cc.innerHTML = '';
     window.scrollTo({ top: 0, behavior: 'instant' });
     updateResourceBarVisibility();
 
@@ -3364,17 +3375,6 @@ function makeChoice(chapter, choiceGroup, choiceIndex) {
     }
   }, delay + 600);
 
-  // Bofors delayed investment bonus
-  if (chapter === 'ch5' && choiceGroup === 2 && choiceIndex === 0) {
-    setTimeout(function() {
-      animateResource('fantasi', 4);
-      var bonusEl = document.createElement('div');
-      bonusEl.style.cssText = 'text-align:center;font-family:var(--font-headline);font-size:0.95rem;color:var(--moss);margin:12px 0;animation:slideIn 0.5s ease;';
-      bonusEl.innerHTML = '\u2728 Bofors-investeringen ger avkastning! +4 \uD83D\uDCB0';
-      document.getElementById(chapter + '-result2').after(bonusEl);
-      try { if (typeof saveGame === 'function') saveGame(); } catch (e) { /* ignore */ }
-    }, delay + 1800);
-  }
 
   // ── Auto-save after a choice is made ──
   setTimeout(function() {
@@ -3684,7 +3684,7 @@ function showStickerUnlock(chNum, stars) {
     '<div class="sticker-unlock-name">' + st.name + '</div>' +
     '<div class="sticker-unlock-stars">' + '⭐'.repeat(stars) + '</div>' +
     '</div>';
-  var timer = setTimeout(dismiss, 3200);
+  var timer = setTimeout(dismiss, 5200);
   function dismiss() {
     clearTimeout(timer);
     ov.classList.remove('visible');
@@ -3776,14 +3776,16 @@ var nobelKatt = (function () {
       var o = audioCtx.createOscillator();
       var g = audioCtx.createGain();
       o.type = 'sine';
-      o.frequency.setValueAtTime(660, t);
-      o.frequency.linearRampToValueAtTime(990, t + 0.1);
-      o.frequency.linearRampToValueAtTime(880, t + 0.3);
+      o.frequency.setValueAtTime(880, t);
+      o.frequency.setValueAtTime(1318.5, t + 0.11);
       g.gain.setValueAtTime(0.0001, t);
-      g.gain.linearRampToValueAtTime(vol, t + 0.05);
-      g.gain.linearRampToValueAtTime(0.0001, t + 0.42);
+      g.gain.linearRampToValueAtTime(vol, t + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.09);
+      g.gain.setValueAtTime(0.0001, t + 0.1);
+      g.gain.linearRampToValueAtTime(vol, t + 0.13);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.34);
       o.connect(g); g.connect(audioCtx.destination);
-      o.start(t); o.stop(t + 0.45);
+      o.start(t); o.stop(t + 0.4);
     } catch (e) { /* ljud är grädde på moset */ }
   }
 
@@ -3800,7 +3802,7 @@ var nobelKatt = (function () {
 
   function onScreenChange(screenId) {
     ensure();
-    var hide = screenId === 'intro' || screenId.indexOf('-minigame') > -1 || screenId === 'ch3-explosion';
+    var hide = screenId === 'intro' || screenId.indexOf('-minigame') > -1 || screenId === 'ch3-explosion' || screenId.indexOf('ch6-') === 0 || screenId === 'ch7-hiroshima';
     el.style.display = hide ? 'none' : 'flex';
     if (hide) bubble.classList.remove('show');
   }
@@ -3979,18 +3981,6 @@ function triggerExplosion() {
     setTimeout(function() { gc.classList.remove('screen-shake'); }, 400);
   }, 900);
   setTimeout(function() { flash.remove(); }, 800);
-  // Apply explosion resource consequences based on ch3 choice 1
-  setTimeout(function() {
-    if (gameState.choices.ch3_provet === 0) {
-      // Försiktigt: -1 Fantasi, -1 Mod
-      animateResource('fantasi', -1);
-      setTimeout(function() { animateResource('mod', -1); }, 500);
-    } else {
-      // Snabbt: -2 Fantasi, -3 Mod
-      animateResource('fantasi', -2);
-      setTimeout(function() { animateResource('mod', -3); }, 500);
-    }
-  }, 1200);
 }
 
 /* ============================================
@@ -4169,8 +4159,8 @@ function ch7ToggleMedal(index) {
     ch7SelectedMedals.push(name);
     card.classList.add('medal-selected');
   }
-  document.getElementById('ch7-medalCounter').innerHTML = 'Valda: <strong>' + ch7SelectedMedals.length + '</strong> / 3\u20135';
-  document.getElementById('ch7-medalConfirmArea').style.display = ch7SelectedMedals.length >= 3 ? 'block' : 'none';
+  document.getElementById('ch7-medalCounter').innerHTML = 'Valda: <strong>' + ch7SelectedMedals.length + '</strong> / 5';
+  document.getElementById('ch7-medalConfirmArea').style.display = ch7SelectedMedals.length === 5 ? 'block' : 'none';
 }
 
 function ch7ConfirmMedals() {
@@ -4201,6 +4191,17 @@ function ch7ConfirmMedals() {
    CH7: GRAND FINALE SEQUENCE
    ============================================ */
 function ch7StartFinale() {
+  // Sista tidslinjeraden speglar spelarens vag genom sista kapitlet
+  var tl5 = document.getElementById('ch7-tl5');
+  if (tl5) {
+    var arv = gameState.choices.ch7_arvet;
+    var t5;
+    if (arv === 1) t5 = 'Ett helt land ber Albert bli president. Han tackar v\u00e4nligt nej: \u201djag \u00e4r fysiker, inte politiker\u201d.';
+    else if (arv === 2) t5 = 'Albert drar sig tillbaka \u2014 fiolen, g\u00e5torna och tystnaden f\u00e5r hans sista \u00e5r.';
+    else t5 = 'Fredsmanifestet \u2014 Alberts sista offentliga handling, dagar f\u00f6re hans d\u00f6d.';
+    tl5.querySelector('.timeline-text').textContent = t5;
+  }
+
   // Zoom effect
   setTimeout(function() {
     document.getElementById('ch7-zoomRoom').classList.add('zoomed-in');
@@ -4295,6 +4296,15 @@ function ch7ShowEnding(total) {
    GLOBAL LEADERBOARD
    ============================================ */
 var LEADERBOARD_API = 'https://nobel-leaderboard.jonatan-sundemo.workers.dev';
+function fetchWithTimeout(url, opts) {
+  var ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+  if (ctrl) {
+    opts = opts || {};
+    opts.signal = ctrl.signal;
+    setTimeout(function () { try { ctrl.abort(); } catch (e) { /* ignore */ } }, 6000);
+  }
+  return fetch(url, opts);
+}
 var leaderboardSubmittedId = null;
 
 function showLeaderboardScreen(total) {
@@ -4305,8 +4315,8 @@ function showLeaderboardScreen(total) {
   var bd = document.getElementById('lb-finalBreakdown');
   bd.innerHTML =
     '<span>\u{1F4DA} Kunskap: <strong>' + gameState.kunskap + '</strong></span>' +
-    '<span>\u{1F4B0} Fantasi: <strong>' + gameState.fantasi + '</strong></span>' +
-    '<span>\u{2B50} Mod: <strong>' + gameState.mod + '</strong></span>' +
+    '<span>\u{1F4A1} Fantasi: <strong>' + gameState.fantasi + '</strong></span>' +
+    '<span>\u{1F981} Mod: <strong>' + gameState.mod + '</strong></span>' +
     '<span>\u{2728} Efterm\u00e4le: <strong>' + gameState.eftermale + '</strong></span>';
   // Pre-load list so spelaren ser n\u00e5got direkt
   loadLeaderboard(false);
@@ -4341,7 +4351,7 @@ function submitLeaderboardScore() {
   btn.textContent = 'Skickar...';
 
   var payload = {
-    name: name,
+    game: 'einstein', name: name,
     score: gameState.kunskap + gameState.fantasi + gameState.mod + gameState.eftermale,
     breakdown: {
       kunskap: gameState.kunskap,
@@ -4351,7 +4361,7 @@ function submitLeaderboardScore() {
     }
   };
 
-  fetch(LEADERBOARD_API + '/submit', {
+  fetchWithTimeout(LEADERBOARD_API + '/submit', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
@@ -4386,7 +4396,7 @@ function flushPendingLeaderboard() {
   try { pending = JSON.parse(localStorage.getItem('einstein-lb-pending') || '[]'); } catch (e) { return; }
   if (!pending.length) return;
   var next = pending[0];
-  fetch(LEADERBOARD_API + '/submit', {
+  fetchWithTimeout(LEADERBOARD_API + '/submit', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(next)
@@ -4400,7 +4410,7 @@ function flushPendingLeaderboard() {
 }
 
 function loadLeaderboard(showStatus) {
-  fetch(LEADERBOARD_API + '/leaderboard')
+  fetchWithTimeout(LEADERBOARD_API + '/leaderboard')
     .then(function(res) { return res.json(); })
     .then(function(data) {
       if (data && data.ok && Array.isArray(data.leaderboard)) {
@@ -6831,8 +6841,6 @@ var NobelDiary = (function () {
 
     lines.push('');
     lines.push('Till dig som l\u00e4ser det h\u00e4r: jag hade ingen s\u00e4rskild talang. Jag var bara brinnande nyfiken. Sluta aldrig fr\u00e5ga varf\u00f6r. Det viktiga \u00e4r att inte sluta fr\u00e5ga.');
-    lines.push('');
-    lines.push('/ Albert');
 
     return { date: date, text: lines.join('\n') };
   };
@@ -8135,7 +8143,7 @@ var NobelMinigames = (function () {
       } else if (state.score === 1) {
         txt.innerHTML = 'Bra jobbat! N\u00e4stan alla patent r\u00e4tt granskade.<br><strong>+1 \ud83d\udca1 Fantasi</strong>';
       } else {
-        txt.innerHTML = 'Kluriga rubriker! Nu vet du hur det verkligen låg till.';
+        txt.innerHTML = 'Kluriga uppfinningar! Nu vet du hur en riktig granskare t\u00e4nker.';
       }
       addRetryButton(state.resultEl, 'ch4', start);
       notifyDone('ch4');
@@ -9218,7 +9226,7 @@ var NobelMinigames = (function () {
       } else if (state.score === 1) {
         txt.innerHTML = 'Bra jobbat! N\u00e4stan alla p\u00e5st\u00e5enden r\u00e4tt granskade.<br><strong>+1 \ud83d\udca1 Fantasi</strong>';
       } else {
-        txt.innerHTML = 'Kluriga rubriker! Nu vet du hur det verkligen låg till.';
+        txt.innerHTML = 'Kluriga p\u00e5st\u00e5enden! Nu vet du hur propaganda l\u00e5ter \u2014 och hur man synar den.';
       }
       addRetryButton(state.resultEl, 'ch6', start);
       notifyDone('ch6');
@@ -9372,19 +9380,19 @@ var NobelMinigames = (function () {
     var MEDAL_Y = 384, MEDAL_R = 26;
 
     var PRIZES = [
-      { id: 'tid',    label: 'Tiden tänjer sig', emoji: '⏰' },
-      { id: 'paket',  label: 'Ljuspaketen',       emoji: '☀️' },
-      { id: 'emc',    label: 'E = mc²',        emoji: '⚛️' },
-      { id: 'atom',   label: 'Atombeviset',       emoji: '🔬' },
-      { id: 'boj',    label: 'Ljuset böjs',    emoji: '🌟' }
+      { id: 'tid',    label: 'Tiden',      emoji: '⏰' },
+      { id: 'paket',  label: 'Ljuspaket',  emoji: '☀️' },
+      { id: 'emc',    label: 'E = mc²',   emoji: '⚛️' },
+      { id: 'atom',   label: 'Atomer',     emoji: '🔬' },
+      { id: 'boj',    label: 'Ljusböjen', emoji: '🌟' }
     ];
 
     var LAUREATES = [
-      { prize: 'tid',   clue: 'GPS:en i mobilen: ”Utan mig visar kartan fel! Jag måste veta att tiden går lite olika fort uppe vid satelliterna.”' },
-      { prize: 'paket', clue: 'Solcellen på taket: ”Jag fångar ljusets små energipaket och gör el av dem!”' },
-      { prize: 'emc',   clue: 'Kärnkraftverket: ”Jag gör el av en pytteliten bit materia — energi och massa är samma sak!”' },
-      { prize: 'atom',  clue: 'Forskaren vid mikroskopet: ”Jag ser små korn dansa i vattnet — det är osynliga atomer som knuffas!”' },
-      { prize: 'boj',   clue: 'Rymdteleskopet: ”Jag ser bakom hela galaxer — deras tyngdkraft böjer ljuset som en lins!”' }
+      { prize: 'tid',   icon: '📱', clue: 'GPS:en i mobilen: Utan mig visar kartan fel! Jag m\u00e5ste veta att tiden g\u00e5r lite olika fort uppe vid satelliterna.' },
+      { prize: 'paket', icon: '🏠', clue: 'Solcellen p\u00e5 taket: Jag f\u00e5ngar ljusets sm\u00e5 energipaket och g\u00f6r el av dem!' },
+      { prize: 'emc',   icon: '⚡', clue: 'K\u00e4rnkraftverket: Jag g\u00f6r el av en pytteliten bit materia \u2014 energi och massa \u00e4r samma sak!' },
+      { prize: 'atom',  icon: '🧫', clue: 'Forskaren vid mikroskopet: Jag ser sm\u00e5 korn dansa i vattnet \u2014 det \u00e4r osynliga atomer som knuffas!' },
+      { prize: 'boj',   icon: '🔭', clue: 'Rymdteleskopet: Jag ser bakom hela galaxer \u2014 deras tyngdkraft b\u00f6jer ljuset som en lins!' }
     ];
 
     // Laureate drop zone (the podium area)
@@ -9634,7 +9642,10 @@ var NobelMinigames = (function () {
       // Current laureate
       if (state.index < state.order.length) {
         var laureate = state.order[state.index];
-        drawLaureate(ctx, W / 2, 226, !!state.celebrate);
+        ctx.font = '64px serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(laureate.icon || '\u2b50', W / 2, 246);
+        ctx.font = '13px sans-serif';
         // Speech bubble with clue
         ctx.fillStyle = COLORS.parchment;
         roundRect(ctx, 42, 44, W - 84, 66, 12); ctx.fill();
@@ -9646,7 +9657,7 @@ var NobelMinigames = (function () {
         ctx.fillStyle = COLORS.parchment; ctx.fill();
         ctx.fillStyle = COLORS.dark;
         ctx.font = '600 14px ' + FONT_BODY;
-        wrapClue(ctx, '”' + laureate.clue + '”', W / 2, 70, W - 116, 19);
+        wrapClue(ctx, laureate.clue, W / 2, 70, W - 116, 19);
         // Drop hint ring while dragging
         if (state.dragging) {
           ctx.strokeStyle = 'rgba(224,190,90,0.8)';
@@ -9689,36 +9700,6 @@ var NobelMinigames = (function () {
       ctx.textAlign = 'left';
     }
 
-    function drawLaureate(ctx, x, y, celebrating) {
-      ctx.save();
-      ctx.translate(x, y);
-      // Body (fine tailcoat)
-      ctx.fillStyle = '#20242e';
-      roundRect(ctx, -24, -14, 48, 58, 10); ctx.fill();
-      // Shirt
-      ctx.fillStyle = COLORS.parchment;
-      ctx.beginPath();
-      ctx.moveTo(-8, -12); ctx.lineTo(8, -12); ctx.lineTo(0, 16); ctx.closePath(); ctx.fill();
-      // Head
-      ctx.fillStyle = '#e8c49a';
-      ctx.beginPath(); ctx.arc(0, -32, 18, 0, Math.PI * 2); ctx.fill();
-      // Smile + eyes
-      ctx.strokeStyle = COLORS.dark; ctx.lineWidth = 1.6;
-      ctx.beginPath(); ctx.arc(0, -28, 8, 0.25 * Math.PI, 0.75 * Math.PI); ctx.stroke();
-      ctx.fillStyle = COLORS.dark;
-      ctx.beginPath(); ctx.arc(-6, -36, 2, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.arc(6, -36, 2, 0, Math.PI * 2); ctx.fill();
-      // Arms (raised when celebrating)
-      ctx.strokeStyle = '#20242e'; ctx.lineWidth = 8; ctx.lineCap = 'round';
-      if (celebrating) {
-        ctx.beginPath(); ctx.moveTo(-22, -4); ctx.lineTo(-38, -34); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(22, -4);  ctx.lineTo(38, -34);  ctx.stroke();
-      } else {
-        ctx.beginPath(); ctx.moveTo(-22, -4); ctx.lineTo(-32, 26); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(22, -4);  ctx.lineTo(32, 26);  ctx.stroke();
-      }
-      ctx.restore();
-    }
 
     function drawMedal(ctx, m) {
       ctx.save();
@@ -9741,6 +9722,7 @@ var NobelMinigames = (function () {
       // Label under medal
       ctx.fillStyle = 'rgba(250,242,232,0.9)';
       ctx.font = '600 11px ' + FONT_BODY;
+      ctx.fillStyle = '#1c2333';
       ctx.fillText(m.label, 0, MEDAL_R + 16);
       ctx.restore();
     }
