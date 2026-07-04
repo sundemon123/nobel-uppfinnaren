@@ -1184,20 +1184,20 @@ body.narrator-on .screen.active { padding-top: 46px; }
 
   <!-- INTRO SCREEN -->
   <div class="screen active" id="intro">
-    <div class="screen-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:48px 24px;text-align:center;background:#1a0e08;box-sizing:border-box;">
+    <div class="screen-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:48px 24px;text-align:center;background:#0b1226;box-sizing:border-box;">
       <div style="width:200px;height:200px;border-radius:50%;border:3px solid #c49b2a;overflow:hidden;margin:0 auto 32px;box-shadow:0 0 40px rgba(196,155,42,0.2),0 0 0 1px rgba(196,155,42,0.1);">
-        <img src="data:image/svg+xml," style="width:100%;height:100%;object-fit:cover;object-position:center 20%;" alt="Alfred Nobel">
+        <img src="data:image/svg+xml," style="width:100%;height:100%;object-fit:cover;object-position:center 20%;" alt="Albert Einstein">
       </div>
-      <div style="font-family:var(--font-headline);font-size:0.85rem;letter-spacing:0.25em;color:#c49b2a;text-transform:uppercase;margin-bottom:12px;opacity:0.8;">Den ensamme uppfinnaren</div>
-      <h1 style="font-family:var(--font-headline);font-size:2rem;color:#faf2e8;margin:0 0 8px;line-height:1.15;">Alfred Nobel</h1>
-      <h2 style="font-family:var(--font-headline);font-size:1.15rem;color:#c49b2a;margin:0 0 28px;font-weight:400;font-style:italic;">Uppfinnarens v&auml;g</h2>
-      <p style="font-family:var(--font-body);font-size:0.95rem;color:#c8b89a;max-width:340px;line-height:1.65;margin:0 auto 40px;">Stockholm, 1833. En sjuklig pojke med en nyfiken sj&auml;l. En far som dr&ouml;mmer om uppfinningar. En familj som n&auml;stan f&ouml;rlorat alla sina pengar. Det h&auml;r &auml;r historien om mannen som f&ouml;r&auml;ndrade v&auml;rlden, och sedan &aring;ngrade sig.</p>
+      <div style="font-family:var(--font-headline);font-size:0.85rem;letter-spacing:0.25em;color:#c49b2a;text-transform:uppercase;margin-bottom:12px;opacity:0.8;">Den nyfikne t&auml;nkaren</div>
+      <h1 style="font-family:var(--font-headline);font-size:2rem;color:#faf2e8;margin:0 0 8px;line-height:1.15;">Albert Einstein</h1>
+      <h2 style="font-family:var(--font-headline);font-size:1.15rem;color:#c49b2a;margin:0 0 28px;font-weight:400;font-style:italic;">T&auml;nkarens v&auml;g</h2>
+      <p style="font-family:var(--font-body);font-size:0.95rem;color:#aab8d0;max-width:340px;line-height:1.65;margin:0 auto 40px;">Tyskland, 1879. En pojke f&ouml;ds som b&ouml;rjar prata s&aring; sent att alla oroar sig. Men i hans huvud &auml;r det fullt av fr&aring;gor. Det h&auml;r &auml;r historien om pojken som aldrig slutade fr&aring;ga varf&ouml;r &mdash; och som &auml;ndrade hur vi ser p&aring; hela universum.</p>
       <div id="introButtons" style="display:flex;flex-direction:column;align-items:center;gap:12px;">
         <button class="btn-primary" id="introStartBtn" onclick="startNewGameFromIntro()" style="font-size:1.05rem;padding:14px 36px;">B&ouml;rja spela</button>
-        <button class="btn-primary" id="introContinueBtn" onclick="continueGameFromIntro()" style="display:none;font-size:1.05rem;padding:14px 36px;background:#c49b2a;color:#1a0e08;border-color:#c49b2a;">Forts&auml;tt resa</button>
-        <button id="introNewGameBtn" onclick="newGameFromIntro()" style="display:none;background:transparent;border:none;color:#c8b89a;font-family:var(--font-body);font-size:0.85rem;text-decoration:underline;cursor:pointer;padding:6px 12px;opacity:0.75;margin-top:4px;">Nytt spel (rensar sparning)</button>
+        <button class="btn-primary" id="introContinueBtn" onclick="continueGameFromIntro()" style="display:none;font-size:1.05rem;padding:14px 36px;background:#c49b2a;color:#0b1226;border-color:#c49b2a;">Forts&auml;tt resa</button>
+        <button id="introNewGameBtn" onclick="newGameFromIntro()" style="display:none;background:transparent;border:none;color:#aab8d0;font-family:var(--font-body);font-size:0.85rem;text-decoration:underline;cursor:pointer;padding:6px 12px;opacity:0.75;margin-top:4px;">Nytt spel (rensar sparning)</button>
       </div>
-      <div id="gameVersion" style="margin-top:24px;font-family:var(--font-body);font-size:0.7rem;color:#6b5a3e;opacity:0.7;letter-spacing:0.08em;">version 3.0 &middot; juli 2026</div>
+      <div id="gameVersion" style="margin-top:24px;font-family:var(--font-body);font-size:0.7rem;color:#5a6a8a;opacity:0.7;letter-spacing:0.08em;">version 1.0 &middot; juli 2026</div>
     </div>
   </div>
 
@@ -1211,29 +1211,30 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <div class="title-icon">
         <svg viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
           <rect width="220" height="160" fill="var(--parchment)" rx="8"/>
-          <rect x="60" y="30" width="100" height="70" fill="var(--brown-medium)" opacity="0.36" rx="4"/>
-          <rect x="70" y="38" width="25" height="18" fill="var(--parchment-light)" rx="2" opacity="0.90"/>
-          <rect x="105" y="38" width="25" height="18" fill="var(--parchment-light)" rx="2" opacity="0.90"/>
-          <rect x="70" y="62" width="25" height="18" fill="var(--parchment-light)" rx="2" opacity="0.90"/>
-          <rect x="105" y="62" width="25" height="18" fill="var(--parchment-light)" rx="2" opacity="0.90"/>
-          <rect x="78" y="100" width="64" height="4" fill="var(--brown-dark)" opacity="0.72"/>
-          <rect x="85" y="18" width="6" height="20" fill="var(--brown-dark)" opacity="0.60"/>
-          <circle cx="88" cy="15" r="5" fill="var(--brown-light)" opacity="0.36"/>
-          <circle cx="35" cy="110" r="8" fill="var(--brown-dark)" opacity="0.36"/>
-          <rect x="30" y="118" width="10" height="20" fill="var(--brown-dark)" opacity="0.29" rx="3"/>
-          <circle cx="160" cy="50" r="15" fill="var(--gold)" opacity="0.19"/>
-          <text x="110" y="140" text-anchor="middle" font-family="var(--font-body)" font-size="9" fill="var(--brown-light)" opacity="0.90" font-style="italic">Stockholm, 1842</text>
+          <circle cx="110" cy="74" r="50" fill="var(--parchment-light)" stroke="var(--navy)" stroke-width="3"/>
+          <circle cx="110" cy="74" r="41" fill="none" stroke="var(--brown-light)" stroke-width="1" stroke-dasharray="3 5" opacity="0.7"/>
+          <polygon points="110,36 118,74 110,68 102,74" fill="var(--copper)"/>
+          <polygon points="110,112 118,74 110,80 102,74" fill="var(--navy)" opacity="0.75"/>
+          <circle cx="110" cy="74" r="4.5" fill="var(--gold)"/>
+          <text x="110" y="30" text-anchor="middle" font-family="var(--font-headline)" font-size="12" fill="var(--navy)" font-weight="bold">N</text>
+          <text x="110" y="132" text-anchor="middle" font-family="var(--font-headline)" font-size="10" fill="var(--brown-light)">S</text>
+          <text x="166" y="78" text-anchor="middle" font-family="var(--font-headline)" font-size="10" fill="var(--brown-light)">&Ouml;</text>
+          <text x="54" y="78" text-anchor="middle" font-family="var(--font-headline)" font-size="10" fill="var(--brown-light)">V</text>
+          <circle cx="35" cy="30" r="2.5" fill="var(--gold)" opacity="0.8"/>
+          <circle cx="190" cy="42" r="2" fill="var(--gold)" opacity="0.6"/>
+          <circle cx="182" cy="120" r="2.5" fill="var(--gold)" opacity="0.7"/>
+          <text x="110" y="152" text-anchor="middle" font-family="var(--font-body)" font-size="9" fill="var(--brown-light)" opacity="0.9" font-style="italic">M&uuml;nchen, 1885</text>
         </svg>
       </div>
       <div class="title-ornament"></div>
-      <h1 class="game-title">Nobel</h1>
-      <p class="game-subtitle">Uppfinnarens v&auml;g</p>
-      <div class="chapter-label">Kapitel 1 &mdash; Fattiga &aring;r i Stockholm</div>
+      <h1 class="game-title">Einstein</h1>
+      <p class="game-subtitle">T&auml;nkarens v&auml;g</p>
+      <div class="chapter-label">Kapitel 1 &mdash; Kompassen</div>
       <p class="intro-text">
-        <strong>Stockholm, 1833&ndash;1842.</strong> Familjen Nobel har det sv&aring;rt. Pappa Immanuel
-        experimenterar i k&auml;llaren trots att pengarna inte r&auml;cker. Mamma Andriette h&aring;ller
-        familjen samman. Lilla Alfred &auml;r sjuklig men nyfiken &mdash; och snart ska ett beslut
-        f&ouml;r&auml;ndra allt.
+        <strong>M&uuml;nchen, 1879&ndash;1889.</strong> Albert &auml;r en tyst pojke. Han b&ouml;rjar prata
+        s&aring; sent att familjen oroar sig. Men i hans huvud &auml;r det fullt av fr&aring;gor.
+        Pappa Hermann och farbror Jakob bygger elektriska lampor i sin fabrik &mdash;
+        v&auml;rlden h&aring;ller p&aring; att f&aring; ljus. Och snart ska en liten kompass &auml;ndra allt.
       </p>
       <audio id="narrator-ch1-title" src="" preload="auto"></audio>
       <button class="btn-primary" onclick="goToScreen('ch1-choice1')">B&ouml;rja spela</button>
@@ -1245,8 +1246,8 @@ body.narrator-on .screen.active { padding-top: 46px; }
     <div class="narrative-box">
       <h2 class="narrative-heading">S&aring; h&auml;r spelar du</h2>
       <p class="narrative-text">
-        I det h&auml;r spelet f&ouml;ljer du Alfred Nobels liv fr&aring;n barndom till historiens mest ber&ouml;mda
-        testamente. Du g&ouml;r val som bygger tre resurser:
+        I det h&auml;r spelet f&ouml;ljer du Albert Einsteins liv fr&aring;n nyfiket barn till v&auml;rldens
+        mest ber&ouml;mda t&auml;nkare. Du g&ouml;r val som bygger tre resurser:
       </p>
     </div>
     <div class="how-to-play-grid">
@@ -1254,21 +1255,21 @@ body.narrator-on .screen.active { padding-top: 46px; }
         <span class="htp-icon">&#x1F4DA;</span>
         <div class="htp-text">
           <div class="htp-title">Kunskap</div>
-          <div class="htp-desc">Hur mycket Alfred l&auml;r sig om vetenskap, spr&aring;k och teknik. Kunskap &ouml;ppnar nya m&ouml;jligheter.</div>
+          <div class="htp-desc">Hur mycket Albert l&auml;r sig om matematik, fysik och v&auml;rlden. Kunskap &ouml;ppnar nya m&ouml;jligheter.</div>
         </div>
       </div>
       <div class="htp-item">
         <span class="htp-icon">&#x1F4A1;</span>
         <div class="htp-text">
           <div class="htp-title">Fantasi</div>
-          <div class="htp-desc">Familjens och senare Alfreds pengar. Fantasi beh&ouml;vs f&ouml;r att bygga, uppfinna och investera.</div>
+          <div class="htp-desc">Alberts superkraft: att t&auml;nka ut saker ingen har sett &mdash; tankeexperiment! Fantasi l&aring;ser upp ov&auml;ntade v&auml;gar.</div>
         </div>
       </div>
       <div class="htp-item">
-        <span class="htp-icon">&#x2B50;</span>
+        <span class="htp-icon">&#x1F981;</span>
         <div class="htp-text">
           <div class="htp-title">Mod</div>
-          <div class="htp-desc">Vad v&auml;rlden tycker om Alfred. Ett gott mod &ouml;ppnar d&ouml;rrar &mdash; ett d&aring;ligt st&auml;nger dem.</div>
+          <div class="htp-desc">Att v&aring;ga fr&aring;ga, v&aring;ga misslyckas och v&aring;ga s&auml;ga emot n&auml;r n&aring;got &auml;r fel. Mod beh&ouml;vs n&auml;r det verkligen g&auml;ller.</div>
         </div>
       </div>
     </div>
@@ -1294,8 +1295,8 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <div class="discussion-label">Lyssna &amp; spela</div>
       <p class="discussion-text">
         Tryck p&aring; <strong>Lyssna</strong>-knappen uppe till v&auml;nster s&aring; l&auml;ser ber&auml;ttaren
-        upp texten. I varje kapitel v&auml;ntar dessutom ett litet spel &mdash; leta, blanda,
-        st&auml;mpla och dela ut medaljer!
+        upp texten. I varje kapitel v&auml;ntar dessutom ett litet spel &mdash; leta, spegla,
+        granska och para ihop!
       </p>
     </div>
     <div style="text-align:center;">
@@ -1308,52 +1309,47 @@ body.narrator-on .screen.active { padding-top: 46px; }
     <div class="scene-illustration">
       <svg viewBox="0 0 360 140" xmlns="http://www.w3.org/2000/svg" style="max-width:340px;">
         <rect width="360" height="140" fill="var(--parchment)" rx="8"/>
-        <rect x="50" y="30" width="80" height="60" fill="var(--brown-medium)" opacity="0.12" rx="3"/>
-        <rect x="60" y="38" width="20" height="15" fill="var(--parchment-light)" rx="1.5"/>
-        <rect x="90" y="38" width="20" height="15" fill="var(--parchment-light)" rx="1.5"/>
-        <rect x="75" y="68" width="20" height="22" fill="var(--brown-dark)" opacity="0.15" rx="1"/>
-        <rect x="170" y="20" width="60" height="80" fill="var(--navy)" opacity="0.06" rx="3"/>
-        <rect x="178" y="28" width="15" height="10" fill="var(--parchment-light)" rx="1" opacity="0.7"/>
-        <rect x="200" y="28" width="15" height="10" fill="var(--parchment-light)" rx="1" opacity="0.7"/>
-        <rect x="178" y="48" width="15" height="10" fill="var(--parchment-light)" rx="1" opacity="0.7"/>
-        <rect x="200" y="48" width="15" height="10" fill="var(--parchment-light)" rx="1" opacity="0.7"/>
-        <circle cx="280" cy="50" r="20" fill="var(--moss)" opacity="0.08"/>
-        <line x1="280" y1="70" x2="280" y2="100" stroke="var(--brown-medium)" stroke-width="2" opacity="0.15"/>
-        <text x="180" y="130" text-anchor="middle" font-family="var(--font-body)" font-size="9" fill="var(--brown-light)" opacity="0.4" font-style="italic">Stockholm, 1830-talet</text>
+        <rect x="40" y="60" width="130" height="50" fill="var(--navy)" opacity="0.10" rx="6"/>
+        <rect x="48" y="48" width="30" height="26" fill="var(--parchment-light)" rx="3"/>
+        <circle cx="245" cy="62" r="30" fill="var(--parchment-light)" stroke="var(--navy)" stroke-width="2.5"/>
+        <polygon points="245,40 250,62 245,58 240,62" fill="var(--copper)"/>
+        <polygon points="245,84 250,62 245,66 240,62" fill="var(--navy)" opacity="0.7"/>
+        <circle cx="245" cy="62" r="3" fill="var(--gold)"/>
+        <circle cx="300" cy="35" r="3" fill="var(--gold)" opacity="0.7"/>
+        <circle cx="315" cy="55" r="2" fill="var(--gold)" opacity="0.5"/>
+        <text x="180" y="130" text-anchor="middle" font-family="var(--font-body)" font-size="9" fill="var(--brown-light)" opacity="0.4" font-style="italic">M&uuml;nchen, 1885</text>
       </svg>
     </div>
     <div class="narrative-box">
-      <h2 class="narrative-heading">Vardagen i Stockholm</h2>
+      <h2 class="narrative-heading">En magisk g&aring;va</h2>
       <p class="narrative-text">
-        Familjen Nobel har det sv&aring;rt. Pappa Immanuel experimenterar i k&auml;llaren, men pengarna
-        r&auml;cker knappt. Lilla Alfred &auml;r ofta sjuk, men n&auml;r han m&aring;r bra &auml;r han full av
-        nyfikenhet. Hur tillbringar han sina dagar?
+        Albert &auml;r fem &aring;r och ligger sjuk i s&auml;ngen. Pappa Hermann s&auml;tter sig p&aring;
+        s&auml;ngkanten och ger honom en sak att titta p&aring;: en kompass. N&aring;len pekar
+        alltid mot norr, hur Albert &auml;n vrider och v&auml;nder p&aring; den. Ingen r&ouml;r n&aring;len
+        &mdash; &auml;nd&aring; r&ouml;r den sig! Vad g&ouml;r Albert?
       </p>
       <audio id="narrator-ch1-choice1" src="" preload="auto"></audio>
     </div>
     <div class="choices-container" id="ch1-choices1">
       <div class="choice-card" onclick="makeChoice('ch1',1,0)" data-choice="0">
         <div class="choice-card-number">1</div>
-        <div class="choice-card-title">Studera p&aring; biblioteket</div>
-        <div class="choice-card-desc">Alfred tillbringar dagarna p&aring; Kungliga biblioteket och l&auml;ser allt han kan hitta om kemi och naturvetenskap.</div>
+        <div class="choice-card-title">Fr&aring;ga pappa hur den fungerar</div>
+        <div class="choice-card-desc">Albert fr&aring;gar och fr&aring;gar. Pappa ber&auml;ttar om magneter och om jorden som drar i n&aring;len.</div>
         <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F4DA; Kunskap</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch1',1,1)" data-choice="1">
         <div class="choice-card-number">2</div>
-        <div class="choice-card-title">Hj&auml;lpa mamma med hush&aring;llet</div>
-        <div class="choice-card-desc">Alfred hj&auml;lper mamma Andriette med hush&aring;llet och sm&aring;jobb. Han l&auml;r sig om ansvar och hur familjen h&aring;ller ihop.</div>
-        <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x1F4A1; Fantasi</span>
-          <span class="effect-badge positive">+1 &#x2B50; Mod</span>
-        </div>
+        <div class="choice-card-title">Fundera sj&auml;lv &mdash; vad &auml;r det som drar?</div>
+        <div class="choice-card-desc">Albert ligger l&auml;nge och t&auml;nker. N&aring;got osynligt m&aring;ste finnas runt omkring oss &mdash; n&aring;got man inte kan se, men som &auml;nd&aring; finns.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F4A1; Fantasi</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch1',1,2)" data-choice="2">
         <div class="choice-card-number">3</div>
-        <div class="choice-card-title">Utforska Stockholm och experimentera</div>
-        <div class="choice-card-desc">Alfred springer runt i Stockholms gr&auml;nder och experimenterar med allt han hittar. Han l&auml;r sig massor, men det kostar lite pengar.</div>
+        <div class="choice-card-title">Visa Maja och leka skattletare</div>
+        <div class="choice-card-desc">Albert och lillasyster Maja f&ouml;ljer n&aring;len genom hela huset, som uppt&auml;cktsresande p&aring; jakt.</div>
         <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x1F4DA; Kunskap</span>
-          <span class="effect-badge negative">-1 &#x1F4A1; Fantasi</span>
+          <span class="effect-badge positive">+1 &#x1F4A1; Fantasi</span>
+          <span class="effect-badge positive">+1 &#x1F981; Mod</span>
         </div>
       </div>
     </div>
@@ -1363,7 +1359,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
   </div>
 
-  <!-- CH1: MINIGAME - Skattjakten på vinden -->
+  <!-- CH1: MINIGAME<!-- CH1: MINIGAME - Skattjakten på vinden -->
   <div class="screen" id="ch1-minigame">
     <div class="minigame-v2-container" id="ch1-minigame-v2-container"></div>
     <div style="text-align:center; display:none;" id="ch1-minigame-v2-continue">
@@ -1371,8 +1367,8 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
     <div id="ch1-minigame-old" style="display:none;">
       <div class="narrative-box">
-        <h2 class="narrative-heading">&#x1F50D; Skattjakten p&aring; vinden</h2>
-        <p class="narrative-text">Alfred utforskar vinden och hittar en bok, ett f&ouml;rstoringsglas, en magnet, en kolv och en fj&auml;derpenna &mdash; allt en ung uppfinnare beh&ouml;ver!</p>
+        <h2 class="narrative-heading">&#x1F9ED; Kompassjakten</h2>
+        <p class="narrative-text">Albert f&ouml;ljer kompassn&aring;len genom pappas verkstad och hittar allt som &auml;r magnetiskt &mdash; en ung t&auml;nkares f&ouml;rsta uppt&auml;cktsf&auml;rd!</p>
       </div>
       <div style="text-align:center;">
         <button class="btn-primary" onclick="goToScreen('ch1-fact')">Forts&auml;tt</button>
@@ -1386,8 +1382,29 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <span class="fact-icon">&#x1F4D6;</span>
       <div class="fact-label">Visste du att&hellip;</div>
       <p class="fact-text">
-        Alfred Nobel hade sju syskon, men bara tre av dem hann bli vuxna.
-        P&aring; 1800-talet var barnsjukdomar mycket vanligare &auml;n idag.
+        Det h&auml;r h&auml;nde p&aring; riktigt! Albert fick en kompass av sin pappa n&auml;r han var
+        ungef&auml;r fem &aring;r och l&aring;g sjuk. Han gl&ouml;mde den aldrig. Som vuxen sa han att
+        kompassen var det som fick honom att b&ouml;rja undra &ouml;ver osynliga krafter.
+      </p>
+    </div>
+    <div class="discussion-box">
+      <span class="discussion-icon">&#x1F50D;</span>
+      <div class="discussion-label">K&auml;llkoll</div>
+      <p class="discussion-text">
+        Vem har ber&auml;ttat det h&auml;r? Einstein sj&auml;lv &mdash; m&aring;nga &aring;r senare, n&auml;r han var
+        gammal och ber&ouml;md. Minnen kan &auml;ndra sig med tiden. Kanske minns han det
+        finare &auml;n det var? N&auml;r du h&ouml;r en ber&auml;ttelse: fundera p&aring; vem som ber&auml;ttar,
+        och n&auml;r.
+      </p>
+    </div>
+    <div class="discussion-box">
+      <span class="discussion-icon">&#x1F3ED;</span>
+      <div class="discussion-label">Samtidigt i v&auml;rlden</div>
+      <p class="discussion-text">
+        Alberts pappa och farbror byggde elektriska lampor i sin fabrik. Just d&aring;
+        h&ouml;ll st&auml;derna p&aring; att f&aring; elektriskt ljus f&ouml;r allra f&ouml;rsta g&aring;ngen. &Ouml;verallt
+        fanns nya osynliga krafter &mdash; el och magnetism &mdash; och m&aring;nga m&auml;nniskor
+        undrade hur de fungerade. Albert var inte ensam om att undra.
       </p>
     </div>
       <audio id="narrator-ch1-fact" src="" preload="auto"></audio>
@@ -1396,33 +1413,33 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
   </div>
 
-  <!-- CH1: CHOICE 2 - Russia decision -->
+  <!-- CH1: CHOICE 2<!-- CH1: CHOICE 2 - Russia decision -->
   <div class="screen" id="ch1-choice2">
     <div class="narrative-box">
-      <h2 class="narrative-heading">Resan till Ryssland</h2>
+      <h2 class="narrative-heading">Fiolen</h2>
       <p class="narrative-text">
-        Dagen har kommit. B&aring;ten till Sankt Petersburg v&auml;ntar. Alfreds mamma Andriette
-        h&aring;ller h&aring;rt i sina barn. Men Alfred har ett val att g&ouml;ra.
+        Mamma Pauline &auml;lskar musik och spelar piano n&auml;stan varje kv&auml;ll. Hon best&auml;mmer
+        att Albert ska l&auml;ra sig spela fiol. Albert tycker &ouml;vningarna &auml;r
+        tr&aring;&aring;&aring;kiga. Men mamma ger sig inte. Vad g&ouml;r Albert?
       </p>
       <audio id="narrator-ch1-choice2" src="" preload="auto"></audio>
     </div>
     <div class="choices-container" id="ch1-choices2">
       <div class="choice-card" onclick="makeChoice('ch1',2,0)" data-choice="0">
         <div class="choice-card-number">1</div>
-        <div class="choice-card-title">F&ouml;lj med familjen</div>
-        <div class="choice-card-desc">Alfred reser med familjen till Ryssland. Tillsammans &auml;r de starkare, och i Sankt Petersburg v&auml;ntar nya m&ouml;jligheter.</div>
+        <div class="choice-card-title">&Ouml;va, fast det &auml;r tr&aring;kigt</div>
+        <div class="choice-card-desc">Albert biter ihop och &ouml;var varje dag. Det &auml;r sv&aring;rt att l&auml;ra sig n&aring;got nytt &mdash; men det brukar l&ouml;na sig.</div>
         <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x1F4A1; Fantasi</span>
-          <span class="effect-badge positive">+1 &#x2B50; Mod</span>
+          <span class="effect-badge positive">+1 &#x1F4DA; Kunskap</span>
+          <span class="effect-badge positive">+1 &#x1F981; Mod</span>
         </div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch1',2,1)" data-choice="1">
         <div class="choice-card-number">2</div>
-        <div class="choice-card-title">Stanna kvar och studera</div>
-        <div class="choice-card-desc">Alfred stannar hos sl&auml;ktingar i Stockholm f&ouml;r att forts&auml;tta studera. Han l&auml;r sig mer, men f&ouml;rlorar n&auml;rheten till familjen.</div>
+        <div class="choice-card-title">Hitta p&aring; egna melodier i st&auml;llet</div>
+        <div class="choice-card-desc">Albert struntar i noterna och spelar egna p&aring;hittade slingor. Mamma suckar &mdash; men ler i smyg.</div>
         <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x1F4DA; Kunskap</span>
-          <span class="effect-badge negative">-1 &#x1F4A1; Fantasi</span>
+          <span class="effect-badge positive">+2 &#x1F4A1; Fantasi</span>
         </div>
       </div>
     </div>
@@ -1432,32 +1449,32 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
   </div>
 
-  <!-- CH1: CONCLUSION -->
+  <!-- CH1: CONCLUSION --><!-- CH1: CONCLUSION -->
   <div class="screen" id="ch1-conclusion">
     <div style="text-align:center; margin-bottom: 8px;">
       <div class="chapter-label" style="margin-bottom:8px;">Kapitel 1 avklarat</div>
     </div>
-    <div class="celebration-text" id="ch1-celebrationText">Kapitel 1 avklarat &mdash; Alfreds resa har b&ouml;rjat!</div>
+    <div class="celebration-text" id="ch1-celebrationText">Kapitel 1 avklarat &mdash; Alberts resa har b&ouml;rjat!</div>
     <div class="divider"></div>
     <div class="narrative-box">
-      <h2 class="narrative-heading">Alfreds resa har b&ouml;rjat&hellip;</h2>
+      <h2 class="narrative-heading">Alberts resa har b&ouml;rjat&hellip;</h2>
       <p class="narrative-text" id="ch1-conclusionText"></p>
     </div>
     <div class="lesson-box">
       <div class="lesson-label">L&auml;rdom</div>
-      <p class="lesson-text">Ibland f&ouml;rändrar sv&aring;ra tider oss till det b&auml;ttre. Familjen Nobel var fattig, men de gav aldrig upp.</p>
+      <p class="lesson-text">Stora id&eacute;er b&ouml;rjar med sm&aring; fr&aring;gor. Albert fick inget f&auml;rdigt svar om kompassen &mdash; han fick n&aring;got b&auml;ttre: lusten att ta reda p&aring; det sj&auml;lv.</p>
     </div>
     <div class="divider"></div>
     <h3 style="text-align:center; font-family:var(--font-headline); font-size:1.1rem; color:var(--brown-medium); margin-bottom:16px;">Dina resurser efter kapitel 1</h3>
     <div class="final-resources">
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F4DA;</span><span class="final-resource-label">Kunskap</span><span class="final-resource-value" id="ch1-finalKunskap">0</span></div>
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F4A1;</span><span class="final-resource-label">Fantasi</span><span class="final-resource-value" id="ch1-finalFantasi">0</span></div>
-      <div class="final-resource-item"><span class="final-resource-icon">&#x2B50;</span><span class="final-resource-label">Mod</span><span class="final-resource-value" id="ch1-finalMod">0</span></div>
+      <div class="final-resource-item"><span class="final-resource-icon">&#x1F981;</span><span class="final-resource-label">Mod</span><span class="final-resource-value" id="ch1-finalMod">0</span></div>
     </div>
-    <p class="teaser-text">Forts&auml;ttning f&ouml;ljer&hellip;<br><em>Kapitel 2: Ryssland &mdash; En ny v&auml;rld</em></p>
+    <p class="teaser-text">Forts&auml;ttning f&ouml;ljer&hellip;<br><em>Kapitel 2: Skolan som inte gillade fr&aring;gor</em></p>
       <audio id="narrator-ch1-conclusion" src="" preload="auto"></audio>
     <div style="text-align:center; margin-top: 16px; margin-bottom: 12px;">
-      <button class="diary-btn" onclick="NobelDiary.show(1)">&#x1F4D6; Alfreds dagbok</button>
+      <button class="diary-btn" onclick="NobelDiary.show(1)">&#x1F4D6; Alberts fr&aring;gebok</button>
       <button class="diary-btn" onclick="showStickerBook()">&#x1F396;&#xFE0F; Samlarboken</button>
     </div>
     <div style="text-align:center; margin-top: 8px; margin-bottom: 40px;">
@@ -1520,7 +1537,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
         <div class="choice-card-desc">Alfred &auml;lskar att l&auml;sa och skriva. Han dr&ouml;mmer om att bli f&ouml;rfattare och l&auml;ser Shelley och Byron p&aring; engelska.</div>
         <div class="choice-card-effect">
           <span class="effect-badge positive">+1 &#x1F4DA; Kunskap</span>
-          <span class="effect-badge positive">+1 &#x2B50; Mod</span>
+          <span class="effect-badge positive">+1 &#x1F981; Mod</span>
         </div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch2',1,2)" data-choice="2">
@@ -1605,7 +1622,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
         <div class="choice-card-desc">Alfred beslutar att hitta ett s&auml;tt att g&ouml;ra nitroglycerinet s&auml;kert att hantera. Det &auml;r farligt men kan f&ouml;r&auml;ndra v&auml;rlden.</div>
         <div class="choice-card-effect">
           <span class="effect-badge positive">+2 &#x1F4DA; Kunskap</span>
-          <span class="effect-badge negative">-1 &#x2B50; Mod</span>
+          <span class="effect-badge negative">-1 &#x1F981; Mod</span>
         </div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch2',2,1)" data-choice="1">
@@ -1613,7 +1630,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
         <div class="choice-card-title">F&ouml;r farligt &mdash; l&auml;gg ner</div>
         <div class="choice-card-desc">Alfred inser att det &auml;r f&ouml;r riskabelt. Han forts&auml;tter med s&auml;krare experiment ist&auml;llet. Klokare, men utan den stora uppfinningen.</div>
         <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x2B50; Mod</span>
+          <span class="effect-badge positive">+1 &#x1F981; Mod</span>
         </div>
       </div>
     </div>
@@ -1635,12 +1652,12 @@ body.narrator-on .screen.active { padding-top: 46px; }
     <div class="final-resources">
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F4DA;</span><span class="final-resource-label">Kunskap</span><span class="final-resource-value" id="ch2-finalKunskap">0</span></div>
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F4A1;</span><span class="final-resource-label">Fantasi</span><span class="final-resource-value" id="ch2-finalFantasi">0</span></div>
-      <div class="final-resource-item"><span class="final-resource-icon">&#x2B50;</span><span class="final-resource-label">Mod</span><span class="final-resource-value" id="ch2-finalMod">0</span></div>
+      <div class="final-resource-item"><span class="final-resource-icon">&#x1F981;</span><span class="final-resource-label">Mod</span><span class="final-resource-value" id="ch2-finalMod">0</span></div>
     </div>
     <p class="teaser-text">Forts&auml;ttning f&ouml;ljer&hellip;<br><em>Kapitel 3: Farliga experiment</em></p>
       <audio id="narrator-ch2-conclusion" src="" preload="auto"></audio>
     <div style="text-align:center; margin-top: 16px; margin-bottom: 12px;">
-      <button class="diary-btn" onclick="NobelDiary.show(2)">&#x1F4D6; Alfreds dagbok</button>
+      <button class="diary-btn" onclick="NobelDiary.show(2)">&#x1F4D6; Alberts fr&aring;gebok</button>
       <button class="diary-btn" onclick="showStickerBook()">&#x1F396;&#xFE0F; Samlarboken</button>
     </div>
     <div style="text-align:center; margin-top: 8px; margin-bottom: 40px;">
@@ -1710,7 +1727,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
         <div class="choice-card-desc">Alfred tar det lugnt och f&ouml;ljer s&auml;kerhetsreglerna noggrant. Det g&aring;r l&aring;ngsammare, men alla &auml;r s&auml;kra.</div>
         <div class="choice-card-effect">
           <span class="effect-badge positive">+1 &#x1F4DA; Kunskap</span>
-          <span class="effect-badge positive">+1 &#x2B50; Mod</span>
+          <span class="effect-badge positive">+1 &#x1F981; Mod</span>
         </div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch3',1,1)" data-choice="1">
@@ -1719,7 +1736,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
         <div class="choice-card-desc">Alfred pressar p&aring;. Fler best&auml;llningar, mer produktion. Kunskapen v&auml;xer snabbt, men riskerna likas&aring;.</div>
         <div class="choice-card-effect">
           <span class="effect-badge positive">+2 &#x1F4DA; Kunskap</span>
-          <span class="effect-badge negative">-1 &#x2B50; Mod</span>
+          <span class="effect-badge negative">-1 &#x1F981; Mod</span>
         </div>
       </div>
     </div>
@@ -1802,7 +1819,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
         <div class="choice-card-title">Stanna i Stockholm och k&auml;mpa</div>
         <div class="choice-card-desc">Alfred talar med pressen och visar empati. Han stannar kvar och k&auml;mpar f&ouml;r sitt mod, men det kostar pengar.</div>
         <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x2B50; Mod</span>
+          <span class="effect-badge positive">+1 &#x1F981; Mod</span>
           <span class="effect-badge negative">-1 &#x1F4A1; Fantasi</span>
         </div>
       </div>
@@ -1819,7 +1836,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
         <div class="choice-card-title">Resa utomlands och b&ouml;rja om</div>
         <div class="choice-card-desc">Alfred l&auml;mnar Sverige och b&ouml;rjar om utomlands. Nya kontakter, men hans mod i Sverige lider.</div>
         <div class="choice-card-effect">
-          <span class="effect-badge negative">-1 &#x2B50; Mod</span>
+          <span class="effect-badge negative">-1 &#x1F981; Mod</span>
           <span class="effect-badge positive">+1 &#x1F4A1; Fantasi</span>
         </div>
       </div>
@@ -1842,12 +1859,12 @@ body.narrator-on .screen.active { padding-top: 46px; }
     <div class="final-resources">
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F4DA;</span><span class="final-resource-label">Kunskap</span><span class="final-resource-value" id="ch3-finalKunskap">0</span></div>
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F4A1;</span><span class="final-resource-label">Fantasi</span><span class="final-resource-value" id="ch3-finalFantasi">0</span></div>
-      <div class="final-resource-item"><span class="final-resource-icon">&#x2B50;</span><span class="final-resource-label">Mod</span><span class="final-resource-value" id="ch3-finalMod">0</span></div>
+      <div class="final-resource-item"><span class="final-resource-icon">&#x1F981;</span><span class="final-resource-label">Mod</span><span class="final-resource-value" id="ch3-finalMod">0</span></div>
     </div>
     <p class="teaser-text">Forts&auml;ttning f&ouml;ljer&hellip;<br><em>Kapitel 4: Dynamiten &mdash; Genombrottet</em></p>
       <audio id="narrator-ch3-conclusion" src="" preload="auto"></audio>
     <div style="text-align:center; margin-top: 16px; margin-bottom: 12px;">
-      <button class="diary-btn" onclick="NobelDiary.show(3)">&#x1F4D6; Alfreds dagbok</button>
+      <button class="diary-btn" onclick="NobelDiary.show(3)">&#x1F4D6; Alberts fr&aring;gebok</button>
       <button class="diary-btn" onclick="showStickerBook()">&#x1F396;&#xFE0F; Samlarboken</button>
     </div>
     <div style="text-align:center; margin-top: 8px; margin-bottom: 40px;">
@@ -1937,7 +1954,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
         <div class="choice-card-title">Sverige &mdash; hemma</div>
         <div class="choice-card-desc">N&auml;ra gruvor och byggen. Billigare men mindre marknad. Tryggt och bekant.</div>
         <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x2B50; Mod</span>
+          <span class="effect-badge positive">+1 &#x1F981; Mod</span>
           <span class="effect-badge positive">+1 &#x1F4A1; Fantasi</span>
         </div>
       </div>
@@ -1954,7 +1971,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
         <div class="choice-card-title">Paris, Frankrike</div>
         <div class="choice-card-desc">Vetenskapens huvudstad. Prestige och kontakter, men h&ouml;gre kostnad.</div>
         <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x2B50; Mod</span>
+          <span class="effect-badge positive">+1 &#x1F981; Mod</span>
         </div>
       </div>
     </div>
@@ -1995,7 +2012,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
         <div class="choice-card-desc">Samarbeta med lokala aff&auml;rsm&auml;n. Delad vinst men delad risk. Stabilt och s&auml;kert.</div>
         <div class="choice-card-effect">
           <span class="effect-badge positive">+1 &#x1F4A1; Fantasi</span>
-          <span class="effect-badge positive">+1 &#x2B50; Mod</span>
+          <span class="effect-badge positive">+1 &#x1F981; Mod</span>
         </div>
       </div>
     </div>
@@ -2018,7 +2035,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
         <div class="choice-card-title">&rdquo;Jag g&ouml;r det f&ouml;r s&auml;kerheten&rdquo;</div>
         <div class="choice-card-desc">Dynamit &auml;r s&auml;krare &auml;n rent nitroglycerin. F&auml;rre d&ouml;r i gruvor och byggen.</div>
         <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x2B50; Mod</span>
+          <span class="effect-badge positive">+1 &#x1F981; Mod</span>
         </div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch4',3,1)" data-choice="1">
@@ -2073,12 +2090,12 @@ body.narrator-on .screen.active { padding-top: 46px; }
     <div class="final-resources">
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F4DA;</span><span class="final-resource-label">Kunskap</span><span class="final-resource-value" id="ch4-finalKunskap">0</span></div>
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F4A1;</span><span class="final-resource-label">Fantasi</span><span class="final-resource-value" id="ch4-finalFantasi">0</span></div>
-      <div class="final-resource-item"><span class="final-resource-icon">&#x2B50;</span><span class="final-resource-label">Mod</span><span class="final-resource-value" id="ch4-finalMod">0</span></div>
+      <div class="final-resource-item"><span class="final-resource-icon">&#x1F981;</span><span class="final-resource-label">Mod</span><span class="final-resource-value" id="ch4-finalMod">0</span></div>
     </div>
     <p class="teaser-text">Forts&auml;ttning f&ouml;ljer&hellip;<br><em>Kapitel 5: Imperiet</em></p>
       <audio id="narrator-ch4-conclusion" src="" preload="auto"></audio>
     <div style="text-align:center; margin-top: 16px; margin-bottom: 12px;">
-      <button class="diary-btn" onclick="NobelDiary.show(4)">&#x1F4D6; Alfreds dagbok</button>
+      <button class="diary-btn" onclick="NobelDiary.show(4)">&#x1F4D6; Alberts fr&aring;gebok</button>
       <button class="diary-btn" onclick="showStickerBook()">&#x1F396;&#xFE0F; Samlarboken</button>
     </div>
     <div style="text-align:center; margin-top: 8px; margin-bottom: 40px;">
@@ -2161,19 +2178,19 @@ body.narrator-on .screen.active { padding-top: 46px; }
         <div class="choice-card-number">1</div>
         <div class="choice-card-title">Fokusera p&aring; civila anv&auml;ndningsomr&aring;den</div>
         <div class="choice-card-desc">Alfred v&auml;ljer att s&auml;lja fr&auml;mst till gruvor, byggf&ouml;retag och j&auml;rnv&auml;gar.</div>
-        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x2B50; Mod</span><span class="effect-badge negative">-1 &#x1F4A1; Fantasi</span></div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F981; Mod</span><span class="effect-badge negative">-1 &#x1F4A1; Fantasi</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch5',1,1)" data-choice="1">
         <div class="choice-card-number">2</div>
         <div class="choice-card-title">S&auml;lja till b&aring;de civila och milit&auml;ra</div>
         <div class="choice-card-desc">&rdquo;Jag &auml;r uppfinnare, inte politiker&rdquo;, s&auml;ger Alfred.</div>
-        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F4A1; Fantasi</span><span class="effect-badge negative">-1 &#x2B50; Mod</span></div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F4A1; Fantasi</span><span class="effect-badge negative">-1 &#x1F981; Mod</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch5',1,2)" data-choice="2">
         <div class="choice-card-number">3</div>
         <div class="choice-card-title">Satsa p&aring; f&ouml;rsvar</div>
         <div class="choice-card-desc">&rdquo;Om alla har lika starka vapen, v&aring;gar ingen starta krig&rdquo;.</div>
-        <div class="choice-card-effect"><span class="effect-badge positive">+3 &#x1F4A1; Fantasi</span><span class="effect-badge negative">-2 &#x2B50; Mod</span><span class="effect-badge positive">+1 &#x1F4DA; Kunskap</span></div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+3 &#x1F4A1; Fantasi</span><span class="effect-badge negative">-2 &#x1F981; Mod</span><span class="effect-badge positive">+1 &#x1F4DA; Kunskap</span></div>
       </div>
     </div>
     <div class="result-box" id="ch5-result1"><div class="result-label">Resultat</div><div class="result-text" id="ch5-result1Text"></div></div>
@@ -2217,7 +2234,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
         <div class="choice-card-number">1</div>
         <div class="choice-card-title">&rdquo;Dynamiten r&auml;ddar fler liv &auml;n den tar&rdquo;</div>
         <div class="choice-card-desc">Alfred f&ouml;rklarar lugnt att dynamiten anv&auml;nds till gruvor, tunnlar och v&auml;gar.</div>
-        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x2B50; Mod</span></div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F981; Mod</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch5',3,1)" data-choice="1">
         <div class="choice-card-number">2</div>
@@ -2229,7 +2246,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
         <div class="choice-card-number">3</div>
         <div class="choice-card-title">V&auml;gra svara</div>
         <div class="choice-card-desc">Alfred g&aring;r d&auml;rifr&aring;n utan ett ord.</div>
-        <div class="choice-card-effect"><span class="effect-badge negative">-1 &#x2B50; Mod</span></div>
+        <div class="choice-card-effect"><span class="effect-badge negative">-1 &#x1F981; Mod</span></div>
       </div>
     </div>
     <div class="result-box" id="ch5-result3"><div class="result-label">Resultat</div><div class="result-text" id="ch5-result3Text"></div></div>
@@ -2265,12 +2282,12 @@ body.narrator-on .screen.active { padding-top: 46px; }
     <div class="final-resources">
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F4DA;</span><span class="final-resource-label">Kunskap</span><span class="final-resource-value" id="ch5-finalKunskap">0</span></div>
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F4A1;</span><span class="final-resource-label">Fantasi</span><span class="final-resource-value" id="ch5-finalFantasi">0</span></div>
-      <div class="final-resource-item"><span class="final-resource-icon">&#x2B50;</span><span class="final-resource-label">Mod</span><span class="final-resource-value" id="ch5-finalMod">0</span></div>
+      <div class="final-resource-item"><span class="final-resource-icon">&#x1F981;</span><span class="final-resource-label">Mod</span><span class="final-resource-value" id="ch5-finalMod">0</span></div>
     </div>
     <p class="teaser-text">Forts&auml;ttning f&ouml;ljer&hellip;<br><em>Kapitel 6: D&ouml;dens k&ouml;pman</em></p>
       <audio id="narrator-ch5-conclusion" src="" preload="auto"></audio>
     <div style="text-align:center; margin-top: 16px; margin-bottom: 12px;">
-      <button class="diary-btn" onclick="NobelDiary.show(5)">&#x1F4D6; Alfreds dagbok</button>
+      <button class="diary-btn" onclick="NobelDiary.show(5)">&#x1F4D6; Alberts fr&aring;gebok</button>
       <button class="diary-btn" onclick="showStickerBook()">&#x1F396;&#xFE0F; Samlarboken</button>
     </div>
     <div style="text-align:center; margin-top: 8px; margin-bottom: 40px;">
@@ -2391,13 +2408,13 @@ body.narrator-on .screen.active { padding-top: 46px; }
         <div class="choice-card-title">Skriva i dagboken</div>
         <div class="choice-card-quote">&rdquo;Jag m&aring;ste f&ouml;r&auml;ndra mitt arv&hellip;&rdquo;</div>
         <div class="choice-card-desc">Alfred b&ouml;rjar reflektera djupt. Han skriver sida efter sida. En plan b&ouml;rjar ta form.</div>
-        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x2B50; Mod</span></div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F981; Mod</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch6',1,1)" data-choice="1">
         <div class="choice-card-number">2</div>
         <div class="choice-card-title">Bli arg och f&ouml;rneka</div>
         <div class="choice-card-desc">Alfred v&auml;grar acceptera tidningens bild. Han &auml;r uppfinnare, inte d&ouml;dshandlare!</div>
-        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F4DA; Kunskap</span><span class="effect-badge negative">-1 &#x2B50; Mod</span></div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F4DA; Kunskap</span><span class="effect-badge negative">-1 &#x1F981; Mod</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch6',1,2)" data-choice="2">
         <div class="choice-card-number">3</div>
@@ -2451,12 +2468,12 @@ body.narrator-on .screen.active { padding-top: 46px; }
     <div class="final-resources">
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F4DA;</span><span class="final-resource-label">Kunskap</span><span class="final-resource-value" id="ch6-finalKunskap">0</span></div>
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F4A1;</span><span class="final-resource-label">Fantasi</span><span class="final-resource-value" id="ch6-finalFantasi">0</span></div>
-      <div class="final-resource-item"><span class="final-resource-icon">&#x2B50;</span><span class="final-resource-label">Mod</span><span class="final-resource-value" id="ch6-finalMod">0</span></div>
+      <div class="final-resource-item"><span class="final-resource-icon">&#x1F981;</span><span class="final-resource-label">Mod</span><span class="final-resource-value" id="ch6-finalMod">0</span></div>
     </div>
     <p class="teaser-text">Det sista kapitlet v&auml;ntar&hellip;<br><em>Kapitel 7: Testamentet</em></p>
       <audio id="narrator-ch6-conclusion" src="" preload="auto"></audio>
     <div style="text-align:center; margin-top: 16px; margin-bottom: 12px;">
-      <button class="diary-btn" onclick="NobelDiary.show(6)">&#x1F4D6; Alfreds dagbok</button>
+      <button class="diary-btn" onclick="NobelDiary.show(6)">&#x1F4D6; Alberts fr&aring;gebok</button>
       <button class="diary-btn" onclick="showStickerBook()">&#x1F396;&#xFE0F; Samlarboken</button>
     </div>
     <div style="text-align:center; margin-top: 8px;">
@@ -2672,7 +2689,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <div class="finale-resources" id="ch7-finaleResources">
         <div class="finale-resource-item" id="ch7-fr-kunskap"><span class="finale-resource-icon">&#x1F4DA;</span><span class="finale-resource-label">Kunskap</span><span class="finale-resource-value" id="ch7-scoreKunskap">0</span></div>
         <div class="finale-resource-item" id="ch7-fr-fantasi"><span class="finale-resource-icon">&#x1F4A1;</span><span class="finale-resource-label">Fantasi</span><span class="finale-resource-value" id="ch7-scoreFantasi">0</span></div>
-        <div class="finale-resource-item" id="ch7-fr-mod"><span class="finale-resource-icon">&#x2B50;</span><span class="finale-resource-label">Mod</span><span class="finale-resource-value" id="ch7-scoreMod">0</span></div>
+        <div class="finale-resource-item" id="ch7-fr-mod"><span class="finale-resource-icon">&#x1F981;</span><span class="finale-resource-label">Mod</span><span class="finale-resource-value" id="ch7-scoreMod">0</span></div>
         <div class="finale-resource-item" id="ch7-fr-eftermale"><span class="finale-resource-icon">&#x2728;</span><span class="finale-resource-label">Efterm&auml;le</span><span class="finale-resource-value" id="ch7-scoreEftermale">0</span></div>
       </div>
       <div class="total-score-area">
@@ -2682,7 +2699,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
       </div>
       <div class="total-score-area" id="ch7-starsArea" style="margin-top:8px;">
         <div class="total-label">Dina minispelsstj&auml;rnor</div>
-        <div class="total-value" id="ch7-starsScore" style="font-size:1.5rem;">&#x2B50; 0</div>
+        <div class="total-value" id="ch7-starsScore" style="font-size:1.5rem;">&#x1F981; 0</div>
         <div class="total-max">av 21</div>
       </div>
       <p id="ch7-kindNote" style="text-align:center; font-family:var(--font-headline); font-style:italic; color:var(--brown-medium); font-size:0.95rem; max-width:340px; margin:14px auto 0;">
@@ -2747,7 +2764,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <div class="resource-bar-dots" id="dotsFantasi"></div>
     </div>
     <div class="resource-item">
-      <span class="resource-icon">&#x2B50;</span>
+      <span class="resource-icon">&#x1F981;</span>
       <span class="resource-label">Mod</span>
       <div class="resource-value-container"><span class="resource-value" id="resMod">1</span><span class="resource-max">/ 10</span></div>
       <div class="resource-bar-dots" id="dotsMod"></div>
@@ -2775,7 +2792,7 @@ var gameState = {
   currentChapter: 1,
   currentScreen: 'ch1-title',
   choices: {
-    ch1_days: null, ch1_russia: null,
+    ch1_kompass: null, ch1_fiol: null,
     ch2_education: null, ch2_nitro: null,
     ch3_speed: null, ch3_aftermath: null,
     ch4_factory: null, ch4_sales: null, ch4_motivation: null,
@@ -2812,13 +2829,13 @@ var titleScreens = ['intro','ch1-title','ch1-howtoplay','ch2-title','ch3-title',
 var choiceData = {
   ch1: {
     1: [
-      { effects: { kunskap: 2 }, resultText: 'Alfred f\u00f6rdjupar sig i b\u00f6cker om kemi, fysik och mekanik. Hans nyfikenhet t\u00e4nds \u2014 och sl\u00e4cks aldrig.' },
-      { effects: { fantasi: 1, mod: 1 }, resultText: 'Alfred hj\u00e4lper mamma Andriette med hush\u00e5llet. Han l\u00e4r sig om ansvar och grannarna ser en flitig pojke.' },
-      { effects: { kunskap: 1, fantasi: -1 }, resultText: 'Alfred utforskar Stockholm och experimenterar med allt han hittar. Han l\u00e4r sig massor, men det kostar lite pengar.' }
+      { effects: { kunskap: 2 }, resultText: 'Albert fr\u00e5gar och fr\u00e5gar. Pappa ber\u00e4ttar om magneter och om jorden som drar i kompassn\u00e5len. Varje svar ger Albert tre nya fr\u00e5gor \u2014 och han \u00e4lskar det.' },
+      { effects: { fantasi: 2 }, resultText: 'Albert ligger l\u00e4nge och t\u00e4nker. N\u00e5got osynligt drar i n\u00e5len. N\u00e5got man inte kan se, men som \u00e4nd\u00e5 finns \u00f6verallt. Den tanken sl\u00e4pper aldrig taget om honom.' },
+      { effects: { fantasi: 1, mod: 1 }, resultText: 'Albert och Maja f\u00f6ljer n\u00e5len genom hela huset som tv\u00e5 uppt\u00e4cktsresande. Att undra tillsammans \u00e4r dubbelt s\u00e5 roligt.' }
     ],
     2: [
-      { effects: { fantasi: 1, mod: 1 }, resultText: 'Familjen reser tillsammans till Sankt Petersburg. I Ryssland v\u00e4ntar nya m\u00f6jligheter och Alfreds far f\u00e5r arbete.' },
-      { effects: { kunskap: 1, fantasi: -1 }, resultText: 'Alfred stannar kvar och studerar. Han l\u00e4r sig mer, men saknar sin familj.' }
+      { effects: { kunskap: 1, mod: 1 }, resultText: 'Albert biter ihop och \u00f6var. En dag uppt\u00e4cker han Mozarts musik \u2014 och pl\u00f6tsligt \u00e4r fiolen inte tr\u00e5kig l\u00e4ngre. Den blir hans v\u00e4n f\u00f6r hela livet.' },
+      { effects: { fantasi: 2 }, resultText: 'Albert hittar p\u00e5 egna melodier. Mamma Pauline suckar \u2014 och ler i smyg. Att skapa eget \u00e4r ocks\u00e5 ett s\u00e4tt att \u00e4lska musiken.' }
     ]
   },
   ch2: {
@@ -2910,7 +2927,7 @@ var choiceData = {
 function applyChapterStart(chapter) {
   if (chapter === 2) {
     // Ch1 -> Ch2: Russia choice affects intro text
-    if (gameState.choices.ch1_russia === 0) {
+    if (gameState.choices.ch1_fiol === 0) {
       var el = document.getElementById('ch2-introText');
       if (el) el.innerHTML = '<strong>\u00c5ren 1842\u20131856.</strong> Alfred \u00e4r nu ton\u00e5ring i Sankt Petersburg. Familjen lever v\u00e4l \u2014 resan tillsammans st\u00e4rkte dem. Hans far Immanuel har blivit framg\u00e5ngsrik, och Alfred f\u00e5r de b\u00e4sta l\u00e4rarna.';
     }
@@ -3136,7 +3153,7 @@ function goToScreen(screenId) {
       if (screenId === 'ch2-title') {
         applyChapterStart(2);
         // Bemöt "stanna kvar"-valet i stället för att låtsas att det inte hänt
-        if (gameState.choices && gameState.choices.ch1_russia === 1) {
+        if (gameState.choices && gameState.choices.ch1_fiol === 1) {
           var _c2i = document.getElementById('ch2-introText');
           if (_c2i) _c2i.innerHTML = '<strong>\u00c5ren 1842\u20131856.</strong> Alfred stannade f\u00f6rst kvar i Stockholm och studerade \u2014 men efter ett ensamt \u00e5r lockade pappas brev honom \u00f6ver havet till Sankt Petersburg. Allt \u00e4r nytt \u2014 spr\u00e5ket, kulturen, sn\u00f6n. Alfred f\u00e5r de b\u00e4sta l\u00e4rarna pengar kan k\u00f6pa, och hans intresse f\u00f6r kemi v\u00e4xer sig allt starkare.';
         }
@@ -3227,8 +3244,8 @@ function makeChoice(chapter, choiceGroup, choiceIndex) {
   }
 
   // Store choice in gameState
-  if (chapter === 'ch1' && choiceGroup === 1) gameState.choices.ch1_days = choiceIndex;
-  if (chapter === 'ch1' && choiceGroup === 2) gameState.choices.ch1_russia = choiceIndex;
+  if (chapter === 'ch1' && choiceGroup === 1) gameState.choices.ch1_kompass = choiceIndex;
+  if (chapter === 'ch1' && choiceGroup === 2) gameState.choices.ch1_fiol = choiceIndex;
   if (chapter === 'ch2' && choiceGroup === 1) gameState.choices.ch2_education = choiceIndex;
   if (chapter === 'ch2' && choiceGroup === 2) gameState.choices.ch2_nitro = choiceIndex;
   if (chapter === 'ch3' && choiceGroup === 1) gameState.choices.ch3_speed = choiceIndex;
@@ -3339,14 +3356,15 @@ function setupConclusion(screenId) {
 
 function getConclusionText(chapter) {
   if (chapter === 'ch1') {
-    var days = gameState.choices.ch1_days;
-    var russia = gameState.choices.ch1_russia;
+    var kompass = gameState.choices.ch1_kompass;
+    var fiol = gameState.choices.ch1_fiol;
     var text = '';
-    if (days === 0) text += 'Alfred tillbringade sina sista dagar i Stockholm med b\u00f6cker och l\u00e4rande. ';
-    else if (days === 1) text += 'Alfred hj\u00e4lpte mamma med hush\u00e5llet och l\u00e4rde sig om ansvar. ';
-    else text += 'Alfred utforskade Stockholm och experimenterade med allt han hittade. ';
-    if (russia === 0) text += 'Sedan reste familjen tillsammans till Ryssland, redo f\u00f6r ett nytt liv.';
-    else text += 'Alfred stannade kvar och studerade \u2014 ensam men besluten.';
+    if (kompass === 0) text += 'Albert fr\u00e5gade tills pappa inte kunde svara l\u00e4ngre. ';
+    else if (kompass === 1) text += 'Albert beh\u00f6ll kompassg\u00e5tan i huvudet \u2014 n\u00e5got osynligt finns d\u00e4r ute. ';
+    else text += 'Albert och Maja f\u00f6ljde kompassn\u00e5len genom hela huset. ';
+    if (fiol === 0) text += 'Fiolen k\u00e4ndes tr\u00e5kig f\u00f6rst, men blev hans v\u00e4n f\u00f6r livet. ';
+    else text += 'De egna melodierna gjorde musiken till hans alldeles egen. ';
+    text += 'En tyst pojke med ett huvud fullt av fr\u00e5gor \u2014 s\u00e5 b\u00f6rjar historien.';
     return text;
   }
   if (chapter === 'ch2') {
@@ -4390,7 +4408,7 @@ function restartGame() {
   gameState.kunskap = 2; gameState.fantasi = 1; gameState.mod = 1; gameState.eftermale = 0;
   gameState.currentChapter = 1; gameState.currentScreen = 'ch1-title';
   gameState.choices = {
-    ch1_days: null, ch1_russia: null, ch2_education: null, ch2_nitro: null,
+    ch1_kompass: null, ch1_fiol: null, ch2_education: null, ch2_nitro: null,
     ch3_speed: null, ch3_aftermath: null, ch4_factory: null, ch4_sales: null, ch4_motivation: null,
     ch5_military: null, ch5_bofors: null, ch5_journalist: null, ch6_reaction: null,
     ch7_fortune: null, ch7_prizes: [], ch7_institution: null
@@ -6540,35 +6558,32 @@ var NobelDiary = (function () {
    */
   var entryGenerators = {};
 
-  // ── CHAPTER 1 — 1833, Stockholm ────────────────────────────
+  // ── CHAPTER 1 — München, 1885 ────────────────────────────
   entryGenerators[1] = function (ch) {
-    var date = 'Stockholm, den 21 oktober 1842';
+    var date = 'M\u00fcnchen, 1885';
     var lines = [];
 
-    // Opening — always the same mood
-    lines.push('Kära dagbok,');
+    lines.push('Hej fr\u00e5gebok!');
     lines.push('');
 
-    // ch1_days
-    if (ch.ch1_days === 0) {
-      lines.push('Jag har åter tillbringat dagen med mina böcker. Mamma säger att jag läser för mycket, att en pojke borde leka med de andra barnen. Men bokstäverna talar till mig på ett sätt som andra barn icke gör. I kemins formler finner jag en ordning som den fattiga världen utanför saknar.');
-    } else if (ch.ch1_days === 1) {
-      lines.push('Idag hjälpte jag mamma med hushållet igen. Hennes händer är spruckna av arbete, och jag skäms över att jag icke kan göra mer. Men hon log mot mig och sade att jag var hennes största rikedom. Jag svär att en dag skall jag ge henne ett bättre liv.');
+    if (ch.ch1_kompass === 0) {
+      lines.push('Pappa gav mig en KOMPASS! Jag fr\u00e5gade hundra saker. Han sa att jorden \u00e4r som en j\u00e4ttestor magnet som drar i n\u00e5len. Men VEM drar i jorden d\u00e5? Det visste inte pappa. Jag ska ta reda p\u00e5 det.');
+    } else if (ch.ch1_kompass === 1) {
+      lines.push('Pappa gav mig en KOMPASS! N\u00e5len r\u00f6r sig fast ingen r\u00f6r den. Jag l\u00e5g vaken i natt och t\u00e4nkte: det m\u00e5ste finnas n\u00e5got osynligt \u00f6verallt omkring oss. Man kan inte se det. Men det FINNS. Jag f\u00e5r pirr i magen n\u00e4r jag t\u00e4nker p\u00e5 det.');
     } else {
-      lines.push('Jag har irrat genom Stockholms gränder hela dagen, frågande och undersökande allting. En apotekare lät mig se hans kemikalier — fascinerade! Min ficka är nu tom, men mitt sinne är rikt som en kung.');
+      lines.push('Pappa gav mig en KOMPASS! Jag och Maja f\u00f6ljde n\u00e5len genom hela huset. Den hittade sked-l\u00e5dan! Maja sa att jag \u00e4r knasig. Men hon skrattade hela tiden.');
     }
 
     lines.push('');
 
-    // ch1_russia
-    if (ch.ch1_russia === 0) {
-      lines.push('Pappa skriver från Ryssland att vi skall förenas. Jag bävar och gläds på samma gång — att lämna Stockholm, dessa gator jag känner så väl, det skär i hjärtat. Men familjen hör samman, och kanhända väntar något stort bortom horisonten.');
+    if (ch.ch1_fiol === 0) {
+      lines.push('Mamma s\u00e4ger att jag M\u00c5STE \u00f6va fiol. Det \u00e4r tr\u00e5kigt. Men idag spelade hon Mozart p\u00e5 pianot och det l\u00e4t som... jag vet inte. Som n\u00e4r man f\u00f6rst\u00e5r n\u00e5got. Jag kanske \u00f6var lite till i morgon.');
     } else {
-      lines.push('Pappa har rest till Ryssland, men jag stannar. Det var mitt eget val, fast det känns som om någon ryckt bort halva mitt hjärta. Här finns mina böcker, mina experiment — men på nätterna är tystnaden outhärdlig.');
+      lines.push('Jag hittade p\u00e5 en egen melodi p\u00e5 fiolen idag. Mamma h\u00f6rde det och suckade. Men jag s\u00e5g att hon log. Min melodi l\u00e5ter som regn p\u00e5 f\u00f6nstret.');
     }
 
     lines.push('');
-    lines.push('Jag är blott en pojke ännu. Men jag känner att livet har något i beredskap för mig — om jag blott har mod att gripa det.');
+    lines.push('Fr\u00e5gor jag vill ha svar p\u00e5: Varf\u00f6r pekar n\u00e5len alltid mot norr? Vad mer finns som man inte kan se? Hur l\u00e5ngt bort \u00e4r stj\u00e4rnorna?');
 
     return { date: date, text: lines.join('\n') };
   };
