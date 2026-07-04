@@ -189,6 +189,18 @@ ihop-mekanikerna). Två spel som rimmar är charmigt; tre är en mall.
 **Test:** beskriv nya spelet för ett barn som spelat de förra. Om
 barnet kan gissa vad som händer i kapitel 6 — börja om.
 
+**Seriearkitektur — epok + nedslag:** serien organiseras som Lgr22 är,
+kring epoker och skeenden. För varje epok: ETT övergripande äventyrsspel
+(de stora dragen — kronologi, orsak/verkan, struktur; motgift mot
+individualiserings-fällan) plus flera korta NEDSLAG (5–12 min) som
+målande skildrar vardagslivet eller en person ur olika gruppers
+perspektiv (barn, kvinnor, män, ofria). Nedslagen uppfyller
+jämställdhet/mångfald, historisk empati och historiebruk/källkritik på
+en gång — och gör formvariation inbyggd, eftersom äventyr och nedslag
+per definition är olika format. Nobel och Einstein är i praktiken
+*nedslag i epoken 1800/1900-tal*. Fullständig modell + epok-karta i
+seriens hubb-repo (`historieresan/SERIE.md`).
+
 ## 8. Snabbstart för Einstein-spelet
 
 **Återanvänd omodifierat:** minispelsramverket, showResult/notifyDone,
