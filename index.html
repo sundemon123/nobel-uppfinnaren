@@ -9372,19 +9372,19 @@ var NobelMinigames = (function () {
     var MEDAL_Y = 384, MEDAL_R = 26;
 
     var PRIZES = [
-      { id: 'fysik',      label: 'Fysik',      emoji: '⚛️' },
-      { id: 'kemi',       label: 'Kemi',       emoji: '🧪' },
-      { id: 'medicin',    label: 'Medicin',    emoji: '⚕️' },
-      { id: 'litteratur', label: 'Litteratur', emoji: '📖' },
-      { id: 'fred',       label: 'Fred',       emoji: '🕊️' }
+      { id: 'tid',    label: 'Tiden tänjer sig', emoji: '⏰' },
+      { id: 'paket',  label: 'Ljuspaketen',       emoji: '☀️' },
+      { id: 'emc',    label: 'E = mc²',        emoji: '⚛️' },
+      { id: 'atom',   label: 'Atombeviset',       emoji: '🔬' },
+      { id: 'boj',    label: 'Ljuset böjs',    emoji: '🌟' }
     ];
 
     var LAUREATES = [
-      { prize: 'fysik',      clue: 'Jag har räknat ut hur ljus och energi fungerar!' },
-      { prize: 'kemi',       clue: 'Jag har upptäckt ett nytt grundämne i mitt labb!' },
-      { prize: 'medicin',    clue: 'Jag har hittat en medicin som räddar sjuka barn!' },
-      { prize: 'litteratur', clue: 'Jag har skrivit en bok som hela världen läser!' },
-      { prize: 'fred',       clue: 'Jag har hjälpt två länder att sluta fred!' }
+      { prize: 'tid',   clue: 'GPS:en i mobilen: ”Utan mig visar kartan fel! Jag måste veta att tiden går lite olika fort uppe vid satelliterna.”' },
+      { prize: 'paket', clue: 'Solcellen på taket: ”Jag fångar ljusets små energipaket och gör el av dem!”' },
+      { prize: 'emc',   clue: 'Kärnkraftverket: ”Jag gör el av en pytteliten bit materia — energi och massa är samma sak!”' },
+      { prize: 'atom',  clue: 'Forskaren vid mikroskopet: ”Jag ser små korn dansa i vattnet — det är osynliga atomer som knuffas!”' },
+      { prize: 'boj',   clue: 'Rymdteleskopet: ”Jag ser bakom hela galaxer — deras tyngdkraft böjer ljuset som en lins!”' }
     ];
 
     // Laureate drop zone (the podium area)
@@ -9397,12 +9397,12 @@ var NobelMinigames = (function () {
 
       var wrapper = createDiv(container, 'nmg-wrapper');
       var titleEl = createDiv(wrapper, 'nmg-title');
-      titleEl.textContent = 'Prisutdelningen';
+      titleEl.textContent = 'Då och nu';
       var subEl = createDiv(wrapper, 'nmg-subtitle');
-      subEl.textContent = 'Alfred drömmer om framtiden…';
+      subEl.textContent = 'Alberts idéer lever i din vardag!';
 
       var instrEl = createDiv(wrapper, 'nmg-instructions');
-      instrEl.innerHTML = 'De första pristagarna står på scenen! Lyssna på vad de säger och <strong>dra rätt medalj</strong> till varje pristagare.';
+      instrEl.innerHTML = 'Sakerna från idag berättar vad de behöver. <strong>Dra rätt upptäckt</strong> till varje sak — så ser du att Einsteins idéer finns överallt omkring dig!';
 
       state = {
         phase: 'ready',
@@ -9424,7 +9424,7 @@ var NobelMinigames = (function () {
       };
 
       var statusEl = createDiv(wrapper, 'nmg-status');
-      statusEl.textContent = 'Pristagare 1 av ' + LAUREATES.length;
+      statusEl.textContent = 'Sak 1 av ' + LAUREATES.length;
       state.statusEl = statusEl;
 
       canvasObj = createCanvas(wrapper, W, H);
@@ -9461,7 +9461,7 @@ var NobelMinigames = (function () {
           used: false, dragging: false
         });
       }
-      state.statusEl.textContent = 'Pristagare 1 av ' + LAUREATES.length;
+      state.statusEl.textContent = 'Sak 1 av ' + LAUREATES.length;
       state.instrEl.classList.remove('nmg-hidden');
       state.resultEl.innerHTML = '';
       state.resultEl.classList.add('nmg-hidden');
@@ -9525,16 +9525,16 @@ var NobelMinigames = (function () {
           playSfx('sfx_minigameCorrect');
           spawnConfetti();
           state.celebrate = { t: 0 };
-          state.statusEl.textContent = 'Rätt! ' + m.label + '-priset delas ut! 🎉';
+          state.statusEl.textContent = 'Rätt! ' + m.label + ' — precis vad som behövdes! 🎉';
           setTimeout(function () {
             if (!state) return;
             state.celebrate = null;
             state.index++;
             if (state.index >= state.order.length) {
-              state.statusEl.textContent = 'Alla pris utdelade!';
+              state.statusEl.textContent = 'Alla par ihopparade!';
               finishGame();
             } else {
-              state.statusEl.textContent = 'Pristagare ' + (state.index + 1) + ' av ' + state.order.length;
+              state.statusEl.textContent = 'Sak ' + (state.index + 1) + ' av ' + state.order.length;
             }
           }, 1400);
         } else {
@@ -9542,7 +9542,7 @@ var NobelMinigames = (function () {
           state.errors++;
           state.shakeAnim = { t: 0 };
           playSfx('sfx_minigameWrong');
-          state.statusEl.textContent = 'Hmm, inte den medaljen. Lyssna på ledtråden igen!';
+          state.statusEl.textContent = 'Hmm, inte den upptäckten. Läs ledtråden igen!';
           m.x = m.homeX; m.y = m.homeY;
         }
       } else {
@@ -9580,11 +9580,11 @@ var NobelMinigames = (function () {
       scoreDisp.textContent = '⭐'.repeat(Math.max(1, state.score + 1));
       var txt = createDiv(state.resultEl, 'nmg-result-text');
       if (state.score === 2) {
-        txt.innerHTML = 'Perfekt prisutdelning! Alla fick rätt medalj direkt.<br><strong>+1 📚 Kunskap och +1 💡 Fantasi</strong>';
+        txt.innerHTML = 'Perfekt! Du ser Einsteins idéer överallt — från mobilen till stjärnorna.<br><strong>+1 📚 Kunskap och +1 💡 Fantasi</strong>';
       } else if (state.score === 1) {
-        txt.innerHTML = 'Fin ceremoni! Alla pristagare fick sina medaljer.<br><strong>+1 💡 Fantasi</strong>';
+        txt.innerHTML = 'Bra parat! Alla upptäckter hittade hem till sin nutid.<br><strong>+1 💡 Fantasi</strong>';
       } else {
-        txt.innerHTML = 'Alla pris delades ut till slut — och nu kan du alla fem områden!';
+        txt.innerHTML = 'Alla par hittade varandra till slut — och nu vet du var Einstein gömmer sig i din vardag!';
       }
       addRetryButton(state.resultEl, 'ch7', start);
       notifyDone('ch7');
@@ -9661,7 +9661,7 @@ var NobelMinigames = (function () {
       ctx.fillStyle = 'rgba(250,242,232,0.75)';
       ctx.font = '600 12px ' + FONT_BODY;
       ctx.textAlign = 'center';
-      ctx.fillText('Dra rätt medalj till pristagaren:', W / 2, MEDAL_Y - 44);
+      ctx.fillText('Dra rätt upptäckt till saken:', W / 2, MEDAL_Y - 44);
 
       // Medals
       for (var i = 0; i < state.medals.length; i++) {
