@@ -8,12 +8,12 @@
 > Mileva-dagboken, Hiroshima-skärmen (ny!), Mileva-epilogen (ny!),
 > "Vad gjorde Albert på riktigt?"-facit (nytt!), Avtryck i st.f.
 > Eftermäle, fysik-ärlighetsnoter, klurig-kamouflage i Kompassjakten,
-> mjukare fiolkrav, maskot dold i kap 6. Kvar: Liams rapport, rösten.
+> mjukare fiolkrav, maskot dold i kap 6. Kvar: Liams rapport. Rösten och ljudeffekterna är nu inspelade och inbäddade (52 klipp, David/eleven_v3).
 
 | Persona | Profil | Dom |
 |---|---|---|
 | Elsa, 7 | Nybörjarläsare, behöver uppläsning | **4/5 med vuxen, 2/5 ensam** |
-| Liam, 8 | Otålig gamer, skippar text, fuskar | _(spelar)_ |
+| Liam, 8 | Otålig gamer, skippar text, fuskar | _(rapport väntas)_ |
 | Maja, 9 | Noggrann samlare, läser allt | **4,5/5** — klarade allt, 7/7 märken |
 | Noah, 10 | Faktanörd, gränstestare | **4/5** — "nästan femma" |
 | Vera, 11 | "För cool", dömer hårt | **3,5/5** — kap 6 räddar spelet |
