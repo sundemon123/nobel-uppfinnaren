@@ -1,0 +1,10 @@
+{
+  "sfx_explosion": "A bright magical shimmer flash, like a brilliant idea striking — ascending sparkle whoosh with a soft warm boom, child-friendly, 2 seconds",
+  "sfx_kattMjau": "A short friendly compass 'pling' — a small bright bell ding with a subtle spinning whirr, toy-like, cute, 1 second",
+  "sfx_confetti": "Calm gentle glockenspiel arpeggio, soft and warm, celebratory but quiet, 2 seconds",
+  "sfx_minigameCorrect": "Short cheerful correct-answer chime, bright marimba pling, positive, 0.5 seconds",
+  "sfx_minigameComplete": "Warm short fanfare on glockenspiel and soft strings, gentle triumph, child-friendly, 2 seconds",
+  "sfx_minigameWrong": "Soft gentle 'oops' sound, low marimba wobble, kind and non-punishing, 0.5 seconds",
+  "sfx_newspaper": "Old newspaper page rustle and unfold, short crisp paper sound, 1 second",
+  "sfx_penWrite": "Fountain pen writing on paper, soft scratching strokes, 1.5 seconds"
+}
