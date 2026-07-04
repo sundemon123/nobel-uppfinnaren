@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gustav Vasa — Ett liv · Nedslag i stormaktstiden</title>
+<style>
+  :root{
+    --parchment:#f3e9d2; --parchment-light:#faf3e2; --parchment-dark:#e6d8ba;
+    --gold:#9a6b12; --gold-light:#c8a038;
+    --copper:#8b2f2a; --copper-light:#b0473f;
+    --navy:#3a1f1a; --brown-dark:#2c1a12; --brown-med:#5a3a28; --brown-light:#8b7a62;
+    --moss:#2d5016;
+    --font-headline:'Playfair Display',Georgia,'Times New Roman',serif;
+    --font-body:'Source Sans 3','Segoe UI',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; font-family:var(--font-body); color:var(--brown-dark);
+    background:linear-gradient(180deg,var(--parchment) 0%,var(--parchment-light) 30%,var(--parchment) 100%);
+    -webkit-font-smoothing:antialiased; line-height:1.65; min-height:100vh;
+  }
+  .wrap{max-width:640px; margin:0 auto; padding:20px 18px 64px;}
+  .topbar{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:14px;}
+  .back{font-size:.82rem; color:var(--brown-light); text-decoration:none; border:1px solid var(--parchment-dark); padding:6px 12px; border-radius:8px; background:transparent;}
+  .progress{display:flex; gap:6px;}
+  .dot{width:9px; height:9px; border-radius:50%; background:var(--parchment-dark); transition:background .3s, transform .3s;}
+  .dot.done{background:var(--gold-light);} .dot.cur{background:var(--copper); transform:scale(1.25);}
+  .ornament{height:3px; width:100%; border-radius:2px; background:linear-gradient(to right,transparent,var(--gold),var(--copper),transparent); margin:8px 0 20px;}
+
+  .card{
+    background:linear-gradient(135deg,var(--parchment-dark) 0%,var(--parchment) 50%,var(--parchment-light) 100%);
+    border:1px solid var(--parchment-dark); border-radius:14px; padding:26px 22px;
+    box-shadow:0 6px 22px rgba(44,26,18,.12); animation:rise .5s ease;
+  }
+  @keyframes rise{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:none;}}
+  .kicker{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--copper); font-weight:700; margin-bottom:6px;}
+  h1.title{font-family:var(--font-headline); font-size:clamp(1.5rem,5.5vw,2.1rem); line-height:1.15; color:var(--brown-dark); margin:0 0 4px;}
+  .subtitle{font-family:var(--font-headline); font-style:italic; color:var(--brown-med); margin:0 0 16px;}
+  h2.scene-title{font-family:var(--font-headline); font-size:1.4rem; color:var(--brown-dark); margin:0 0 12px;}
+  .voice{font-size:1.05rem;}
+  .voice p{margin:0 0 12px;}
+  .voice .quote{font-family:var(--font-headline); font-style:italic; font-size:1.15rem; color:var(--copper); border-left:3px solid var(--gold-light); padding-left:14px; margin:14px 0;}
+
+  .box{border-radius:10px; padding:14px 16px; margin:16px 0; font-size:.94rem; line-height:1.55;}
+  .box .lbl{font-weight:700; font-size:.82rem; letter-spacing:.05em; margin-bottom:4px; display:flex; align-items:center; gap:6px;}
+  .kalla{background:rgba(58,31,26,.06); border:1px solid rgba(58,31,26,.18);}
+  .kalla .lbl{color:var(--navy);}
+  .fakta{background:rgba(154,107,18,.09); border:1px solid rgba(154,107,18,.3);}
+  .fakta .lbl{color:var(--gold);}
+
+  .choices{display:flex; flex-direction:column; gap:12px; margin-top:18px;}
+  .choice{
+    text-align:left; width:100%; border:2px solid var(--parchment-dark); background:var(--parchment-light);
+    border-radius:12px; padding:14px 16px; cursor:pointer; font-family:var(--font-body); color:var(--brown-dark);
+    transition:transform .12s, border-color .2s, box-shadow .2s;
+  }
+  .choice:hover{border-color:var(--gold-light); box-shadow:0 3px 12px rgba(154,107,18,.18);}
+  .choice:active{transform:scale(.98);}
+  .choice .ct{font-weight:700; font-size:1.02rem; margin-bottom:3px;}
+  .choice .cd{font-size:.88rem; color:var(--brown-med);}
+  .choice.chosen{border-color:var(--moss); background:#eef2e6;}
+  .choice.dim{opacity:.5;}
+
+  .result{margin-top:16px; padding:14px 16px; border-radius:10px; background:rgba(45,80,22,.08); border:1px solid rgba(45,80,22,.25); font-size:.96rem; display:none;}
+  .result.show{display:block; animation:rise .4s ease;}
+
+  .btn{
+    display:inline-block; margin-top:20px; border:none; border-radius:10px; padding:13px 30px; cursor:pointer;
+    font-family:var(--font-body); font-size:1rem; font-weight:700; color:#fff;
+    background:linear-gradient(135deg,var(--copper),var(--copper-light)); box-shadow:0 3px 10px rgba(139,47,42,.3);
+    transition:transform .12s;
+  }
+  .btn:active{transform:scale(.97);}
+  .btn.gold{background:linear-gradient(135deg,var(--gold),var(--gold-light)); box-shadow:0 3px 10px rgba(154,107,18,.3);}
+  .center{text-align:center;}
+  .listen{background:transparent; border:1px solid var(--gold-light); color:var(--gold); font-size:.82rem; padding:7px 14px; border-radius:8px; cursor:pointer; margin-bottom:14px;}
+  .hidden{display:none;}
+  .final-flags{margin:14px 0; padding:0; list-style:none; font-size:.92rem;}
+  .final-flags li{padding:6px 0; border-bottom:1px dashed var(--parchment-dark);}
+  .final-flags li b{color:var(--copper);}
+  .foot{margin-top:20px; font-size:.8rem; color:var(--brown-light); text-align:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="back" href="../index.html">← Tillbaka</a>
+    <div class="progress" id="progress" aria-hidden="true"></div>
+  </div>
+  <div class="ornament"></div>
+  <div id="stage" role="main"></div>
+  <div class="foot">Nedslag i <strong>Stormaktstiden</strong> · en människa i epoken · ~10 min</div>
+</div>
+
+<script>
+"use strict";
+// ── Nedslag: Gustav Vasa i förstaperson. Känsla > poäng, inga resurser.
+// Valen sätter "spår" (flags) som färgar hur historien minns honom i slutet.
+var flags = {};
+
+var SCENES = [
+  {
+    intro:true,
+    kicker:"Nedslag · en röst ur epoken",
+    title:"Gustav Vasa",
+    subtitle:"Ett liv — och priset för en krona",
+    html:
+      "<p>Jag heter <strong>Gustav Eriksson</strong>. Senare skulle folk kalla mig Vasa, och kung, och till och med ”rikets fader”.</p>"+
+      "<p>Men jag började som en pojke i ett land styrt av en främmande kung. Följ med genom mitt liv. Vid varje vägskäl får <em>du</em> välja vad jag gör — och känna vad det kostade.</p>"+
+      "<div class='box kalla'><div class='lbl'>🔍 Om berättelsen</div>Mycket om mitt liv skrevs ner långt efteråt, ofta för att göra mig till hjälte. Undan för undan får du fråga dig: hur mycket är sant — och hur mycket är saga?</div>",
+    next:1, btn:"Börja"
+  },
+  {
+    kicker:"1518 · Danmark",
+    scene:"En bricka i de mäktigas spel",
+    html:
+      "<p>Jag är i tjugoårsåldern när jag skickas till den danske kungen <strong>Kristian</strong> som gisslan — en garanti för att svenskarna ska hålla sig lugna.</p>"+
+      "<p class='quote'>Jag var ung. Jag var en pant. Och panter får sällan välja sitt öde.</p>"+
+      "<p>Dagarna går bakom Danmarks murar. Vad gör jag?</p>",
+    choices:[
+      {ct:"Tåla och vänta", cd:"Jag lyder, håller masken och lär mig hur makten tänker inifrån.", flag:"ung", val:"tålmodig",
+        res:"Jag biter ihop och iakttar. Kunskap om fienden är också ett vapen — det ska visa sig senare."},
+      {ct:"Planera i hemlighet en flykt", cd:"Jag vägrar acceptera att vara en bricka. Jag räknar vakter och väntar på min chans.", flag:"ung", val:"trotsig",
+        res:"Jag lär mig varje vakt, varje port. Inombords växer ett nej som ingen mur kan hålla inne."}
+    ], next:2
+  },
+  {
+    kicker:"1519 · Flykten hem",
+    scene:"Ut ur Danmark",
+    html:
+      "<p>Till slut tar jag mig loss och flyr — söderut till handelsstaden Lübeck, och därifrån hem till Sverige. Det är farligt hela vägen.</p>"+
+      "<div class='box kalla'><div class='lbl'>🔍 Källkoll — sagan om flykten</div>"+
+      "Senare berättades det vilda historier om min flykt och mina äventyr — att jag gömde mig i lass av halm, red i natten, klarade mig med list i sista stund. Spännande! Men de flesta av de historierna skrevs ner långt efteråt. En bra fråga att ställa om varje hjältesaga: <em>vem tjänade på att berätta den så?</em></div>",
+    next:3, btn:"Fortsätt"
+  },
+  {
+    kicker:"1520 · Stockholm",
+    scene:"Blodbadet",
+    html:
+      "<p>Kung Kristian låter kröna sig i Stockholm. Sedan gör han något fruktansvärt: han låter döda ungefär hundra av Sveriges viktigaste män på bara några dagar.</p>"+
+      "<p class='quote'>Bland de döda fanns min far.</p>"+
+      "<p>Sorgen är tung som sten. Men i sorgen föds också ett beslut. Vad blir det?</p>",
+    choices:[
+      {ct:"Låt sorgen bli ett mål", cd:"Aldrig mer ska en främmande kung få göra så mot mitt land. Jag ska ena Sverige.", flag:"sorg", val:"mål",
+        res:"Jag gråter — och sedan reser jag mig. Sorgen blir en riktning: ett fritt rike."},
+      {ct:"Låt sorgen bli vrede", cd:"Kristian ska få betala. Det här handlar nu lika mycket om hämnd som om frihet.", flag:"sorg", val:"vrede",
+        res:"Vreden brinner het i mig. Den ger mig kraft — men den lär också bli svår att släcka."}
+    ], next:4
+  },
+  {
+    kicker:"1520–21 · Dalarna",
+    scene:"Att övertyga bönderna",
+    html:
+      "<p>Jag flyr till Dalarna för att få bönderna att resa sig mot Kristian. Men bönderna är fattiga och rädda — ett uppror mot en kung kan sluta med döden.</p>"+
+      "<p>Jag står på tinget framför dem. Det här är mitt svåraste val som ledare: <strong>hur</strong> ska jag vinna dem?</p>",
+    choices:[
+      {ct:"Lova dem frihet och rikedom", cd:"Jag målar en ljus framtid: lägre skatter, egen handel, ett fritt rike. Löften tänder folk.", flag:"ledarskap", val:"löften",
+        res:"Bönderna tänds av mina löften och följer mig. Men löften är en skuld — en dag ska de kräva att jag håller dem."},
+      {ct:"Var ärlig om farorna", cd:"Jag säger sanningen: det blir hårt, och några av oss kommer att dö. Men friheten är värd det.", flag:"ledarskap", val:"ärlig",
+        res:"Färre reser sig — men de som gör det litar på mig på riktigt. Ärlighet bygger långsammare, men starkare."}
+    ], next:5
+  },
+  {
+    kicker:"1523–1527 · Kungen",
+    scene:"En fattig krona",
+    html:
+      "<p>Det otroliga händer: upproret lyckas, unionen sprängs, och 1523 väljs jag till <strong>Sveriges kung</strong>.</p>"+
+      "<p>Men riket är fattigt och skuldsatt. Jag behöver pengar — och den rikaste i landet är <strong>kyrkan</strong>, som äger jord, silver och guld. Jag bestämmer att kronan ska ta över kyrkans rikedomar. Det kallas reformationen. Hur långt går jag?</p>",
+    choices:[
+      {ct:"Ta allt jag kan", cd:"Riket måste överleva. Jag tar silver, klockor och jord — och struntar i klagomålen.", flag:"reformation", val:"hård",
+        res:"Kronan blir stark och rik snabbt. Men munkar och fromma vänder sig bort, och folk minns hur hårt jag tog."},
+      {ct:"Ta lagom — och förklara varför", cd:"Jag tar det riket behöver, men lämnar en del och låter folk läsa Bibeln på svenska.", flag:"reformation", val:"måttlig",
+        res:"Kronan växer, men lugnare. Att folk får böcker på sitt eget språk ger mig något silver aldrig kan: förtroende."}
+    ], next:6
+  },
+  {
+    kicker:"1542 · Priset för makten",
+    scene:"När mitt eget folk reser sig",
+    html:
+      "<p>Åren går. För att hålla riket starkt tar jag ut hårda skatter och styr med fast hand. Och så händer det som gör mest ont av allt:</p>"+
+      "<p class='quote'>Mitt eget folk reser sig mot mig.</p>"+
+      "<p>I Småland leder bonden <strong>Nils Dacke</strong> det största upproret i rikets historia — mot mina skatter, mot mig. En gång reste jag själv ett folk mot en kung. Nu är jag kungen. Vad gör jag?</p>",
+    choices:[
+      {ct:"Krossa upproret hårt", cd:"Jag samlar en stor här och slår ner Dacke utan nåd. Ordningen måste bestå.", flag:"dacke", val:"krossa",
+        res:"Upproret krossas, Dacke dödas. Riket hålls samman — men med rädsla. Var det så jag ville minnas som ledare?"},
+      {ct:"Försök förhandla först", cd:"Jag minns hur det är att vara den svage. Jag försöker lyssna innan jag slår.", flag:"dacke", val:"förhandla",
+        res:"Förhandlingarna räcker inte hela vägen, och till slut måste jag ändå slå ner upproret. Men jag lärde mig något: ett folk som pressas för hårt reser sig alltid till slut."}
+    ], next:7
+  },
+  {
+    final:true,
+    kicker:"1560 · En gammal kung ser tillbaka",
+    scene:"Eftermäle",
+    html:"" // fylls dynamiskt
+  }
+];
+
+var stage = document.getElementById('stage');
+var progEl = document.getElementById('progress');
+var idx = 0;
+
+function buildProgress(){
+  progEl.innerHTML='';
+  for (var i=1;i<SCENES.length;i++){
+    var d=document.createElement('div'); d.className='dot'; d.id='dot'+i; progEl.appendChild(d);
+  }
+}
+function updateProgress(){
+  for (var i=1;i<SCENES.length;i++){
+    var d=document.getElementById('dot'+i); if(!d) continue;
+    d.className='dot'+(i<idx?' done':i===idx?' cur':'');
+  }
+}
+
+function listenBtn(){
+  // Röst-krok: knappen finns för framtida uppläsning; utan ljud är den tyst-vänlig.
+  return "<button class='listen' onclick=\"this.textContent='🔊 (röst läggs till senare)'; this.disabled=true;\">🔊 Lyssna</button>";
+}
+
+function render(i){
+  idx=i; var s=SCENES[i];
+  window.scrollTo({top:0,behavior:'instant'});
+  var h='<div class="card">';
+  if (s.intro){
+    h+='<div class="kicker">'+s.kicker+'</div>';
+    h+='<h1 class="title">'+s.title+'</h1><p class="subtitle">'+s.subtitle+'</p>';
+    h+='<div class="voice">'+s.html+'</div>';
+    h+='<div class="center"><button class="btn gold" id="go">'+(s.btn||'Fortsätt')+'</button></div>';
+  } else if (s.final){
+    h+='<div class="kicker">'+s.kicker+'</div><h2 class="scene-title">'+s.scene+'</h2>';
+    h+=listenBtn();
+    h+='<div class="voice">'+finalText()+'</div>';
+    h+='<div class="box fakta"><div class="lbl">🧭 Vad hände på riktigt?</div>'+
+       'Gustav Vasa levde på riktigt (ca 1496–1560) och var Sveriges kung 1523–1560. Han bröt Kalmarunionen, genomförde reformationen och tog ut hårda skatter — och Dackefejden 1542–43 var på riktigt. '+
+       'Vasaloppet, som åks än idag, minner om skidåkarna som hämtade tillbaka honom när Moraborna ändrat sig. '+
+       'Mycket av ”hjälten Gustav” skrevs ner långt efteråt — så var alltid nyfiket källkritisk, även mot en spännande historia.</div>';
+    h+='<div class="center"><button class="btn" id="restart">Spela igen</button></div>';
+  } else {
+    h+='<div class="kicker">'+s.kicker+'</div><h2 class="scene-title">'+s.scene+'</h2>';
+    h+=listenBtn();
+    h+='<div class="voice">'+s.html+'</div>';
+    if (s.choices){
+      h+='<div class="choices" id="choices">';
+      s.choices.forEach(function(c,ci){
+        h+='<button class="choice" data-ci="'+ci+'"><div class="ct">'+c.ct+'</div><div class="cd">'+c.cd+'</div></button>';
+      });
+      h+='</div><div class="result" id="result"></div>';
+      h+='<div class="center hidden" id="contWrap"><button class="btn" id="go">Fortsätt</button></div>';
+    } else {
+      h+='<div class="center"><button class="btn" id="go">'+(s.btn||'Fortsätt')+'</button></div>';
+    }
+  }
+  h+='</div>';
+  stage.innerHTML=h;
+  updateProgress();
+
+  if (s.choices){
+    var choiceEls=stage.querySelectorAll('.choice');
+    choiceEls.forEach(function(el){
+      el.addEventListener('click', function(){
+        var ci=+el.getAttribute('data-ci'); var c=s.choices[ci];
+        flags[c.flag]=c.val;
+        choiceEls.forEach(function(o){ o.disabled=true; o.classList.add(o===el?'chosen':'dim'); });
+        var r=document.getElementById('result'); r.innerHTML=c.res; r.classList.add('show');
+        var cw=document.getElementById('contWrap'); cw.classList.remove('hidden');
+        document.getElementById('go').onclick=function(){ render(s.next); };
+        r.scrollIntoView({behavior:'smooth',block:'center'});
+      });
+    });
+  }
+  var go=document.getElementById('go');
+  if (go && !s.choices) go.onclick=function(){ render(s.next); };
+  var rs=document.getElementById('restart');
+  if (rs) rs.onclick=function(){ flags={}; render(0); };
+}
+
+function finalText(){
+  var t='';
+  t+='<p>Jag är en gammal man nu, och riket jag byggde består. Men på kvällarna tänker jag på priset.</p>';
+  // ledarskap
+  if (flags.ledarskap==='löften') t+='<p>Jag vann folket med löften. Somliga höll jag — andra fick de vänta på. Att lova är lätt; att infria är kungens tyngsta börda.</p>';
+  else t+='<p>Jag vann folket med ärlighet, fast det gick långsammare. De som följde mig gjorde det på riktigt, och det bar oss genom de svåra åren.</p>';
+  // reformation
+  if (flags.reformation==='hård') t+='<p>Jag tog kyrkans rikedom hårt och snabbt. Kronan blev stark — men många kallade mig girig, och de orden lever kvar.</p>';
+  else t+='<p>Jag tog kyrkans rikedom med mått, och gav folket Bibeln på svenska. Silver bygger murar; förtroende bygger ett rike.</p>';
+  // dacke
+  if (flags.dacke==='krossa') t+='<p>När mitt eget folk reste sig krossade jag upproret hårt. Ordningen bestod — men jag minns böndernas ansikten, och undrar om en klokare kung hade lyssnat mer.</p>';
+  else t+='<p>När mitt eget folk reste sig försökte jag lyssna först. Det räckte inte hela vägen, men jag lärde mig att makt utan folkets stöd står på lös grund.</p>';
+  // syntes utifrån ton
+  var hård = (flags.reformation==='hård') + (flags.dacke==='krossa') + (flags.sorg==='vrede');
+  t+='<p class="quote">';
+  if (hård>=2) t+='Vissa kallar mig rikets fader. Andra minns den hårde skattekungen. Kanske har båda rätt — en krona väger tungt, och den som bär den blir sällan bara älskad.';
+  else t+='Jag enade ett rike och försökte bära kronan med en aning värme. Historien får döma — men jag gjorde mina val i min tid, med det jag visste då.';
+  t+='</p>';
+  t+='<ul class="final-flags"><li>Din Gustav mötte sorgen som <b>'+(flags.sorg==='vrede'?'vrede':'ett mål')+'</b>, ledde med <b>'+(flags.ledarskap==='löften'?'löften':'ärlighet')+'</b>, tog kyrkans rikedom <b>'+(flags.reformation==='hård'?'hårt':'med mått')+'</b> och mötte Dacke med <b>'+(flags.dacke==='krossa'?'hård hand':'försök att förhandla')+'</b>.</li></ul>';
+  t+='<div class="box kalla"><div class="lbl">💬 Prata om det efteråt</div>Var Gustav Vasa en hjälte, en hård härskare — eller båda? Och vem är det egentligen som bestämmer hur en kung minns i historien?</div>';
+  return t;
+}
+
+buildProgress();
+render(0);
+</script>
+</body>
+</html>

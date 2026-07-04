@@ -46,11 +46,21 @@ källor och historiebruk. Full koppling i lärarhandledningen.
 - Testat: hela berättelsen (alla val­vägar), konsekvenssystemet, de fyra
   slutgrenarna och alla sju minispel — end-to-end i webbläsare.
 
+## Nedslag (den mänskliga nivån)
+
+Enligt seriens tvålagersmodell (äventyr + nedslag) finns korta, lektionsstora
+förstapersonsvinjetter som kommer nära en enda människa:
+
+- **[Gustav Vasa — Ett liv](nedslag/gustav-vasa.html)** ✅ — ledaren med hårda
+  val, i förstaperson: gisslan, flykten, blodbadet, upproret, kronan,
+  reformationen och de hårda skatterna. Visar *priset för makten* och hur en
+  kung minns olika. Fristående (~10 min), ingen sparning behövs.
+- _(kommande)_ En dag i ståndssamhället · Häxprocessen (källkritik)
+
 ## Status
 
-🟡 **Berättelse + minispel klara och speltestade.** Kvar: berättarröst +
-ljudeffekter (ElevenLabs), samt de fristående **nedslagen** (Gustav Vasa · en
-dag i ståndssamhället · häxprocessen) enligt seriens tvålagersmodell.
+🟡 **Äventyret (7 kapitel) + minispel + första nedslaget klara och
+speltestade.** Kvar: berättarröst + ljudeffekter (ElevenLabs), och fler nedslag.
 
 ## Filer
 
