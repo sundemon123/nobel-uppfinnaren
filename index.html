@@ -2367,11 +2367,14 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <h1 class="game-title">Stormaktstiden</h1>
       <p class="game-subtitle">Rikets v&auml;g</p>
       <div class="chapter-label">Kapitel 6</div>
-      <div class="chapter-title-dramatic">Flykten</div>
-      <div class="chapter-year">1933</div>
-      <p class="intro-text">
-        Albert &auml;r 54 &aring;r och v&auml;rldens mest k&auml;nda forskare. Han &auml;r p&aring; resa i Amerika n&auml;r nyheterna kommer: i Tyskland har Adolf Hitler tagit makten.
-      </p>
+      <div class="chapter-title-dramatic">Fallet</div>
+      <div class="chapter-year">1709&ndash;1721</div>
+      <div class="discussion-box" id="ch6-recap" style="display:none;text-align:left;"><div class="discussion-label">&#x1F4D6; Detta har h&auml;nt</div><p class="discussion-text">Riket är mäktigast av alla — men grannarna är trötta på Sveriges makt. Nu vänder allt.</p></div>
+      <p class="intro-text" id="ch6-introText">
+        Kung Karl XII f&ouml;r Sverige i ett stort krig mot Ryssland och flera l&auml;nder
+        samtidigt. L&auml;nge g&aring;r det bra. Men l&aring;ngt borta i &ouml;ster, vid <strong>Poltava</strong>,
+        v&auml;ntar en fiende som &auml;r f&ouml;r stor. Och hemma vid kusten smyger sig en annan
+        fara in med skeppen: <strong>pesten</strong>.</p>
       <audio id="narrator-ch6-title" src="" preload="auto"></audio>
       <button class="btn-somber" onclick="goToScreen('ch6-scene')">Forts&auml;tt</button>
     </div>
@@ -2380,51 +2383,38 @@ body.narrator-on .screen.active { padding-top: 46px; }
   <!-- CH6: SCENE -->
   <div class="screen" id="ch6-scene">
     <div class="narrative-box">
-      <h2 class="narrative-heading">En morgon i Kalifornien</h2>
+      <h2 class="narrative-heading">En h&ouml;st i Salteby</h2>
       <div class="narrative-text">
-        <p>Albert &auml;r p&aring; forskarbes&ouml;k i Amerika. Solen skiner, men han t&auml;nker p&aring; hemlandet.</p>
-        <p>Han str&auml;cker sig efter tidningen fr&aring;n Tyskland. De nya makthavarna skyller landets alla problem p&aring; judarna. Albert &auml;r jude.</p>
-        <p>S&aring; ser han sitt eget namn. Han l&auml;ser. Och l&auml;ser igen.</p>
+        <p>Hamnen i Salteby &auml;r tyst. F&ouml;rr var den full av skepp och r&ouml;ster &mdash; nu ligger
+        den &ouml;de.</p>
+        <p>Skeppen som skulle komma hem fr&aring;n kriget kommer inte. Och de f&aring; som kommer
+        b&auml;r p&aring; d&aring;liga nyheter &mdash; och ibland p&aring; sjukdom.</p>
+        <p>P&aring; torget brinner ljus f&ouml;r de d&ouml;da. Korpen Minne sitter tyst p&aring; kyrktornet.</p>
       <audio id="narrator-ch6-scene" src="" preload="auto"></audio>
       </div>
     </div>
     <div style="text-align:center; margin-top: 36px;">
-      <button class="btn-somber" onclick="goToScreen('ch6-newspaper')">L&auml;s tidningen</button>
+      <button class="btn-somber" onclick="goToScreen('ch6-newspaper')">Ett bud kommer</button>
     </div>
   </div>
 
-  <!-- CH6: NEWSPAPER -->
+  <!-- CH6: BUDET -->
   <div class="screen" id="ch6-newspaper">
-    <div class="narrative-box" style="background:#101a33;border-color:#24365e;margin-bottom:16px;">
-      <p class="narrative-text" style="color:#dde7f0;margin:0;">Albert sl&aring;r p&aring; radion fr&aring;n Tyskland. F&ouml;rst bara brus&hellip; <strong>Vrid p&aring; ratten</strong> f&ouml;r att h&ouml;ra vad de s&auml;ger.</p>
+    <div class="narrative-box" style="background:#241b12;border-color:#4a3826;margin-bottom:16px;">
+      <p class="narrative-text" style="color:#e8dcc8;margin:0;">En ryttare kommer in i Salteby, t&auml;ckt av damm och tr&ouml;tthet. Han b&auml;r ett brev fr&aring;n kriget. <strong>Bryt sigillet</strong> och l&auml;s &mdash; rad f&ouml;r rad.</p>
     </div>
-    <div class="radio-wrapper">
-      <div class="radio-set">
-        <div class="radio-brand">&#x1F1E9;&#x1F1EA; Deutscher Rundfunk &middot; 1933</div>
-        <div class="radio-grille"><div class="radio-eye" id="ch6-radioEye"></div></div>
-        <div class="radio-dial"><span>500</span><span class="radio-needle" id="ch6-radioNeedle">— — —</span><span>1500</span></div>
-      </div>
-      <div class="radio-screen">
-        <div class="radio-static" id="ch6-radioStatic">&#9617;&#9618;&#9619; &#9618;&#9617; &#9619;&#9618;&#9617;&#9618; &#9617;&#9619; &#9618;&#9617;&#9619;&#9618; &#9617;</div>
-        <div id="ch6-radioLines"></div>
-      </div>
-      <div class="radio-knob" id="ch6-radioKnob" role="button" aria-label="Vrid p&aring; radioratten"></div>
-      <div class="radio-knob-label" id="ch6-radioKnobLabel">&#x1F509; Vrid ratten</div>
+    <div style="text-align:center;margin:20px 0;">
+      <button class="btn-somber" id="ch6-letterBtn">&#x1F4DC; Bryt sigillet</button>
     </div>
-    <div class="reveal-box" id="ch6-revealBox">
-      <div class="reveal-text">
-        <em style="font-size:0.85em; opacity:0.8;">&#x1F1E9;&#x1F1EA; R&ouml;sten i radion talar tyska &mdash; det h&auml;r &auml;r propaganda fr&aring;n de nya makthavarna.</em>
-        <br><br>Albert har inte gjort n&aring;got fel. Men han &auml;r jude &mdash; och han har alltid sagt vad han tycker.
-        <br><br>Hans b&ouml;cker br&auml;nns p&aring; b&aring;l. Hans namn l&auml;ses upp p&aring; en lista &ouml;ver statens fiender.
-        <br><br>Albert st&auml;nger av radion. Han f&ouml;rst&aring;r: <strong>han kan aldrig &aring;ka hem igen.</strong>
-      </div>
+    <div class="reveal-box visible" style="background:#faf2e8;color:#2c1810;">
+      <div id="ch6-letterLines" style="font-family:var(--font-headline);line-height:1.9;"></div>
     </div>
     <div style="text-align:center; margin-top: 32px; display:none;" id="ch6-newspaperContinue">
       <button class="btn-somber" onclick="goToScreen('ch6-minigame')">Forts&auml;tt</button>
     </div>
   </div>
 
-  <!-- CH6: MINIGAME<!-- CH6: MINIGAME - Rätta tidningen -->
+  <!-- CH6: MINIGAME<!-- CH6: MINIGAME<!-- CH6: MINIGAME - Rätta tidningen -->
   <div class="screen" id="ch6-minigame">
     <div class="minigame-v2-container" id="ch6-minigame-v2-container"></div>
     <div style="text-align:center; display:none;" id="ch6-minigame-v2-continue">
@@ -2432,8 +2422,8 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
     <div id="ch6-minigame-old" style="display:none;">
       <div class="narrative-box">
-        <h2 class="narrative-heading">&#x1F4F0; Sant eller propaganda?</h2>
-        <p class="narrative-text">Tidningarna &auml;r fulla av p&aring;st&aring;enden om Albert. Vilka &auml;r sanna &mdash; och vilka &auml;r propaganda? Granska och st&auml;mpla r&auml;tt!</p>
+        <h2 class="narrative-heading">&#x1F56F;&#xFE0F; I fallets tid</h2>
+        <p class="narrative-text">Ett stillsamt kapitel. H&auml;r firas inget &mdash; vi stannar upp och minns.</p>
       </div>
       <div style="text-align:center;">
         <button class="btn-somber" onclick="goToScreen('ch6-choice')">Forts&auml;tt</button>
@@ -2444,36 +2434,36 @@ body.narrator-on .screen.active { padding-top: 46px; }
   <!-- CH6: CHOICE - Reaction -->
   <div class="screen" id="ch6-choice">
     <div class="narrative-box">
-      <h2 class="narrative-heading">Vad g&ouml;r Albert?</h2>
-      <p class="narrative-text">Hemmet, spr&aring;ket, v&auml;nnerna &mdash; allt finns i ett land han inte kan &aring;terv&auml;nda till. Albert st&aring;r vid havet och t&auml;nker. <em style="font-family:var(--font-headline);">Vad g&ouml;r man n&auml;r ens land v&auml;nder sig emot en?</em></p>
+      <h2 class="narrative-heading">N&auml;r allt faller</h2>
+      <p class="narrative-text">Kriget &auml;r f&ouml;rlorat, pesten g&aring;r i staden, och m&aring;nga har f&ouml;rlorat allt. Salteby st&aring;r inf&ouml;r sitt sv&aring;raste val. <em style="font-family:var(--font-headline);">Vad g&ouml;r man n&auml;r allt rasar?</em></p>
       <audio id="narrator-ch6-choice" src="" preload="auto"></audio>
     </div>
     <div class="choices-container" id="ch6-choices1">
       <div class="choice-card" onclick="makeChoice('ch6',1,0)" data-choice="0">
         <div class="choice-card-number">1</div>
-        <div class="choice-card-title">S&auml;ga ifr&aring;n &mdash; h&ouml;gt och tydligt</div>
-        <div class="choice-card-quote">&rdquo;Jag &aring;terv&auml;nder inte till ett land utan frihet.&rdquo;</div>
-        <div class="choice-card-desc">Albert l&auml;mnar tillbaka sitt tyska pass och s&auml;ger &ouml;ppet varf&ouml;r. Hela v&auml;rlden lyssnar.</div>
-        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F91D; Folkets stöd</span></div>
+        <div class="choice-card-title">Ta hand om de sjuka och heml&ouml;sa</div>
+        <div class="choice-card-desc">Salteby &ouml;ppnar sina d&ouml;rrar f&ouml;r dem som inget har. Modigt i en m&ouml;rk tid &mdash; och farligt, med pesten n&auml;ra.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F91D; Folkets st&ouml;d</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch6',1,1)" data-choice="1">
         <div class="choice-card-number">2</div>
-        <div class="choice-card-title">H&aring;lla huvudet nere</div>
-        <div class="choice-card-desc">Sl&auml;ktingar och v&auml;nner &auml;r kvar i Tyskland. Om Albert s&auml;ger f&ouml;r mycket kanske de r&aring;kar illa ut.</div>
-        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F451; Makt</span><span class="effect-badge negative">-1 &#x1F91D; Folkets stöd</span></div>
+        <div class="choice-card-title">R&auml;dda det du kan f&ouml;r din egen familj</div>
+        <div class="choice-card-desc">Man f&ouml;rst&aring;r dig &mdash; alla vill skydda sina egna. Men staden minns vilka som st&auml;ngde sin d&ouml;rr.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F4B0; V&auml;lst&aring;nd</span><span class="effect-badge negative">-1 &#x1F91D; Folkets st&ouml;d</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch6',1,2)" data-choice="2">
         <div class="choice-card-number">3</div>
-        <div class="choice-card-title">Hj&auml;lpa andra som m&aring;ste fly</div>
-        <div class="choice-card-desc">Albert skriver brev, ordnar jobb och pengar &aring;t forskare som f&ouml;rlorat allt. Hans ber&ouml;mmelse &ouml;ppnar d&ouml;rrar.</div>
-        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F4B0; Välstånd</span><span class="effect-badge special">&#x1F31F; Speciellt &mdash; p&aring;verkar kapitel 7</span></div>
+        <div class="choice-card-title">Kalla folket till gemensamt f&ouml;rsvar</div>
+        <div class="choice-card-quote">&rdquo;Vi klarar det bara tillsammans.&rdquo;</div>
+        <div class="choice-card-desc">Samla staden en sista g&aring;ng mot n&ouml;den. <em>(Kr&auml;ver att folket &auml;n st&aring;r bakom dig.)</em></div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F451; Makt</span><span class="effect-badge positive">+1 &#x1F91D; Folkets st&ouml;d</span></div>
       </div>
     </div>
     <div class="result-box" id="ch6-result1"><div class="result-label">Resultat</div><div class="result-text" id="ch6-result1Text"></div></div>
     <div style="text-align:center; display:none;" id="ch6-choice1Continue"><button class="btn-somber" onclick="goToScreen('ch6-reflection')">Forts&auml;tt</button></div>
   </div>
 
-  <!-- CH6: REFLECTION --><!-- CH6: REFLECTION -->
+  <!-- CH6: REFLECTION --><!-- CH6: REFLECTION --><!-- CH6: REFLECTION --><!-- CH6: REFLECTION -->
   <div class="screen" id="ch6-reflection">
     <div class="reflection-moment" id="ch6-reflectionMoment">
       <div class="reflection-dots">&bull; &bull; &bull;</div>
@@ -2490,21 +2480,22 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <span class="fact-icon">&#x1F4D6;</span>
       <div class="fact-label">Visste du att&hellip;</div>
       <p class="fact-text">
-        I Tyskland gavs det ut en bok med titeln &rdquo;Hundra f&ouml;rfattare mot Einstein&rdquo;.
-        Albert skrattade och svarade: &rdquo;Om jag hade fel &mdash; d&aring; hade det r&auml;ckt med EN.&rdquo;
-        Att m&aring;nga s&auml;ger samma sak betyder inte att det &auml;r sant.
+        &Aring;r 1709 f&ouml;rlorade Sverige det stora slaget vid <strong>Poltava</strong>, och
+        arm&eacute;n gick under. &Aring;r 1721 slöts freden i <strong>Nystad</strong>: Sverige
+        f&ouml;rlorade n&auml;stan alla sina l&auml;nder runt &Ouml;stersj&ouml;n. Stormaktstiden var &ouml;ver &mdash;
+        efter drygt hundra &aring;r.
       </p>
     </div>
     <div class="discussion-box">
-      <span class="discussion-icon">&#x1F50D;</span>
-      <div class="discussion-label">K&auml;llkoll</div>
+      <span class="discussion-icon">&#x1F56F;&#xFE0F;</span>
+      <div class="discussion-label">Att t&auml;nka p&aring;</div>
       <p class="discussion-text">
-        Propaganda &auml;r n&auml;r n&aring;gon sprider p&aring;st&aring;enden f&ouml;r att f&aring; folk att tycka
-        p&aring; ett visst s&auml;tt &mdash; utan att bry sig om vad som &auml;r sant. Knepet f&ouml;r att
-        avsl&ouml;ja den: fr&aring;ga vem som s&auml;ger det, och vem som tj&auml;nar p&aring; att du tror p&aring; det.
+        Krig och pest drabbade inte kungar och b&ouml;nder lika. Kungen ville ha &auml;ra &mdash;
+        men det var vanligt folk som svalt, dog i pesten och betalade f&ouml;r krigen. N&auml;r
+        du l&auml;ser om en &rdquo;stormakt&rdquo;: fr&aring;ga alltid vem som bar kostnaden.
       </p>
     </div>
-      <audio id="narrator-ch6-fact" src="" preload="auto"></audio>
+    <audio id="narrator-ch6-fact" src="" preload="auto"></audio>
     <div style="text-align:center;">
       <button class="btn-somber" onclick="goToScreen('ch6-conclusion')">Forts&auml;tt</button>
     </div>
@@ -2513,10 +2504,10 @@ body.narrator-on .screen.active { padding-top: 46px; }
   <!-- CH6: CONCLUSION --><!-- CH6: CONCLUSION -->
   <div class="screen" id="ch6-conclusion">
     <div style="text-align:center; margin-bottom: 8px;"><div class="chapter-label" style="margin-bottom:8px;">Kapitel 6 avklarat</div></div>
-    <div class="celebration-text" style="color:var(--brown-dark);" id="ch6-celebrationText">Ett avsked &mdash; och en ny b&ouml;rjan</div>
+    <div class="celebration-text" style="color:var(--brown-dark);" id="ch6-celebrationText">Stormaktstidens sol gick ned</div>
     <div class="divider"></div>
-    <div class="narrative-box"><h2 class="narrative-heading">N&aring;got har f&ouml;r&auml;ndrats&hellip;</h2><p class="narrative-text" id="ch6-conclusionText"></p></div>
-    <div class="lesson-box"><div class="lesson-label">L&auml;rdom</div><p class="lesson-text">Det Albert f&ouml;rlorade var ett land. Det han aldrig f&ouml;rlorade var sin r&ouml;st. N&auml;r n&aring;got &auml;r fel f&aring;r man inte tystna &mdash; &auml;ven om det kostar.</p></div>
+    <div class="narrative-box"><h2 class="narrative-heading">Stormakten faller&hellip;</h2><p class="narrative-text" id="ch6-conclusionText"></p></div>
+    <div class="lesson-box"><div class="lesson-label">L&auml;rdom</div><p class="lesson-text">Ett rike kan falla &mdash; men landet och folket best&aring;r. Det som byggdes p&aring; krig f&ouml;rsvann med kriget. Det som byggdes p&aring; m&auml;nniskor fanns kvar.</p></div>
     <div class="divider"></div>
     <h3 style="text-align:center; font-family:var(--font-headline); font-size:1.1rem; color:var(--brown-medium); margin-bottom:16px;">Dina resurser efter kapitel 6</h3>
     <div class="final-resources">
@@ -2524,10 +2515,10 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F4B0;</span><span class="final-resource-label">Välstånd</span><span class="final-resource-value" id="ch6-finalVälstånd">0</span></div>
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F91D;</span><span class="final-resource-label">Folkets stöd</span><span class="final-resource-value" id="ch6-finalStod">0</span></div>
     </div>
-    <p class="teaser-text">Det sista kapitlet v&auml;ntar&hellip;<br><em>Kapitel 7: Brevet och freden</em></p>
+    <p class="teaser-text">Det sista kapitlet v&auml;ntar&hellip;<br><em>Kapitel 7: Vad blev kvar</em></p>
       <audio id="narrator-ch6-conclusion" src="" preload="auto"></audio>
     <div style="text-align:center; margin-top: 16px; margin-bottom: 12px;">
-      <button class="diary-btn" onclick="NobelDiary.show(6)">&#x1F4D6; Alberts fr&aring;gebok</button>
+      <button class="diary-btn" onclick="NobelDiary.show(6)">&#x1F4D6; Kr&ouml;nikan</button>
       <button class="diary-btn" onclick="showStickerBook()">&#x1F396;&#xFE0F; Samlarboken</button>
     </div>
     <div style="text-align:center; margin-top: 8px;">
@@ -2981,15 +2972,18 @@ var choiceData = {
   },
   ch6: {
     1: [
-      { effects: { stod: 2 }, requires: { makt: 8 }, resultText: 'Albert l\u00e4mnar tillbaka sitt tyska pass och s\u00e4ger h\u00f6gt varf\u00f6r: han \u00e5terv\u00e4nder aldrig till ett land utan frihet. Orden g\u00e5r runt hela v\u00e4rlden.',
-        reflectionText: 'P\u00e5 b\u00e5ten \u00f6ver Atlanten st\u00e5r Albert l\u00e4nge vid relingen. Landet som l\u00e4rde honom t\u00e4nka vill inte ha honom l\u00e4ngre. Men tankarna \u2014 dem kan ingen br\u00e4nna p\u00e5 b\u00e5l.',
-        conclusionText: 'Albert sa ifr\u00e5n n\u00e4r det kostade som mest. Ett nytt liv b\u00f6rjade i Amerika, i ett litet hus i Princeton \u2014 men rösten var densamma.' },
-      { effects: { makt: 1, stod: -1 }, resultText: 'Albert v\u00e4ger varje ord p\u00e5 guldv\u00e5g. Sl\u00e4kten i Tyskland \u00e4r viktigare \u00e4n rubrikerna. Men tystnaden k\u00e4nns som en sten i br\u00f6stet.',
-        reflectionText: 'P\u00e5 b\u00e5ten \u00f6ver Atlanten t\u00e4nker Albert p\u00e5 dem som \u00e4r kvar. Maja. V\u00e4nnerna. Kollegorna. Hur skyddar man n\u00e5gon fr\u00e5n andra sidan havet?',
-        conclusionText: 'Albert h\u00f6ll huvudet nere f\u00f6r sl\u00e4ktens skull. Ett nytt liv b\u00f6rjade i Amerika \u2014 men breven hem blev allt viktigare, och oron sl\u00e4ppte aldrig.' },
-      { effects: { valstand: 1 }, lawyerChoice: true, resultText: 'Albert skriver rekommendationsbrev, ringer universitet och \u00f6ppnar sitt hem. F\u00f6r varje forskare som r\u00e4ddas v\u00e4xer n\u00e5got ljust i det m\u00f6rka.',
-        reflectionText: 'P\u00e5 b\u00e5ten \u00f6ver Atlanten skriver Albert listor: namn, universitet, vem som kan hj\u00e4lpa vem. Om hans ber\u00f6mmelse ska vara bra f\u00f6r n\u00e5got \u2014 s\u00e5 \u00e4r det f\u00f6r det h\u00e4r.',
-        conclusionText: 'Albert anv\u00e4nde sin ber\u00f6mmelse som en nyckel och \u00f6ppnade d\u00f6rrar f\u00f6r dem som f\u00f6rlorat allt. Det valet skulle han aldrig \u00e5ngra.' }
+      { effects: { stod: 2 },
+        resultText: 'Salteby \u00f6ppnar sina d\u00f6rrar f\u00f6r de sjuka och heml\u00f6sa. Det \u00e4r farligt med pesten n\u00e4ra \u2014 men ingen gl\u00f6mmer en stad som inte \u00f6vergav sina egna.',
+        reflectionText: 'Att hj\u00e4lpa n\u00e4r allt rasar kostar mest \u2014 och betyder mest.',
+        conclusionText: 'Salteby tog hand om de sjuka och heml\u00f6sa n\u00e4r allt rasade. Stormakten f\u00f6ll \u2014 men mänskligheten i staden best\u00e5r, och det minns folket l\u00e4nge.' },
+      { effects: { valstand: 1, stod: -1 },
+        resultText: 'Salteby ser om sitt eget hus f\u00f6rst. Man f\u00f6rst\u00e5r det \u2014 men n\u00e5gra d\u00f6rrar som borde \u00f6ppnats f\u00f6rblev st\u00e4ngda, och det gl\u00f6ms inte.',
+        reflectionText: 'I n\u00f6den v\u00e4ljer vi vilka vi r\u00e4knar som \u201dv\u00e5ra\u201d.',
+        conclusionText: 'Salteby vände blicken inåt och räddade det egna. Stormakten f\u00f6ll, och staden \u00f6verlevde \u2014 men n\u00e5got av gemenskapen gick f\u00f6rlorat p\u00e5 v\u00e4gen.' },
+      { effects: { makt: 1, stod: 1 }, requires: { stod: 4 },
+        resultText: 'Salteby samlas en sista g\u00e5ng, sida vid sida mot n\u00f6den. Tillsammans b\u00e4r de det som ingen kunnat b\u00e4ra ensam.',
+        reflectionText: 'N\u00e4r allt annat \u00e4r borta finns fortfarande varandra.',
+        conclusionText: 'Salteby m\u00f6tte fallet tillsammans, samlade kring dig en sista g\u00e5ng. Stormakten f\u00f6ll \u2014 men staden reste sig ur askan starkare i sammanh\u00e5llning.' }
     ]
   },
   ch7: {
@@ -3250,6 +3244,7 @@ function goToScreen(screenId) {
       // Maskoten och samlarboksknappen följer med genom spelet
       if (typeof nobelKatt !== 'undefined') nobelKatt.onScreenChange(screenId);
       if (typeof nobelStickerBtn !== 'undefined') nobelStickerBtn.onScreenChange(screenId);
+      if (screenId === 'ch6-title' && gameState._coldStart) { var _r6 = document.getElementById('ch6-recap'); if (_r6) _r6.style.display = 'block'; }
       if (screenId === 'ch6-newspaper') setTimeout(ch6StartNewspaperSequence, 500);
       if (screenId === 'ch6-reflection') setTimeout(ch6StartReflection, 500);
 
@@ -3327,8 +3322,8 @@ function makeChoice(chapter, choiceGroup, choiceIndex) {
     if (choiceIndex === 0) gameState.mindesFolket = true;
   }
   if (chapter === 'ch6' && choiceGroup === 1) {
-    gameState.choices.ch6_reaction = choiceIndex;
-    if (data.lawyerChoice) gameState.lawyerCalled = true;
+    gameState.choices.ch6_fall = choiceIndex;
+    if (choiceIndex === 2) gameState.samladeFolket = true;
   }
   if (chapter === 'ch7' && choiceGroup === 1) gameState.choices.ch7_brevet = choiceIndex;
   if (chapter === 'ch7' && choiceGroup === 3) gameState.choices.ch7_arvet = choiceIndex;
@@ -3403,7 +3398,7 @@ function setupConclusion(screenId) {
     textEl.textContent += ' M\u00e4rk v\u00e4l: folkets st\u00f6d tryter. Ett rike utan folkets st\u00f6d st\u00e5r ostadigt n\u00e4r m\u00f6rkare tider kommer.';
   }
   if (ch === 'ch6' && textEl && gameState.stod < 5) {
-    textEl.textContent += ' M\u00e4rk v\u00e4l: Alberts stod \u00e4r l\u00e5gt. Det kan avg\u00f6ra vilka v\u00e4gar som st\u00e5r \u00f6ppna i sista kapitlet.';
+    textEl.textContent += ' M\u00e4rk v\u00e4l: folkets st\u00f6d \u00e4r l\u00e5gt \u2014 det f\u00e4rgar hur staden minns dig i sista kapitlet.';
   }
 
   var fk = document.getElementById(ch + '-finalMakt');
@@ -3466,9 +3461,10 @@ function getConclusionText(chapter) {
     return text;
   }
     if (chapter === 'ch6') {
-    var reaction = gameState.choices.ch6_reaction;
-    var d = choiceData.ch6[1][reaction];
-    return d.conclusionText || '';
+    var reaction6 = gameState.choices.ch6_fall;
+    if (reaction6 === undefined) reaction6 = 1;
+    var d6 = choiceData.ch6[1][reaction6];
+    return d6.conclusionText || '';
   }
   return '';
 }
@@ -4124,83 +4120,44 @@ function ch5EndMiniGame() {
    CH6: NEWSPAPER DRAMATIC REVEAL
    ============================================ */
 function ch6StartNewspaperSequence() {
-  // Radio 1933: barnet vrider ratten, fragment tonar fram ur bruset.
-  var LINES = [
-    { de: 'Achtung! Eine Meldung des Reichssenders.', sv: 'Observera! Ett meddelande fr\u00e5n riksradion.', freq: '600' },
-    { de: 'Die Lehre Einsteins ist volksfeindlich.', sv: '\u201dEinsteins l\u00e4ra \u00e4r folkets fiende.\u201d', freq: '850' },
-    { de: 'Seine B\u00fccher wurden verbrannt.', sv: '\u201dHans b\u00f6cker har br\u00e4nts.\u201d', freq: '1100' },
-    { de: 'Der Professor ist ein Feind des Staates.', sv: '\u201dProfessorn \u00e4r en fiende till staten.\u201d', freq: '1350' }
-  ];
-  var linesEl = document.getElementById('ch6-radioLines');
-  var staticEl = document.getElementById('ch6-radioStatic');
-  var knob = document.getElementById('ch6-radioKnob');
-  var knobLabel = document.getElementById('ch6-radioKnobLabel');
-  var needle = document.getElementById('ch6-radioNeedle');
-  var eye = document.getElementById('ch6-radioEye');
-  var revealBox = document.getElementById('ch6-revealBox');
+  // Budet: en ryttare kommer med brevet om Poltava. En knapp, texten tonar fram.
+  var btn = document.getElementById('ch6-letterBtn');
+  var linesEl = document.getElementById('ch6-letterLines');
   var cont = document.getElementById('ch6-newspaperContinue');
-  if (!knob) return;
+  if (!btn || !linesEl) return;
+  var LINES = [
+    'Till Salteby och rikets alla st\u00e4der.',
+    'Vid Poltava, l\u00e5ngt borta i \u00f6ster, har v\u00e5r h\u00e4r m\u00f6tt en \u00f6vermakt.',
+    'Kungens arm\u00e9 \u00e4r slagen. M\u00e5nga \u00e4r d\u00f6da eller fångna.',
+    'Och med skeppen kom en annan fiende hem: pesten g\u00e5r nu l\u00e4ngs kusten.',
+    'Stormaktstidens sol har b\u00f6rjat g\u00e5 ned.'
+  ];
   linesEl.innerHTML = '';
-  var tuned = 0;
-  var busy = false;
-
-  function crackle() {
-    if (typeof NobelSound !== 'undefined' && NobelSound._initialized) {
-      try { NobelSound.play('sfx_newspaper'); } catch (e) { /* ignore */ }
-    }
-  }
-  function scramble() {
-    var chars = '\u2591\u2592\u2593 ';
-    var out = '';
-    for (var i = 0; i < 26; i++) out += chars[Math.floor((Math.sin(i * 9.7 + tuned * 3 + performance.now() / 90) + 1) * 2)] || ' ';
-    staticEl.textContent = out;
-  }
-  var scrambleTimer = setInterval(scramble, 90);
-
-  var pending = false;
-  function tune() {
-    if (tuned >= LINES.length) return;
-    if (busy) { pending = true; return; }
-    busy = true;
-    var ln = LINES[tuned];
-    knob.style.setProperty('--knob', (tuned + 1) * 60 + 'deg');
-    needle.textContent = ln.freq;
-    eye.style.setProperty('--eye', String(0.4 + tuned * 0.15));
-    crackle();
-    // kort skak när stationen låser
-    var gc = document.getElementById('gameContainer');
-    gc.classList.add('screen-shake');
-    setTimeout(function () { gc.classList.remove('screen-shake'); }, 300);
-    setTimeout(function () {
-      var div = document.createElement('div');
-      div.className = 'radio-line';
-      div.innerHTML = '<span class="de">' + ln.de + '</span><br><span class="sv">' + ln.sv + '</span>';
-      linesEl.appendChild(div);
-      void div.offsetWidth;
-      div.classList.add('visible');
-      tuned++;
-      busy = false;
-      if (pending && tuned < LINES.length) { pending = false; setTimeout(tune, 150); }
-      if (tuned >= LINES.length) {
-        clearInterval(scrambleTimer);
-        staticEl.style.opacity = '0';
-        knob.style.cursor = 'default';
-        knobLabel.textContent = '\u2014 sl\u00e4ck radion \u2014';
-        setTimeout(function () { revealBox.classList.add('visible'); }, 1400);
-        setTimeout(function () { cont.style.display = 'block'; }, 3400);
-      } else {
-        knobLabel.textContent = 'Vrid vidare\u2026';
-      }
-    }, 650);
-  }
-  knob.onclick = tune;
+  var shown = false;
+  btn.onclick = function() {
+    if (shown) return;
+    shown = true;
+    btn.style.display = 'none';
+    LINES.forEach(function(t, i) {
+      setTimeout(function() {
+        var d = document.createElement('div');
+        d.className = 'radio-line';
+        d.textContent = t;
+        linesEl.appendChild(d);
+        void d.offsetWidth;
+        d.classList.add('visible');
+        if (typeof NobelSound !== 'undefined' && NobelSound._initialized) {
+          try { NobelSound.play('sfx_newspaper'); } catch (e) { /* ignore */ }
+        }
+        if (i === LINES.length - 1) setTimeout(function() { cont.style.display = 'block'; }, 1400);
+      }, 900 * (i + 1));
+    });
+  };
 }
 
-/* ============================================
-   CH6: REFLECTION SEQUENCE
-   ============================================ */
 function ch6StartReflection() {
-  var reaction = gameState.choices.ch6_reaction;
+  var reaction = gameState.choices.ch6_fall;
+  if (reaction === undefined) reaction = 1;
   var data = choiceData.ch6[1][reaction];
   var reflectionEl = document.getElementById('ch6-reflectionText');
   reflectionEl.textContent = data.reflectionText || '';
@@ -6748,235 +6705,108 @@ var NobelDiary = (function () {
    */
   var entryGenerators = {};
 
-  // ── CHAPTER 1 — München, 1885 ────────────────────────────
+  // Krönikan förs av Korpen Minne. Kort, minnesvärt, grenar på valen.
+  // Varje generator returnerar { date, text } där text är rader join('\n').
+  function line(arr, t) { arr.push(t); }
+
   entryGenerators[1] = function (ch) {
-    var date = 'M\u00fcnchen, 1885';
-    var lines = [];
-
-    lines.push('Hej fr\u00e5gebok!');
-    lines.push('');
-
-    if (ch.ch1_uppror === 0) {
-      lines.push('Pappa gav mig en KOMPASS! Jag fr\u00e5gade hundra saker. Han sa att jorden \u00e4r som en j\u00e4ttestor magnet som drar i n\u00e5len. Men VEM drar i jorden d\u00e5? Det visste inte pappa. Jag ska ta reda p\u00e5 det.');
-    } else if (ch.ch1_uppror === 1) {
-      lines.push('Pappa gav mig en KOMPASS! N\u00e5len r\u00f6r sig fast ingen r\u00f6r den. Jag l\u00e5g vaken i natt och t\u00e4nkte: det m\u00e5ste finnas n\u00e5got osynligt \u00f6verallt omkring oss. Man kan inte se det. Men det FINNS. Jag f\u00e5r pirr i magen n\u00e4r jag t\u00e4nker p\u00e5 det.');
-    } else {
-      lines.push('Pappa gav mig en KOMPASS! Jag och Maja f\u00f6ljde n\u00e5len genom hela huset. Den hittade sked-l\u00e5dan! Maja sa att jag \u00e4r knasig. Men hon skrattade hela tiden.');
-    }
-
-    lines.push('');
-
-    if (ch.ch1_gava === 0) {
-      lines.push('Mamma s\u00e4ger att jag M\u00c5STE \u00f6va fiol. Det \u00e4r tr\u00e5kigt. Men idag spelade hon Mozart p\u00e5 pianot och det l\u00e4t som... jag vet inte. Som n\u00e4r man f\u00f6rst\u00e5r n\u00e5got. Jag kanske \u00f6var lite till i morgon.');
-    } else {
-      lines.push('Jag hittade p\u00e5 en egen melodi p\u00e5 fiolen idag. Mamma h\u00f6rde det och suckade. Men jag s\u00e5g att hon log. Min melodi l\u00e5ter som regn p\u00e5 f\u00f6nstret.');
-    }
-
-    lines.push('');
-    lines.push('Fr\u00e5gor jag vill ha svar p\u00e5: Varf\u00f6r pekar n\u00e5len alltid mot norr? Vad mer finns som man inte kan se? Hur l\u00e5ngt bort \u00e4r stj\u00e4rnorna?');
-
-    return { date: date, text: lines.join('\n') };
+    var L = [];
+    line(L, 'Kraa. Jag är Minne, och detta skriver jag ner.');
+    line(L, '');
+    if (ch.ch1_uppror === 0) line(L, 'Salteby skickade män med Gustav. Modiga yxor, tomma stolar vid bordet.');
+    else if (ch.ch1_uppror === 2) line(L, 'Salteby varnade danskarna. Staden skonades — men grannarna glömmer inte.');
+    else line(L, 'Salteby avvaktade och såg vem som vann. Klokt, sägs det. Fegt, säger andra.');
+    if (ch.ch1_gava === 0) line(L, 'Åt den nye kungen gavs silver. Kronan minns lojala städer.');
+    else if (ch.ch1_gava === 1) line(L, 'Friheten firades på torget i tre dagar. Kungen fick vänta.');
+    line(L, '');
+    line(L, 'Ett nytt rike är fött. En ny tid börjar.');
+    return { date: 'Salteby, omkring 1523', text: L.join('\n') };
   };
 
-  // ── CHAPTER 2 — München/Milano, 1894 ─────────────────────
   entryGenerators[2] = function (ch) {
-    var date = 'Milano, vintern 1894';
-    var lines = [];
-
-    lines.push('Hej fr\u00e5gebok!');
-    lines.push('');
-
-    if (ch.ch2_skolan === 0) {
-      lines.push('Jag fr\u00e5gade VARF\u00d6R idag igen. L\u00e4raren bl\u00e4ngde. En l\u00e4rare sa till och med att det aldrig blir n\u00e5got av mig. Men om ingen fr\u00e5gar varf\u00f6r \u2014 hur ska man d\u00e5 f\u00e5 veta n\u00e5got NYTT?');
-    } else if (ch.ch2_skolan === 1) {
-      lines.push('Jag har pluggat s\u00e5 mycket att det knakar i huvudet. Proven g\u00e5r bra, s\u00e4rskilt matten. Men det k\u00e4nns som att skolan vill att jag ska svara, inte fr\u00e5ga. Jag sparar fr\u00e5gorna h\u00e4r i boken s\u00e5 l\u00e4nge.');
-    } else if (ch.ch2_skolan === 2) {
-      lines.push('Max b\u00f6cker \u00e4r det B\u00c4STA som finns. Igår l\u00e4ste jag om ljuset \u2014 att det far fram genom rymden fortare \u00e4n n\u00e5got annat. Jag fick geometriboken ocks\u00e5. Jag kallar den den heliga lilla boken.');
-    } else {
-      lines.push('Farbror Jakob och jag jagade djuret x igen. Det g\u00f6mde sig i en riktigt klurig ekvation, men jag F\u00c5NGADE det! Farbror Jakob skrattade och sa att snart f\u00e5r jag jaga sv\u00e5rare djur.');
-    }
-
-    lines.push('');
-
-    if (ch.ch2_italien === 0) {
-      lines.push('Familjen \u00e4r i Italien och jag var kvar i M\u00fcnchen. Det var det ensammaste jag varit med om. Nu \u00e4r jag \u00e4ntligen h\u00e4r hos dem. Jag vill aldrig vara s\u00e5 ensam igen.');
-    } else {
-      lines.push('Jag tog t\u00e5get till Italien HELT SJ\u00c4LV. Ingen sa att jag fick. Men n\u00e4r mamma \u00f6ppnade d\u00f6rren kramade hon mig s\u00e5 h\u00e5rt att det knakade. Ibland m\u00e5ste man v\u00e5ga.');
-    }
-
-    lines.push('');
-    lines.push('Nya fr\u00e5gor: Vad h\u00e4nder om man springer ikapp en ljusstr\u00e5le? Varf\u00f6r lyser stj\u00e4rnor? Kan man t\u00e4nka sig fram till svar som ingen vet?');
-
-    return { date: date, text: lines.join('\n') };
+    var L = [];
+    line(L, 'Kraa. Reformationens år.');
+    line(L, '');
+    if (ch.ch2_kyrka === 0) line(L, 'Kyrksilvret gavs åt kungen. Kronan blev rik, munkarna tysta.');
+    else if (ch.ch2_kyrka === 1) line(L, 'En del silver göms åt kyrkan. Farligt, om kungens fogde får nys.');
+    else line(L, 'Tinget fick avgöra silvrets öde. Ingen jublade, ingen kände sig lurad.');
+    if (ch.ch2_kloster === 0) line(L, 'Klostret blev stadens första skola. Barnen lär sig bokstäverna.');
+    else if (ch.ch2_kloster === 1) line(L, 'Klostret revs, stenen såldes. Något gammalt försvann för alltid.');
+    line(L, '');
+    line(L, 'Det gamla tar slut. Kungen är starkare än någon kung förr.');
+    return { date: 'Salteby, omkring 1527', text: L.join('\n') };
   };
 
-  // ── CHAPTER 3 — Aarau/Zürich, 1896–1900 ──────────────────
   entryGenerators[3] = function (ch) {
-    var date = 'Z\u00fcrich, 1900';
-    var lines = [];
-
-    lines.push('Hej fr\u00e5gebok!');
-    lines.push('');
-
-    if (ch.ch3_provet === 0) {
-      lines.push('Minns du provet? Jag kuggade. KUGGADE! Fast jag var b\u00e4st i matte och fysik. Franskan s\u00e4nkte mig. F\u00f6rst ville jag bara g\u00f6mma mig. Men \u00e5ret i Aarau blev mitt b\u00e4sta \u2014 d\u00e4r fick man FR\u00c5GA.');
-    } else {
-      lines.push('Minns du provet? Jag f\u00f6rs\u00f6kte plugga in ALLT p\u00e5 en kv\u00e4ll och kuggade \u00e4nd\u00e5. Man kan inte trycka in ett helt \u00e5r p\u00e5 en natt \u2014 nu vet jag det. Men \u00e5ret i Aarau blev mitt b\u00e4sta \u2014 d\u00e4r fick man FR\u00c5GA.');
-    }
-
-    lines.push('');
-    lines.push('Och t\u00e4nk: p\u00e5 en promenad i Aarau kom den st\u00f6rsta fr\u00e5gan jag n\u00e5gonsin t\u00e4nkt. Om jag red p\u00e5 en ljusstr\u00e5le \u2014 vad skulle jag se? Jag f\u00e5r g\u00e5shud varje g\u00e5ng.');
-    lines.push('');
-
-    if (ch.ch3_studier === 0) {
-      lines.push('P\u00e5 h\u00f6gskolan pluggar jag med Mileva och v\u00e4nnerna. Mileva \u00e4r den klokaste i rummet, fast vissa professorer l\u00e5tsas inte se henne. Vi l\u00f6ser problem tillsammans som ingen klarar ensam.');
-    } else if (ch.ch3_studier === 1) {
-      lines.push('Jag har skippat f\u00f6rel\u00e4sningarna igen och l\u00e4st Maxwell sj\u00e4lv i st\u00e4llet. Professor Weber \u00e4r sur p\u00e5 mig. Mileva l\u00e5nar mig sina anteckningar \u2014 utan henne hade jag varit fast.');
-    } else {
-      lines.push('Ikv\u00e4ll spelade jag fiol p\u00e5 kaf\u00e9et och sen pratade vi fysik till stj\u00e4rnorna bleknade. Mileva sa en sak om ljuset som jag inte kan sluta t\u00e4nka p\u00e5. T\u00e4nk att f\u00e5 prata med n\u00e5gon som F\u00d6RST\u00c5R.');
-    }
-
-    lines.push('');
-    lines.push('Nya fr\u00e5gor: Vad ser man om man rider p\u00e5 en ljusstr\u00e5le? Varf\u00f6r f\u00e5r Mileva k\u00e4mpa dubbelt s\u00e5 h\u00e5rt f\u00f6r samma sak? Hur f\u00e5r man ett jobb n\u00e4r professorerna \u00e4r sura p\u00e5 en?');
-
-    return { date: date, text: lines.join('\n') };
+    var L = [];
+    line(L, 'Kraa. Dackes år, då Småland brann.');
+    line(L, '');
+    if (ch.ch3_dacke === 0) line(L, 'Salteby reste sig med Dacke. Folket kände sig fritt — kungen minns det.');
+    else if (ch.ch3_dacke === 1) line(L, 'Salteby stod med kungen mot sina egna grannar. Belönat, men skamfullt.');
+    else line(L, 'Salteby stängde portarna och höll sig undan stormen.');
+    if (ch.ch3_efter === 0) line(L, 'Flyktingar göms i lador och källare. Barmhärtigt och farligt.');
+    else if (ch.ch3_efter === 1) line(L, 'De flyende angavs till fogden. Torget blev tystare efter det.');
+    line(L, '');
+    line(L, 'Upproret krossades. Men kungen lärde sig: ett folk som pressas för hårt reser sig.');
+    return { date: 'Salteby, 1543', text: L.join('\n') };
   };
 
-  // ── CHAPTER 4 — Bern, 1905 ────────────────────────────────
   entryGenerators[4] = function (ch) {
-    var date = 'Bern, december 1905';
-    var lines = [];
-
-    lines.push('Hej fr\u00e5gebok!');
-    lines.push('');
-
-    if (ch.ch4_bern === 0) {
-      lines.push('Akademien Olympia hade m\u00f6te ikv\u00e4ll igen. Vi \u00e4r bara n\u00e5gra v\u00e4nner med billigt te, men vi diskuterar st\u00f6rre fr\u00e5gor \u00e4n de fina professorerna. Vi pratade halva natten om tiden \u2014 t\u00e4nk om den inte \u00e4r likadan f\u00f6r alla? Sen kunde varken Mileva eller jag sova.');
-    } else if (ch.ch4_bern === 1) {
-      lines.push('Chefen ber\u00f6mde mig idag \u2014 kontorets b\u00e4sta granskare! Det roliga \u00e4r att jobbet g\u00f6r mig till en b\u00e4ttre t\u00e4nkare. Varje uppfinning \u00e4r en g\u00e5ta: fungerar den? Var \u00e4r felet? Precis som fysik.');
-    } else {
-      lines.push('L\u00e5dan i skrivbordet \u00e4r full av ber\u00e4kningar nu. Min hemliga \u201davdelning f\u00f6r teoretisk fysik\u201d. Om chefen visste! Men tankarna kan ingen st\u00e4mpla NEJ p\u00e5.');
-    }
-
-    lines.push('');
-    lines.push('Det har varit ett OTROLIGT \u00e5r. Fyra artiklar! Ljuset, atomerna, tiden \u2014 och s\u00e5 den d\u00e4r lilla formeln: E = mc\u00b2. Den ser s\u00e5 oskyldig ut p\u00e5 pappret.');
-    lines.push('');
-
-    if (ch.ch4_mileva === 0) {
-      lines.push('Jag sa till Mileva att jag aldrig klarat det utan henne. Det \u00e4r sant. Hon r\u00e4knade om varenda sida. Varf\u00f6r st\u00e5r d\u00e5 bara mitt namn p\u00e5 artiklarna? Den fr\u00e5gan skaver i mig.');
-    } else if (ch.ch4_mileva === 1) {
-      lines.push('Mileva och jag har redan b\u00f6rjat p\u00e5 n\u00e4sta problem. Hans Albert sover i kn\u00e4et p\u00e5 mig medan vi r\u00e4knar. Ett k\u00f6ksbord kan vara ett helt universum.');
-    } else {
-      lines.push('Jag lovade Mileva: om id\u00e9erna n\u00e5gonsin ger ett pris \u00e4r pengarna hennes. Hon skrattade. Men jag menar det. Utan henne \u2014 inga artiklar.');
-    }
-
-    lines.push('');
-    lines.push('Nya fr\u00e5gor: Om ljuset \u00e4r paket \u2014 vad h\u00e5ller ihop dem? Kan man se att tiden g\u00e5r olika fort? N\u00e4r f\u00e5r Mileva den tack hon f\u00f6rtj\u00e4nar?');
-
-    return { date: date, text: lines.join('\n') };
+    var L = [];
+    line(L, 'Kraa. Stormaktens år, då flaggan vajade över havet.');
+    line(L, '');
+    if (ch.ch4_krig === 0) line(L, 'Stadens unga män seglade mot kriget. Många kom aldrig hem.');
+    else if (ch.ch4_krig === 1) line(L, 'Salteby valde handeln. Hamnen fylldes av skepp och silver.');
+    else line(L, 'Murar och kanoner restes runt hamnen. Folket sov tryggare.');
+    if (ch.ch4_vinter === 0) line(L, 'Kronans förråd öppnades den hårda vintern. Ingen svalt.');
+    else if (ch.ch4_vinter === 1) line(L, 'Vintern lämnades åt folket självt. Torget blev tystare till våren.');
+    line(L, '');
+    line(L, 'Det som växer fort kan falla fort. Jag har sett det förr.');
+    return { date: 'Salteby, 1600-talet', text: L.join('\n') };
   };
 
-  // ── CHAPTER 5 — Berlin, 1919 ──────────────────────────────
   entryGenerators[5] = function (ch) {
-    var date = 'Berlin, november 1919';
-    var lines = [];
-
-    lines.push('Hej fr\u00e5gebok!');
-    lines.push('');
-
-    if (ch.ch5_kriget === 0) {
-      lines.push('Kriget \u00e4r \u00e4ntligen slut. Jag skrev under fredsuppropet n\u00e4r det beh\u00f6vdes som mest \u2014 vi var bara fyra som v\u00e5gade. M\u00e5nga kollegor slutade h\u00e4lsa. Men n\u00e5gra saker \u00e4r viktigare \u00e4n att alla tycker om en.');
-    } else if (ch.ch5_kriget === 1) {
-      lines.push('Kriget \u00e4r \u00e4ntligen slut. Jag h\u00f6ll tyst och r\u00e4knade medan v\u00e4rlden brann. Teorin blev klar \u2014 men jag t\u00e4nker ofta p\u00e5 om jag borde ha sagt n\u00e5got. Tystnad \u00e4r ocks\u00e5 ett val.');
-    } else {
-      lines.push('Kriget \u00e4r \u00e4ntligen slut. Jag pratade om fred p\u00e5 f\u00f6rel\u00e4sningarna, mitt bland formlerna. N\u00e5gra studenter nickade. Kanske gror s\u00e5nt.');
-    }
-
-    lines.push('');
-
-    if (ch.ch5_eddington === 0) {
-      lines.push('Och s\u00e5 DET STORA: Eddington fotograferade solf\u00f6rm\u00f6rkelsen \u2014 och stj\u00e4rnljuset B\u00d6JDE SIG, precis som ber\u00e4kningarna sa! En engelsman bevisade en tysks teori, mitt efter kriget. Det \u00e4r det vackraste med vetenskapen: den har inga l\u00e4nder.');
-    } else {
-      lines.push('Och s\u00e5 DET STORA: solf\u00f6rm\u00f6rkelsen! Eddington fick tag p\u00e5 teorin \u00e4nd\u00e5, efter kriget \u2014 och stj\u00e4rnljuset B\u00d6JDE SIG, precis som ber\u00e4kningarna sa. T\u00e4nk att m\u00e5nen och solen hj\u00e4lptes \u00e5t att bevisa det.');
-    }
-
-    lines.push('');
-
-    if (ch.ch5_pressen === 0) {
-      lines.push('Tidningarna skriker att Newton \u00e4r st\u00f6rtad. Vilket trams. Jag st\u00e5r p\u00e5 hans axlar \u2014 det \u00e4r d\u00e4rf\u00f6r jag ser l\u00e4ngre.');
-    } else if (ch.ch5_pressen === 1) {
-      lines.push('Alla vill pl\u00f6tsligt h\u00f6ra vad jag tycker. D\u00e5 s\u00e4ger jag det viktigaste: vetenskapen ska tj\u00e4na freden. Alltid.');
-    } else {
-      lines.push('Journalisterna jagar mig \u00f6verallt. Jag sk\u00e4mtar med dem \u2014 ig\u00e5r kontorist, idag geni! Om de \u00e4nd\u00e5 visste hur mycket jag fortfarande INTE f\u00f6rst\u00e5r.');
-    }
-
-    lines.push('');
-    lines.push('Nya fr\u00e5gor: Om rummet kan b\u00f6ja sig \u2014 vad mer kan det g\u00f6ra? Varf\u00f6r lyssnar folk mer p\u00e5 en ber\u00f6md person, \u00e4ven om orden \u00e4r desamma? Vad ska jag anv\u00e4nda ber\u00f6mmelsen till?');
-
-    return { date: date, text: lines.join('\n') };
+    var L = [];
+    line(L, 'Kraa. Fyra stånd delade ett rike.');
+    line(L, '');
+    if (ch.ch5_stand === 0) line(L, 'Adeln fick behålla sina förmåner. Bönderna suckade.');
+    else if (ch.ch5_stand === 1) line(L, 'Borgare och bönder fick mer att säga till om. Adeln muttrade.');
+    else line(L, 'Kronan tog mark från adeln. Reduktionen gjorde kronan rik och adeln till fiende.');
+    if (ch.ch5_skola === 1) line(L, 'Skolan öppnades för alla stånds barn. Ovanligt för tiden.');
+    else if (ch.ch5_skola === 0) line(L, 'Bara de fina familjernas barn fick läsa. Så hade det alltid varit.');
+    line(L, '');
+    line(L, 'Ett hus är inte starkare än sin svagaste bjälke.');
+    return { date: 'Salteby, mitten av 1600-talet', text: L.join('\n') };
   };
 
-  // ── CHAPTER 6 — Atlanten, 1933 ────────────────────────────
   entryGenerators[6] = function (ch) {
-    var date = 'Ombord p\u00e5 Atlanten, 1933';
-    var lines = [];
-
-    lines.push('Hej fr\u00e5gebok.');
-    lines.push('');
-    lines.push('Inga stora bokst\u00e4ver idag. Jag sitter p\u00e5 en b\u00e5t mot Amerika och vet att jag aldrig f\u00e5r \u00e5ka hem igen.');
-    lines.push('');
-    lines.push('De br\u00e4nner mina b\u00f6cker p\u00e5 torgen. T\u00e4nk \u2014 samma torg d\u00e4r jag k\u00f6pte varm korv n\u00e4r jag var liten. Mitt namn st\u00e5r p\u00e5 en lista \u00f6ver landets fiender. Vad har jag gjort? Jag har t\u00e4nkt. Och jag \u00e4r jude. Det r\u00e4cker f\u00f6r dem.');
-    lines.push('');
-
-    if (ch.ch6_reaction === 0) {
-      lines.push('Jag l\u00e4mnade tillbaka passet och sa varf\u00f6r, s\u00e5 h\u00f6gt jag kunde. N\u00e5gon m\u00e5ste s\u00e4ga det. Om inte jag \u2014 som hela v\u00e4rlden lyssnar p\u00e5 \u2014 vem d\u00e5?');
-    } else if (ch.ch6_reaction === 1) {
-      lines.push('Jag h\u00e5ller tyst, f\u00f6r Majas skull och alla andras som \u00e4r kvar. Men tystnaden v\u00e4ger mer \u00e4n orden n\u00e5gonsin gjort. Jag hoppas de f\u00f6rst\u00e5r.');
-    } else {
-      lines.push('Jag skriver brev f\u00f6r alla som m\u00e5ste fly \u2014 forskare, l\u00e4rare, studenter. Mitt namn \u00f6ppnar d\u00f6rrar. D\u00e5 ska det anv\u00e4ndas till just det.');
-    }
-
-    lines.push('');
-    lines.push('Fr\u00e5gor jag inte kan sl\u00e4ppa: Hur kan kloka m\u00e4nniskor tro p\u00e5 dumma l\u00f6gner? Varf\u00f6r tystnar s\u00e5 m\u00e5nga n\u00e4r det g\u00e4ller? Vad g\u00f6r jag om mina uppt\u00e4ckter n\u00e5gonsin anv\u00e4nds i krig?');
-
-    return { date: date, text: lines.join('\n') };
+    var L = [];
+    line(L, 'Kraa. Fallets år. Jag skriver detta stilla.');
+    line(L, '');
+    if (ch.ch6_fall === 0) line(L, 'Salteby tog hand om de sjuka och hemlösa. Mänskligheten bestod när allt annat föll.');
+    else if (ch.ch6_fall === 2) line(L, 'Staden samlades en sista gång, sida vid sida mot nöden.');
+    else line(L, 'Var och en räddade det egna. Några dörrar som borde öppnats förblev stängda.');
+    line(L, '');
+    line(L, 'Vid Poltava gick armén under. Pesten tog resten. Freden i Nystad slöt en tid.');
+    line(L, 'Stormaktstidens sol gick ned.');
+    return { date: 'Salteby, 1721', text: L.join('\n') };
   };
 
-  // ── CHAPTER 7 — Princeton, 1955 ───────────────────────────
   entryGenerators[7] = function (ch) {
-    var date = 'Princeton, april 1955';
-    var lines = [];
-
-    lines.push('K\u00e4ra gamla fr\u00e5gebok,');
-    lines.push('');
-    lines.push('jag hittade dig i en flyttl\u00e5da idag. T\u00e4nk att pojken fr\u00e5n M\u00fcnchen som inte kunde sluta fr\u00e5ga har blivit en gammal man med vitt h\u00e5r. Men handen som skriver \u00e4r densamma.');
-    lines.push('');
-
-    if (ch.ch7_brevet === 0) {
-      lines.push('Brevet. Jag t\u00e4nker fortfarande p\u00e5 brevet. Vi var tvungna \u2014 t\u00e4nk om Hitler f\u00e5tt bomben f\u00f6rst. Men n\u00e4r jag h\u00f6rde vad som h\u00e4nde i Hiroshima ville jag f\u00f6rsvinna. Om jag vetat att tyskarna aldrig skulle lyckas, hade jag aldrig lyft pennan. Det f\u00e5r framtiden veta.');
-    } else if (ch.ch7_brevet === 1) {
-      lines.push('Brevet. Jag skrev under, men kr\u00e4vde varsamhet. Ingen lyssnade p\u00e5 den raden. Bomben f\u00f6ll \u00e4nd\u00e5. Jag l\u00e4rde mig n\u00e5got fruktansv\u00e4rt: n\u00e4r man sl\u00e4ppt iv\u00e4g en tanke best\u00e4mmer man inte l\u00e4ngre vart den flyger.');
-    } else {
-      lines.push('Brevet. Jag v\u00e4grade skriva under \u2014 och det gick som det gick \u00e4nd\u00e5, utan mitt namn. Var mina h\u00e4nder renare f\u00f6r det? Jag vet inte. Man kan inte st\u00e4lla sig utanf\u00f6r v\u00e4rlden. Det \u00e4r kanske det sista jag l\u00e4rt mig.');
-    }
-
-    lines.push('');
-
-    if (ch.ch7_arvet === 0) {
-      lines.push('Igår skrev jag under manifestet f\u00f6r fred. Det k\u00e4nns bra att det kanske blir min sista underskrift. B\u00f6rja med en kompass \u2014 sluta med en kompassriktning: fred.');
-    } else if (ch.ch7_arvet === 1) {
-      lines.push('T\u00e4nk, de ville g\u00f6ra mig till president! Jag sa som det \u00e4r: ekvationer \u00e4r enklare \u00e4n m\u00e4nniskor. Men jag sa det med ett leende.');
-    } else {
-      lines.push('Numera spelar jag mest fiol och r\u00e4knar p\u00e5 min sista stora g\u00e5ta. Den l\u00e4r f\u00f6rbli ol\u00f6st. Bra s\u00e5 \u2014 en v\u00e4rld utan g\u00e5tor vore inget f\u00f6r mig.');
-    }
-
-    lines.push('');
-    lines.push('Till dig som l\u00e4ser det h\u00e4r: jag hade ingen s\u00e4rskild talang. Jag var bara brinnande nyfiken. Sluta aldrig fr\u00e5ga varf\u00f6r. Det viktiga \u00e4r att inte sluta fr\u00e5ga.');
-
-    return { date: date, text: lines.join('\n') };
+    var L = [];
+    line(L, 'Kraa. Och nu, långt senare, sitter jag kvar på tornet.');
+    line(L, '');
+    line(L, 'Riket blev mindre men bestod. Salteby finns kvar — torget, hamnen, gatorna.');
+    if (gameState.stod >= 6) line(L, 'Folket minns dig med värme. Det är det finaste ett minne kan bära.');
+    else if (gameState.makt >= 6 && gameState.stod <= 3) line(L, 'Makten minns dig. Folket mest tystnaden efter.');
+    else if (gameState.valstand >= 7) line(L, 'Handeln överlevde kronan. Rikedomen blev ditt avtryck.');
+    else line(L, 'Också de tysta åren räknas. Varje val du gjorde blev en rad i min krönika.');
+    line(L, '');
+    line(L, 'Jag minns allt. Det är det jag är till för.');
+    return { date: 'Salteby, i dag', text: L.join('\n') };
   };
 
-
+  
   // ══════════════════════════════════════════════════════════════
   //  DOM CONSTRUCTION
   // ══════════════════════════════════════════════════════════════
