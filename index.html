@@ -9248,11 +9248,11 @@ var NobelMinigames = (function () {
 
     // Items: position, hit radius (generous for small fingers), draw fn key
     var ITEMS = [
-      { id: 'bok',     label: 'Boken',            x: 236, y: 268, r: 26 },
-      { id: 'lupp',    label: 'Förstoringsglaset', x: 224, y: 52,  r: 24 },
-      { id: 'magnet',  label: 'Magneten',         x: 96,  y: 258, r: 24 },
-      { id: 'kolv',    label: 'Kolven',           x: 312, y: 108, r: 24 },
-      { id: 'penna',   label: 'Fjäderpennan',     x: 118, y: 336, r: 24 }
+      { id: 'nyckel', label: 'Nyckeln',      x: 236, y: 268, r: 26 },
+      { id: 'skruv',  label: 'Skruvnyckeln', x: 224, y: 52,  r: 24 },
+      { id: 'magnet', label: 'Magneten',     x: 96,  y: 258, r: 24 },
+      { id: 'spik',   label: 'Spiken',       x: 312, y: 108, r: 24 },
+      { id: 'sax',    label: 'Saxen',        x: 118, y: 336, r: 24 }
     ];
 
     function init(containerId) {
@@ -9262,12 +9262,12 @@ var NobelMinigames = (function () {
 
       var wrapper = createDiv(container, 'nmg-wrapper');
       var titleEl = createDiv(wrapper, 'nmg-title');
-      titleEl.textContent = 'Skattjakten på vinden';
+      titleEl.textContent = 'Kompassjakten';
       var subEl = createDiv(wrapper, 'nmg-subtitle');
-      subEl.textContent = 'Hitta sakerna Alfred kan lära sig av!';
+      subEl.textContent = 'Följ kompassnålen — hitta det magnetiska!';
 
       var instrEl = createDiv(wrapper, 'nmg-instructions');
-      instrEl.innerHTML = 'Alfred utforskar vinden. Fem saker gömmer sig i rummet — en <strong>bok</strong>, ett <strong>förstoringsglas</strong>, en <strong>magnet</strong>, en <strong>kolv</strong> och en <strong>fjäderpenna</strong>. Tryck på dem när du hittar dem!';
+      instrEl.innerHTML = 'I pappas verkstad gömmer sig fem magnetiska saker — en <strong>nyckel</strong>, en <strong>skruvnyckel</strong>, en <strong>magnet</strong>, en <strong>spik</strong> och en <strong>sax</strong>. Kompassnålen pekar mot den närmaste. Tryck när du hittar dem!';
 
       state = {
         phase: 'ready',
@@ -9404,11 +9404,11 @@ var NobelMinigames = (function () {
       scoreDisp.textContent = '⭐'.repeat(Math.max(1, state.score + 1));
       var txt = createDiv(state.resultEl, 'nmg-result-text');
       if (state.score === 2) {
-        txt.innerHTML = 'Vilken spårare! Alfred hittade allt han behöver för sina experiment.<br><strong>+1 📚 Kunskap och +1 💡 Fantasi</strong>';
+        txt.innerHTML = 'Vilken upptäckare! Albert hittade allt magnetiskt i hela verkstan.<br><strong>+1 📚 Kunskap och +1 💡 Fantasi</strong>';
       } else if (state.score === 1) {
-        txt.innerHTML = 'Bra letat! Alfred har fått ihop sin uppfinnarlåda.<br><strong>+1 💡 Fantasi</strong>';
+        txt.innerHTML = 'Bra letat! Kompassen och Albert är ett riktigt bra lag.<br><strong>+1 💡 Fantasi</strong>';
       } else {
-        txt.innerHTML = 'Alla saker hittade till slut — Alfred ger aldrig upp, precis som du!';
+        txt.innerHTML = 'Alla saker hittade till slut — Albert ger aldrig upp, precis som du!';
       }
       addRetryButton(state.resultEl, 'ch1', start);
       notifyDone('ch1');
@@ -9465,11 +9465,15 @@ var NobelMinigames = (function () {
       ctx.fillRect(40, 200, 124, 10);
       ctx.fillRect(48, 210, 10, 82);
       ctx.fillRect(146, 210, 10, 82);
-      // Candle on table
-      ctx.fillStyle = COLORS.parchment;
-      ctx.fillRect(84, 178, 8, 22);
-      ctx.fillStyle = '#f5d680';
-      ctx.beginPath(); ctx.arc(88, 172, 5, 0, Math.PI * 2); ctx.fill();
+      // Pappas elektriska lampa hänger från taket
+      ctx.strokeStyle = 'rgba(42,31,20,0.5)'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(160, 0); ctx.lineTo(160, 24); ctx.stroke();
+      ctx.fillStyle = '#3a3a3a';
+      ctx.fillRect(155, 24, 10, 7);
+      ctx.fillStyle = 'rgba(255,236,150,0.95)';
+      ctx.beginPath(); ctx.arc(160, 40, 9, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,236,150,0.18)';
+      ctx.beginPath(); ctx.arc(160, 40, 20, 0, Math.PI * 2); ctx.fill();
 
       // Barrel (right)
       ctx.fillStyle = '#8a6034';
@@ -9487,11 +9491,42 @@ var NobelMinigames = (function () {
       ctx.beginPath(); ctx.moveTo(48, 300); ctx.lineTo(66, 300); ctx.stroke();
 
       // ── Hidden items (drawn unless found) ──
-      if (!state.found.bok)    drawBook(ctx, ITEMS[0].x, ITEMS[0].y);
-      if (!state.found.lupp)   drawLupp(ctx, ITEMS[1].x, ITEMS[1].y);
+      if (!state.found.nyckel) drawNyckel(ctx, ITEMS[0].x, ITEMS[0].y);
+      if (!state.found.skruv)  drawSkruvnyckel(ctx, ITEMS[1].x, ITEMS[1].y);
       if (!state.found.magnet) drawMagnet(ctx, ITEMS[2].x, ITEMS[2].y);
-      if (!state.found.kolv)   drawKolv(ctx, ITEMS[3].x, ITEMS[3].y);
-      if (!state.found.penna)  drawPenna(ctx, ITEMS[4].x, ITEMS[4].y);
+      if (!state.found.spik)   drawSpik(ctx, ITEMS[3].x, ITEMS[3].y);
+      if (!state.found.sax)    drawSax(ctx, ITEMS[4].x, ITEMS[4].y);
+
+      // ── Kompassen: nålen pekar mot närmaste ohittade sak ──
+      var showCompass = state.phase === 'playing';
+      if (nmgDifficulty() === 'klurig' && now - state.lastFindAt < 5000) showCompass = false;
+      if (showCompass) {
+        var nearest = null, best = Infinity;
+        for (var ci = 0; ci < ITEMS.length; ci++) {
+          if (state.found[ITEMS[ci].id]) continue;
+          var cdx = ITEMS[ci].x - 178, cdy = ITEMS[ci].y - 34;
+          var cd = cdx * cdx + cdy * cdy;
+          if (cd < best) { best = cd; nearest = ITEMS[ci]; }
+        }
+        if (nearest) {
+          var ang = Math.atan2(nearest.y - 34, nearest.x - 178) + Math.sin(now / 300) * 0.06;
+          ctx.save();
+          ctx.translate(178, 34);
+          ctx.fillStyle = 'rgba(248,251,254,0.95)';
+          ctx.beginPath(); ctx.arc(0, 0, 19, 0, Math.PI * 2); ctx.fill();
+          ctx.strokeStyle = COLORS.navy || '#14213d'; ctx.lineWidth = 2.5;
+          ctx.beginPath(); ctx.arc(0, 0, 19, 0, Math.PI * 2); ctx.stroke();
+          ctx.rotate(ang);
+          ctx.fillStyle = '#c0392b';
+          ctx.beginPath(); ctx.moveTo(14, 0); ctx.lineTo(-3, -4); ctx.lineTo(-3, 4); ctx.closePath(); ctx.fill();
+          ctx.fillStyle = '#14213d';
+          ctx.beginPath(); ctx.moveTo(-12, 0); ctx.lineTo(-3, -3); ctx.lineTo(-3, 3); ctx.closePath(); ctx.fill();
+          ctx.rotate(-ang);
+          ctx.fillStyle = COLORS.gold;
+          ctx.beginPath(); ctx.arc(0, 0, 2.5, 0, Math.PI * 2); ctx.fill();
+          ctx.restore();
+        }
+      }
 
       // Hint pulse: after a while without a find, help out (per nivå)
       if (state.phase === 'playing' && now - state.lastFindAt > (state.hintDelay || 12000)) {
@@ -9564,57 +9599,51 @@ var NobelMinigames = (function () {
       ctx.fillRect(x - 7, y - 4, 14, 5);
     }
 
-    function drawBook(ctx, x, y) {
-      // Uppslagen bok: mörk pärm, två böjda sidor, mittveck och textrader
+    function drawNyckel(ctx, x, y) {
       ctx.save();
-      ctx.translate(x, y); ctx.rotate(-0.12);
-      ctx.fillStyle = '#7a3b2e';
-      ctx.beginPath();
-      ctx.moveTo(-21, -10);
-      ctx.quadraticCurveTo(-10, -16, 0, -11);
-      ctx.quadraticCurveTo(10, -16, 21, -10);
-      ctx.lineTo(21, 11);
-      ctx.quadraticCurveTo(10, 15, 0, 12);
-      ctx.quadraticCurveTo(-10, 15, -21, 11);
-      ctx.closePath(); ctx.fill();
-      ctx.fillStyle = '#f7f0dd';
-      ctx.beginPath();
-      ctx.moveTo(-18, -8);
-      ctx.quadraticCurveTo(-9, -13, 0, -9);
-      ctx.lineTo(0, 10);
-      ctx.quadraticCurveTo(-9, 12, -18, 9);
-      ctx.closePath(); ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(18, -8);
-      ctx.quadraticCurveTo(9, -13, 0, -9);
-      ctx.lineTo(0, 10);
-      ctx.quadraticCurveTo(9, 12, 18, 9);
-      ctx.closePath(); ctx.fill();
-      ctx.strokeStyle = 'rgba(90,58,40,0.6)';
-      ctx.lineWidth = 1.2;
-      ctx.beginPath(); ctx.moveTo(0, -9); ctx.lineTo(0, 10); ctx.stroke();
-      ctx.strokeStyle = 'rgba(90,58,40,0.4)';
-      ctx.lineWidth = 1;
-      for (var bi = 0; bi < 3; bi++) {
-        var ly = -4 + bi * 4;
-        ctx.beginPath(); ctx.moveTo(-14, ly + 1); ctx.lineTo(-4, ly); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(4, ly); ctx.lineTo(14, ly + 1); ctx.stroke();
-      }
+      ctx.translate(x, y); ctx.rotate(-0.35);
+      ctx.strokeStyle = '#b8912f'; ctx.lineWidth = 4; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.arc(-9, 0, 6.5, 0, Math.PI * 2); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(-2.5, 0); ctx.lineTo(16, 0); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(11, 0); ctx.lineTo(11, 6); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(16, 0); ctx.lineTo(16, 8); ctx.stroke();
       ctx.restore();
     }
 
-    function drawLupp(ctx, x, y) {
+    function drawSkruvnyckel(ctx, x, y) {
       ctx.save();
-      ctx.translate(x, y);
-      ctx.lineCap = 'round';
-      ctx.strokeStyle = COLORS.brown; ctx.lineWidth = 5;
-      ctx.beginPath(); ctx.moveTo(5, 5); ctx.lineTo(14, 14); ctx.stroke();
-      ctx.fillStyle = 'rgba(188,216,232,0.65)';
-      ctx.beginPath(); ctx.arc(-3, -3, 10, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = COLORS.copper; ctx.lineWidth = 3.5;
-      ctx.beginPath(); ctx.arc(-3, -3, 10, 0, Math.PI * 2); ctx.stroke();
-      ctx.strokeStyle = 'rgba(255,255,255,0.9)'; ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.arc(-5, -5, 4.5, Math.PI * 0.85, Math.PI * 1.55); ctx.stroke();
+      ctx.translate(x, y); ctx.rotate(0.6);
+      ctx.strokeStyle = '#9aa2ad'; ctx.lineWidth = 6; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(-8, -8); ctx.lineTo(10, 10); ctx.stroke();
+      ctx.strokeStyle = '#b9c0c9'; ctx.lineWidth = 7;
+      ctx.beginPath(); ctx.arc(-12, -12, 7, -0.6, Math.PI * 0.85, false); ctx.stroke();
+      ctx.beginPath(); ctx.arc(14, 14, 7, Math.PI - 0.6, Math.PI * 1.85, false); ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawSpik(ctx, x, y) {
+      ctx.save();
+      ctx.translate(x, y); ctx.rotate(0.9);
+      ctx.strokeStyle = '#8a8f96'; ctx.lineWidth = 3.2; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(0, -13); ctx.lineTo(0, 12); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, 12); ctx.lineTo(0, 15); ctx.stroke();
+      ctx.strokeStyle = '#b9c0c9'; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(-6, -13); ctx.lineTo(6, -13); ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawSax(ctx, x, y) {
+      ctx.save();
+      ctx.translate(x, y); ctx.rotate(-0.5);
+      ctx.strokeStyle = '#9aa2ad'; ctx.lineWidth = 3.4; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(-5, 14); ctx.lineTo(6, -12); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(5, 14); ctx.lineTo(-6, -12); ctx.stroke();
+      ctx.fillStyle = 'rgba(192,57,43,0.9)';
+      ctx.lineWidth = 2.6; ctx.strokeStyle = '#c0392b';
+      ctx.beginPath(); ctx.arc(-8, 17, 4.5, 0, Math.PI * 2); ctx.stroke();
+      ctx.beginPath(); ctx.arc(8, 17, 4.5, 0, Math.PI * 2); ctx.stroke();
+      ctx.fillStyle = COLORS.gold;
+      ctx.beginPath(); ctx.arc(0, 1, 2, 0, Math.PI * 2); ctx.fill();
       ctx.restore();
     }
 
@@ -9640,71 +9669,15 @@ var NobelMinigames = (function () {
       ctx.restore();
     }
 
-    function drawKolv(ctx, x, y) {
-      ctx.fillStyle = 'rgba(212,232,236,0.9)';
-      ctx.beginPath();
-      ctx.moveTo(x - 5, y - 14); ctx.lineTo(x + 5, y - 14);
-      ctx.lineTo(x + 5, y - 4);  ctx.lineTo(x + 14, y + 12);
-      ctx.lineTo(x - 14, y + 12); ctx.lineTo(x - 5, y - 4);
-      ctx.closePath(); ctx.fill();
-      ctx.strokeStyle = COLORS.brownLight; ctx.lineWidth = 1.5; ctx.stroke();
-      // Mynning
-      ctx.strokeStyle = COLORS.brownLight; ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.moveTo(x - 7, y - 14); ctx.lineTo(x + 7, y - 14); ctx.stroke();
-      // Grön vätska
-      ctx.fillStyle = '#6abf5e';
-      ctx.beginPath();
-      ctx.moveTo(x - 10, y + 5); ctx.lineTo(x + 10, y + 5);
-      ctx.lineTo(x + 14, y + 12); ctx.lineTo(x - 14, y + 12);
-      ctx.closePath(); ctx.fill();
-      // Bubblor
-      ctx.fillStyle = 'rgba(255,255,255,0.7)';
-      ctx.beginPath(); ctx.arc(x - 4, y + 8, 1.6, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x + 3, y + 9.5, 1.2, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x + 1, y + 1, 1.3, 0, Math.PI * 2); ctx.fill();
-    }
-
-    function drawPenna(ctx, x, y) {
-      ctx.save();
-      ctx.translate(x, y); ctx.rotate(0.55);
-      // Fjäderns fan
-      ctx.fillStyle = '#efe7d3';
-      ctx.beginPath();
-      ctx.moveTo(0, -18);
-      ctx.quadraticCurveTo(9, -10, 5, 5);
-      ctx.quadraticCurveTo(2, 9, 0, 9);
-      ctx.quadraticCurveTo(-2, 9, -5, 5);
-      ctx.quadraticCurveTo(-9, -10, 0, -18);
-      ctx.closePath(); ctx.fill();
-      ctx.strokeStyle = 'rgba(120,100,70,0.6)'; ctx.lineWidth = 1; ctx.stroke();
-      // Mittstam
-      ctx.strokeStyle = '#b09468'; ctx.lineWidth = 1.6;
-      ctx.beginPath(); ctx.moveTo(0, -16); ctx.lineTo(0, 10); ctx.stroke();
-      // Fjäderstrån
-      ctx.strokeStyle = 'rgba(120,100,70,0.45)'; ctx.lineWidth = 1;
-      for (var fi = 0; fi < 5; fi++) {
-        var fy = -13 + fi * 4;
-        ctx.beginPath(); ctx.moveTo(0, fy + 2); ctx.lineTo(-5 + fi * 0.5, fy - 2); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(0, fy + 2); ctx.lineTo(5 - fi * 0.5, fy - 2); ctx.stroke();
-      }
-      // Guldspets med bläckdroppe
-      ctx.strokeStyle = COLORS.gold; ctx.lineWidth = 2.5;
-      ctx.beginPath(); ctx.moveTo(0, 9); ctx.lineTo(4, 17); ctx.stroke();
-      ctx.fillStyle = COLORS.dark;
-      ctx.beginPath(); ctx.arc(4.5, 17.5, 1.5, 0, Math.PI * 2); ctx.fill();
-      ctx.restore();
-    }
-
     function drawTrayIcon(ctx, id, x, y) {
       ctx.save();
-      ctx.translate(x - (id === 'bok' ? 0 : 0), y);
+      ctx.translate(x, y);
       ctx.scale(0.72, 0.72);
-      ctx.translate(-0, -0);
-      if (id === 'bok')    drawBook(ctx, 0, 0);
-      if (id === 'lupp')   drawLupp(ctx, 0, 0);
+      if (id === 'nyckel') drawNyckel(ctx, 0, 0);
+      if (id === 'skruv')  drawSkruvnyckel(ctx, 0, 0);
       if (id === 'magnet') drawMagnet(ctx, 0, 0);
-      if (id === 'kolv')   drawKolv(ctx, 0, 0);
-      if (id === 'penna')  drawPenna(ctx, 0, 0);
+      if (id === 'spik')   drawSpik(ctx, 0, 0);
+      if (id === 'sax')    drawSax(ctx, 0, 0);
       ctx.restore();
     }
 
