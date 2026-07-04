@@ -154,7 +154,7 @@ maskotmodulen, leaderboard med offline-kö, versionskontrollen (nedan).
     skriv ut landsnamn. Och Storbritannien är en ö.
 12. Låga SVG-opaciteter ser ut som trasiga platshållare.
 
-## 8. Variera formen — återanvänd motorn, inte upplevelsen (direktiv)
+## 7. Variera formen — återanvänd motorn, inte upplevelsen (direktiv)
 
 Efter spel 2 (Einstein) kom det viktigaste seriedirektivet: **spelen
 får inte bli för lika varandra — varken innehållet eller minispelen.**
@@ -189,7 +189,7 @@ ihop-mekanikerna). Två spel som rimmar är charmigt; tre är en mall.
 **Test:** beskriv nya spelet för ett barn som spelat de förra. Om
 barnet kan gissa vad som händer i kapitel 6 — börja om.
 
-## 7. Snabbstart för Einstein-spelet
+## 8. Snabbstart för Einstein-spelet
 
 **Återanvänd omodifierat:** minispelsramverket, showResult/notifyDone,
 NobelSound + sampelsystemet, narrator-modulen + Lyssna-knappen,
