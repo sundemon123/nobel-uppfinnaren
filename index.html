@@ -7975,7 +7975,26 @@ var NobelMinigames = (function () {
      ============================================================ */
   var ch4 = (function () {
     var state, container, canvasObj, animFrame;
-    var W = 360, H = 460;
+    var W = 360, H = 420;
+
+    var CLAIMS = [
+      { text: 'En evighetsmaskin som snurrar f\u00f6r evigt utan energi.', truth: false,
+        why: 'Fel! Ingen maskin kan snurra f\u00f6r evigt \u2014 energin tar alltid slut. M\u00e5nga s\u00f6kte patent p\u00e5 just s\u00e5nt!' },
+      { text: 'Ett paraply med r\u00e4nna som leder bort regnet.', truth: true,
+        why: 'Funkar! Enkelt och smart \u2014 vattnet rinner dit man vill.' },
+      { text: 'En lampa som lyser utan att f\u00e5 str\u00f6m n\u00e5gonstans ifr\u00e5n.', truth: false,
+        why: 'Fel! Ljus \u00e4r energi \u2014 och energi m\u00e5ste komma n\u00e5gonstans ifr\u00e5n.' },
+      { text: 'En cykel med v\u00e4xlar som g\u00f6r uppf\u00f6rsbacken l\u00e4ttare.', truth: true,
+        why: 'Funkar! V\u00e4xlar byter kraft mot fart \u2014 fysik som hj\u00e4lper benen.' },
+      { text: 'En b\u00e5t som drar sig sj\u00e4lv fram\u00e5t med en magnet i sin egen mast.', truth: false,
+        why: 'Fel! Man kan inte dra sig sj\u00e4lv fram\u00e5t \u2014 testa att lyfta dig sj\u00e4lv i h\u00e5ret!' },
+      { text: 'En klocka som drar upp sig sj\u00e4lv n\u00e4r armen r\u00f6r sig.', truth: true,
+        why: 'Funkar! R\u00f6relsen laddar fj\u00e4dern \u2014 s\u00e5dana klockor finns \u00e4n idag.' }
+    ];
+
+    // Stamp zones on canvas
+    var STAMP_FALSE = { x: 84,  y: 296, r: 44 };
+    var STAMP_TRUE  = { x: 276, y: 296, r: 44 };
 
     function init(containerId) {
       container = document.getElementById(containerId);
@@ -7984,86 +8003,63 @@ var NobelMinigames = (function () {
 
       var wrapper = createDiv(container, 'nmg-wrapper');
       var titleEl = createDiv(wrapper, 'nmg-title');
-      titleEl.textContent = 'Blanda dynamit!';
+      titleEl.textContent = 'Patentgranskaren';
       var subEl = createDiv(wrapper, 'nmg-subtitle');
-      subEl.textContent = 'Tryck p\u00e5 flaskorna f\u00f6r att l\u00e4gga till droppar. Hitta r\u00e4tt blandning!';
+      subEl.textContent = 'Uppfinnarna k\u00f6ar \u2014 vad s\u00e4ger granskare Einstein?';
 
       var instrEl = createDiv(wrapper, 'nmg-instructions');
-      instrEl.innerHTML = 'Alfreds recept: <strong>3 droppar nitroglycerin f\u00f6r varje droppe kiselgur</strong>. Tryck p\u00e5 flaskorna f\u00f6r att droppa i sk\u00e5len. N\u00e4r m\u00e4taren \u00e4r i det <strong>gr\u00f6na f\u00e4ltet</strong> \u2014 tryck p\u00e5 Testa!';
+      instrEl.innerHTML = 'L\u00e4s varje uppfinning och st\u00e4mpla den: gr\u00f6n st\u00e4mpel om den <strong>FUNKAR</strong> \u2014 r\u00f6d om det \u00e4r <strong>FEL</strong> p\u00e5 den. T\u00e4nk som en fysiker!';
 
       state = {
         phase: 'ready',
+        order: [],
+        index: 0,
+        errors: 0,
+        stampAnim: null,   // { correct, t, truth }
+        cardAnim: null,    // { t, dir } fly-out
+        feedback: '',
+        feedbackUntil: 0,
+        shakeAnim: null,
+        score: 0,
         wrapper: wrapper,
         instrEl: instrEl,
         statusEl: null,
-        resultEl: null,
-        testBtn: null,
-        score: 0,
-        // Bowl contents
-        nitroDrops: 0,
-        kiselDrops: 0,
-        maxDrops: 20,
-        // Drop animations in bowl
-        drops: [],      // { x, y, color, splashT, radius }
-        // Splash particles
-        splashes: [],
-        // Explosion animation
-        explosionAnim: null, // { t, stable }
-        explosionParticles: [],
-        // Button areas
-        nitroBtn: { x: 30,  y: 30, w: 100, h: 60 },
-        kiselBtn: { x: 230, y: 30, w: 100, h: 60 },
-        // Stability meter position
-        meterX: 30, meterY: 110, meterW: 300, meterH: 20
+        resultEl: null
       };
 
       var statusEl = createDiv(wrapper, 'nmg-status');
-      statusEl.textContent = 'Tryck p\u00e5 flaskorna f\u00f6r att droppa i sk\u00e5len!';
+      statusEl.textContent = 'Uppfinning 1 av ' + CLAIMS.length;
       state.statusEl = statusEl;
 
       canvasObj = createCanvas(wrapper, W, H);
 
-      // Test button
-      var btnWrap = createDiv(wrapper, '');
-      btnWrap.style.marginTop = '8px';
-      var testBtn = document.createElement('button');
-      testBtn.className = 'nmg-btn nmg-btn-gold';
-      testBtn.textContent = 'Testa!';
-      testBtn.addEventListener('click', testMix);
-      btnWrap.appendChild(testBtn);
-      state.testBtn = testBtn;
-
       var resultEl = createDiv(wrapper, 'nmg-hidden');
       state.resultEl = resultEl;
 
-      // Events
       var cv = canvasObj.canvas;
-      cv.addEventListener('mousedown', onClick, false);
-      cv.addEventListener('touchstart', onClick, { passive: false });
+      cv.addEventListener('mousedown',  onTap, false);
+      cv.addEventListener('touchstart', onTap, { passive: false });
     }
 
     function start() {
       if (!state) return;
       state.phase = 'playing';
-      state.nitroDrops = 0;
-      state.kiselDrops = 0;
-      state.drops = [];
-      state.splashes = [];
-      state.explosionAnim = null;
-      state.explosionParticles = [];
-      state.dudMix = false;
+      state.order = shuffle(CLAIMS);
+      state.index = 0;
+      state.errors = 0;
+      state.stampAnim = null;
+      state.cardAnim = null;
+      state.feedback = '';
+      state.shakeAnim = null;
       state.score = 0;
-      state.testBtn.style.display = '';
+      state.statusEl.textContent = 'Uppfinning 1 av ' + CLAIMS.length;
       state.instrEl.classList.remove('nmg-hidden');
       state.resultEl.innerHTML = '';
       state.resultEl.classList.add('nmg-hidden');
-      updateStatus();
       loop();
     }
 
-    function getScore() {
-      return state ? state.score : 0;
-    }
+    function getScore() { return state ? state.score : 0; }
 
     function destroy() {
       if (animFrame) cancelAnimationFrame(animFrame);
@@ -8072,182 +8068,82 @@ var NobelMinigames = (function () {
       state = null;
     }
 
-    function onClick(e) {
-      if (!state || state.phase !== 'playing') return;
+    function playSfx(name) {
+      if (typeof NobelSound !== 'undefined' && NobelSound._initialized) {
+        try { NobelSound.play(name); } catch (e) { /* ignore */ }
+      }
+    }
+
+    function onTap(e) {
+      if (!state || state.phase !== 'playing' || state.stampAnim || state.cardAnim) return;
       e.preventDefault();
       var pos = getPointerPos(canvasObj.canvas, e);
-      var totalDrops = state.nitroDrops + state.kiselDrops;
-
-      if (totalDrops >= state.maxDrops) return;
-
-      var nb = state.nitroBtn;
-      var kb = state.kiselBtn;
-
-      if (pos.x >= nb.x && pos.x <= nb.x + nb.w && pos.y >= nb.y && pos.y <= nb.y + nb.h) {
-        state.nitroDrops++;
-        addDrop('#8B5E3C');
-      } else if (pos.x >= kb.x && pos.x <= kb.x + kb.w && pos.y >= kb.y && pos.y <= kb.y + kb.h) {
-        state.kiselDrops++;
-        addDrop('#D4B878');
-      }
-      updateStatus();
+      var dxT = pos.x - STAMP_TRUE.x,  dyT = pos.y - STAMP_TRUE.y;
+      var dxF = pos.x - STAMP_FALSE.x, dyF = pos.y - STAMP_FALSE.y;
+      if (dxT * dxT + dyT * dyT <= STAMP_TRUE.r * STAMP_TRUE.r) answer(true);
+      else if (dxF * dxF + dyF * dyF <= STAMP_FALSE.r * STAMP_FALSE.r) answer(false);
     }
 
-    function addDrop(color) {
-      // Bowl center area
-      var bowlCX = W / 2;
-      var bowlCY = 310;
-      var bowlR = 80;
-      var angle = Math.random() * Math.PI * 2;
-      var dist = Math.random() * (bowlR - 15);
-      var dx = bowlCX + Math.cos(angle) * dist;
-      var dy = bowlCY + Math.sin(angle) * dist * 0.5; // flatten for top-down view
-
-      state.drops.push({
-        x: dx, y: dy,
-        color: color,
-        splashT: 1,
-        radius: 6 + Math.random() * 4
-      });
-
-      // Splash particles
-      for (var i = 0; i < 6; i++) {
-        var a = Math.random() * Math.PI * 2;
-        var sp = 1 + Math.random() * 2;
-        state.splashes.push({
-          x: dx, y: dy,
-          vx: Math.cos(a) * sp,
-          vy: Math.sin(a) * sp - 1,
-          life: 1,
-          size: 2 + Math.random() * 2,
-          color: color
-        });
-      }
-    }
-
-    function updateStatus() {
-      var total = state.nitroDrops + state.kiselDrops;
-      if (total === 0) {
-        state.statusEl.textContent = 'Tryck p\u00e5 flaskorna f\u00f6r att droppa i sk\u00e5len!';
-        return;
-      }
-      var nitroPct = state.nitroDrops / total * 100;
-      if (total < 4) {
-        state.statusEl.textContent = 'Bra! Forts\u00e4tt droppa\u2026 (' + total + ' av minst 4)';
-      } else if (nitroPct > 80) {
-        state.statusEl.textContent = 'F\u00f6r mycket nitro \u2014 droppa i kiselgur!';
-      } else if (nitroPct < 70) {
-        state.statusEl.textContent = 'Droppa i mer nitroglycerin!';
+    function answer(saidTrue) {
+      var claim = state.order[state.index];
+      var correct = (saidTrue === claim.truth);
+      state.feedback = claim.why;
+      state.feedbackUntil = performance.now() + 2400;
+      state.stampAnim = { correct: correct, t: 0, saidTrue: saidTrue };
+      if (correct) {
+        playSfx('sfx_minigameCorrect');
       } else {
-        state.statusEl.textContent = 'Perfekt blandning \u2014 tryck p\u00e5 Testa! \u2728';
+        state.errors++;
+        state.shakeAnim = { t: 0 };
+        playSfx('sfx_minigameWrong');
       }
-    }
-
-    function testMix() {
-      if (!state || state.phase !== 'playing') return;
-      var total = state.nitroDrops + state.kiselDrops;
-      if (total === 0) {
-        state.statusEl.textContent = 'L\u00e4gg till \u00e5tminstone n\u00e5gra droppar f\u00f6rst!';
-        return;
-      }
-
-      // Kiselgur alone is inert clay — nothing can explode
-      if (state.nitroDrops === 0) {
-        state.dudMix = true;
-        state.phase = 'exploding';
-        state.testBtn.style.display = 'none';
-        state.statusEl.textContent = 'Ingenting h\u00e4nder\u2026 kiselgur \u00e4r bara ofarlig lera!';
-        state.explosionAnim = { t: 0.98, stable: true, quality: 0 };
-        return;
-      }
-
-      state.phase = 'exploding';
-      state.testBtn.style.display = 'none';
-
-      var nitroPct = state.nitroDrops / total * 100;
-      var quality = Math.max(0, 100 - Math.abs(75 - nitroPct) * 3);
-      var stable = quality >= 60;
-
-      state.explosionAnim = { t: 0, stable: stable, quality: quality };
-
-      // Create explosion particles
-      state.explosionParticles = [];
-      var count = stable ? 30 : 60;
-      for (var i = 0; i < count; i++) {
-        var angle = Math.random() * Math.PI * 2;
-        var speed = stable ? (2 + Math.random() * 3) : (3 + Math.random() * 8);
-        state.explosionParticles.push({
-          x: W / 2,
-          y: 310,
-          vx: Math.cos(angle) * speed * (stable ? 0.5 : 1),
-          vy: Math.sin(angle) * speed - (stable ? 1 : 3),
-          life: 1,
-          size: stable ? (3 + Math.random() * 4) : (2 + Math.random() * 8),
-          color: stable
-            ? (Math.random() > 0.5 ? COLORS.gold : COLORS.copper)
-            : (Math.random() > 0.3 ? COLORS.red : '#ff6600')
-        });
-      }
+      // After the stamp lands, fly the card out and advance
+      setTimeout(function () {
+        if (!state) return;
+        state.cardAnim = { t: 0, dir: saidTrue ? 1 : -1 };
+        setTimeout(function () {
+          if (!state) return;
+          state.index++;
+          state.stampAnim = null;
+          state.cardAnim = null;
+          state.feedback = '';
+          if (state.index >= state.order.length) {
+            state.statusEl.textContent = 'Alla patent granskade!';
+            finishGame();
+          } else {
+            state.statusEl.textContent = 'Uppfinning ' + (state.index + 1) + ' av ' + state.order.length;
+          }
+        }, 450);
+      }, 950);
     }
 
     function finishGame() {
-      if (!state) return;
+      if (!state || state.phase === 'done') return;
       state.phase = 'done';
-
-      var total = state.nitroDrops + state.kiselDrops;
-      var nitroPct = total > 0 ? state.nitroDrops / total * 100 : 0;
-      var quality = Math.max(0, 100 - Math.abs(75 - nitroPct) * 3);
-
-      if (quality >= 70) state.score = 2;
-      else if (quality >= 40) state.score = 1;
+      if (state.errors === 0) state.score = 2;
+      else if (state.errors <= 2) state.score = 1;
       else state.score = 0;
 
-      showResult(state, 'ch4', state.score, {
-        2: 'Utm\u00e4rkt blandning! Dynamiten \u00e4r stabil och kraftfull.<br><strong>+1 \ud83d\udcda Kunskap och +1 \ud83d\udcb0 Fantasi</strong>',
-        1: 'Bra blandat! Den fungerar \u2014 Alfred \u00e4r n\u00f6jd.<br><strong>+1 \ud83d\udcb0 Fantasi</strong>',
-        0: state.dudMix
-          ? 'Bara kiselgur? Det \u00e4r ofarlig lera \u2014 ingenting h\u00e4nder! Alfred beh\u00f6ver nitroglycerin. Prova receptet: 3 droppar nitro, 1 droppe kiselgur.'
-          : 'Vilken sm\u00e4ll! Prova receptet: 3 droppar nitro, 1 droppe kiselgur.'
-      }, start);
+      state.instrEl.classList.add('nmg-hidden');
+      state.resultEl.classList.remove('nmg-hidden');
+      state.resultEl.innerHTML = '';
+      var scoreDisp = createDiv(state.resultEl, 'nmg-score-display');
+      scoreDisp.textContent = '⭐'.repeat(Math.max(1, state.score + 1));
+      var txt = createDiv(state.resultEl, 'nmg-result-text');
+      if (state.score === 2) {
+        txt.innerHTML = 'Perfekt granskat! Kontorets skarpaste \u00f6ga \u2014 precis som Albert.<br><strong>+1 \ud83d\udcda Kunskap och +1 \ud83d\udca1 Fantasi</strong>';
+      } else if (state.score === 1) {
+        txt.innerHTML = 'Bra jobbat! N\u00e4stan alla patent r\u00e4tt granskade.<br><strong>+1 \ud83d\udca1 Fantasi</strong>';
+      } else {
+        txt.innerHTML = 'Kluriga rubriker! Nu vet du hur det verkligen låg till.';
+      }
+      addRetryButton(state.resultEl, 'ch4', start);
+      notifyDone('ch4');
     }
 
     function loop() {
       if (!state) return;
       draw();
-
-      // Animate splashes
-      for (var i = state.splashes.length - 1; i >= 0; i--) {
-        var s = state.splashes[i];
-        s.x += s.vx;
-        s.y += s.vy;
-        s.vy += 0.08;
-        s.life -= 0.04;
-        if (s.life <= 0) state.splashes.splice(i, 1);
-      }
-
-      // Drop splash animation
-      for (var i = 0; i < state.drops.length; i++) {
-        if (state.drops[i].splashT > 0) {
-          state.drops[i].splashT -= 0.05;
-        }
-      }
-
-      // Explosion animation
-      if (state.explosionAnim) {
-        state.explosionAnim.t += 0.015;
-        for (var i = state.explosionParticles.length - 1; i >= 0; i--) {
-          var p = state.explosionParticles[i];
-          p.x += p.vx;
-          p.y += p.vy;
-          p.vy += 0.1;
-          p.life -= 0.015;
-          if (p.life <= 0) state.explosionParticles.splice(i, 1);
-        }
-        if (state.explosionAnim.t >= 1) {
-          finishGame();
-        }
-      }
-
       if (state.phase !== 'done') {
         animFrame = requestAnimationFrame(loop);
       }
@@ -8255,174 +8151,128 @@ var NobelMinigames = (function () {
 
     function draw() {
       var ctx = canvasObj.ctx;
+      var now = performance.now();
+      var shakeX = 0;
 
-      // Background
-      ctx.fillStyle = COLORS.parchment;
-      ctx.fillRect(0, 0, W, H);
-
-      // Ingredient buttons
-      drawIngredientBtn(ctx, state.nitroBtn, '#8B5E3C', 'Nitroglycerin', state.nitroDrops);
-      drawIngredientBtn(ctx, state.kiselBtn, '#D4B878', 'Kiselgur', state.kiselDrops);
-
-      // Stability meter
-      drawStabilityMeter(ctx);
-
-      // Bowl (top-down view)
-      drawBowl(ctx);
-
-      // Drops in bowl
-      for (var i = 0; i < state.drops.length; i++) {
-        var d = state.drops[i];
-        var r = d.radius;
-        if (d.splashT > 0) {
-          r *= 1 + d.splashT * 0.5;
-        }
-        ctx.fillStyle = d.color;
-        ctx.globalAlpha = 0.7;
-        ctx.beginPath();
-        ctx.arc(d.x, d.y, r, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.globalAlpha = 1;
+      if (state.shakeAnim) {
+        state.shakeAnim.t += 0.1;
+        if (state.shakeAnim.t >= 1) state.shakeAnim = null;
+        else shakeX = Math.sin(state.shakeAnim.t * 18) * 5 * (1 - state.shakeAnim.t);
       }
 
-      // Splash particles
-      for (var i = 0; i < state.splashes.length; i++) {
-        var s = state.splashes[i];
-        ctx.fillStyle = s.color;
-        ctx.globalAlpha = s.life;
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-        ctx.fill();
+      // Background
+      ctx.fillStyle = '#33281c';
+      ctx.fillRect(0, 0, W, H);
+
+      ctx.save();
+      ctx.translate(shakeX, 0);
+
+      // The newspaper card
+      var cardX = 30, cardY = 34, cardW = W - 60, cardH = 170;
+      if (state.cardAnim) {
+        state.cardAnim.t += 0.07;
+        var ct = easeInOutQuad(Math.min(1, state.cardAnim.t));
+        cardX += state.cardAnim.dir * ct * 380;
+        ctx.globalAlpha = 1 - ct;
+      }
+      ctx.fillStyle = COLORS.parchment;
+      roundRect(ctx, cardX, cardY, cardW, cardH, 6); ctx.fill();
+      ctx.strokeStyle = COLORS.brownLight; ctx.lineWidth = 1.5;
+      roundRect(ctx, cardX, cardY, cardW, cardH, 6); ctx.stroke();
+
+      // Masthead
+      ctx.fillStyle = COLORS.dark;
+      ctx.font = 'bold 13px ' + FONT_HEADLINE;
+      ctx.textAlign = 'center';
+      ctx.fillText('Patentkontoret i Bern', cardX + cardW / 2, cardY + 24);
+      ctx.strokeStyle = 'rgba(42,31,20,0.35)';
+      ctx.beginPath();
+      ctx.moveTo(cardX + 20, cardY + 34); ctx.lineTo(cardX + cardW - 20, cardY + 34);
+      ctx.stroke();
+
+      // Headline text (wrapped)
+      if (state.index < state.order.length) {
+        var claim = state.order[state.index];
+        ctx.fillStyle = COLORS.dark;
+        ctx.font = 'bold 19px ' + FONT_HEADLINE;
+        wrapText(ctx, '”' + claim.text + '”', cardX + cardW / 2, cardY + 74, cardW - 40, 26);
+      }
+
+      // Stamp result on the card
+      if (state.stampAnim) {
+        state.stampAnim.t = Math.min(1, state.stampAnim.t + 0.09);
+        var st = easeOutCubic(state.stampAnim.t);
+        ctx.save();
+        ctx.translate(cardX + cardW / 2, cardY + 120);
+        ctx.rotate(-0.18);
+        ctx.scale(1.8 - 0.8 * st, 1.8 - 0.8 * st);
+        ctx.globalAlpha = st;
+        var stampColor = state.stampAnim.saidTrue ? COLORS.moss : '#a33';
+        ctx.strokeStyle = stampColor;
+        ctx.lineWidth = 3;
+        roundRect(ctx, -62, -20, 124, 40, 6); ctx.stroke();
+        ctx.fillStyle = stampColor;
+        ctx.font = 'bold 22px ' + FONT_BODY;
+        ctx.fillText(state.stampAnim.saidTrue ? 'FUNKAR' : 'FEL', 0, 8);
+        ctx.restore();
+        // Correct / wrong marker
+        ctx.font = '30px ' + FONT_BODY;
+        ctx.fillText(state.stampAnim.correct ? '✅' : '🤔', cardX + cardW - 34, cardY + 36);
       }
       ctx.globalAlpha = 1;
 
-      // Explosion particles
-      if (state.explosionAnim) {
-        // Flash
-        if (state.explosionAnim.t < 0.15) {
-          ctx.fillStyle = state.explosionAnim.stable ? 'rgba(255,200,60,0.3)' : 'rgba(255,60,20,0.4)';
-          ctx.fillRect(0, 0, W, H);
-        }
+      // Stamps (buttons)
+      drawStamp(ctx, STAMP_FALSE, '#a33', 'FEL', '✗');
+      drawStamp(ctx, STAMP_TRUE,  COLORS.moss, 'FUNKAR', '✓');
 
-        for (var i = 0; i < state.explosionParticles.length; i++) {
-          var p = state.explosionParticles[i];
-          ctx.fillStyle = p.color;
-          ctx.globalAlpha = p.life;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
-          ctx.fill();
-        }
-        ctx.globalAlpha = 1;
+      // Feedback line
+      if (state.feedback && now < state.feedbackUntil) {
+        ctx.fillStyle = COLORS.parchment;
+        ctx.font = '600 13px ' + FONT_BODY;
+        wrapText(ctx, state.feedback, W / 2, 372, W - 40, 18);
       }
 
-      // Ideal ratio hint
-      ctx.fillStyle = COLORS.brownLight;
-      ctx.font = '0.7rem ' + FONT_BODY;
-      ctx.textAlign = 'center';
-      ctx.fillText('Recept: 3 droppar nitro f\u00f6r varje droppe kiselgur', W / 2, H - 10);
-    }
-
-    function drawIngredientBtn(ctx, btn, color, label, count) {
-      // Button background
-      ctx.fillStyle = COLORS.parchDark;
-      roundRect(ctx, btn.x, btn.y, btn.w, btn.h, 8);
-      ctx.fill();
-      ctx.strokeStyle = COLORS.copper;
-      ctx.lineWidth = 2;
-      roundRect(ctx, btn.x, btn.y, btn.w, btn.h, 8);
-      ctx.stroke();
-
-      // Color swatch
-      ctx.fillStyle = color;
-      ctx.beginPath();
-      ctx.arc(btn.x + 25, btn.y + btn.h / 2, 12, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.strokeStyle = COLORS.brown;
-      ctx.lineWidth = 1;
-      ctx.stroke();
-
-      // Label
-      ctx.fillStyle = COLORS.dark;
-      ctx.font = 'bold 0.7rem ' + FONT_BODY;
+      ctx.restore();
       ctx.textAlign = 'left';
-      ctx.fillText(label, btn.x + 42, btn.y + btn.h / 2 - 4);
-
-      // Count
-      ctx.fillStyle = COLORS.brownLight;
-      ctx.font = '0.65rem ' + FONT_BODY;
-      ctx.fillText(count + ' droppar', btn.x + 42, btn.y + btn.h / 2 + 12);
     }
 
-    function drawStabilityMeter(ctx) {
-      var mx = state.meterX, my = state.meterY, mw = state.meterW, mh = state.meterH;
-
-      // Background
-      ctx.fillStyle = COLORS.parchDark;
-      roundRect(ctx, mx, my, mw, mh, 4);
-      ctx.fill();
-
-      // Calculate quality
-      var total = state.nitroDrops + state.kiselDrops;
-      var nitroPct = total > 0 ? state.nitroDrops / total * 100 : 0;
-      var quality = total > 0 ? Math.max(0, 100 - Math.abs(75 - nitroPct) * 3) : 0;
-
-      // Fill
-      var fillW = mw * quality / 100;
-      var fillColor = quality >= 70 ? COLORS.moss : quality >= 40 ? COLORS.gold : COLORS.red;
-      ctx.fillStyle = fillColor;
-      roundRect(ctx, mx, my, fillW, mh, 4);
-      ctx.fill();
-
-      // Green zone: where the mix is good enough (quality >= 70)
-      ctx.fillStyle = 'rgba(45,80,22,0.18)';
-      roundRect(ctx, mx + mw * 0.7, my, mw * 0.3, mh, 4);
-      ctx.fill();
-      ctx.strokeStyle = COLORS.moss;
-      ctx.lineWidth = 1.5;
-      roundRect(ctx, mx + mw * 0.7, my, mw * 0.3, mh, 4);
-      ctx.stroke();
-
-      // Label
+    function drawStamp(ctx, zone, color, label, mark) {
+      ctx.save();
+      ctx.translate(zone.x, zone.y);
+      // Wooden handle
       ctx.fillStyle = COLORS.brown;
-      ctx.font = '0.7rem ' + FONT_BODY;
+      roundRect(ctx, -10, -zone.r - 18, 20, 26, 6); ctx.fill();
+      // Stamp base
+      ctx.fillStyle = color;
+      ctx.beginPath(); ctx.arc(0, 0, zone.r, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(0, 0, zone.r - 5, 0, Math.PI * 2); ctx.stroke();
+      ctx.fillStyle = '#fff';
       ctx.textAlign = 'center';
-      ctx.fillText('Blandningsm\u00e4tare \u2014 sikta p\u00e5 gr\u00f6nt!', mx + mw / 2, my - 6);
+      ctx.font = 'bold 26px ' + FONT_BODY;
+      ctx.fillText(mark, 0, -2);
+      ctx.font = 'bold 13px ' + FONT_BODY;
+      ctx.fillText(label, 0, 20);
+      ctx.restore();
     }
 
-    function drawBowl(ctx) {
-      var cx = W / 2, cy = 310, rx = 95, ry = 55;
-
-      // Bowl shadow
-      ctx.fillStyle = 'rgba(42,31,20,0.1)';
-      ctx.beginPath();
-      ctx.ellipse(cx, cy + 8, rx + 5, ry + 3, 0, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Bowl body
-      ctx.fillStyle = '#d4c4a8';
-      ctx.beginPath();
-      ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Bowl rim
-      ctx.strokeStyle = COLORS.copper;
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
-      ctx.stroke();
-
-      // Inner bowl texture
-      ctx.strokeStyle = 'rgba(90,58,40,0.1)';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.ellipse(cx, cy, rx - 15, ry - 10, 0, 0, Math.PI * 2);
-      ctx.stroke();
-
-      // Bowl label
-      ctx.fillStyle = COLORS.brownLight;
-      ctx.font = '0.75rem ' + FONT_BODY;
+    /** Draw centered wrapped text. */
+    function wrapText(ctx, text, cx, startY, maxWidth, lineHeight) {
+      var words = text.split(' ');
+      var line = '', y = startY;
       ctx.textAlign = 'center';
-      ctx.fillText('Blandningssk\u00e5l', cx, cy + ry + 20);
+      for (var i = 0; i < words.length; i++) {
+        var test = line ? line + ' ' + words[i] : words[i];
+        if (ctx.measureText(test).width > maxWidth && line) {
+          ctx.fillText(line, cx, y);
+          line = words[i];
+          y += lineHeight;
+        } else {
+          line = test;
+        }
+      }
+      if (line) ctx.fillText(line, cx, y);
     }
 
     return { init: init, start: start, getScore: getScore, destroy: destroy };
@@ -8430,7 +8280,8 @@ var NobelMinigames = (function () {
 
 
   /* ============================================================
-     CH5: FACTORY LOGISTICS  --  Map-based delivery game
+     CH7: PRISUTDELNINGEN  --  Drag the right medal to each laureate
+     Alfred dreams of the future: hand out the very first prizes.
      ============================================================ */
   var ch5 = (function () {
     var state, container, canvasObj, animFrame;
@@ -9464,18 +9315,18 @@ var NobelMinigames = (function () {
     var W = 360, H = 420;
 
     var CLAIMS = [
-      { text: 'Alfred Nobel är död!', truth: false,
-        why: 'Falskt! Tidningen blandade ihop Alfred med hans bror Ludvig.' },
-      { text: 'Alfred uppfann dynamiten.', truth: true,
-        why: 'Sant! Dynamiten gjorde sprängämnen mycket säkrare.' },
-      { text: 'Alfred kan bara prata svenska.', truth: false,
-        why: 'Falskt! Han kunde fem språk.' },
-      { text: 'Alfred skriver egna dikter.', truth: true,
-        why: 'Sant! Han älskade böcker och skrev poesi.' },
-      { text: 'Alfred älskar krig.', truth: false,
-        why: 'Falskt! Han hoppades att hans uppfinningar skulle stoppa krig.' },
-      { text: 'Alfred vill ge sina pengar till ett pris.', truth: true,
-        why: 'Sant! Det blev Nobelpriset.' }
+      { text: 'Einstein har gjort n\u00e5got brottsligt.', truth: false,
+        why: 'Propaganda! Han pekades ut f\u00f6r VEM han \u00e4r \u2014 inte f\u00f6r n\u00e5got han gjort.' },
+      { text: 'Einsteins b\u00f6cker br\u00e4nns p\u00e5 b\u00e5l.', truth: true,
+        why: 'Tyv\u00e4rr sant. Den som br\u00e4nner b\u00f6cker \u00e4r r\u00e4dd f\u00f6r tankarna i dem.' },
+      { text: 'Hundra f\u00f6rfattare bevisar att Einstein har fel.', truth: false,
+        why: 'Propaganda! Antal \u00e4r inte bevis. \u201dHade jag fel hade det r\u00e4ckt med EN\u201d, sa Albert.' },
+      { text: 'Einstein har l\u00e4mnat Tyskland.', truth: true,
+        why: 'Sant. Han kunde aldrig \u00e5ka hem igen.' },
+      { text: 'Alla riktiga forskare tycker som de nya makthavarna.', truth: false,
+        why: 'Propaganda! Forskare m\u00e5ste f\u00e5 t\u00e4nka fritt \u2014 annars \u00e4r det inte forskning.' },
+      { text: 'M\u00e5nga forskare flyr fr\u00e5n Tyskland.', truth: true,
+        why: 'Sant. Landet jagade bort n\u00e5gra av sina klokaste \u2014 vetenskapen f\u00f6rlorade.' }
     ];
 
     // Stamp zones on canvas
@@ -9489,12 +9340,12 @@ var NobelMinigames = (function () {
 
       var wrapper = createDiv(container, 'nmg-wrapper');
       var titleEl = createDiv(wrapper, 'nmg-title');
-      titleEl.textContent = 'Rätta tidningen!';
+      titleEl.textContent = 'Sant eller propaganda?';
       var subEl = createDiv(wrapper, 'nmg-subtitle');
-      subEl.textContent = 'Tidningen hade fel om Alfred. Vad är sant?';
+      subEl.textContent = 'Granska p\u00e5st\u00e5endena \u2014 vem tj\u00e4nar p\u00e5 att du tror?';
 
       var instrEl = createDiv(wrapper, 'nmg-instructions');
-      instrEl.innerHTML = 'Läs varje rubrik och stämpla den: tryck på den gröna stämpeln om den är <strong>SANT</strong>, eller den röda om den är <strong>FALSKT</strong>.';
+      instrEl.innerHTML = 'Tidningarna \u00e4r fulla av p\u00e5st\u00e5enden om Albert. St\u00e4mpla varje p\u00e5st\u00e5ende: gr\u00f6nt om det \u00e4r <strong>SANT</strong> \u2014 r\u00f6tt om det \u00e4r <strong>FALSKT</strong> (propaganda).';
 
       state = {
         phase: 'ready',
@@ -9617,9 +9468,9 @@ var NobelMinigames = (function () {
       scoreDisp.textContent = '⭐'.repeat(Math.max(1, state.score + 1));
       var txt = createDiv(state.resultEl, 'nmg-result-text');
       if (state.score === 2) {
-        txt.innerHTML = 'Perfekt rättat! Nu vet du mer om Alfred än tidningen gjorde.<br><strong>+1 📚 Kunskap och +1 💡 Fantasi</strong>';
+        txt.innerHTML = 'Perfekt granskat! Propaganda biter inte p\u00e5 dig.<br><strong>+1 \ud83d\udcda Kunskap och +1 \ud83d\udca1 Fantasi</strong>';
       } else if (state.score === 1) {
-        txt.innerHTML = 'Bra jobbat! Nästan alla rubriker rätt.<br><strong>+1 💡 Fantasi</strong>';
+        txt.innerHTML = 'Bra jobbat! N\u00e4stan alla p\u00e5st\u00e5enden r\u00e4tt granskade.<br><strong>+1 \ud83d\udca1 Fantasi</strong>';
       } else {
         txt.innerHTML = 'Kluriga rubriker! Nu vet du hur det verkligen låg till.';
       }
@@ -9670,7 +9521,7 @@ var NobelMinigames = (function () {
       ctx.fillStyle = COLORS.dark;
       ctx.font = 'bold 13px ' + FONT_HEADLINE;
       ctx.textAlign = 'center';
-      ctx.fillText('Le Journal de Paris', cardX + cardW / 2, cardY + 24);
+      ctx.fillText('Der Berliner Beobachter', cardX + cardW / 2, cardY + 24);
       ctx.strokeStyle = 'rgba(42,31,20,0.35)';
       ctx.beginPath();
       ctx.moveTo(cardX + 20, cardY + 34); ctx.lineTo(cardX + cardW - 20, cardY + 34);
