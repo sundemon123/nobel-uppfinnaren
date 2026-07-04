@@ -1895,28 +1895,33 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <div class="title-icon">
         <svg viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
           <rect width="220" height="160" fill="var(--parchment)" rx="8"/>
-          <rect x="85" y="35" width="50" height="75" fill="var(--copper)" opacity="0.36" rx="6"/>
-          <text x="110" y="80" text-anchor="middle" font-family="var(--font-headline)" font-size="11" fill="var(--brown-dark)" opacity="0.90" font-weight="700">DYNAMIT</text>
-          <line x1="110" y1="35" x2="110" y2="20" stroke="var(--brown-dark)" stroke-width="2" opacity="0.72"/>
-          <circle cx="110" cy="16" r="4" fill="var(--copper)" opacity="0.72"/>
-          <text x="110" y="140" text-anchor="middle" font-family="var(--font-body)" font-size="9" fill="var(--brown-light)" opacity="0.90" font-style="italic">Krümmel, Tyskland 1867</text>
+          <rect x="45" y="70" width="130" height="10" fill="var(--brown-medium)" opacity="0.45" rx="2"/>
+          <rect x="55" y="80" width="12" height="35" fill="var(--brown-medium)" opacity="0.35"/>
+          <rect x="153" y="80" width="12" height="35" fill="var(--brown-medium)" opacity="0.35"/>
+          <rect x="65" y="48" width="40" height="22" fill="var(--parchment-light)" stroke="var(--brown-light)" stroke-width="1" rx="2"/>
+          <rect x="112" y="52" width="36" height="18" fill="var(--parchment-light)" stroke="var(--brown-light)" stroke-width="1" rx="2" transform="rotate(4 130 61)"/>
+          <circle cx="160" cy="40" r="14" fill="var(--gold)" opacity="0.85"/>
+          <line x1="160" y1="54" x2="160" y2="60" stroke="var(--gold)" stroke-width="3" opacity="0.7"/>
+          <path d="M150 30 L146 26 M170 30 L174 26 M160 24 L160 18" stroke="var(--gold-light)" stroke-width="2" opacity="0.9" stroke-linecap="round"/>
+          <text x="110" y="140" text-anchor="middle" font-family="var(--font-body)" font-size="9" fill="var(--brown-light)" opacity="0.9" font-style="italic">Bern, Schweiz 1905</text>
         </svg>
       </div>
       <div class="title-ornament"></div>
-      <h1 class="game-title">Nobel</h1>
-      <p class="game-subtitle">Uppfinnarens v&auml;g</p>
-      <div class="chapter-label">Kapitel 4 &mdash; Dynamiten &mdash; Genombrottet</div>
+      <h1 class="game-title">Einstein</h1>
+      <p class="game-subtitle">T&auml;nkarens v&auml;g</p>
+      <div class="chapter-label">Kapitel 4 &mdash; Patentkontoret och mirakel&aring;ret</div>
       <p class="intro-text" id="ch4-introText">
-        <strong>&Aring;ret &auml;r 1867.</strong> Alfred har &auml;ntligen lyckats. Genom att blanda nitroglycerin med
-        kiselgur har han skapat dynamit &mdash; ett spr&auml;ng&auml;mne som &auml;r b&aring;de kraftfullt och s&auml;kert att
-        hantera. Nu m&aring;ste han bygga fabriker och s&auml;lja sin uppfinning till v&auml;rlden.
+        <strong>Bern, 1902.</strong> Albert &auml;r klar med h&ouml;gskolan &mdash; men f&aring;r inget jobb som
+        forskare. Till slut f&aring;r han jobb p&aring; patentkontoret: d&auml;r granskar man
+        uppfinningar och avg&ouml;r om de fungerar. Albert och Mileva gifter sig och f&aring;r
+        sonen Hans Albert. Och mellan patenten&hellip; t&auml;nker Albert.
       </p>
       <audio id="narrator-ch4-title" src="" preload="auto"></audio>
       <button class="btn-primary" onclick="goToScreen('ch4-minigame')">Forts&auml;tt</button>
     </div>
   </div>
 
-  <!-- CH4: MINI-GAME - Dynamite Mixing -->
+  <!-- CH4: MINI-GAME<!-- CH4: MINI-GAME - Dynamite Mixing -->
   <div class="screen" id="ch4-minigame">
     <div class="minigame-v2-container" id="ch4-minigame-v2-container"></div>
     <div style="text-align:center; display:none;" id="ch4-minigame-v2-continue">
@@ -1924,8 +1929,8 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
     <div id="ch4-minigame-old" style="display:none;">
       <div class="narrative-box">
-        <h2 class="narrative-heading">&#x1F9EA; Blanda dynamit!</h2>
-        <p class="narrative-text">Hitta r&auml;tt blandning! Nitroglycerin beh&ouml;ver blandas med kiselgur i r&auml;tt proportioner. Anv&auml;nd reglagen f&ouml;r att hitta den perfekta mixen.</p>
+        <h2 class="narrative-heading">&#x1F50E; Patentgranskaren</h2>
+        <p class="narrative-text">Uppfinnarna k&ouml;ar utanf&ouml;r patentkontoret! Granska varje uppfinning: fungerar den &mdash; eller finns det ett fel? St&auml;mpla r&auml;tt!</p>
       </div>
       <div class="mixing-container">
         <div class="mixing-sliders">
@@ -1954,38 +1959,37 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
   </div>
 
-  <!-- CH4: CHOICE 1 - Factory location -->
+  <!-- CH4: CHOICE 1 - Livet i Bern -->
   <div class="screen" id="ch4-choice1">
     <div class="narrative-box">
-      <h2 class="narrative-heading">Var ska fabriken ligga?</h2>
-      <p class="narrative-text">Dynamiten &auml;r klar. Nu beh&ouml;ver Alfred en fabrik. Var i v&auml;rlden ska den byggas?</p>
+      <h2 class="narrative-heading">Livet i Bern</h2>
+      <p class="narrative-text">Dagarna p&aring; patentkontoret &auml;r l&aring;nga men roliga &mdash; Albert &auml;r snabb p&aring; att hitta felen i uppfinningarna. Kv&auml;llarna &auml;r hans egna. Hur anv&auml;nder han dem?</p>
       <audio id="narrator-ch4-choice1" src="" preload="auto"></audio>
     </div>
     <div class="choices-container" id="ch4-choices1">
       <div class="choice-card" onclick="makeChoice('ch4',1,0)" data-choice="0">
         <div class="choice-card-number">1</div>
-        <div class="choice-card-title">Sverige &mdash; hemma</div>
-        <div class="choice-card-desc">N&auml;ra gruvor och byggen. Billigare men mindre marknad. Tryggt och bekant.</div>
+        <div class="choice-card-title">Starta en t&auml;nkarklubb med v&auml;nnerna</div>
+        <div class="choice-card-desc">Albert, Mileva och tv&aring; v&auml;nner l&auml;ser b&ouml;cker ihop och diskuterar till midnatt. De kallar sig skämtsamt &rdquo;Akademien Olympia&rdquo;.</div>
         <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x1F981; Mod</span>
+          <span class="effect-badge positive">+1 &#x1F4DA; Kunskap</span>
           <span class="effect-badge positive">+1 &#x1F4A1; Fantasi</span>
         </div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch4',1,1)" data-choice="1">
         <div class="choice-card-number">2</div>
-        <div class="choice-card-title">Hamburg, Tyskland</div>
-        <div class="choice-card-desc">Europas handelscentrum. Stor marknad och bra logistik.</div>
+        <div class="choice-card-title">Sk&ouml;ta jobbet perfekt</div>
+        <div class="choice-card-desc">Chefen ska aldrig kunna klaga. Familjen beh&ouml;ver l&ouml;nen &mdash; och Albert vill visa att han duger.</div>
         <div class="choice-card-effect">
-          <span class="effect-badge positive">+2 &#x1F4A1; Fantasi</span>
+          <span class="effect-badge positive">+1 &#x1F4DA; Kunskap</span>
+          <span class="effect-badge positive">+1 &#x1F981; Mod</span>
         </div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch4',1,2)" data-choice="2">
         <div class="choice-card-number">3</div>
-        <div class="choice-card-title">Paris, Frankrike</div>
-        <div class="choice-card-desc">Vetenskapens huvudstad. Prestige och kontakter, men h&ouml;gre kostnad.</div>
-        <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x1F981; Mod</span>
-        </div>
+        <div class="choice-card-title">R&auml;kna fysik i smyg vid skrivbordet</div>
+        <div class="choice-card-desc">I skrivbordsl&aring;dan ligger Alberts egna ber&auml;kningar. Han kallar l&aring;dan p&aring; sk&auml;mt f&ouml;r sin &rdquo;avdelning f&ouml;r teoretisk fysik&rdquo;.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F4DA; Kunskap</span></div>
       </div>
     </div>
     <div class="result-box" id="ch4-result1"><div class="result-label">Resultat</div><div class="result-text" id="ch4-result1Text"></div></div>
@@ -1994,39 +1998,37 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
   </div>
 
-  <!-- CH4: CHOICE 2 - Sales strategy -->
+  <!-- CH4: CHOICE 2 - Mirakelåret -->
   <div class="screen" id="ch4-choice2">
     <div class="narrative-box">
-      <h2 class="narrative-heading">Hur ska Alfred s&auml;lja dynamiten?</h2>
-      <p class="narrative-text">Dynamiten &auml;r klar och fabriken &auml;r p&aring; plats. Men hur n&aring;r man kunderna?</p>
+      <h2 class="narrative-heading">Mirakel&aring;ret 1905</h2>
+      <p class="narrative-text">Det otroliga h&auml;nder: p&aring; ETT enda &aring;r skriver Albert flera artiklar som var och en r&auml;cker f&ouml;r att bli v&auml;rldsber&ouml;md. Men vilken id&eacute; v&aring;gar han skicka till tidskriften f&ouml;rst?</p>
       <audio id="narrator-ch4-choice2" src="" preload="auto"></audio>
     </div>
     <div class="choices-container" id="ch4-choices2">
       <div class="choice-card" onclick="makeChoice('ch4',2,0)" data-choice="0">
         <div class="choice-card-number">1</div>
-        <div class="choice-card-title">Licensiera tekniken</div>
-        <div class="choice-card-desc">S&auml;lj licenser till andra fabrik&ouml;rer. Snabba pengar, men mindre kontroll.</div>
+        <div class="choice-card-title">&rdquo;Ljuset best&aring;r av sm&aring; paket&rdquo;</div>
+        <div class="choice-card-desc">Ljus &auml;r inte bara en v&aring;g &mdash; det kommer i sm&aring; energipaket. Galen tanke? Kanske. Men den f&ouml;rklarar sådant ingen annan kan.</div>
         <div class="choice-card-effect">
-          <span class="effect-badge positive">+2 &#x1F4A1; Fantasi</span>
+          <span class="effect-badge positive">+1 &#x1F4DA; Kunskap</span>
+          <span class="effect-badge positive">+1 &#x1F4A1; Fantasi</span>
         </div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch4',2,1)" data-choice="1">
         <div class="choice-card-number">2</div>
-        <div class="choice-card-title">Egna fabriker &ouml;verallt</div>
-        <div class="choice-card-desc">Bygg egna fabriker i varje land. Dyrt men ger total kontroll och enorma vinster p&aring; sikt.</div>
+        <div class="choice-card-title">&rdquo;Tiden &auml;r inte likadan f&ouml;r alla&rdquo;</div>
+        <div class="choice-card-desc">Den vildaste id&eacute;n av alla: tiden g&aring;r olika fort beroende p&aring; hur man r&ouml;r sig. M&aring;nga kommer skaka p&aring; huvudet&hellip;</div>
         <div class="choice-card-effect">
-          <span class="effect-badge negative">-2 &#x1F4A1; Fantasi nu</span>
+          <span class="effect-badge negative">-1 &#x1F981; Mod nu</span>
           <span class="effect-badge special">&#x1F31F; Stor bonus i kapitel 5</span>
         </div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch4',2,2)" data-choice="2">
         <div class="choice-card-number">3</div>
-        <div class="choice-card-title">Partnerskap</div>
-        <div class="choice-card-desc">Samarbeta med lokala aff&auml;rsm&auml;n. Delad vinst men delad risk. Stabilt och s&auml;kert.</div>
-        <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x1F4A1; Fantasi</span>
-          <span class="effect-badge positive">+1 &#x1F981; Mod</span>
-        </div>
+        <div class="choice-card-title">&rdquo;Atomer finns p&aring; riktigt &mdash; h&auml;r &auml;r beviset&rdquo;</div>
+        <div class="choice-card-desc">Sm&aring; korn dansar i vatten &mdash; f&ouml;r att osynliga atomer knuffar dem! Ett s&auml;kert kort som forskarna kommer att gilla.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F4DA; Kunskap</span></div>
       </div>
     </div>
     <div class="result-box" id="ch4-result2"><div class="result-label">Resultat</div><div class="result-text" id="ch4-result2Text"></div></div>
@@ -2035,37 +2037,31 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
   </div>
 
-  <!-- CH4: CHOICE 3 - Motivation -->
+  <!-- CH4: CHOICE 3 - Mileva -->
   <div class="screen" id="ch4-choice3">
     <div class="narrative-box">
-      <h2 class="narrative-heading">Gruvarbetarens tack</h2>
-      <p class="narrative-text">En gruvarbetare tackar Alfred: &rdquo;Din uppfinning r&auml;ddar liv. F&ouml;re dynamiten dog m&auml;nniskor av instabilt spr&auml;ng&auml;mne.&rdquo; Hur reagerar Alfred?</p>
+      <h2 class="narrative-heading">Vid k&ouml;ksbordet</h2>
+      <p class="narrative-text">Artiklarna &auml;r klara. Mileva har l&auml;st, r&auml;knat och diskuterat varje sida med Albert &mdash; kv&auml;ll efter kv&auml;ll vid k&ouml;ksbordet, medan lilla Hans Albert sover. P&aring; papperen st&aring;r bara Alberts namn. Vad s&auml;ger han till Mileva?</p>
       <audio id="narrator-ch4-choice3" src="" preload="auto"></audio>
     </div>
     <div class="choices-container" id="ch4-choices3">
       <div class="choice-card" onclick="makeChoice('ch4',3,0)" data-choice="0">
         <div class="choice-card-number">1</div>
-        <div class="choice-card-title">&rdquo;Jag g&ouml;r det f&ouml;r s&auml;kerheten&rdquo;</div>
-        <div class="choice-card-desc">Dynamit &auml;r s&auml;krare &auml;n rent nitroglycerin. F&auml;rre d&ouml;r i gruvor och byggen.</div>
-        <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x1F981; Mod</span>
-        </div>
+        <div class="choice-card-title">&rdquo;Utan dig hade jag aldrig klarat det&rdquo;</div>
+        <div class="choice-card-desc">Albert s&auml;ger det h&ouml;gt, s&aring; att hon h&ouml;r att han menar det.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F981; Mod</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch4',3,1)" data-choice="1">
         <div class="choice-card-number">2</div>
-        <div class="choice-card-title">&rdquo;Jag g&ouml;r det f&ouml;r framstegen&rdquo;</div>
-        <div class="choice-card-desc">Dynamit g&ouml;r det m&ouml;jligt att bygga tunnlar, kanaler och j&auml;rnv&auml;gar snabbare.</div>
-        <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x1F4DA; Kunskap</span>
-        </div>
+        <div class="choice-card-title">&rdquo;Nu tar vi n&auml;sta id&eacute; &mdash; tillsammans&rdquo;</div>
+        <div class="choice-card-desc">B&auml;sta t&auml;nkandet sker i par. Albert vill forts&auml;tta som de b&ouml;rjat.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F4DA; Kunskap</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch4',3,2)" data-choice="2">
         <div class="choice-card-number">3</div>
-        <div class="choice-card-title">&rdquo;Jag g&ouml;r det f&ouml;r att det &auml;r bra aff&auml;rer&rdquo;</div>
-        <div class="choice-card-desc">&Auml;rligt och rakt p&aring; sak. Alfred &auml;r aff&auml;rsman och stolt &ouml;ver det.</div>
-        <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x1F4A1; Fantasi</span>
-        </div>
+        <div class="choice-card-title">&rdquo;Om id&eacute;erna n&aring;gonsin ger ett pris &mdash; d&aring; &auml;r pengarna dina&rdquo;</div>
+        <div class="choice-card-desc">Ett stort l&ouml;fte. Kanske t&auml;nker Albert att det aldrig beh&ouml;ver infrias&hellip;</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F4A1; Fantasi</span></div>
       </div>
     </div>
     <div class="result-box" id="ch4-result3"><div class="result-label">Resultat</div><div class="result-text" id="ch4-result3Text"></div></div>
@@ -2074,30 +2070,42 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
   </div>
 
-  <!-- CH4: FACT -->
+  <!-- CH4: FACT --><!-- CH4: FACT -->
   <div class="screen" id="ch4-fact">
     <div class="fact-box">
       <span class="fact-icon">&#x1F4D6;</span>
       <div class="fact-label">Visste du att&hellip;</div>
       <p class="fact-text">
-        Ordet &rdquo;dynamit&rdquo; kommer fr&aring;n grekiskans &rdquo;dynamis&rdquo; som betyder kraft.
-        Alfred Nobel var en m&auml;stare p&aring; att namnge sina uppfinningar &mdash; &rdquo;dynamit&rdquo;
-        l&auml;t kraftfullt och modernt.
+        &Aring;r 1905 kallas &rdquo;mirakel&aring;ret&rdquo;. Albert var 26 &aring;r, jobbade heltid p&aring;
+        patentkontoret &mdash; och skrev &auml;nd&aring; fyra artiklar som f&ouml;r&auml;ndrade vetenskapen.
+        I en av dem fanns v&auml;rldens mest ber&ouml;mda formel: <strong>E&nbsp;=&nbsp;mc&sup2;</strong>
+        &mdash; energi och massa &auml;r tv&aring; sidor av samma sak.
       </p>
-      <audio id="narrator-ch4-fact" src="" preload="auto"></audio>
     </div>
+    <div class="discussion-box">
+      <span class="discussion-icon">&#x1F50D;</span>
+      <div class="discussion-label">K&auml;llkoll</div>
+      <p class="discussion-text">
+        Hur mycket hj&auml;lpte Mileva till med artiklarna? Forskarna &auml;r faktiskt oense
+        &auml;n idag. I sina brev skrev Albert ibland &rdquo;v&aring;rt arbete&rdquo; &mdash; men p&aring;
+        artiklarna st&aring;r bara hans namn. K&auml;llorna r&auml;cker inte f&ouml;r ett s&auml;kert svar.
+        D&aring; f&aring;r man s&auml;ga som forskarna: <em>vi vet inte riktigt</em> &mdash; och det &auml;r
+        ocks&aring; ett &auml;rligt svar.
+      </p>
+    </div>
+      <audio id="narrator-ch4-fact" src="" preload="auto"></audio>
     <div style="text-align:center;">
       <button class="btn-primary" onclick="goToScreen('ch4-conclusion')">Forts&auml;tt</button>
     </div>
   </div>
 
-  <!-- CH4: CONCLUSION -->
+  <!-- CH4: CONCLUSION --><!-- CH4: CONCLUSION -->
   <div class="screen" id="ch4-conclusion">
     <div style="text-align:center; margin-bottom: 8px;"><div class="chapter-label" style="margin-bottom:8px;">Kapitel 4 avklarat</div></div>
-    <div class="celebration-text">&#x2728; Dynamiten erövrar v&auml;rlden! &#x2728;</div>
+    <div class="celebration-text">&#x2728; Mirakel&aring;ret 1905! &#x2728;</div>
     <div class="divider"></div>
-    <div class="narrative-box"><h2 class="narrative-heading">En revolution i spr&auml;ngkraft&hellip;</h2><p class="narrative-text" id="ch4-conclusionText"></p></div>
-    <div class="lesson-box"><div class="lesson-label">L&auml;rdom</div><p class="lesson-text">Stora uppfinningar kr&auml;ver mod, envishet och svåra beslut. Alfred tog risken och f&ouml;r&auml;ndrade v&auml;rlden.</p></div>
+    <div class="narrative-box"><h2 class="narrative-heading">Fyra artiklar som &auml;ndrar allt&hellip;</h2><p class="narrative-text" id="ch4-conclusionText"></p></div>
+    <div class="lesson-box"><div class="lesson-label">L&auml;rdom</div><p class="lesson-text">V&auml;rldens st&ouml;rsta id&eacute;er f&ouml;ddes inte p&aring; ett fint universitet &mdash; utan vid ett skrivbord p&aring; ett patentkontor. Det viktiga &auml;r inte var du t&auml;nker, utan att du v&aring;gar t&auml;nka.</p></div>
     <div class="divider"></div>
     <h3 style="text-align:center; font-family:var(--font-headline); font-size:1.1rem; color:var(--brown-medium); margin-bottom:16px;">Dina resurser efter kapitel 4</h3>
     <div class="final-resources">
@@ -2105,7 +2113,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F4A1;</span><span class="final-resource-label">Fantasi</span><span class="final-resource-value" id="ch4-finalFantasi">0</span></div>
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F981;</span><span class="final-resource-label">Mod</span><span class="final-resource-value" id="ch4-finalMod">0</span></div>
     </div>
-    <p class="teaser-text">Forts&auml;ttning f&ouml;ljer&hellip;<br><em>Kapitel 5: Imperiet</em></p>
+    <p class="teaser-text">Forts&auml;ttning f&ouml;ljer&hellip;<br><em>Kapitel 5: Solf&ouml;rm&ouml;rkelsen</em></p>
       <audio id="narrator-ch4-conclusion" src="" preload="auto"></audio>
     <div style="text-align:center; margin-top: 16px; margin-bottom: 12px;">
       <button class="diary-btn" onclick="NobelDiary.show(4)">&#x1F4D6; Alberts fr&aring;gebok</button>
@@ -2808,7 +2816,7 @@ var gameState = {
     ch1_kompass: null, ch1_fiol: null,
     ch2_skolan: null, ch2_italien: null,
     ch3_provet: null, ch3_studier: null,
-    ch4_factory: null, ch4_sales: null, ch4_motivation: null,
+    ch4_bern: null, ch4_artikel: null, ch4_mileva: null,
     ch5_military: null, ch5_bofors: null, ch5_journalist: null,
     ch6_reaction: null,
     ch7_fortune: null, ch7_prizes: [], ch7_institution: null
@@ -2876,19 +2884,19 @@ var choiceData = {
   },
   ch4: {
     1: [
-      { effects: { mod: 1, fantasi: 1 }, resultText: 'I Sverige k\u00e4nner sig Alfred hemma. N\u00e4ra gruvor och byggen f\u00e5r han snabbt kunder. Stabilt och tryggt.' },
-      { effects: { fantasi: 2 }, requires: { fantasi: 2 }, resultText: 'Hamburg \u00e4r perfekt f\u00f6r handel. Fr\u00e5n hamnen skeppas dynamit till hela Europa. Stor marknad och bra logistik.' },
-      { effects: { mod: 1 }, resultText: 'I Paris f\u00e5r Alfred prestige och kontakter. Dyrt, men det \u00f6ppnar d\u00f6rrar.' }
+      { effects: { kunskap: 1, fantasi: 1 }, resultText: 'Akademien Olympia! Tre v\u00e4nner, billigt te och v\u00e4rldens st\u00f6rsta fr\u00e5gor. De l\u00e4ser filosofi och fysik och skrattar h\u00f6gt. Alberts b\u00e4sta id\u00e9er f\u00f6ds i samtalen.' },
+      { effects: { kunskap: 1, mod: 1 }, resultText: 'Chefen nickar n\u00f6jt \u2014 Albert \u00e4r kontorets b\u00e4sta granskare. L\u00f6nen tryggar familjen, och att granska andras id\u00e9er tr\u00e4nar hans eget t\u00e4nkande.' },
+      { effects: { kunskap: 2 }, resultText: 'S\u00e5 fort chefen v\u00e4nder ryggen till \u00e5ker ber\u00e4kningarna fram ur l\u00e5dan. \u201dAvdelningen f\u00f6r teoretisk fysik\u201d har \u00f6ppet igen.' }
     ],
     2: [
-      { effects: { fantasi: 2 }, resultText: 'Alfred s\u00e4ljer licenser och pengarna str\u00f6mmar in. Snabbt och effektivt, men han tappar kontrollen \u00f6ver kvaliteten.' },
-      { effects: { fantasi: -2 }, ownFactories: true, requires: { fantasi: 3 }, resultText: 'Alfred bygger egna fabriker \u00f6ver hela Europa. Det \u00e4r en enorm investering som t\u00f6mmer kassan, men ger total kontroll.' },
-      { effects: { fantasi: 1, mod: 1 }, resultText: 'Partnerskap med lokala aff\u00e4rsm\u00e4n ger stabilitet. Delad risk och delad vinst. Alla \u00e4r n\u00f6jda.' }
+      { effects: { kunskap: 1, fantasi: 1 }, resultText: 'Ljuspaketen skickas in. M\u00e5nga forskare tvivlar \u2014 men artikeln f\u00f6rklarar det of\u00f6rklarliga. Sexton \u00e5r senare ger just den h\u00e4r id\u00e9n Albert Nobelpriset.' },
+      { effects: { mod: -1 }, ownFactories: true, requires: { fantasi: 3 }, resultText: 'Tiden \u00e4r inte likadan f\u00f6r alla! Folk skakar p\u00e5 huvudet \u2014 en kontorist som p\u00e5st\u00e5r att klockorna ljuger? Men v\u00e4nta bara. En dag ska hela v\u00e4rlden f\u00f6rst\u00e5.' },
+      { effects: { kunskap: 2 }, resultText: 'Atombeviset skickas in. Forskarna nickar imponerat \u2014 dansen i vattendroppen avg\u00f6r en hundra \u00e5r gammal tvist. Atomerna \u00e4r verkliga!' }
     ],
     3: [
-      { effects: { mod: 1 }, requires: { kunskap: 6 }, resultText: 'Gruvarbetaren nickar. "S\u00e4kerhet" blir Alfreds varu\u00e4rke. M\u00e4nniskor k\u00e4nner sig trygga med dynamit.' },
-      { effects: { kunskap: 1 }, resultText: 'Alfred pratar om framsteg och m\u00f6jligheter. Tunnlar, kanaler, j\u00e4rnv\u00e4gar \u2014 dynamit bygger framtiden.' },
-      { effects: { fantasi: 1 }, resultText: 'Alfreds \u00e4rliga svar visar att han \u00e4r aff\u00e4rsman. Gruvarbetaren ler \u2014 han f\u00f6rst\u00e5r.' }
+      { effects: { mod: 1 }, resultText: '\u201dUtan dig hade jag aldrig klarat det.\u201d Mileva ler tr\u00f6tt men varmt. Orden kostar inget \u2014 och betyder allt.' },
+      { effects: { kunskap: 1 }, resultText: 'De b\u00f6jer sig \u00f6ver n\u00e4sta problem tillsammans, som alltid. Tv\u00e5 huvuden, ett k\u00f6ksbord, o\u00e4ndligt m\u00e5nga fr\u00e5gor.' },
+      { effects: { fantasi: 1 }, resultText: '\u201dOm id\u00e9erna n\u00e5gonsin ger ett pris \u00e4r pengarna dina.\u201d Mileva skrattar. Men Albert menar det \u2014 och m\u00e5nga \u00e5r senare h\u00e5ller han faktiskt l\u00f6ftet.' }
     ]
   },
   ch5: {
@@ -2963,14 +2971,22 @@ function applyChapterStart(chapter) {
       if (el) el.innerHTML = '<strong>\u00c5ret \u00e4r 1867.</strong> Efter det h\u00f6ga tempot och explosionen har Alfred l\u00e4rt sig att t\u00e5lamod l\u00f6nar sig. Nu har han \u00e4ntligen skapat dynamit \u2014 s\u00e4kert och kraftfullt.';
     }
   }
+  if (chapter === 4) {
+    // Ch3 -> Ch4: den som skippade f\u00f6rel\u00e4sningarna f\u00e5r k\u00e4nna av det
+    if (gameState.choices.ch3_studier === 1) {
+      var el4 = document.getElementById('ch4-introText');
+      if (el4) el4.innerHTML = '<strong>Bern, 1902.</strong> Albert s\u00f6ker jobb p\u00e5 universiteten \u2014 men professorerna minns studenten som aldrig kom p\u00e5 f\u00f6rel\u00e4sningarna. Alla s\u00e4ger nej. Till slut f\u00e5r han jobb p\u00e5 patentkontoret: d\u00e4r granskar man uppfinningar och avg\u00f6r om de fungerar. Albert och Mileva gifter sig och f\u00e5r sonen Hans Albert. Och mellan patenten\u2026 t\u00e4nker Albert.';
+    }
+  }
   if (chapter === 5) {
-    // Ch4 -> Ch5: Own factories gives +3 Fantasi bonus
-    if (gameState.choices.ch4_sales === 1) {
+    // Ch4 -> Ch5: den dj\u00e4rvaste id\u00e9n (relativiteten) f\u00e5r sin bekr\u00e4ftelse
+    if (gameState.choices.ch4_artikel === 1) {
       setTimeout(function() {
-        animateResource('fantasi', 3);
+        animateResource('fantasi', 2);
+        animateResource('mod', 2);
         var bonus = document.createElement('div');
         bonus.style.cssText = 'text-align:center;font-family:var(--font-headline);font-size:0.95rem;color:var(--moss);margin:12px 0;animation:slideIn 0.5s ease;';
-        bonus.innerHTML = '\u2728 Alfreds egna fabriker b\u00f6rjar ge avkastning! +3 \uD83D\uDCB0';
+        bonus.innerHTML = '\u2728 Alberts dj\u00e4rvaste id\u00e9 ska nu pr\u00f6vas mot stj\u00e4rnorna! +2 \uD83D\uDCA1 +2 \uD83E\uDD81';
         var titleScreen = document.getElementById('ch5-title');
         if (titleScreen) titleScreen.appendChild(bonus);
       }, 1200);
@@ -3263,9 +3279,9 @@ function makeChoice(chapter, choiceGroup, choiceIndex) {
   if (chapter === 'ch2' && choiceGroup === 2) gameState.choices.ch2_italien = choiceIndex;
   if (chapter === 'ch3' && choiceGroup === 1) gameState.choices.ch3_provet = choiceIndex;
   if (chapter === 'ch3' && choiceGroup === 2) gameState.choices.ch3_studier = choiceIndex;
-  if (chapter === 'ch4' && choiceGroup === 1) gameState.choices.ch4_factory = choiceIndex;
-  if (chapter === 'ch4' && choiceGroup === 2) gameState.choices.ch4_sales = choiceIndex;
-  if (chapter === 'ch4' && choiceGroup === 3) gameState.choices.ch4_motivation = choiceIndex;
+  if (chapter === 'ch4' && choiceGroup === 1) gameState.choices.ch4_bern = choiceIndex;
+  if (chapter === 'ch4' && choiceGroup === 2) gameState.choices.ch4_artikel = choiceIndex;
+  if (chapter === 'ch4' && choiceGroup === 3) gameState.choices.ch4_mileva = choiceIndex;
   if (chapter === 'ch5' && choiceGroup === 1) gameState.choices.ch5_military = choiceIndex;
   if (chapter === 'ch5' && choiceGroup === 2) {
     gameState.choices.ch5_bofors = choiceIndex;
@@ -3387,7 +3403,7 @@ function getConclusionText(chapter) {
     return 'Kuggad p\u00e5 provet \u2014 men b\u00e4st i fysik. \u00c5ret i Aarau gav Albert b\u00e5de v\u00e4nner och den stora fr\u00e5gan om ljuset. P\u00e5 h\u00f6gskolan v\u00e4ntade n\u00e5got mer: Mileva.';
   }
   if (chapter === 'ch4') {
-    return 'Dynamiten var klar. Alfred Nobel hade f\u00f6r\u00e4ndrat v\u00e4rlden med en enda uppfinning. Nu v\u00e4ntade n\u00e4sta kapitel \u2014 att bygga ett imperium.';
+    return 'Fyra artiklar p\u00e5 ett \u00e5r \u2014 skrivna av en pappa med heltidsjobb, vid ett k\u00f6ksbord i Bern. Forskarna b\u00f6rjar viska om kontoristen som t\u00e4nker som ingen annan. Snart ska hela v\u00e4rlden f\u00e5 h\u00f6ra talas om honom.';
   }
   if (chapter === 'ch5') {
     var c1 = gameState.choices.ch5_military;
@@ -4422,7 +4438,7 @@ function restartGame() {
   gameState.currentChapter = 1; gameState.currentScreen = 'ch1-title';
   gameState.choices = {
     ch1_kompass: null, ch1_fiol: null, ch2_skolan: null, ch2_italien: null,
-    ch3_provet: null, ch3_studier: null, ch4_factory: null, ch4_sales: null, ch4_motivation: null,
+    ch3_provet: null, ch3_studier: null, ch4_bern: null, ch4_artikel: null, ch4_mileva: null,
     ch5_military: null, ch5_bofors: null, ch5_journalist: null, ch6_reaction: null,
     ch7_fortune: null, ch7_prizes: [], ch7_institution: null
   };
@@ -6665,48 +6681,36 @@ var NobelDiary = (function () {
     return { date: date, text: lines.join('\n') };
   };
 
-  // ── CHAPTER 4 — 1867, dynamitens framgång ─────────────────
+  // ── CHAPTER 4 — Bern, 1905 ────────────────────────────────
   entryGenerators[4] = function (ch) {
-    var factoryPlace = ch.ch4_factory === 0 ? 'Sverige'
-                     : ch.ch4_factory === 1 ? 'Hamburg'
-                     : 'Paris';
-    var yearStr = ch.ch4_factory === 1 ? '1867' : '1868';
-    var date = factoryPlace + ', den 19 juni ' + yearStr;
+    var date = 'Bern, december 1905';
     var lines = [];
 
-    lines.push('Kära dagbok,');
+    lines.push('Hej fr\u00e5gebok!');
     lines.push('');
 
-    // Factory location
-    if (ch.ch4_factory === 0) {
-      lines.push('Fabriken i Sverige maler på. Här, nära gruvorna och berget, ser jag varje dag hur dynamiten förändrar arbetet. Bergsprängarna tackar mig — de säger att jag räddat deras kamraters liv. Det värmer, fast ingenting fyller det hål Emil lämnade.');
-    } else if (ch.ch4_factory === 1) {
-      lines.push('Hamburg är en bullrande handelsstad, och härifrån skeppas min dynamit till hela Europa. Pengarna strömmar in som aldrig förr. Men ibland, mitt i affärslivets larm, hör jag tystnaden från den tomma stol där Emil borde suttit.');
+    if (ch.ch4_bern === 0) {
+      lines.push('Akademien Olympia hade m\u00f6te ikv\u00e4ll igen. Vi \u00e4r bara n\u00e5gra v\u00e4nner med billigt te, men vi diskuterar st\u00f6rre fr\u00e5gor \u00e4n de fina professorerna. Mileva sa: \u201dt\u00e4nk om tiden inte \u00e4r likadan f\u00f6r alla?\u201d Sen kunde ingen av oss sova.');
+    } else if (ch.ch4_bern === 1) {
+      lines.push('Chefen ber\u00f6mde mig idag \u2014 kontorets b\u00e4sta granskare! Det roliga \u00e4r att jobbet g\u00f6r mig till en b\u00e4ttre t\u00e4nkare. Varje uppfinning \u00e4r en g\u00e5ta: fungerar den? Var \u00e4r felet? Precis som fysik.');
     } else {
-      lines.push('Paris! Världens huvudstad har öppnat sina armar för mig. Salongerna, kontorerna, de stora boulevarderna — allt bländar. Men prestige är en besynnerlig valuta; den glittrar men mättar icke.');
+      lines.push('L\u00e5dan i skrivbordet \u00e4r full av ber\u00e4kningar nu. Min hemliga \u201davdelning f\u00f6r teoretisk fysik\u201d. Om chefen visste! Men tankarna kan ingen st\u00e4mpla NEJ p\u00e5.');
     }
 
     lines.push('');
+    lines.push('Det har varit ett OTROLIGT \u00e5r. Fyra artiklar! Ljuset, atomerna, tiden \u2014 och s\u00e5 den d\u00e4r lilla formeln: E = mc\u00b2. Den ser s\u00e5 oskyldig ut p\u00e5 pappret.');
+    lines.push('');
 
-    // Sales strategy
-    if (ch.ch4_sales === 0) {
-      lines.push('Jag säljer licenser till höger och vänster. Det är effektivt och pengarna kommer snabbt. Men jag oroar mig — vem kontrollerar kvaliteten när jag icke är närvarande? Mitt namn står på varje laddning.');
-    } else if (ch.ch4_sales === 1) {
-      lines.push('Jag bygger egna fabriker, en efter en. Det kostar, det tar tid, men jag har kontroll. Varje fabrik bär mitt namn och min standard. Ingen skall kunna säga att Alfred Nobel var slarvig med människoliv.');
+    if (ch.ch4_mileva === 0) {
+      lines.push('Jag sa till Mileva att jag aldrig klarat det utan henne. Det \u00e4r sant. Hon r\u00e4knade om varenda sida. Varf\u00f6r st\u00e5r d\u00e5 bara mitt namn p\u00e5 artiklarna? Den fr\u00e5gan skaver i mig.');
+    } else if (ch.ch4_mileva === 1) {
+      lines.push('Mileva och jag har redan b\u00f6rjat p\u00e5 n\u00e4sta problem. Hans Albert sover i kn\u00e4et p\u00e5 mig medan vi r\u00e4knar. Ett k\u00f6ksbord kan vara ett helt universum.');
     } else {
-      lines.push('Kompanjonskap — det är nyckeln. Jag har funnit pålitliga män att arbeta med i flera länder. Ensam bygger man ingenting varaktigt. Fader lärde mig det, fast han kanske icke menade det så.');
+      lines.push('Jag lovade Mileva: om id\u00e9erna n\u00e5gonsin ger ett pris \u00e4r pengarna hennes. Hon skrattade. Men jag menar det. Utan henne \u2014 inga artiklar.');
     }
 
     lines.push('');
-
-    // Motivation
-    if (ch.ch4_motivation === 0) {
-      lines.push('Allt jag gör, gör jag för säkerheten. Dynamiten måste vara trygg att hantera — det är min plikt efter vad som hände. Varje förbättring jag gör är ett löfte till Emil.');
-    } else if (ch.ch4_motivation === 1) {
-      lines.push('Framsteget driver mig. Tunnlar genom Alperna! Kanaler som förenar hav! Mänskligheten behöver kraft att forma sin värld, och jag ger dem den. Det är en vacker tanke, fast den ibland skrämmer mig.');
-    } else {
-      lines.push('Jag ljuger icke för mig själv — affärerna fascinerar mig. Att bygga ett imperium ur ingenting, att se siffrorna växa, det ger en berusning inget laboratorium kan matcha. Men rikedom utan mening är blott siffror på papper.');
-    }
+    lines.push('Nya fr\u00e5gor: Om ljuset \u00e4r paket \u2014 vad h\u00e5ller ihop dem? Kan man se att tiden g\u00e5r olika fort? N\u00e4r f\u00e5r Mileva den tack hon f\u00f6rtj\u00e4nar?');
 
     return { date: date, text: lines.join('\n') };
   };
