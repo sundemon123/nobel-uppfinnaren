@@ -1693,43 +1693,41 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <div class="title-icon">
         <svg viewBox="0 0 240 160" xmlns="http://www.w3.org/2000/svg">
           <rect width="240" height="160" fill="var(--parchment)" rx="8"/>
-          <circle cx="120" cy="70" r="40" fill="var(--copper)" opacity="0.24"/>
-          <circle cx="120" cy="70" r="25" fill="var(--gold)" opacity="0.29"/>
-          <circle cx="120" cy="70" r="12" fill="white" opacity="0.36"/>
-          <line x1="120" y1="30" x2="120" y2="10" stroke="var(--copper)" stroke-width="2" opacity="0.48"/>
-          <line x1="155" y1="45" x2="170" y2="30" stroke="var(--copper)" stroke-width="2" opacity="0.48"/>
-          <line x1="85" y1="45" x2="70" y2="30" stroke="var(--copper)" stroke-width="2" opacity="0.48"/>
-          <line x1="160" y1="70" x2="180" y2="70" stroke="var(--copper)" stroke-width="2" opacity="0.36"/>
-          <line x1="60" y1="70" x2="80" y2="70" stroke="var(--copper)" stroke-width="2" opacity="0.36"/>
-          <text x="120" y="140" text-anchor="middle" font-family="var(--font-body)" font-size="9" fill="var(--brown-light)" opacity="0.90" font-style="italic">Heleneborg, Stockholm 1864</text>
+          <circle cx="50" cy="45" r="18" fill="var(--gold)" opacity="0.55"/>
+          <line x1="62" y1="52" x2="185" y2="105" stroke="var(--gold)" stroke-width="4" opacity="0.75" stroke-linecap="round"/>
+          <line x1="62" y1="48" x2="190" y2="92" stroke="var(--gold-light)" stroke-width="2" opacity="0.5" stroke-linecap="round"/>
+          <rect x="180" y="95" width="26" height="6" fill="var(--navy)" opacity="0.8" rx="2" transform="rotate(-35 193 98)"/>
+          <circle cx="120" cy="76" r="3" fill="var(--copper)" opacity="0.8"/>
+          <path d="M112 62 Q120 55 128 62" stroke="var(--navy)" stroke-width="1.5" fill="none" opacity="0.5"/>
+          <text x="120" y="145" text-anchor="middle" font-family="var(--font-body)" font-size="9" fill="var(--brown-light)" opacity="0.9" font-style="italic">Aarau &amp; Z&uuml;rich, 1895&ndash;1900</text>
         </svg>
       </div>
       <div class="title-ornament"></div>
-      <h1 class="game-title">Nobel</h1>
-      <p class="game-subtitle">Uppfinnarens v&auml;g</p>
-      <div class="chapter-label">Kapitel 3 &mdash; Farliga experiment</div>
+      <h1 class="game-title">Einstein</h1>
+      <p class="game-subtitle">T&auml;nkarens v&auml;g</p>
+      <div class="chapter-label">Kapitel 3 &mdash; Ljusstr&aring;len och Mileva</div>
       <p class="intro-text" id="ch3-introText">
-        <strong>September 1864.</strong> Alfred Nobel har &aring;terv&auml;nt till Stockholm. I en liten fabrik
-        p&aring; Heleneborg experimenterar han med nitroglycerin. Aff&auml;rerna g&aring;r bra &mdash; men faran
-        lurar i varje droppe av det livsfarliga spr&auml;ng&auml;mnet.
+        <strong>Schweiz, 1895.</strong> Albert &auml;r sexton &aring;r och ska s&ouml;ka in p&aring; den ber&ouml;mda
+        tekniska h&ouml;gskolan i Z&uuml;rich &mdash; tv&aring; &aring;r yngre &auml;n alla andra. Ett enda stort
+        prov avg&ouml;r allt. Kv&auml;llen f&ouml;re ligger b&ouml;ckerna i en h&ouml;g p&aring; bordet.
       </p>
       <audio id="narrator-ch3-title" src="" preload="auto"></audio>
       <button class="btn-primary" onclick="goToScreen('ch3-choice1')">Forts&auml;tt</button>
     </div>
   </div>
 
-  <!-- CH3: CHOICE 1 - Speed -->
+  <!-- CH3: CHOICE 1 - Provet -->
   <div class="screen" id="ch3-choice1">
     <div class="narrative-box">
-      <h2 class="narrative-heading">Tempot i laboratoriet</h2>
-      <p class="narrative-text">Kunderna skriker efter mer nitroglycerin. Alfred m&aring;ste best&auml;mma sig &mdash; ska han ta det f&ouml;rsiktigt, eller &ouml;ka produktionen?</p>
+      <h2 class="narrative-heading">Kv&auml;llen f&ouml;re provet</h2>
+      <p class="narrative-text">Provet har m&aring;nga delar: matematik och fysik &mdash; men ocks&aring; franska, v&auml;xtl&auml;ra och historia. Albert &auml;lskar vissa &auml;mnen. Andra har han knappt &ouml;ppnat b&ouml;ckerna i. Hur pluggar han sista kv&auml;llen?</p>
       <audio id="narrator-ch3-choice1" src="" preload="auto"></audio>
     </div>
     <div class="choices-container" id="ch3-choices1">
       <div class="choice-card" onclick="makeChoice('ch3',1,0)" data-choice="0">
         <div class="choice-card-number">1</div>
-        <div class="choice-card-title">Lugnt och noggrant</div>
-        <div class="choice-card-desc">Alfred tar det lugnt och f&ouml;ljer s&auml;kerhetsreglerna noggrant. Det g&aring;r l&aring;ngsammare, men alla &auml;r s&auml;kra.</div>
+        <div class="choice-card-title">K&ouml;ra det han &auml;lskar: matte och fysik</div>
+        <div class="choice-card-desc">Albert r&auml;knar och l&ouml;ser tills det sjunger i huvudet. Det h&auml;r kan han b&auml;st av alla.</div>
         <div class="choice-card-effect">
           <span class="effect-badge positive">+1 &#x1F4DA; Kunskap</span>
           <span class="effect-badge positive">+1 &#x1F981; Mod</span>
@@ -1737,8 +1735,8 @@ body.narrator-on .screen.active { padding-top: 46px; }
       </div>
       <div class="choice-card" onclick="makeChoice('ch3',1,1)" data-choice="1">
         <div class="choice-card-number">2</div>
-        <div class="choice-card-title">&Ouml;ka tempot!</div>
-        <div class="choice-card-desc">Alfred pressar p&aring;. Fler best&auml;llningar, mer produktion. Kunskapen v&auml;xer snabbt, men riskerna likas&aring;.</div>
+        <div class="choice-card-title">F&ouml;rs&ouml;ka trycka in ALLT p&aring; en kv&auml;ll</div>
+        <div class="choice-card-desc">Franska glosor, v&auml;xternas namn, &aring;rtal&hellip; Albert pluggar tills &ouml;gonen sv&auml;ller. Men det som inte intresserar honom vill inte fastna.</div>
         <div class="choice-card-effect">
           <span class="effect-badge positive">+2 &#x1F4DA; Kunskap</span>
           <span class="effect-badge negative">-1 &#x1F981; Mod</span>
@@ -1754,11 +1752,11 @@ body.narrator-on .screen.active { padding-top: 46px; }
   <!-- CH3: EXPLOSION SCENE -->
   <div class="screen" id="ch3-explosion">
     <div class="narrative-box">
-      <h2 class="narrative-heading" style="color: #8b2020;">&#x1F4A5; BOOOM!</h2>
+      <h2 class="narrative-heading" style="color: #8b2020;">&#x26A1; Kuggad!</h2>
       <div class="narrative-text">
-        <p>Den 3 september 1864 skakar en fruktansv&auml;rd explosion Heleneborg.</p>
-        <p>Nitroglycerinlagret har exploderat. Fem m&auml;nniskor d&ouml;r &mdash; bland dem Alfreds yngre bror <strong>Emil</strong>, som bara &auml;r 20 &aring;r gammal.</p>
-        <p>Alfred krossas av skuld och sorg. Men mitt i m&ouml;rkret f&ouml;ds ett l&ouml;fte: <em>han ska g&ouml;ra spr&auml;ng&auml;mnena s&auml;kra, oavsett vad det kostar.</em></p>
+        <p>Resultatet kommer. Albert &auml;r <strong>b&auml;st av alla</strong> i matte och fysik. Men franskan och v&auml;xtl&auml;ran&hellip; underk&auml;nt. Han kommer inte in.</p>
+        <p>Sexton &aring;r, l&aring;ngt hemifr&aring;n &mdash; och kuggad. Men en professor s&aring;g vad han kunde: <em>&rdquo;G&aring; ett &aring;r p&aring; skolan i Aarau och f&ouml;rs&ouml;k igen.&rdquo;</em></p>
+        <p>I Aarau &auml;r allt annorlunda. H&auml;r F&Aring;R man fr&aring;ga. Och det &auml;r h&auml;r, p&aring; en promenad, som blixten sl&aring;r ner i Alberts huvud: <strong>T&auml;nk om man kunde rida p&aring; en ljusstr&aring;le?</strong> Hur skulle v&auml;rlden se ut d&aring;? Den fr&aring;gan sl&auml;pper honom aldrig.</p>
       <audio id="narrator-ch3-explosion" src="" preload="auto"></audio>
       </div>
     </div>
@@ -1767,7 +1765,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
   </div>
 
-  <!-- CH3: MINI-GAME - Stabilization -->
+  <!-- CH3: MINI-GAME<!-- CH3: MINI-GAME - Stabilization -->
   <div class="screen" id="ch3-minigame">
     <div class="minigame-v2-container" id="ch3-minigame-v2-container"></div>
     <div style="text-align:center; display:none;" id="ch3-minigame-v2-continue">
@@ -1775,8 +1773,8 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
     <div id="ch3-minigame-old" style="display:none;">
       <div class="narrative-box">
-        <h2 class="narrative-heading">&#x1F9EA; Stabilisera nitroglycerinet!</h2>
-        <p class="narrative-text">Alfred m&aring;ste hitta r&auml;tt blandning f&ouml;r att g&ouml;ra nitroglycerinet stabilt. Stoppa n&aring;len i det gr&ouml;na f&auml;ltet!</p>
+        <h2 class="narrative-heading">&#x2728; Rid p&aring; ljusstr&aring;len!</h2>
+        <p class="narrative-text">Styr ljusstr&aring;len med speglarna s&aring; att den n&aring;r &auml;nda fram till m&aring;let!</p>
       </div>
       <div class="stabilize-gauge" id="ch3-gauge">
         <div class="gauge-bar">
@@ -1799,10 +1797,19 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <span class="fact-icon">&#x1F4D6;</span>
       <div class="fact-label">Visste du att&hellip;</div>
       <p class="fact-text">
-        Explosionen i Heleneborg var s&aring; kraftig att det k&auml;ndes &ouml;ver hela Stockholm.
-        Alfred Nobel var inte p&aring; plats n&auml;r det h&auml;nde &mdash; han var i city och f&ouml;rhandlade
-        med investerare. Hans far Immanuel blev s&aring; chockad att han drabbades av en stroke (en pl&ouml;tslig sjukdom
-        i hj&auml;rnan) och blev aldrig densamme igen.
+        &Aring;ret d&auml;rp&aring; kom Albert in p&aring; h&ouml;gskolan. I hans klass p&aring; fysikutbildningen
+        fanns bara EN kvinna: <strong>Mileva Mari&#263;</strong> fr&aring;n Serbien. Hon och Albert
+        pluggade tillsammans, diskuterade fysik i timmar &mdash; och blev k&auml;ra.
+      </p>
+    </div>
+    <div class="discussion-box">
+      <span class="discussion-icon">&#x1F3ED;</span>
+      <div class="discussion-label">Samtidigt i v&auml;rlden</div>
+      <p class="discussion-text">
+        Varf&ouml;r var Mileva den enda kvinnan i klassen? I landet d&auml;r hon v&auml;xte upp fick
+        flickor inte ens l&auml;sa fysik p&aring; gymnasiet &mdash; hon fick s&ouml;ka s&auml;rskilt tillst&aring;nd.
+        Schweiz var ett av f&aring; l&auml;nder d&auml;r kvinnor fick studera p&aring; h&ouml;gskolan. Det var
+        reglerna som satte gr&auml;nserna &mdash; inte beg&aring;vningen.
       </p>
     </div>
       <audio id="narrator-ch3-fact" src="" preload="auto"></audio>
@@ -1811,38 +1818,39 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
   </div>
 
-  <!-- CH3: CHOICE 2 - Aftermath -->
+  <!-- CH3: CHOICE 2 - Studietiden -->
   <div class="screen" id="ch3-choice2">
     <div class="narrative-box">
-      <h2 class="narrative-heading">Efter katastrofen</h2>
-      <p class="narrative-text">Stockholm har f&ouml;rbjudit Alfreds experiment. Vart ska han g&aring;?</p>
+      <h2 class="narrative-heading">Studietiden i Z&uuml;rich</h2>
+      <p class="narrative-text">H&ouml;gskole&aring;ren &auml;r h&auml;r. F&ouml;rel&auml;sningar, b&ouml;cker, kaf&eacute;er &mdash; och Mileva och v&auml;nnerna. Hur anv&auml;nder Albert sina &aring;r?</p>
       <audio id="narrator-ch3-choice2" src="" preload="auto"></audio>
     </div>
     <div class="choices-container" id="ch3-choices2">
       <div class="choice-card" onclick="makeChoice('ch3',2,0)" data-choice="0">
         <div class="choice-card-number">1</div>
-        <div class="choice-card-title">Stanna i Stockholm och k&auml;mpa</div>
-        <div class="choice-card-desc">Alfred talar med pressen och visar empati. Han stannar kvar och k&auml;mpar f&ouml;r sitt mod, men det kostar pengar.</div>
+        <div class="choice-card-title">Plugga ihop med Mileva och v&auml;nnerna</div>
+        <div class="choice-card-desc">De l&ouml;ser problem tillsammans, l&aring;nar varandras anteckningar och diskuterar tills kaf&eacute;et st&auml;nger.</div>
         <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x1F981; Mod</span>
-          <span class="effect-badge negative">-1 &#x1F4A1; Fantasi</span>
+          <span class="effect-badge positive">+1 &#x1F4DA; Kunskap</span>
+          <span class="effect-badge positive">+1 &#x1F4A1; Fantasi</span>
         </div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch3',2,1)" data-choice="1">
         <div class="choice-card-number">2</div>
-        <div class="choice-card-title">Flytta experimenten till en pr&aring;m p&aring; M&auml;laren</div>
-        <div class="choice-card-desc">Alfred flyttar bort fr&aring;n folk. P&aring; en pr&aring;m p&aring; M&auml;laren kan han experimentera ifred utan att riskera andra.</div>
+        <div class="choice-card-title">Skippa f&ouml;rel&auml;sningarna &mdash; l&auml;s m&auml;starna sj&auml;lv</div>
+        <div class="choice-card-desc">Albert stannar hemma och l&auml;ser de stora fysikernas egna b&ouml;cker. Han l&auml;r sig enormt &mdash; men professorerna rynkar p&aring; pannan.</div>
         <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x1F4DA; Kunskap</span>
+          <span class="effect-badge positive">+2 &#x1F4DA; Kunskap</span>
+          <span class="effect-badge negative">-1 &#x1F981; Mod</span>
         </div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch3',2,2)" data-choice="2">
         <div class="choice-card-number">3</div>
-        <div class="choice-card-title">Resa utomlands och b&ouml;rja om</div>
-        <div class="choice-card-desc">Alfred l&auml;mnar Sverige och b&ouml;rjar om utomlands. Nya kontakter, men hans mod i Sverige lider.</div>
+        <div class="choice-card-title">Fiol p&aring; kaf&eacute;erna och fysikprat hela natten</div>
+        <div class="choice-card-desc">Musik, skratt och vilda id&eacute;er. Alberts b&auml;sta tankar kommer n&auml;r han har roligt.</div>
         <div class="choice-card-effect">
-          <span class="effect-badge negative">-1 &#x1F981; Mod</span>
           <span class="effect-badge positive">+1 &#x1F4A1; Fantasi</span>
+          <span class="effect-badge positive">+1 &#x1F981; Mod</span>
         </div>
       </div>
     </div>
@@ -1852,13 +1860,13 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
   </div>
 
-  <!-- CH3: CONCLUSION -->
+  <!-- CH3: CONCLUSION --><!-- CH3: CONCLUSION -->
   <div class="screen" id="ch3-conclusion">
     <div style="text-align:center; margin-bottom: 8px;"><div class="chapter-label" style="margin-bottom:8px;">Kapitel 3 avklarat</div></div>
-    <div class="celebration-text">&#x2728; Ur askan stiger Alfred Nobel &#x2728;</div>
+    <div class="celebration-text">&#x2728; Kuggad &mdash; men inte besegrad! &#x2728;</div>
     <div class="divider"></div>
-    <div class="narrative-box"><h2 class="narrative-heading">Ur tragedin f&ouml;ds en id&eacute;&hellip;</h2><p class="narrative-text" id="ch3-conclusionText"></p></div>
-    <div class="lesson-box"><div class="lesson-label">L&auml;rdom</div><p class="lesson-text">&Auml;ven de v&auml;rsta tragedier kan leda till f&ouml;r&auml;ndring. Alfreds sorg blev drivkraften bakom dynamiten.</p></div>
+    <div class="narrative-box"><h2 class="narrative-heading">Ur motgången v&auml;xer en tanke&hellip;</h2><p class="narrative-text" id="ch3-conclusionText"></p></div>
+    <div class="lesson-box"><div class="lesson-label">L&auml;rdom</div><p class="lesson-text">Ett misslyckat prov &auml;r inte slutet. Albert kuggade &mdash; och &aring;ret som f&ouml;ljde blev hans b&auml;sta. D&auml;r f&ouml;ddes fr&aring;gan om ljuset, som skulle f&ouml;r&auml;ndra allt.</p></div>
     <div class="divider"></div>
     <h3 style="text-align:center; font-family:var(--font-headline); font-size:1.1rem; color:var(--brown-medium); margin-bottom:16px;">Dina resurser efter kapitel 3</h3>
     <div class="final-resources">
@@ -1866,7 +1874,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F4A1;</span><span class="final-resource-label">Fantasi</span><span class="final-resource-value" id="ch3-finalFantasi">0</span></div>
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F981;</span><span class="final-resource-label">Mod</span><span class="final-resource-value" id="ch3-finalMod">0</span></div>
     </div>
-    <p class="teaser-text">Forts&auml;ttning f&ouml;ljer&hellip;<br><em>Kapitel 4: Dynamiten &mdash; Genombrottet</em></p>
+    <p class="teaser-text">Forts&auml;ttning f&ouml;ljer&hellip;<br><em>Kapitel 4: Patentkontoret och mirakel&aring;ret</em></p>
       <audio id="narrator-ch3-conclusion" src="" preload="auto"></audio>
     <div style="text-align:center; margin-top: 16px; margin-bottom: 12px;">
       <button class="diary-btn" onclick="NobelDiary.show(3)">&#x1F4D6; Alberts fr&aring;gebok</button>
@@ -2799,7 +2807,7 @@ var gameState = {
   choices: {
     ch1_kompass: null, ch1_fiol: null,
     ch2_skolan: null, ch2_italien: null,
-    ch3_speed: null, ch3_aftermath: null,
+    ch3_provet: null, ch3_studier: null,
     ch4_factory: null, ch4_sales: null, ch4_motivation: null,
     ch5_military: null, ch5_bofors: null, ch5_journalist: null,
     ch6_reaction: null,
@@ -2857,13 +2865,13 @@ var choiceData = {
   },
   ch3: {
     1: [
-      { effects: { kunskap: 1, mod: 1 }, resultText: 'Alfred arbetar lugnt och noggrant. Alla i laboratoriet k\u00e4nner sig trygga. Men produktionen g\u00e5r l\u00e5ngsamt.' },
-      { effects: { kunskap: 2, mod: -1 }, resultText: 'Alfred pressar p\u00e5 och kunskapen v\u00e4xer snabbt. Men arbetarna \u00e4r oroliga. Varje dag \u00e4r ett risktagande.' }
+      { effects: { kunskap: 1, mod: 1 }, resultText: 'Albert l\u00f6ser tal efter tal och k\u00e4nner sig stark. Det han \u00e4lskar sitter som berget \u2014 resten f\u00e5r bli som det blir.' },
+      { effects: { kunskap: 2, mod: -1 }, resultText: 'Albert pluggar till l\u00e5ngt efter midnatt. Glosorna surrar i huvudet men vill inte fastna. Det man inte bryr sig om \u00e4r sv\u00e5rast att l\u00e4ra sig.' }
     ],
     2: [
-      { effects: { mod: 1, fantasi: -1 }, requires: { mod: 2 }, resultText: 'Alfred stannar i Stockholm och talar med pressen. Han visar empati och k\u00e4mpar f\u00f6r sitt mod, men det kostar pengar.' },
-      { effects: { kunskap: 1 }, resultText: 'Alfred flyttar experimenten till en pr\u00e5m p\u00e5 M\u00e4laren. Borta fr\u00e5n folk kan han experimentera ifred.' },
-      { effects: { mod: -1, fantasi: 1 }, resultText: 'Alfred reser utomlands och b\u00f6rjar om. Nya kontakter ger fantasi, men hans mod i Sverige lider.' }
+      { effects: { kunskap: 1, fantasi: 1 }, resultText: 'Tillsammans l\u00f6ser de problem som ingen klarar ensam. Mileva ser saker Albert missar \u2014 och tv\u00e4rtom. B\u00e4st blir man tillsammans.' },
+      { effects: { kunskap: 2, mod: -1 }, resultText: 'Albert l\u00e4ser m\u00e4starnas b\u00f6cker p\u00e5 egen hand och l\u00e4r sig enormt. Men professorerna minns vem som aldrig kom \u2014 det ska visa sig f\u00e5 f\u00f6ljder.' },
+      { effects: { fantasi: 1, mod: 1 }, resultText: 'Fiolen sjunger p\u00e5 kaf\u00e9et och tankarna flyger h\u00f6gt. Alberts b\u00e4sta id\u00e9er kommer n\u00e4r han skrattar.' }
     ]
   },
   ch4: {
@@ -2938,19 +2946,19 @@ function applyChapterStart(chapter) {
     }
   }
   if (chapter === 3) {
-    // Ch2 -> Ch3: Chemistry education gives +1 Kunskap bonus
+    // Ch2 -> Ch3: den som v\u00e5gade fr\u00e5ga i skolan har tr\u00e4nat sitt mod
     if (gameState.choices.ch2_skolan === 0) {
-      setTimeout(function() { animateResource('kunskap', 1); }, 800);
+      setTimeout(function() { animateResource('mod', 1); }, 800);
     }
-    // Ch2 -> Ch3: nitro=dangerous modifies intro
-    if (gameState.choices.ch2_italien === 1) {
+    // Ch2 -> Ch3: den som stannade ensam i M\u00fcnchen b\u00e4r med sig det
+    if (gameState.choices.ch2_italien === 0) {
       var el = document.getElementById('ch3-introText');
-      if (el) el.innerHTML = '<strong>September 1864.</strong> Trots att Alfred tidigare valde att inte arbeta med nitroglycerin, har andra uppfinnare drivit p\u00e5. Nu \u00e4r han tillbaka i Stockholm, och faran lurar fortfarande.';
+      if (el) el.innerHTML = '<strong>Schweiz, 1895.</strong> Efter det ensamma \u00e5ret i M\u00fcnchen har Albert lovat sig sj\u00e4lv en sak: aldrig mer en skola som k\u00e4nns som ett f\u00e4ngelse. Nu ska han s\u00f6ka in p\u00e5 den ber\u00f6mda tekniska h\u00f6gskolan i Z\u00fcrich \u2014 tv\u00e5 \u00e5r yngre \u00e4n alla andra. Ett enda stort prov avg\u00f6r allt.';
     }
   }
   if (chapter === 4) {
     // Ch3 -> Ch4: Speed choice affects intro
-    if (gameState.choices.ch3_speed === 1) {
+    if (gameState.choices.ch3_provet === 1) {
       var el = document.getElementById('ch4-introText');
       if (el) el.innerHTML = '<strong>\u00c5ret \u00e4r 1867.</strong> Efter det h\u00f6ga tempot och explosionen har Alfred l\u00e4rt sig att t\u00e5lamod l\u00f6nar sig. Nu har han \u00e4ntligen skapat dynamit \u2014 s\u00e4kert och kraftfullt.';
     }
@@ -3253,8 +3261,8 @@ function makeChoice(chapter, choiceGroup, choiceIndex) {
   if (chapter === 'ch1' && choiceGroup === 2) gameState.choices.ch1_fiol = choiceIndex;
   if (chapter === 'ch2' && choiceGroup === 1) gameState.choices.ch2_skolan = choiceIndex;
   if (chapter === 'ch2' && choiceGroup === 2) gameState.choices.ch2_italien = choiceIndex;
-  if (chapter === 'ch3' && choiceGroup === 1) gameState.choices.ch3_speed = choiceIndex;
-  if (chapter === 'ch3' && choiceGroup === 2) gameState.choices.ch3_aftermath = choiceIndex;
+  if (chapter === 'ch3' && choiceGroup === 1) gameState.choices.ch3_provet = choiceIndex;
+  if (chapter === 'ch3' && choiceGroup === 2) gameState.choices.ch3_studier = choiceIndex;
   if (chapter === 'ch4' && choiceGroup === 1) gameState.choices.ch4_factory = choiceIndex;
   if (chapter === 'ch4' && choiceGroup === 2) gameState.choices.ch4_sales = choiceIndex;
   if (chapter === 'ch4' && choiceGroup === 3) gameState.choices.ch4_motivation = choiceIndex;
@@ -3376,7 +3384,7 @@ function getConclusionText(chapter) {
     return 'Albert v\u00e4xte fr\u00e5n tyst pojke till n\u00e5gon som v\u00e5gar t\u00e4nka sj\u00e4lv. Skolan gav honom inte svaren \u2014 men fr\u00e5gorna blev bara starkare. N\u00e4sta steg: ett prov som inte alls g\u00e5r som planerat.';
   }
   if (chapter === 'ch3') {
-    return 'Explosionen p\u00e5 Heleneborg f\u00f6r\u00e4ndrade Alfred f\u00f6r alltid. Ur sorgen och skulden f\u00f6ddes en j\u00e4rnfast beslutsamhet: han skulle g\u00f6ra spr\u00e4ng\u00e4mnena s\u00e4kra.';
+    return 'Kuggad p\u00e5 provet \u2014 men b\u00e4st i fysik. \u00c5ret i Aarau gav Albert b\u00e5de v\u00e4nner och den stora fr\u00e5gan om ljuset. P\u00e5 h\u00f6gskolan v\u00e4ntade n\u00e5got mer: Mileva.';
   }
   if (chapter === 'ch4') {
     return 'Dynamiten var klar. Alfred Nobel hade f\u00f6r\u00e4ndrat v\u00e4rlden med en enda uppfinning. Nu v\u00e4ntade n\u00e4sta kapitel \u2014 att bygga ett imperium.';
@@ -3535,14 +3543,14 @@ function launchExplosionParticles() {
       p.spin += 0.1;
       ctx.globalAlpha = Math.max(0, p.life);
       if (p.kind === 'fire') {
-        ctx.fillStyle = p.life > 0.6 ? '#ffc23d' : p.life > 0.3 ? '#ff7a1a' : '#b3300f';
+        ctx.fillStyle = p.life > 0.6 ? '#fff3c4' : p.life > 0.3 ? '#ffd84d' : '#d4a72c';
         ctx.beginPath(); ctx.arc(p.x, p.y, Math.max(0.1, p.size * p.life), 0, Math.PI * 2); ctx.fill();
       } else if (p.kind === 'smoke') {
-        ctx.fillStyle = 'rgba(70,60,52,0.55)';
+        ctx.fillStyle = 'rgba(90,120,200,0.30)';
         ctx.beginPath(); ctx.arc(p.x, p.y, Math.max(0.1, p.size * (1.6 - p.life)), 0, Math.PI * 2); ctx.fill();
       } else {
         ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.spin);
-        ctx.fillStyle = '#2a1f14';
+        ctx.fillStyle = '#9a7208';
         ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
         ctx.restore();
       }
@@ -3559,7 +3567,7 @@ function launchExplosionParticles() {
    (positive) or drain away from the bar (negative); the counter
    ticks when they land.
    ============================================ */
-var RESOURCE_EMOJI = { kunskap: '📚', fantasi: '💡', mod: '⭐', eftermale: '✨' };
+var RESOURCE_EMOJI = { kunskap: '📚', fantasi: '💡', mod: '🦁', eftermale: '✨' };
 
 function flyResources(resource, change, fromEl) {
   var target = document.getElementById('res' + capitalize(resource));
@@ -3937,7 +3945,7 @@ function triggerExplosion() {
   setTimeout(function() { flash.remove(); }, 800);
   // Apply explosion resource consequences based on ch3 choice 1
   setTimeout(function() {
-    if (gameState.choices.ch3_speed === 0) {
+    if (gameState.choices.ch3_provet === 0) {
       // Försiktigt: -1 Fantasi, -1 Mod
       animateResource('fantasi', -1);
       setTimeout(function() { animateResource('mod', -1); }, 500);
@@ -4414,7 +4422,7 @@ function restartGame() {
   gameState.currentChapter = 1; gameState.currentScreen = 'ch1-title';
   gameState.choices = {
     ch1_kompass: null, ch1_fiol: null, ch2_skolan: null, ch2_italien: null,
-    ch3_speed: null, ch3_aftermath: null, ch4_factory: null, ch4_sales: null, ch4_motivation: null,
+    ch3_provet: null, ch3_studier: null, ch4_factory: null, ch4_sales: null, ch4_motivation: null,
     ch5_military: null, ch5_bofors: null, ch5_journalist: null, ch6_reaction: null,
     ch7_fortune: null, ch7_prizes: [], ch7_institution: null
   };
@@ -6625,37 +6633,34 @@ var NobelDiary = (function () {
     return { date: date, text: lines.join('\n') };
   };
 
-  // ── CHAPTER 3 — 1864, Stockholm (explosionen) ─────────────
+  // ── CHAPTER 3 — Aarau/Zürich, 1896–1900 ──────────────────
   entryGenerators[3] = function (ch) {
-    var date = 'Stockholm, den 3 september 1864';
+    var date = 'Z\u00fcrich, 1900';
     var lines = [];
 
-    lines.push('Kära dagbok,');
+    lines.push('Hej fr\u00e5gebok!');
     lines.push('');
 
-    // ch3_speed — the approach before the disaster
-    if (ch.ch3_speed === 0) {
-      lines.push('Jag var så försiktig. Varje steg mätt och beräknat. Ändå skedde det — explosionen som rev sönder allt. Var all min noggrannhet förgäves? Eller hade det blivit ännu värre om jag icke vinnlagt mig så?');
+    if (ch.ch3_provet === 0) {
+      lines.push('Minns du provet? Jag kuggade. KUGGADE! Fast jag var b\u00e4st i matte och fysik. Franskan s\u00e4nkte mig. F\u00f6rst ville jag bara g\u00f6mma mig. Men \u00e5ret i Aarau blev mitt b\u00e4sta \u2014 d\u00e4r fick man FR\u00c5GA.');
     } else {
-      lines.push('Jag pressade på, alltför snabbt. Jag visste det innerst inne, men rastlösheten drev mig. Nu brinner ruinerna ännu framför mina ögon varje gång jag sluter dem. Hade jag blott tagit mig tid...');
+      lines.push('Minns du provet? Jag f\u00f6rs\u00f6kte plugga in ALLT p\u00e5 en kv\u00e4ll och kuggade \u00e4nd\u00e5. Man kan inte trycka in ett helt \u00e5r p\u00e5 en natt \u2014 nu vet jag det. Men \u00e5ret i Aarau blev mitt b\u00e4sta \u2014 d\u00e4r fick man FR\u00c5GA.');
     }
 
     lines.push('');
-    lines.push('Emil. Min lille bror Emil. Jag kan icke skriva hans namn utan att handen darrar. Han var tjugo år. Bara tjugo! Världen skall aldrig höra hans skratt igen, och det är mitt fel. Min vetenskap, min ambition, min förbannande nyfikenhet — den tog honom ifrån oss.');
-
+    lines.push('Och t\u00e4nk: p\u00e5 en promenad i Aarau kom den st\u00f6rsta fr\u00e5gan jag n\u00e5gonsin t\u00e4nkt. Om jag red p\u00e5 en ljusstr\u00e5le \u2014 vad skulle jag se? Jag f\u00e5r g\u00e5shud varje g\u00e5ng.');
     lines.push('');
 
-    // ch3_aftermath
-    if (ch.ch3_aftermath === 0) {
-      lines.push('Jag stannar i Stockholm. Jag skall se människorna i ögonen, tala med tidningarna, bära detta kors öppet. Det vore fegt att fly. Emil förtjänar att jag står kvar.');
-    } else if (ch.ch3_aftermath === 1) {
-      lines.push('Jag har flyttat mina experiment till en pråm på Mälaren. Ensam med vågornas kluckande och mina kemikalier. Här kan jag icke skada någon annan. Isoleringen gnager, men den är mitt straff och min tillflykt.');
+    if (ch.ch3_studier === 0) {
+      lines.push('P\u00e5 h\u00f6gskolan pluggar jag med Mileva och v\u00e4nnerna. Mileva \u00e4r den klokaste i rummet, fast vissa professorer l\u00e5tsas inte se henne. Vi l\u00f6ser problem tillsammans som ingen klarar ensam.');
+    } else if (ch.ch3_studier === 1) {
+      lines.push('Jag har skippat f\u00f6rel\u00e4sningarna igen och l\u00e4st Maxwell sj\u00e4lv i st\u00e4llet. Professor Weber \u00e4r sur p\u00e5 mig. Mileva l\u00e5nar mig sina anteckningar \u2014 utan henne hade jag varit fast.');
     } else {
-      lines.push('Jag lämnar Sverige. Jag kan icke vara kvar där varje gata minner mig om vad jag förlorat. Utomlands väntar nya möjligheter — men sorgen följer med i bagaget, tyngre än allt annat jag äger.');
+      lines.push('Ikv\u00e4ll spelade jag fiol p\u00e5 kaf\u00e9et och sen pratade vi fysik till stj\u00e4rnorna bleknade. Mileva sa en sak om ljuset som jag inte kan sluta t\u00e4nka p\u00e5. T\u00e4nk att f\u00e5 prata med n\u00e5gon som F\u00d6RST\u00c5R.');
     }
 
     lines.push('');
-    lines.push('Mamma förlät mig. Jag förstår icke hur. Jag har icke förlåtit mig själv, och jag vet icke om jag någonsin skall kunna det. Men jag svär vid Emils minne: jag skall göra sprängämnet säkert. Ingen fler skall dö för att jag drömde för djärvt.');
+    lines.push('Nya fr\u00e5gor: Vad ser man om man rider p\u00e5 en ljusstr\u00e5le? Varf\u00f6r f\u00e5r Mileva k\u00e4mpa dubbelt s\u00e5 h\u00e5rt f\u00f6r samma sak? Hur f\u00e5r man ett jobb n\u00e4r professorerna \u00e4r sura p\u00e5 en?');
 
     return { date: date, text: lines.join('\n') };
   };
