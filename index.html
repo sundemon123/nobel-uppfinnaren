@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Historieresan — spela dig genom historien</title>
+<style>
+  :root {
+    --bg: #f3ede0; --bg2: #fbf7ee; --ink: #2c2016; --muted: #6b5a44;
+    --card: #ffffff; --border: rgba(90,58,40,0.16); --accent: #9a7208;
+    --accent2: #1b5e56; --shadow: rgba(44,24,16,0.10);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#161a22; --bg2:#1c222c; --ink:#eef2f8; --muted:#9fb0c4;
+      --card:#212834; --border:rgba(255,255,255,0.10); --accent:#d4a72c;
+      --accent2:#4bb3a6; --shadow:rgba(0,0,0,0.4); }
+  }
+  :root[data-theme="dark"] { --bg:#161a22; --bg2:#1c222c; --ink:#eef2f8; --muted:#9fb0c4;
+    --card:#212834; --border:rgba(255,255,255,0.10); --accent:#d4a72c; --accent2:#4bb3a6; --shadow:rgba(0,0,0,0.4); }
+  :root[data-theme="light"] { --bg:#f3ede0; --bg2:#fbf7ee; --ink:#2c2016; --muted:#6b5a44;
+    --card:#ffffff; --border:rgba(90,58,40,0.16); --accent:#9a7208; --accent2:#1b5e56; --shadow:rgba(44,24,16,0.10); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; color: var(--ink);
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 40%, var(--bg) 100%);
+    min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 48px 20px 64px; }
+  header { text-align: center; margin-bottom: 40px; }
+  .compass { font-size: 3rem; display: block; margin-bottom: 8px; }
+  h1 { font-family: Georgia, serif; font-size: clamp(2rem, 6vw, 2.8rem); letter-spacing: -0.01em; }
+  .tagline { color: var(--muted); font-size: 1.05rem; margin-top: 8px; }
+  .intro { max-width: 620px; margin: 20px auto 0; color: var(--muted); }
+  .filters { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 32px 0 24px; }
+  .filter { background: var(--card); border: 1px solid var(--border); color: var(--ink);
+    padding: 7px 15px; border-radius: 999px; font-size: 0.85rem; cursor: pointer; transition: all .15s; }
+  .filter.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 22px; box-shadow: 0 4px 16px var(--shadow); display: flex; flex-direction: column;
+    transition: transform .15s, box-shadow .15s; text-decoration: none; color: inherit; }
+  a.card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px var(--shadow); }
+  .card.soon { opacity: 0.72; }
+  .card-emoji { font-size: 2.2rem; margin-bottom: 10px; }
+  .card h2 { font-family: Georgia, serif; font-size: 1.3rem; margin-bottom: 4px; }
+  .card .era { font-size: 0.78rem; color: var(--accent2); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+  .card p { color: var(--muted); font-size: 0.92rem; margin-top: 10px; flex: 1; }
+  .badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 14px; }
+  .badge { font-size: 0.72rem; padding: 3px 9px; border-radius: 6px; background: rgba(154,114,8,0.12); color: var(--accent); }
+  .status { font-size: 0.78rem; margin-top: 12px; font-weight: 600; }
+  .status.live { color: var(--accent2); }
+  .status.soon { color: var(--muted); }
+  footer { text-align: center; margin-top: 48px; color: var(--muted); font-size: 0.85rem; }
+  footer a { color: var(--accent); }
+  .about { margin-top: 44px; background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 24px; }
+  .about h3 { font-family: Georgia, serif; margin-bottom: 8px; }
+  .about p { color: var(--muted); font-size: 0.92rem; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="compass">🧭</span>
+    <h1>Historieresan</h1>
+    <p class="tagline">Spela dig genom historien — ett äventyr per epok, med nedslag hos människorna</p>
+    <p class="intro">Berättelsedrivna spel för mellanstadiet, byggda mot läroplanen (Lgr22). Du gör val, möter riktiga historiska människor och får berättaren att läsa upp allt. Inga rätt eller fel — bara olika vägar genom det som hänt.</p>
+  </header>
+
+  <div class="filters">
+    <button class="filter active" data-f="all">Alla</button>
+    <button class="filter" data-f="live">Spelbara nu</button>
+    <button class="filter" data-f="ak4">Åk 4</button>
+    <button class="filter" data-f="ak5">Åk 5</button>
+    <button class="filter" data-f="ak6">Åk 6</button>
+  </div>
+
+  <div class="grid" id="grid">
+    <a class="card" data-tags="live ak4 ak5 ak6" href="https://sundemon123.github.io/nobel-uppfinnaren/">
+      <div class="card-emoji">🧪</div>
+      <div class="era">1800-talet</div>
+      <h2>Nobel: Uppfinnarens väg</h2>
+      <p>Från fattig pojke i Stockholm till historiens mest kända testamente. Dynamiten, dödsrunan som ändrade allt, och Nobelpriset.</p>
+      <div class="badges"><span class="badge">Industrialisering</span><span class="badge">Källkritik</span><span class="badge">Historiebruk</span></div>
+      <div class="status live">🟢 Spela nu</div>
+    </a>
+
+    <div class="card soon" data-tags="ak4 ak5 ak6">
+      <div class="card-emoji">⚛️</div>
+      <div class="era">1900-talet</div>
+      <h2>Einstein: Tänkarens väg</h2>
+      <p>Pojken som aldrig slutade fråga varför. Kompassen, mirakelåret, flykten undan nazismen och brevet som ändrade världen.</p>
+      <div class="badges"><span class="badge">Vetenskap</span><span class="badge">Propaganda</span><span class="badge">Källkritik</span></div>
+      <div class="status soon">🟡 Snart</div>
+    </div>
+
+    <div class="card soon" data-tags="ak4">
+      <div class="card-emoji">⛵</div>
+      <div class="era">ca 800–1500</div>
+      <h2>Vikingaresan</h2>
+      <p>Segla ut i den kända världen: handla, utforska, bosätta. Med nedslag hos trälflickan, völvan och runristaren.</p>
+      <div class="badges"><span class="badge">Norden</span><span class="badge">Vardagsliv</span><span class="badge">Nedslag</span></div>
+      <div class="status soon">⚪ Planerad</div>
+    </div>
+  </div>
+
+  <div class="about">
+    <h3>För lärare</h3>
+    <p>Varje spel är förankrat i kursplanens centrala innehåll för åk 4–6 (historia/SO) och kommer med en lärarhandledning — en sida per kapitel med samtalsfrågor och läroplanskoppling. Spelen bärs av tre svårighetslägen (Lugn 7–8 / Lagom / Klurig 9–11) och en uppläsningsknapp, så de fungerar från lågstadiet upp.</p>
+    <p>Serien följer en tvålagersmodell: ett <strong>äventyr</strong> ger epokens stora drag, och korta <strong>nedslag</strong> skildrar vardagslivet och enskilda människoöden — barn, kvinnor, män och andra grupper — för att uppfylla läroplanens krav på både kvinnors och mäns historia och på historisk empati.</p>
+  </div>
+
+  <footer>
+    Byggt med omsorg för svenska klassrum · <a href="https://github.com/sundemon123/historieresan">källkod & dokumentation på GitHub</a>
+  </footer>
+</div>
+
+<script>
+  var grid = document.getElementById('grid');
+  document.querySelectorAll('.filter').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.filter').forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      var f = btn.dataset.f;
+      grid.querySelectorAll('.card').forEach(function (c) {
+        var show = f === 'all' || c.dataset.tags.split(' ').indexOf(f) > -1;
+        c.style.display = show ? 'flex' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>
