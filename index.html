@@ -8285,26 +8285,9 @@ var NobelMinigames = (function () {
      ============================================================ */
   var ch5 = (function () {
     var state, container, canvasObj, animFrame;
-    var W = 360, H = 480;
-
-    // City data with approximate positions on a simplified Europe map
-    // Koordinater ur riktig lon/lat-projektion (se drawMap)
-    var CITIES = [
-      { id: 'stockholm', name: 'Stockholm',  x: 285, y: 93,  country: 'Sverige' },
-      { id: 'hamburg',   name: 'Hamburg',     x: 208, y: 174, country: 'Tyskland', isHQ: true },
-      { id: 'paris',     name: 'Paris',       x: 136, y: 241, country: 'Frankrike' },
-      { id: 'glasgow',   name: 'Glasgow',     x: 73,  y: 141, country: 'Skottland' },
-      { id: 'milano',    name: 'Milano',      x: 201, y: 290, country: 'Italien' }
-    ];
-
-    // Orders (same 5 as original, mapped to city IDs)
-    var ORDERS = [
-      { text: 'Stockholms gruvor beh\u00f6ver spr\u00e4ng\u00e4mnen f\u00f6r j\u00e4rnmalm.', icon: '\u26CF',  correctCity: 'stockholm' },
-      { text: 'Hamburg bygger en tunnel under Elbe!',                                          icon: '\uD83D\uDE87', correctCity: 'hamburg' },
-      { text: 'Paris i Frankrike best\u00e4ller dynamit till en ny j\u00e4rnv\u00e4g.',                             icon: '\uD83D\uDE82', correctCity: 'paris' },
-      { text: 'Skottlands kolgruvor i Glasgow beh\u00f6ver spr\u00e4ng\u00e4mnen.',            icon: '\u26CF',  correctCity: 'glasgow' },
-      { text: 'Milano bygger underjordisk vattenledning.',                                     icon: '\uD83D\uDE87', correctCity: 'milano' }
-    ];
+    var W = 360, H = 420;
+    var STAR = { x: 34, y: 116 };
+    var SUN = { x: 186, y: 232 };
 
     function init(containerId) {
       container = document.getElementById(containerId);
@@ -8313,12 +8296,12 @@ var NobelMinigames = (function () {
 
       var wrapper = createDiv(container, 'nmg-wrapper');
       var titleEl = createDiv(wrapper, 'nmg-title');
-      titleEl.textContent = 'Fabriksimperiet';
+      titleEl.textContent = 'B\u00f6j ljuset!';
       var subEl = createDiv(wrapper, 'nmg-subtitle');
-      subEl.textContent = 'Dra l\u00e5dorna till r\u00e4tt stad p\u00e5 kartan!';
+      subEl.textContent = 'Anv\u00e4nd solens tyngdkraft \u2014 tr\u00e4ffa fotoplattan.';
 
       var instrEl = createDiv(wrapper, 'nmg-instructions');
-      instrEl.innerHTML = 'Ordrar fr\u00e5n Alfreds fabriker! L\u00e4s best\u00e4llningen under kartan och <strong>dra l\u00e5dan</strong> fr\u00e5n Hamburg till r\u00e4tt stad. Fel stad? Ingen fara \u2014 prova igen!';
+      instrEl.innerHTML = 'Stj\u00e4rnans ljus ska fram till Eddingtons fotoplatta \u2014 men solen ligger i v\u00e4gen och <strong>b\u00f6jer ljuset</strong> med sin tyngdkraft! Dra upp och ner f\u00f6r att sikta, sl\u00e4pp f\u00f6r att skicka ljuset. Kommer str\u00e5len f\u00f6r n\u00e4ra solen slukas den!';
 
       state = {
         phase: 'ready',
@@ -8326,97 +8309,69 @@ var NobelMinigames = (function () {
         instrEl: instrEl,
         statusEl: null,
         resultEl: null,
+        round: 0,
+        attempts: 0,
+        hits: 0,
+        aimAngle: -0.15,
+        aiming: false,
+        photon: null,   // { x, y, vx, vy, trail: [] }
+        poof: null,     // { x, y, t }
+        hitFlash: 0,
         score: 0,
-        // Game state
-        orders: [],
-        currentOrder: 0,
-        totalOrders: 5,
-        correctDeliveries: 0,
-        wrongAttempts: 0,
-        orderShownAt: 0,
-        // Timer
-        timeLeft: 90,
-        lastTime: 0,
-        // Crate drag
-        crateX: 0,
-        crateY: 0,
-        crateHomeX: 0,
-        crateHomeY: 0,
-        isDragging: false,
-        dragOffsetX: 0,
-        dragOffsetY: 0,
-        // Animations
-        feedback: null,     // { type: 'correct'|'wrong', t: 0, cityId, text }
-        routeAnim: null,    // { t, fromX, fromY, toX, toY }
-        deliveredCities: [], // city IDs that are done
-        sparkles: []
+        gravity: 3800,
+        plate: { y: 120, h: 70 }
       };
 
       var statusEl = createDiv(wrapper, 'nmg-status');
       state.statusEl = statusEl;
 
-      // Timer bar
-      var timerWrap = createDiv(wrapper, 'nmg-progress-bar');
-      var timerFill = createDiv(timerWrap, 'nmg-progress-fill');
-      timerFill.style.width = '100%';
-      timerFill.style.background = 'linear-gradient(to right, ' + COLORS.moss + ', ' + COLORS.gold + ')';
-      state.timerFill = timerFill;
-
       canvasObj = createCanvas(wrapper, W, H);
-
-      // Order text below canvas
-      var orderEl = createDiv(wrapper, '');
-      orderEl.style.cssText = 'background:' + COLORS.parchDark + '; border-radius:8px; padding:12px; margin-top:8px; min-height:60px;';
-      state.orderEl = orderEl;
 
       var resultEl = createDiv(wrapper, 'nmg-hidden');
       state.resultEl = resultEl;
 
-      // Events
       var cv = canvasObj.canvas;
       cv.addEventListener('mousedown',  onDown, false);
       cv.addEventListener('mousemove',  onMove, false);
       cv.addEventListener('mouseup',    onUp,   false);
+      cv.addEventListener('mouseleave', onUp,   false);
       cv.addEventListener('touchstart', onDown, { passive: false });
       cv.addEventListener('touchmove',  onMove, { passive: false });
       cv.addEventListener('touchend',   onUp,   false);
     }
 
+    function roundPlates() {
+      // Fotoplattans läge per runda: allt längre från "rakt fram" = mer böj krävs
+      var d = nmgDifficulty();
+      var h = d === 'lugn' ? 96 : d === 'klurig' ? 52 : 70;
+      return [
+        { y: 96,  h: h },
+        { y: 196, h: h },
+        { y: 300, h: h }
+      ];
+    }
+
     function start() {
       if (!state) return;
+      var d = nmgDifficulty();
       state.phase = 'playing';
-      state.orders = shuffle(ORDERS);
-      state.currentOrder = 0;
-      state.correctDeliveries = 0;
-      state.wrongAttempts = 0;
-      var d5 = nmgDifficulty();
-      state.timeMax = d5 === 'lugn' ? 150 : d5 === 'klurig' ? 60 : 90;
-      state.timeLeft = state.timeMax;
-      state.lastTime = performance.now();
+      state.round = 0;
+      state.attempts = 0;
+      state.hits = 0;
+      state.aimAngle = -0.15;
+      state.photon = null;
+      state.poof = null;
       state.score = 0;
-      state.isDragging = false;
-      state.feedback = null;
-      state.routeAnim = null;
-      state.deliveredCities = [];
-      state.sparkles = [];
+      state.gravity = d === 'lugn' ? 260 : d === 'klurig' ? 430 : 340;
+      state.plate = roundPlates()[0];
+      state.statusEl.textContent = 'Fotografi 1 av 3 \u2014 dra f\u00f6r att sikta, sl\u00e4pp f\u00f6r att skicka!';
       state.instrEl.classList.remove('nmg-hidden');
+      state.resultEl.innerHTML = '';
       state.resultEl.classList.add('nmg-hidden');
-      state.orderEl.style.display = '';
-
-      // Place crate at Hamburg
-      var hq = getCityById('hamburg');
-      state.crateHomeX = hq.x - 12;
-      state.crateHomeY = hq.y + 20;
-      state.crateX = state.crateHomeX;
-      state.crateY = state.crateHomeY;
-
-      showCurrentOrder();
       loop();
     }
 
-    function getScore() {
-      return state ? state.score : 0;
-    }
+    function getScore() { return state ? state.score : 0; }
 
     function destroy() {
       if (animFrame) cancelAnimationFrame(animFrame);
@@ -8425,201 +8380,116 @@ var NobelMinigames = (function () {
       state = null;
     }
 
-    function getCityById(id) {
-      for (var i = 0; i < CITIES.length; i++) {
-        if (CITIES[i].id === id) return CITIES[i];
+    function playSfx(name) {
+      if (typeof NobelSound !== 'undefined' && NobelSound._initialized) {
+        try { NobelSound.play(name); } catch (e) { /* ignore */ }
       }
-      return null;
     }
 
-    function showCurrentOrder() {
-      if (!state || state.currentOrder >= state.totalOrders) return;
-      var order = state.orders[state.currentOrder];
-      state.orderShownAt = performance.now();
-      state.statusEl.textContent = 'Leverans ' + (state.currentOrder + 1) + ' av ' + state.totalOrders;
-      state.orderEl.innerHTML = '<div style="font-size:1.4rem; margin-bottom:4px;">' + order.icon + '</div><div style="font-size:0.9rem; color:' + COLORS.brown + ';">' + order.text + '</div>';
-
-      // Reset crate
-      var hq = getCityById('hamburg');
-      state.crateHomeX = hq.x - 12;
-      state.crateHomeY = hq.y + 20;
-      state.crateX = state.crateHomeX;
-      state.crateY = state.crateHomeY;
+    function aimFromPos(pos) {
+      var dx = Math.max(40, pos.x - STAR.x);
+      var dy = pos.y - STAR.y;
+      state.aimAngle = Math.max(-0.9, Math.min(0.9, Math.atan2(dy, dx)));
     }
 
     function onDown(e) {
-      if (!state || state.phase !== 'playing' || state.feedback) return;
+      if (!state || state.phase !== 'playing' || state.photon) return;
       e.preventDefault();
-      var pos = getPointerPos(canvasObj.canvas, e);
-
-      // Check if touching crate (generous padding for small fingers)
-      var crateW = 24, crateH = 20, pad = 14;
-      if (pos.x >= state.crateX - pad && pos.x <= state.crateX + crateW + pad &&
-          pos.y >= state.crateY - pad && pos.y <= state.crateY + crateH + pad) {
-        state.isDragging = true;
-        state.dragOffsetX = pos.x - state.crateX;
-        state.dragOffsetY = pos.y - state.crateY;
-      }
+      state.aiming = true;
+      aimFromPos(getPointerPos(canvasObj.canvas, e));
     }
 
     function onMove(e) {
-      if (!state || !state.isDragging) return;
+      if (!state || !state.aiming || state.photon) return;
       e.preventDefault();
-      var pos = getPointerPos(canvasObj.canvas, e);
-      state.crateX = pos.x - state.dragOffsetX;
-      state.crateY = pos.y - state.dragOffsetY;
+      aimFromPos(getPointerPos(canvasObj.canvas, e));
     }
 
     function onUp(e) {
-      if (!state || !state.isDragging) return;
-      e.preventDefault();
-      state.isDragging = false;
+      if (!state || !state.aiming) return;
+      state.aiming = false;
+      if (state.phase !== 'playing' || state.photon) return;
+      // Skjut!
+      var speed = 3.4;
+      state.photon = {
+        x: STAR.x, y: STAR.y,
+        vx: Math.cos(state.aimAngle) * speed,
+        vy: Math.sin(state.aimAngle) * speed,
+        trail: []
+      };
+      state.attempts++;
+    }
 
-      // Check if dropped on a city
-      var order = state.orders[state.currentOrder];
-      var crateCenter = { x: state.crateX + 12, y: state.crateY + 10 };
-      var hitCity = null;
-      var hitDist = 38; // detection radius (generous)
+    function stepPhoton() {
+      var p = state.photon;
+      if (!p) return;
+      for (var sub = 0; sub < 3; sub++) {
+        var dx = SUN.x - p.x, dy = SUN.y - p.y;
+        var r2 = dx * dx + dy * dy;
+        var r = Math.sqrt(r2);
+        // Gravitationsböj (starkare nära solen)
+        var acc = state.gravity / (r2 * r);
+        p.vx += dx * acc;
+        p.vy += dy * acc;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.trail.push({ x: p.x, y: p.y });
+        if (p.trail.length > 220) p.trail.shift();
 
-      for (var i = 0; i < CITIES.length; i++) {
-        var c = CITIES[i];
-        if (c.isHQ) continue; // Can't deliver to HQ itself (unless it's the target)
-        var dx = crateCenter.x - c.x;
-        var dy = crateCenter.y - c.y;
-        if (Math.sqrt(dx * dx + dy * dy) < hitDist) {
-          hitCity = c;
-          break;
+        if (r < 36) { // slukad av solen
+          state.poof = { x: p.x, y: p.y, t: 0 };
+          state.photon = null;
+          playSfx('sfx_minigameWrong');
+          state.statusEl.textContent = 'Oj! Solen slukade ljuset \u2014 sikta lite l\u00e4ngre bort och prova igen!';
+          return;
         }
-      }
-
-      // Also check Hamburg as a valid target
-      if (!hitCity) {
-        var hq = getCityById('hamburg');
-        var dx = crateCenter.x - hq.x;
-        var dy = crateCenter.y - hq.y;
-        if (Math.sqrt(dx * dx + dy * dy) < hitDist) {
-          hitCity = hq;
-        }
-      }
-
-      if (hitCity && hitCity.id === order.correctCity) {
-        // Correct!
-        state.correctDeliveries++;
-        state.feedback = { type: 'correct', t: 0, cityId: hitCity.id, text: 'R\u00e4tt!' };
-        state.deliveredCities.push(hitCity.id);
-
-        // Route animation from Hamburg
-        var hq = getCityById('hamburg');
-        state.routeAnim = {
-          t: 0,
-          fromX: hq.x, fromY: hq.y,
-          toX: hitCity.x, toY: hitCity.y
-        };
-
-        // Sparkles
-        for (var s = 0; s < 10; s++) {
-          state.sparkles.push({
-            x: hitCity.x, y: hitCity.y,
-            vx: (Math.random() - 0.5) * 4,
-            vy: (Math.random() - 0.5) * 4 - 1,
-            life: 1,
-            size: 2 + Math.random() * 3,
-            color: Math.random() > 0.5 ? COLORS.gold : COLORS.mossLight
-          });
-        }
-      } else if (hitCity) {
-        // Wrong city \u2014 no penalty beyond the attempt count; same order stays
-        state.wrongAttempts++;
-        state.feedback = { type: 'wrong', t: 0, cityId: hitCity.id, text: 'N\u00e4stan! Prova en annan stad.' };
-      }
-
-      // Snap crate back
-      state.crateX = state.crateHomeX;
-      state.crateY = state.crateHomeY;
-
-      // After feedback: advance only on a correct delivery \u2014
-      // a wrong guess lets the child try the same order again
-      if (state.feedback) {
-        var wasCorrect = state.feedback.type === 'correct';
-        setTimeout(function () {
-          if (!state) return;
-          state.feedback = null;
-          state.routeAnim = null;
-          if (!wasCorrect) return;
-          state.currentOrder++;
-          if (state.currentOrder >= state.totalOrders) {
-            finishGame();
+        if (p.x > W - 26) { // nådde högerkanten: träff eller miss?
+          var pl = state.plate;
+          if (p.y >= pl.y && p.y <= pl.y + pl.h) {
+            state.hits++;
+            state.hitFlash = 1;
+            playSfx('sfx_minigameCorrect');
+            state.photon = null;
+            if (state.hits >= 3) {
+              state.statusEl.textContent = 'Alla tre fotografier tagna!';
+              setTimeout(finishGame, 900);
+            } else {
+              state.round++;
+              state.plate = roundPlates()[state.round];
+              state.statusEl.textContent = 'Fotografi ' + (state.hits + 1) + ' av 3 \u2014 plattan har flyttats!';
+            }
           } else {
-            showCurrentOrder();
+            state.photon = null;
+            state.statusEl.textContent = 'N\u00e4ra! Ljuset missade plattan \u2014 sikta om och prova igen!';
           }
-        }, 1200);
+          return;
+        }
+        if (p.y < -20 || p.y > H + 20 || p.x < -20) {
+          state.photon = null;
+          state.statusEl.textContent = 'Ljuset f\u00f6rsvann ut i rymden \u2014 prova igen!';
+          return;
+        }
       }
     }
 
     function finishGame() {
-      if (!state) return;
+      if (!state || state.phase === 'done') return;
       state.phase = 'done';
-
-      // Score: all delivered with at most 1 wrong guess = 2,
-      // at least 3 delivered = 1, otherwise 0
-      if (state.correctDeliveries >= 5 && state.wrongAttempts <= 1) { state.score = 2; }
-      else if (state.correctDeliveries >= 3) { state.score = 1; }
-      else { state.score = 0; }
-
-      state.orderEl.style.display = 'none';
-      var allDelivered = state.correctDeliveries >= state.totalOrders;
-      state.statusEl.textContent = allDelivered ? 'Alla leveranser klara!' : 'Tiden tog slut!';
+      var extra = state.attempts - 3; // bomskott
+      state.score = extra <= 1 ? 2 : extra <= 4 ? 1 : 0;
       showResult(state, 'ch5', state.score, {
-        2: 'Perfekt! Alla leveranser n\u00e5dde r\u00e4tt stad direkt!<br><strong>+1 \ud83d\udcda Kunskap och +1 \ud83d\udcb0 Fantasi</strong>',
-        1: allDelivered
-          ? 'Bra jobbat! Alla st\u00e4der fick sin dynamit.<br><strong>+1 \ud83d\udcb0 Fantasi</strong>'
-          : 'Tiden tog slut, men ' + state.correctDeliveries + ' av ' + state.totalOrders + ' st\u00e4der fick sin dynamit!<br><strong>+1 \ud83d\udcb0 Fantasi</strong>',
-        0: 'Tiden tog slut \u2014 men nu kan du st\u00e4derna b\u00e4ttre. Prova igen!'
+        2: 'Vilket sikt\u00f6ga! Precis som Eddington f\u00e5ngade du ljuset som b\u00f6jer sig runt solen.<br><strong>+1 \ud83d\udcda Kunskap och +1 \ud83d\udca1 Fantasi</strong>',
+        1: 'Bra fotograferat! N\u00e5gra str\u00e5lar for vilse, men bevisen \u00e4r i hamn.<br><strong>+1 \ud83d\udca1 Fantasi</strong>',
+        0: 'Ljus \u00e4r kluriga saker \u2014 men alla foton kom i hamn till slut. Eddington hade ocks\u00e5 m\u00e5nga suddiga plåtar!'
       }, start);
     }
 
     function loop() {
       if (!state) return;
-
-      var now = performance.now();
-      var dt = (now - state.lastTime) / 1000;
-      state.lastTime = now;
-
-      if (state.phase === 'playing') {
-        // Timer
-        state.timeLeft -= dt;
-        if (state.timeLeft <= 0) {
-          state.timeLeft = 0;
-          finishGame();
-        }
-        state.timerFill.style.width = (state.timeLeft / (state.timeMax || 90) * 100) + '%';
-        if (state.timeLeft < 10) {
-          state.timerFill.style.background = 'linear-gradient(to right, ' + COLORS.red + ', ' + COLORS.redLight + ')';
-        }
+      if (state.phase === 'playing' || state.poof || state.hitFlash > 0) {
+        stepPhoton();
+        draw();
       }
-
-      // Feedback timer
-      if (state.feedback) {
-        state.feedback.t += dt;
-      }
-
-      // Route animation
-      if (state.routeAnim) {
-        state.routeAnim.t += dt * 2;
-      }
-
-      // Sparkles
-      for (var i = state.sparkles.length - 1; i >= 0; i--) {
-        var s = state.sparkles[i];
-        s.x += s.vx;
-        s.y += s.vy;
-        s.vy += 0.05;
-        s.life -= 0.025;
-        if (s.life <= 0) state.sparkles.splice(i, 1);
-      }
-
-      draw();
-
       if (state.phase !== 'done') {
         animFrame = requestAnimationFrame(loop);
       }
@@ -8627,241 +8497,117 @@ var NobelMinigames = (function () {
 
     function draw() {
       var ctx = canvasObj.ctx;
+      var now = performance.now();
 
-      // Background - sea (drawMap paints the land masses on top)
-      ctx.fillStyle = '#b8cfe0';
+      ctx.fillStyle = '#0b1226';
       ctx.fillRect(0, 0, W, H);
-
-      // Land masses (projected Europe)
-      drawMap(ctx);
-
-      // City markers
-      for (var i = 0; i < CITIES.length; i++) {
-        drawCity(ctx, CITIES[i]);
-      }
-
-      // Hint: after 12s on the same order, pulse the correct city
-      if (state.phase === 'playing' && !state.feedback &&
-          state.currentOrder < state.totalOrders &&
-          performance.now() - state.orderShownAt > 12000) {
-        var hintCity = getCityById(state.orders[state.currentOrder].correctCity);
-        if (hintCity) {
-          var hintPulse = 1 + 0.3 * Math.sin(performance.now() / 200);
-          ctx.strokeStyle = 'rgba(196,155,42,0.85)';
-          ctx.lineWidth = 3;
-          ctx.beginPath();
-          ctx.arc(hintCity.x, hintCity.y, 16 * hintPulse, 0, Math.PI * 2);
-          ctx.stroke();
-        }
-      }
-
-      // Route animation
-      if (state.routeAnim && state.routeAnim.t < 1) {
-        var ra = state.routeAnim;
-        var progress = Math.min(1, ra.t);
-        var curX = ra.fromX + (ra.toX - ra.fromX) * easeInOutQuad(progress);
-        var curY = ra.fromY + (ra.toY - ra.fromY) * easeInOutQuad(progress);
-
-        // Route line
-        ctx.strokeStyle = COLORS.gold;
-        ctx.lineWidth = 2;
-        ctx.setLineDash([4, 4]);
-        ctx.beginPath();
-        ctx.moveTo(ra.fromX, ra.fromY);
-        ctx.lineTo(curX, curY);
-        ctx.stroke();
-        ctx.setLineDash([]);
-
-        // Truck/crate on route
-        ctx.fillStyle = COLORS.copper;
-        roundRect(ctx, curX - 8, curY - 6, 16, 12, 3);
-        ctx.fill();
-      }
-
-      // Feedback overlay
-      if (state.feedback) {
-        var city = getCityById(state.feedback.cityId);
-        if (city) {
-          var isCorrect = state.feedback.type === 'correct';
-          ctx.fillStyle = isCorrect ? 'rgba(45,80,22,0.8)' : 'rgba(204,68,68,0.8)';
-          roundRect(ctx, city.x - 30, city.y - 35, 60, 22, 6);
-          ctx.fill();
-          ctx.fillStyle = '#fff';
-          ctx.font = 'bold 0.75rem ' + FONT_BODY;
-          ctx.textAlign = 'center';
-          ctx.fillText(state.feedback.text, city.x, city.y - 19);
-        }
-      }
-
-      // Crate (draggable)
-      if (state.phase === 'playing' && !state.feedback) {
-        drawCrate(ctx, state.crateX, state.crateY, state.isDragging);
-      }
-
-      // Sparkles
-      for (var i = 0; i < state.sparkles.length; i++) {
-        var s = state.sparkles[i];
-        ctx.fillStyle = s.color;
-        ctx.globalAlpha = s.life;
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-        ctx.fill();
+      // Stjärnhimmel
+      for (var st = 0; st < 26; st++) {
+        var sx = (st * 89 + 23) % W;
+        var sy = (st * 53 + 11) % H;
+        ctx.globalAlpha = 0.3 + 0.3 * Math.sin(now / 800 + st);
+        ctx.fillStyle = '#fff3c4';
+        ctx.fillRect(sx, sy, 2, 2);
       }
       ctx.globalAlpha = 1;
-    }
 
-    function drawMap(ctx) {
-      // Riktig (förenklad) Europakarta: lon -11..25, lat 42..63
-      // projiceras till canvasen. Storbritannien är en Ö.
-      function px(lon) { return (lon + 11) / 36 * 340 + 10; }
-      function py(lat) { return (63 - lat) / 21 * 300 + 40; }
-      function land(pts, fill) {
-        ctx.fillStyle = fill;
+      // Solen (med förmörkelse-ring — månen täcker den)
+      ctx.fillStyle = '#ffd84d';
+      ctx.beginPath(); ctx.arc(SUN.x, SUN.y, 40, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#101a33';
+      ctx.beginPath(); ctx.arc(SUN.x, SUN.y, 33, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = 'rgba(255,216,77,0.5)';
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(SUN.x, SUN.y, 46 + 2 * Math.sin(now / 500), 0, Math.PI * 2); ctx.stroke();
+
+      // Stjärnan
+      ctx.fillStyle = '#fff';
+      ctx.beginPath(); ctx.arc(STAR.x, STAR.y, 8, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.6)'; ctx.lineWidth = 1.5;
+      for (var rr = 0; rr < 4; rr++) {
+        var ra = rr * Math.PI / 2 + Math.PI / 4;
         ctx.beginPath();
-        ctx.moveTo(px(pts[0][0]), py(pts[0][1]));
-        for (var i = 1; i < pts.length; i++) ctx.lineTo(px(pts[i][0]), py(pts[i][1]));
-        ctx.closePath();
-        ctx.fill();
-        ctx.strokeStyle = 'rgba(90,58,40,0.3)';
-        ctx.lineWidth = 1.2;
+        ctx.moveTo(STAR.x + Math.cos(ra) * 10, STAR.y + Math.sin(ra) * 10);
+        ctx.lineTo(STAR.x + Math.cos(ra) * 15, STAR.y + Math.sin(ra) * 15);
         ctx.stroke();
       }
-
-      // Storbritannien
-      land([[-5.7,50.0],[-2.5,50.6],[0.2,50.7],[1.4,51.3],[1.7,52.7],[0.3,53.0],
-            [-0.1,54.1],[-1.5,55.2],[-2.5,56.2],[-1.8,57.5],[-3.1,58.6],[-5.6,58.6],
-            [-6.2,56.7],[-5.8,55.3],[-5.0,54.8],[-3.6,54.6],[-3.1,53.4],[-4.2,53.3],
-            [-5.3,51.7],[-4.5,51.2]], '#d4dfc8');
-      // Irland
-      land([[-10.0,51.6],[-6.0,52.2],[-5.9,53.9],[-7.3,55.3],[-10.0,54.2],[-9.9,53.1]], '#d4dfc8');
-      // Skandinaviska halvön
-      land([[5.0,58.0],[5.5,61.5],[6.5,63.2],[17.0,63.2],[17.5,60.5],[18.9,59.3],
-            [16.8,57.0],[14.2,55.4],[12.9,55.4],[11.3,58.0],[8.0,58.1]], '#c8d8b8');
-      // Danmark
-      land([[8.1,55.5],[8.2,57.0],[10.6,57.7],[10.8,56.0],[9.8,54.9],[8.6,54.9]], '#d4dfc8');
-      // Fastlandet: Frankrike, Benelux, Tyskland, Norditalien, österut
-      land([[-4.7,48.3],[-1.8,49.7],[1.6,50.9],[3.2,51.4],[4.7,52.4],[5.5,53.3],
-            [8.1,53.7],[9.0,54.8],[12.0,54.2],[14.0,53.9],[19.5,54.6],[25.5,56.5],
-            [25.5,41.8],[11.5,41.8],[10.5,42.9],[9.5,44.2],[6.5,43.1],[3.0,43.0],
-            [3.2,41.8],[-2.0,41.8],[-1.8,43.6],[-1.2,46.0],[-2.3,47.2]], '#dde8d0');
-
-      // Alperna
-      ctx.strokeStyle = 'rgba(90,58,40,0.35)';
-      ctx.lineWidth = 1.5;
-      for (var a = 0; a < 5; a++) {
-        var ax = px(6.8 + a * 1.6), ay = py(46.3 - a * 0.1);
-        ctx.beginPath();
-        ctx.moveTo(ax - 5, ay + 4);
-        ctx.lineTo(ax, ay - 4);
-        ctx.lineTo(ax + 5, ay + 4);
-        ctx.stroke();
-      }
-
-      // Landsnamn — hjälper barnen koppla stad till land
-      ctx.fillStyle = 'rgba(90,58,40,0.5)';
-      ctx.font = 'italic 0.6rem ' + FONT_BODY;
+      ctx.fillStyle = '#aab8d0';
+      ctx.font = '10px sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('SKOTTLAND', px(-4.2), py(58.2));
-      ctx.fillText('SVERIGE', px(15.4), py(61.4));
-      ctx.fillText('TYSKLAND', px(10.6), py(51.4));
-      ctx.fillText('FRANKRIKE', px(1.6), py(46.7));
-      ctx.fillText('ITALIEN', px(13.4), py(43.6));
-      ctx.fillStyle = 'rgba(70,95,120,0.55)';
-      ctx.fillText('Nordsj\u00f6n', px(2.6), py(56.4));
-      ctx.fillText('Medelhavet', px(7.0), py(41.2));
+      ctx.fillText('stj\u00e4rnan', STAR.x + 2, STAR.y - 18);
 
-      // Karttitel
-      ctx.fillStyle = COLORS.brownLight;
-      ctx.font = 'italic 0.65rem ' + FONT_BODY;
-      ctx.textAlign = 'left';
-      ctx.fillText('Europa', 8, H - 8);
-    }
+      // Fotoplattan (kameran)
+      var pl = state.plate;
+      ctx.fillStyle = state.hitFlash > 0 ? 'rgba(127,224,160,' + (0.4 + state.hitFlash * 0.5) + ')' : 'rgba(248,251,254,0.85)';
+      roundRect(ctx, W - 22, pl.y, 14, pl.h, 4); ctx.fill();
+      ctx.strokeStyle = '#d97b29'; ctx.lineWidth = 2;
+      roundRect(ctx, W - 22, pl.y, 14, pl.h, 4); ctx.stroke();
+      ctx.fillStyle = '#aab8d0';
+      ctx.save();
+      ctx.translate(W - 30, pl.y + pl.h / 2);
+      ctx.rotate(-Math.PI / 2);
+      ctx.fillText('fotoplattan', 0, 0);
+      ctx.restore();
+      if (state.hitFlash > 0) state.hitFlash = Math.max(0, state.hitFlash - 0.03);
 
-    function drawCity(ctx, city) {
-      var isDelivered = state.deliveredCities.indexOf(city.id) >= 0;
-      var isHQ = city.isHQ;
-
-      // City dot
-      var dotR = isHQ ? 8 : 6;
-      ctx.fillStyle = isHQ ? COLORS.copper : (isDelivered ? COLORS.mossLight : COLORS.brown);
-      ctx.beginPath();
-      ctx.arc(city.x, city.y, dotR, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Outer ring
-      ctx.strokeStyle = isHQ ? COLORS.gold : COLORS.brownLight;
-      ctx.lineWidth = isHQ ? 2.5 : 1.5;
-      ctx.beginPath();
-      ctx.arc(city.x, city.y, dotR + 3, 0, Math.PI * 2);
-      ctx.stroke();
-
-      // Delivered checkmark
-      if (isDelivered) {
-        ctx.fillStyle = COLORS.mossLight;
-        ctx.font = 'bold 0.85rem ' + FONT_BODY;
-        ctx.textAlign = 'center';
-        ctx.fillText('\u2713', city.x, city.y + 4);
-      }
-
-      // City label
-      ctx.fillStyle = COLORS.dark;
-      ctx.font = (isHQ ? 'bold ' : '') + '0.7rem ' + FONT_BODY;
-      ctx.textAlign = 'center';
-      ctx.fillText(city.name, city.x, city.y - dotR - 8);
-
-      if (isHQ) {
-        ctx.fillStyle = COLORS.copper;
-        ctx.font = '0.6rem ' + FONT_BODY;
-        ctx.fillText('(HQ)', city.x, city.y - dotR - 18);
-      }
-    }
-
-    function drawCrate(ctx, x, y, dragging) {
-      var cw = 24, ch = 20;
-
-      if (dragging) {
-        // Shadow
-        ctx.fillStyle = 'rgba(42,31,20,0.2)';
-        roundRect(ctx, x + 2, y + 2, cw, ch, 3);
-        ctx.fill();
-      }
-
-      // Crate body
-      ctx.fillStyle = '#c4975a';
-      roundRect(ctx, x, y, cw, ch, 3);
-      ctx.fill();
-      ctx.strokeStyle = COLORS.brown;
-      ctx.lineWidth = 1.5;
-      roundRect(ctx, x, y, cw, ch, 3);
-      ctx.stroke();
-
-      // Cross on crate
-      ctx.strokeStyle = COLORS.dark;
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(x + 4, y + 4);
-      ctx.lineTo(x + cw - 4, y + ch - 4);
-      ctx.moveTo(x + cw - 4, y + 4);
-      ctx.lineTo(x + 4, y + ch - 4);
-      ctx.stroke();
-
-      if (dragging) {
-        // Glow
-        ctx.strokeStyle = COLORS.gold;
+      // Siktlinje (bara början — resten får tyngdkraften bestämma!)
+      if (!state.photon && state.phase === 'playing') {
+        ctx.strokeStyle = 'rgba(255,240,190,0.55)';
         ctx.lineWidth = 2;
-        roundRect(ctx, x - 2, y - 2, cw + 4, ch + 4, 5);
+        ctx.setLineDash([5, 6]);
+        ctx.beginPath();
+        ctx.moveTo(STAR.x, STAR.y);
+        ctx.lineTo(STAR.x + Math.cos(state.aimAngle) * 68, STAR.y + Math.sin(state.aimAngle) * 68);
         ctx.stroke();
+        ctx.setLineDash([]);
+        // pil-spets
+        var ax = STAR.x + Math.cos(state.aimAngle) * 68;
+        var ay = STAR.y + Math.sin(state.aimAngle) * 68;
+        ctx.fillStyle = 'rgba(255,240,190,0.8)';
+        ctx.beginPath(); ctx.arc(ax, ay, 3, 0, Math.PI * 2); ctx.fill();
       }
+
+      // Fotonens spår + huvud
+      if (state.photon) {
+        var tr = state.photon.trail;
+        ctx.strokeStyle = 'rgba(255,216,77,0.75)';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        for (var t = 0; t < tr.length; t++) {
+          if (t === 0) ctx.moveTo(tr[t].x, tr[t].y);
+          else ctx.lineTo(tr[t].x, tr[t].y);
+        }
+        ctx.stroke();
+        ctx.fillStyle = '#fff3c4';
+        ctx.beginPath(); ctx.arc(state.photon.x, state.photon.y, 5, 0, Math.PI * 2); ctx.fill();
+      }
+
+      // Sol-sluk-poff
+      if (state.poof) {
+        state.poof.t += 0.04;
+        if (state.poof.t >= 1) { state.poof = null; }
+        else {
+          ctx.globalAlpha = 1 - state.poof.t;
+          ctx.strokeStyle = '#ffd84d';
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.arc(state.poof.x, state.poof.y, 6 + state.poof.t * 24, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.globalAlpha = 1;
+        }
+      }
+
+      // Räknare
+      ctx.fillStyle = '#aab8d0';
+      ctx.textAlign = 'left';
+      ctx.fillText('\ud83d\udcf8 ' + state.hits + ' av 3', 10, H - 12);
+      ctx.textAlign = 'center';
     }
 
     return { init: init, start: start, getScore: getScore, destroy: destroy };
   })();
 
 
-  /* ============================================================
-     CH1: SKATTJAKTEN  --  Hidden-object hunt in Alfred's attic
-     Find the 5 things Alfred can experiment with and learn from.
-     ============================================================ */
   var ch1 = (function () {
     var state, container, canvasObj, animFrame;
     var W = 360, H = 420;
