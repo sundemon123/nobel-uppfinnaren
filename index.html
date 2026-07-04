@@ -2159,13 +2159,13 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <div class="title-ornament"></div>
       <h1 class="game-title">Stormaktstiden</h1>
       <p class="game-subtitle">Rikets v&auml;g</p>
-      <div class="chapter-label">Kapitel 5 &mdash; Solf&ouml;rm&ouml;rkelsen</div>
-      <p class="intro-text">
-        <strong>Berlin, 1914&ndash;1919.</strong> Albert &auml;r nu professor. Hans vildaste id&eacute;
-        v&auml;xer: tyngdkraften &auml;r ingen vanlig kraft &mdash; det &auml;r rummet sj&auml;lvt som b&ouml;jer
-        sig! Om det st&auml;mmer m&aring;ste till och med stj&auml;rnornas ljus b&ouml;ja av n&auml;r det
-        passerar solen. Men mitt i arbetet bryter ett v&auml;rldskrig ut.
-      </p>
+      <div class="chapter-label">Kapitel 5 &mdash; Fyra st&aring;nd, ett rike</div>
+      <div class="discussion-box" id="ch5-recap" style="display:none;text-align:left;"><div class="discussion-label">&#x1F4D6; Detta har h&auml;nt</div><p class="discussion-text">Riket är stort och mäktigt. Men alla lever inte lika. Sverige är ett ståndssamhälle: adel, präster, borgare och bönder.</p></div>
+      <p class="intro-text" id="ch5-introText">
+        <strong>Mitten av 1600-talet.</strong> Inget krig i det h&auml;r kapitlet &mdash; i st&auml;llet
+        en dag i Salteby. H&auml;r bor alla fyra st&aring;nden: greven p&aring; slottet, pr&auml;sten i
+        kyrkan, k&ouml;pmannen vid torget och bondefamiljen utanf&ouml;r staden. Vem betalar
+        mest skatt? Vem best&auml;mmer? Och vems barn f&aring;r g&aring; i skola?</p>
       <audio id="narrator-ch5-title" src="" preload="auto"></audio>
       <button class="btn-primary" onclick="goToScreen('ch5-minigame')">B&ouml;rja spela</button>
     </div>
@@ -2179,8 +2179,8 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
     <div id="ch5-minigame-old" style="display:none;">
       <div class="narrative-box">
-        <h2 class="narrative-heading">&#x1F31E; B&ouml;j ljuset!</h2>
-        <p class="narrative-text">Stj&auml;rnljuset f&auml;rdas mot jorden &mdash; men solen ligger i v&auml;gen! Anv&auml;nd solens tyngdkraft f&ouml;r att b&ouml;ja str&aring;len s&aring; att den tr&auml;ffar fotoplattan.</p>
+        <h2 class="narrative-heading">&#x2696;&#xFE0F; St&aring;ndsv&aring;gen</h2>
+        <p class="narrative-text">V&auml;g vad varje st&aring;nd ger mot vad de f&aring;r &mdash; h&aring;ll v&aring;gen i balans, eller v&auml;lj medvetet vem du gynnar!</p>
       </div>
       <div class="minigame-score" id="ch5-miniGameScore">Order 1 av 5</div>
       <div class="ch5-order-card" id="ch5-orderCard">
@@ -2203,118 +2203,115 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
   </div>
 
-  <!-- CH5: CHOICE 1 - Kriget -->
+  <!-- CH5: CHOICE 1 -->
   <div class="screen" id="ch5-choice1">
     <div class="narrative-box">
-      <h2 class="narrative-heading">Kriget och uppropet</h2>
-      <p class="narrative-text">F&ouml;rsta v&auml;rldskriget har brutit ut. 93 ber&ouml;mda tyska forskare och konstn&auml;rer skriver under ett upprop som hyllar kriget. Ett papper landar &auml;ven p&aring; Alberts skrivbord. Vad g&ouml;r han?</p>
+      <h2 class="narrative-heading">Ett r&auml;ttvist rike?</h2>
+      <p class="narrative-text">Adeln &auml;ger mest mark och betalar minst skatt. B&ouml;nderna g&ouml;r mest arbete och betalar mest. Kungen fr&aring;gar dig om r&aring;d: hur ska riket styras?</p>
       <audio id="narrator-ch5-choice1" src="" preload="auto"></audio>
     </div>
     <div class="choices-container" id="ch5-choices1">
       <div class="choice-card" onclick="makeChoice('ch5',1,0)" data-choice="0">
         <div class="choice-card-number">1</div>
-        <div class="choice-card-title">Skriva under ett MOT-upprop f&ouml;r fred</div>
-        <div class="choice-card-desc">Bara en handfull forskare v&aring;gar. Albert blir en av dem &mdash; mitt i Berlin, mitt i kriget.</div>
-        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F91D; Folkets stöd</span></div>
+        <div class="choice-card-title">L&aring;t adeln beh&aring;lla sina f&ouml;rm&aring;ner</div>
+        <div class="choice-card-desc">Greven &auml;r n&ouml;jd och kronan har lugn. Men b&ouml;nderna suckar &mdash; f&ouml;r dem &auml;ndras inget.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F451; Makt</span><span class="effect-badge negative">-1 &#x1F91D; Folkets st&ouml;d</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch5',1,1)" data-choice="1">
         <div class="choice-card-number">2</div>
-        <div class="choice-card-title">H&aring;lla tyst och forska vidare</div>
-        <div class="choice-card-desc">Politik &auml;r inte hans sak, t&auml;nker Albert. Ekvationerna v&auml;ntar &mdash; och de bryr sig inte om kriget.</div>
-        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F451; Makt</span><span class="effect-badge negative">-1 &#x1F91D; Folkets stöd</span></div>
+        <div class="choice-card-title">Ge borgare och b&ouml;nder mer att s&auml;ga till om</div>
+        <div class="choice-card-desc">Farligt f&ouml;r adeln &mdash; men folket k&auml;nner sig sedda f&ouml;r f&ouml;rsta g&aring;ngen.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F91D; Folkets st&ouml;d</span><span class="effect-badge negative">-1 &#x1F451; Makt</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch5',1,2)" data-choice="2">
         <div class="choice-card-number">3</div>
-        <div class="choice-card-title">Tala f&ouml;r fred p&aring; sina f&ouml;rel&auml;sningar</div>
-        <div class="choice-card-desc">Studenterna kommer f&ouml;r fysiken &mdash; men Albert pratar ocks&aring; om att l&auml;nder kan samarbeta i st&auml;llet f&ouml;r att sl&aring;ss.</div>
-        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F91D; Folkets stöd</span><span class="effect-badge positive">+1 &#x1F451; Makt</span></div>
+        <div class="choice-card-title">Ta tillbaka mark fr&aring;n adeln till kronan</div>
+        <div class="choice-card-desc">Kronan blir rikare och starkare, och adeln rasande. Vad folket tycker beror p&aring; om de redan litar p&aring; dig.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F451; Makt</span><span class="effect-badge positive">+1 &#x1F4B0; V&auml;lst&aring;nd</span><span class="effect-badge special">&#x1F91D; Folkets st&ouml;d: beror p&aring;</span></div>
       </div>
     </div>
     <div class="result-box" id="ch5-result1"><div class="result-label">Resultat</div><div class="result-text" id="ch5-result1Text"></div></div>
     <div style="text-align:center; display:none;" id="ch5-choice1Continue"><button class="btn-primary" onclick="goToScreen('ch5-choice2')">Forts&auml;tt</button></div>
   </div>
 
-  <!-- CH5: CHOICE 2 - Eddington -->
+  <!-- CH5: CHOICE 2 -->
   <div class="screen" id="ch5-choice2">
     <div class="narrative-box">
-      <h2 class="narrative-heading">Brevet fr&aring;n England</h2>
-      <p class="narrative-text">En engelsk astronom, Arthur Eddington, vill testa Alberts teori: vid en solf&ouml;rm&ouml;rkelse kan man fotografera om stj&auml;rnljuset b&ouml;js av solen. Men England och Tyskland &auml;r fiender i kriget. Ska Albert samarbeta med &rdquo;fienden&rdquo;?</p>
+      <h2 class="narrative-heading">Vems barn f&aring;r l&auml;ra sig?</h2>
+      <p class="narrative-text">Stadens skola (fd klostret) har plats f&ouml;r n&aring;gra barn. Grevens s&ouml;ner har redan en egen l&auml;rare. Men vem mer f&aring;r plats p&aring; skolb&auml;nken?</p>
       <audio id="narrator-ch5-choice2" src="" preload="auto"></audio>
     </div>
     <div class="choices-container" id="ch5-choices2">
       <div class="choice-card" onclick="makeChoice('ch5',2,0)" data-choice="0">
         <div class="choice-card-number">1</div>
-        <div class="choice-card-title">Ja &mdash; skicka ber&auml;kningarna till England</div>
-        <div class="choice-card-desc">Vetenskapen k&auml;nner inga landsgr&auml;nser. Om teorin &auml;r sann &auml;r den sann f&ouml;r alla.</div>
-        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F451; Makt</span><span class="effect-badge positive">+1 &#x1F91D; Folkets stöd</span></div>
+        <div class="choice-card-title">Bara de fina familjernas barn</div>
+        <div class="choice-card-desc">Ordning och reda, tycker de m&auml;ktiga. S&aring; har det alltid varit.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F451; Makt</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch5',2,1)" data-choice="1">
         <div class="choice-card-number">2</div>
-        <div class="choice-card-title">V&auml;nta tills kriget &auml;r slut</div>
-        <div class="choice-card-desc">S&auml;krast s&aring;. Teorin ligger kvar i l&aring;dan &mdash; och v&auml;ntar.</div>
-        <div class="choice-card-effect"><span class="effect-badge neutral">Stabilt &mdash; inga f&ouml;r&auml;ndringar</span></div>
+        <div class="choice-card-title">&Ouml;ppna skolan f&ouml;r alla st&aring;nd</div>
+        <div class="choice-card-desc">&Auml;ven bondens och k&ouml;pmannens barn f&aring;r l&auml;ra sig l&auml;sa. Ovanligt f&ouml;r tiden &mdash; men folket &auml;lskar det.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F91D; Folkets st&ouml;d</span><span class="effect-badge positive">+1 &#x1F4B0; V&auml;lst&aring;nd</span></div>
       </div>
     </div>
     <div class="result-box" id="ch5-result2"><div class="result-label">Resultat</div><div class="result-text" id="ch5-result2Text"></div></div>
     <div style="text-align:center; display:none;" id="ch5-choice2Continue"><button class="btn-primary" onclick="goToScreen('ch5-choice3')">Forts&auml;tt</button></div>
   </div>
 
-  <!-- CH5: CHOICE 3 - Pressen -->
+  <!-- CH5: CHOICE 3 -->
   <div class="screen" id="ch5-choice3">
     <div class="narrative-box">
-      <h2 class="narrative-heading">&rdquo;NEWTON ST&Ouml;RTAD!&rdquo;</h2>
-      <p class="narrative-text">Solf&ouml;rm&ouml;rkelsen kommer &mdash; och fotografierna visar att Albert hade R&Auml;TT: stj&auml;rnljuset b&ouml;js! Tidningar v&auml;rlden &ouml;ver skriker i stora bokst&auml;ver att den gamle Newton hade fel. En journalist fr&aring;gar: &rdquo;Herr Einstein, &auml;r Newton st&ouml;rtad nu?&rdquo;</p>
+      <h2 class="narrative-heading">Vad ska kr&ouml;nikan minnas?</h2>
+      <p class="narrative-text">Kr&ouml;nikören sitter med sin penna och ska skriva om dig och din tid. Korpen Minne tittar nyfiket &ouml;ver axeln. Vad vill du bli ih&aring;gkommen som?</p>
       <audio id="narrator-ch5-choice3" src="" preload="auto"></audio>
     </div>
     <div class="choices-container" id="ch5-choices3">
       <div class="choice-card" onclick="makeChoice('ch5',3,0)" data-choice="0">
         <div class="choice-card-number">1</div>
-        <div class="choice-card-title">&rdquo;Nej. Newton hade r&auml;tt f&ouml;r sin tid &mdash; jag byggde vidare p&aring; honom&rdquo;</div>
-        <div class="choice-card-desc">Vetenskap river inte ner &mdash; den bygger vidare. Utan Newton, ingen Einstein.</div>
-        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F451; Makt</span></div>
+        <div class="choice-card-title">&rdquo;Den som var r&auml;ttvis mot folket&rdquo;</div>
+        <div class="choice-card-desc">Inte den m&auml;ktigaste &mdash; men den som folket mindes med v&auml;rme.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F91D; Folkets st&ouml;d</span><span class="effect-badge special">&#x1F31F; Ekar i kapitel 7</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch5',3,1)" data-choice="1">
         <div class="choice-card-number">2</div>
-        <div class="choice-card-title">&rdquo;Jag hoppas att vetenskapen alltid f&aring;r tj&auml;na freden&rdquo;</div>
-        <div class="choice-card-desc">Albert anv&auml;nder sin nya ber&ouml;mmelse till att s&auml;ga det han verkligen tycker.</div>
-        <div class="choice-card-effect"><span class="effect-badge neutral">&#x1F31F; Speciellt svar &mdash; p&aring;verkar kapitel 7</span></div>
+        <div class="choice-card-title">&rdquo;Den m&auml;ktige som gjorde riket stort&rdquo;</div>
+        <div class="choice-card-desc">Makt och storhet &mdash; s&aring; ska eftervärlden minnas dig.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F451; Makt</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch5',3,2)" data-choice="2">
         <div class="choice-card-number">3</div>
-        <div class="choice-card-title">&rdquo;Ig&aring;r var jag en kontorist. Idag &auml;r jag tydligen ett geni!&rdquo;</div>
-        <div class="choice-card-desc">Albert skrattar &aring;t st&aring;hejet. Journalisterna &auml;lskar honom &mdash; professorn som sk&auml;mtar.</div>
-        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F4B0; Välstånd</span></div>
+        <div class="choice-card-title">&rdquo;Den som byggde och lät handeln blomstra&rdquo;</div>
+        <div class="choice-card-desc">Hamnar, hus och rikedom &mdash; ett arv man kan ta p&aring;.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F4B0; V&auml;lst&aring;nd</span></div>
       </div>
     </div>
     <div class="result-box" id="ch5-result3"><div class="result-label">Resultat</div><div class="result-text" id="ch5-result3Text"></div></div>
     <div style="text-align:center; display:none;" id="ch5-choice3Continue"><button class="btn-primary" onclick="goToScreen('ch5-fact')">Forts&auml;tt</button></div>
   </div>
 
-  <!-- CH5: FACT --><!-- CH5: FACT -->
+  <!-- CH5: FACT --><!-- CH5: FACT --><!-- CH5: FACT -->
   <div class="screen" id="ch5-fact">
     <div class="fact-box">
       <span class="fact-icon">&#x1F4D6;</span>
       <div class="fact-label">Visste du att&hellip;</div>
       <p class="fact-text">
-        Albert fick <strong>Nobelpriset 1921</strong> &mdash; men inte f&ouml;r relativitetsteorin!
-        Priset gavs f&ouml;r ljuspaketen fr&aring;n mirakel&aring;ret. Och prispengarna?
-        De gick till Mileva &mdash; s&aring; blev det p&aring; riktigt.
-        P&aring; de stora forskarm&ouml;tena var <strong>Marie Curie</strong> ofta enda
-        kvinnan i rummet. Hon och Albert blev v&auml;nner f&ouml;r livet &mdash; och n&auml;r
-        tidningarna skrek f&ouml;rsvarade de varandra.
+        I st&aring;ndssamh&auml;llet var man f&ouml;dd in i sin plats. En bonde blev bonde, en
+        adelsman f&ouml;ddes till herre. De fyra st&aring;nden &mdash; adel, pr&auml;ster, borgare och
+        b&ouml;nder &mdash; hade helt olika r&auml;ttigheter, skatter och liv. Det var s&aring; Sverige
+        styrdes i flera hundra &aring;r.
       </p>
     </div>
     <div class="discussion-box">
-      <span class="discussion-icon">&#x1F5DE;&#xFE0F;</span>
-      <div class="discussion-label">S&aring; ber&auml;ttades det</div>
+      <span class="discussion-icon">&#x1F4DC;</span>
+      <div class="discussion-label">K&auml;llkoll</div>
       <p class="discussion-text">
-        Tidningarna skrev &rdquo;NEWTON ST&Ouml;RTAD!&rdquo; &mdash; fast Albert aldrig sa s&aring;.
-        Tidningar vill bli l&auml;sta, och en kamp l&aring;ter mer sp&auml;nnande &auml;n
-        &rdquo;forskare bygger vidare p&aring; varandras arbete&rdquo;. N&auml;r du l&auml;ser en rubrik:
-        fundera p&aring; varf&ouml;r just den valdes.
+        Hur vet vi hur folk levde d&aring;? Genom brev, dagb&ouml;cker och kartor de l&auml;mnade
+        efter sig. Men mest skrev de rika &mdash; de fattiga b&ouml;nderna kunde s&auml;llan skriva.
+        T&auml;nk efter: vems r&ouml;st saknas i historien, just d&auml;rf&ouml;r?
       </p>
     </div>
-      <audio id="narrator-ch5-fact" src="" preload="auto"></audio>
+    <audio id="narrator-ch5-fact" src="" preload="auto"></audio>
     <div style="text-align:center;">
       <button class="btn-primary" onclick="goToScreen('ch5-conclusion')">Forts&auml;tt</button>
     </div>
@@ -2323,10 +2320,10 @@ body.narrator-on .screen.active { padding-top: 46px; }
   <!-- CH5: CONCLUSION --><!-- CH5: CONCLUSION -->
   <div class="screen" id="ch5-conclusion">
     <div style="text-align:center; margin-bottom: 8px;"><div class="chapter-label" style="margin-bottom:8px;">Kapitel 5 avklarat</div></div>
-    <div class="celebration-text">&#x2728; Stj&auml;rnorna gav Albert r&auml;tt &#x2728;</div>
+    <div class="celebration-text">&#x2728; Kapitel 5 &auml;r avklarat! &#x2728;</div>
     <div class="divider"></div>
-    <div class="narrative-box"><h2 class="narrative-heading">V&auml;rldens mest ber&ouml;mda t&auml;nkare&hellip;</h2><p class="narrative-text" id="ch5-conclusionText"></p></div>
-    <div class="lesson-box"><div class="lesson-label">L&auml;rdom</div><p class="lesson-text">Nya id&eacute;er betyder inte att de gamla var dumma &mdash; vetenskapen bygger vidare, bit f&ouml;r bit. Och det kr&auml;vs stod att s&auml;ga emot: b&aring;de gamla sanningar och ett helt krig.</p></div>
+    <div class="narrative-box"><h2 class="narrative-heading">Ett rike p&aring; sin h&ouml;jd&hellip;</h2><p class="narrative-text" id="ch5-conclusionText"></p></div>
+    <div class="lesson-box"><div class="lesson-label">L&auml;rdom</div><p class="lesson-text">Ett rike st&aring;r p&aring; m&aring;nga axlar &mdash; adelns, pr&auml;sternas, borgarnas och b&ouml;ndernas. Ett hus &auml;r inte starkare &auml;n sin svagaste bj&auml;lke, kraxar Korpen Minne.</p></div>
     <div class="divider"></div>
     <h3 style="text-align:center; font-family:var(--font-headline); font-size:1.1rem; color:var(--brown-medium); margin-bottom:16px;">Dina resurser efter kapitel 5</h3>
     <div class="final-resources">
@@ -2334,10 +2331,10 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F4B0;</span><span class="final-resource-label">Välstånd</span><span class="final-resource-value" id="ch5-finalVälstånd">0</span></div>
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F91D;</span><span class="final-resource-label">Folkets stöd</span><span class="final-resource-value" id="ch5-finalStod">0</span></div>
     </div>
-    <p class="teaser-text">Forts&auml;ttning f&ouml;ljer&hellip;<br><em>Kapitel 6: Flykten</em></p>
+    <p class="teaser-text">Forts&auml;ttning f&ouml;ljer&hellip;<br><em>Kapitel 6: Fallet</em></p>
       <audio id="narrator-ch5-conclusion" src="" preload="auto"></audio>
     <div style="text-align:center; margin-top: 16px; margin-bottom: 12px;">
-      <button class="diary-btn" onclick="NobelDiary.show(5)">&#x1F4D6; Alberts fr&aring;gebok</button>
+      <button class="diary-btn" onclick="NobelDiary.show(5)">&#x1F4D6; Kr&ouml;nikan</button>
       <button class="diary-btn" onclick="showStickerBook()">&#x1F396;&#xFE0F; Samlarboken</button>
     </div>
     <div style="text-align:center; margin-top: 8px; margin-bottom: 40px;">
@@ -2968,18 +2965,18 @@ var choiceData = {
   },
   ch5: {
     1: [
-      { effects: { stod: 2 }, requires: { stod: 4 }, resultText: 'Albert skriver under fredsuppropet \u2014 en av bara fyra som v\u00e5gar. Kollegorna undviker honom i korridoren. Men han kan se sig sj\u00e4lv i spegeln.' },
-      { effects: { makt: 2, stod: -1 }, resultText: 'Albert dyker ner i ekvationerna medan v\u00e4rlden brinner. Teorin v\u00e4xer sig f\u00e4rdig \u2014 men tystnaden skaver i honom.' },
-      { effects: { stod: 1, makt: 1 }, resultText: 'Mellan formlerna p\u00e5 tavlan s\u00e4ger Albert det f\u00e5 v\u00e5gar: l\u00e4nder kan samarbeta i st\u00e4llet f\u00f6r att sl\u00e5ss. N\u00e5gra studenter nickar tyst.' }
+      { effects: { makt: 1, stod: -1 }, resultText: 'Adeln beh\u00e5ller sina f\u00f6rm\u00e5ner. Greven p\u00e5 slottet \u00e4r n\u00f6jd och kronan har lugn \u2014 men b\u00f6nderna utanf\u00f6r staden suckar tungt \u00f6ver att inget \u00e4ndras.' },
+      { effects: { stod: 2, makt: -1 }, resultText: 'Borgare och b\u00f6nder f\u00e5r mer att s\u00e4ga till om p\u00e5 tinget. Folket k\u00e4nner sig sedda \u2014 men adeln muttrar om att ordningen v\u00e4nds upp och ner.' },
+      { effects: { makt: 2, valstand: 1 }, reduktion: true, resultText: 'Kronan tar tillbaka mark fr\u00e5n adeln \u2014 en reduktion. Adeln rasar. Om folket redan st\u00e5r bakom dig gl\u00e4ds de \u00e5t att adeln stukas; annars m\u00e4rker de knappt skillnaden.' }
     ],
     2: [
-      { effects: { makt: 1, stod: 1 }, bofors: true, resultText: 'Ber\u00e4kningarna smugglas via Holland till England. Eddington l\u00e4ser dem i London och h\u00e4pnar. Vetenskapen k\u00e4nner inga landsgr\u00e4nser.' },
-      { effects: { stod: 0 }, bofors: false, resultText: 'Albert v\u00e4ntar. Teorin ligger i l\u00e5dan \u2014 men id\u00e9er har t\u00e5lamod, och kriget tar till slut slut.' }
+      { effects: { makt: 1 }, resultText: 'Bara de fina familjernas barn f\u00e5r plats p\u00e5 skolb\u00e4nken. De m\u00e4ktiga nickar gillande \u2014 s\u00e5 har det alltid varit.' },
+      { effects: { stod: 1, valstand: 1 }, resultText: 'Skolan \u00f6ppnas f\u00f6r alla st\u00e5nds barn. Ovanligt f\u00f6r tiden \u2014 men b\u00e5de bondens och k\u00f6pmannens barn f\u00e5r nu l\u00e4ra sig l\u00e4sa, och folket \u00e4lskar det.' }
     ],
     3: [
-      { effects: { makt: 1 }, resultText: '\u201dNewton hade r\u00e4tt f\u00f6r sin tid. Jag st\u00e5r p\u00e5 hans axlar.\u201d Journalisten skriver f\u00f6rv\u00e5nat ner det \u2014 en artikel klokare \u00e4n sin rubrik.' },
-      { effects: { eftermale: 1 }, peaceMoment: true, resultText: 'Albert anv\u00e4nder sitt livs st\u00f6rsta stund till en enda mening: vetenskapen ska tj\u00e4na freden. Orden trycks i hundra l\u00e4nder.' },
-      { effects: { valstand: 1 }, resultText: 'Hela presskonferensen skrattar. Fr\u00e5n och med nu \u00e4lskar tidningarna professorn med det rufsiga h\u00e5ret som sk\u00e4mtar om sig sj\u00e4lv.' }
+      { effects: { stod: 1 }, resultText: 'Kr\u00f6nikören skriver: \u201dden som var r\u00e4ttvis mot folket\u201d. Inte den m\u00e4ktigaste \u2014 men den som mindes de sm\u00e5.' },
+      { effects: { makt: 1 }, resultText: 'Kr\u00f6nikören skriver om en m\u00e4ktig furste som gjorde riket stort. Storhet ristas in \u2014 vad den kostade st\u00e5r det mindre om.' },
+      { effects: { valstand: 1 }, resultText: 'Kr\u00f6nikören skriver om hamnar, hus och blomstrande handel. Ett arv man kan ta p\u00e5 \u2014 stenar och silver som best\u00e5r.' }
     ]
   },
   ch6: {
@@ -3226,7 +3223,10 @@ function goToScreen(screenId) {
         }
         if (gameState._coldStart) { var _r4 = document.getElementById('ch4-recap'); if (_r4) _r4.style.display = 'block'; }
       }
-      if (screenId === 'ch5-title') applyChapterStart(5);
+      if (screenId === 'ch5-title') {
+        applyChapterStart(5);
+        if (gameState._coldStart) { var _r5 = document.getElementById('ch5-recap'); if (_r5) _r5.style.display = 'block'; }
+      }
       if (screenId === 'ch7-title') applyChapterStart(7);
 
       // ── V2: Minigame triggers (new canvas-based versions) ──
@@ -3320,14 +3320,11 @@ function makeChoice(chapter, choiceGroup, choiceIndex) {
   if (chapter === 'ch4' && choiceGroup === 1) gameState.choices.ch4_krig = choiceIndex;
   if (chapter === 'ch4' && choiceGroup === 2) gameState.choices.ch4_vinter = choiceIndex;
   if (chapter === 'ch4' && choiceGroup === 3) gameState.choices.ch4_hemkomst = choiceIndex;
-  if (chapter === 'ch5' && choiceGroup === 1) gameState.choices.ch5_kriget = choiceIndex;
-  if (chapter === 'ch5' && choiceGroup === 2) {
-    gameState.choices.ch5_eddington = choiceIndex;
-    if (data.bofors !== undefined && data.bofors) gameState.boforsInvestment = true;
-  }
+  if (chapter === 'ch5' && choiceGroup === 1) gameState.choices.ch5_stand = choiceIndex;
+  if (chapter === 'ch5' && choiceGroup === 2) gameState.choices.ch5_skola = choiceIndex;
   if (chapter === 'ch5' && choiceGroup === 3) {
-    gameState.choices.ch5_pressen = choiceIndex;
-    if (data.peaceMoment) gameState.peaceThroughStrength = true;
+    gameState.choices.ch5_minne = choiceIndex;
+    if (choiceIndex === 0) gameState.mindesFolket = true;
   }
   if (chapter === 'ch6' && choiceGroup === 1) {
     gameState.choices.ch6_reaction = choiceIndex;
@@ -3343,6 +3340,10 @@ function makeChoice(chapter, choiceGroup, choiceIndex) {
     cards[i].classList.add(i === choiceIndex ? 'selected' : 'not-selected');
   }
 
+  // Reduktionen (ch5, val 3): folkets reaktion beror p\u00e5 om de redan litar p\u00e5 dig
+  if (chapter === 'ch5' && choiceGroup === 1 && data.reduktion) {
+    data = { effects: Object.assign({}, data.effects, { stod: (gameState.stod >= 5 ? 1 : -1) }), resultText: data.resultText };
+  }
   // Apply effects: resources fly visibly from the chosen card to the
   // resource bar (or drain from the bar when negative), then the
   // counter ticks on arrival
@@ -3399,7 +3400,7 @@ function setupConclusion(screenId) {
   // Gentle forewarning before the finale: a low reputation will lock
   // one of the last choices, so it shouldn't come as a total surprise
   if (ch === 'ch5' && textEl && gameState.stod < 4) {
-    textEl.textContent += ' Alberts stod b\u00f6rjar tryta \u2014 och stod l\u00e4r beh\u00f6vas n\u00e4r m\u00f6rkare tider kommer.';
+    textEl.textContent += ' M\u00e4rk v\u00e4l: folkets st\u00f6d tryter. Ett rike utan folkets st\u00f6d st\u00e5r ostadigt n\u00e4r m\u00f6rkare tider kommer.';
   }
   if (ch === 'ch6' && textEl && gameState.stod < 5) {
     textEl.textContent += ' M\u00e4rk v\u00e4l: Alberts stod \u00e4r l\u00e5gt. Det kan avg\u00f6ra vilka v\u00e4gar som st\u00e5r \u00f6ppna i sista kapitlet.';
@@ -3456,16 +3457,15 @@ function getConclusionText(chapter) {
     return text;
   }
   if (chapter === 'ch5') {
-    var c1 = gameState.choices.ch5_kriget;
+    var st5 = gameState.choices.ch5_stand;
     var text = '';
-    if (c1 === 0) text += 'Albert vågade st\u00e5 f\u00f6r freden n\u00e4r n\u00e4stan ingen annan gjorde det. ';
-    else if (c1 === 1) text += 'Albert h\u00f6ll tyst under kriget och l\u00e4t ekvationerna tala. ';
-    else text += 'Albert talade f\u00f6r fred inf\u00f6r sina studenter. ';
-    if (gameState.choices.ch5_eddington === 0) text += 'Samarbetet med Eddington gjorde solf\u00f6rm\u00f6rkelsen till historiens ber\u00f6mdaste fotografi. ';
-    text += 'Nu k\u00e4nner hela v\u00e4rlden hans namn. Men ber\u00f6mmelse kan inte skydda mot det som kommer.';
+    if (st5 === 0) text += 'Du l\u00e4t adeln beh\u00e5lla sin makt, och ordningen best\u00e5r som den alltid gjort. ';
+    else if (st5 === 1) text += 'Du gav folket mer att s\u00e4ga till om \u2014 ovanligt, och farligt f\u00f6r adeln. ';
+    else text += 'Du tog tillbaka mark fr\u00e5n adeln till kronan. Kronan v\u00e4xte, adeln blev fiende. ';
+    text += 'Riket st\u00e5r p\u00e5 sin h\u00f6jd av makt \u2014 men under ytan \u00e4r det oj\u00e4mnt och sp\u00e4nt.';
     return text;
   }
-  if (chapter === 'ch6') {
+    if (chapter === 'ch6') {
     var reaction = gameState.choices.ch6_reaction;
     var d = choiceData.ch6[1][reaction];
     return d.conclusionText || '';
