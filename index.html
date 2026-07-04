@@ -1933,19 +1933,19 @@ body.narrator-on .screen.active { padding-top: 46px; }
           <circle cx="160" cy="40" r="14" fill="var(--gold)" opacity="0.85"/>
           <line x1="160" y1="54" x2="160" y2="60" stroke="var(--gold)" stroke-width="3" opacity="0.7"/>
           <path d="M150 30 L146 26 M170 30 L174 26 M160 24 L160 18" stroke="var(--gold-light)" stroke-width="2" opacity="0.9" stroke-linecap="round"/>
-          <text x="110" y="140" text-anchor="middle" font-family="var(--font-body)" font-size="9" fill="var(--brown-light)" opacity="0.9" font-style="italic">Bern, Schweiz 1905</text>
+          <text x="110" y="140" text-anchor="middle" font-family="var(--font-body)" font-size="9" fill="var(--brown-light)" opacity="0.9" font-style="italic">&Ouml;stersj&ouml;n, 1600-talet</text>
         </svg>
       </div>
       <div class="title-ornament"></div>
       <h1 class="game-title">Stormaktstiden</h1>
       <p class="game-subtitle">Rikets v&auml;g</p>
-      <div class="chapter-label">Kapitel 4 &mdash; Patentkontoret och mirakel&aring;ret</div>
+      <div class="chapter-label">Kapitel 4 &mdash; Stormakten v&auml;xer</div>
+      <div class="discussion-box" id="ch4-recap" style="display:none;text-align:left;"><div class="discussion-label">&#x1F4D6; Detta har h&auml;nt</div><p class="discussion-text">&Aring;ren gick. Gustav Vasas barnbarn styr nu ett rike som v&auml;xer. Sverige krigar runt hela &Ouml;stersj&ouml;n — och vinner.</p></div>
       <p class="intro-text" id="ch4-introText">
-        <strong>Bern, 1902.</strong> Albert &auml;r klar med h&ouml;gskolan &mdash; men f&aring;r inget jobb som
-        forskare. Till slut f&aring;r han jobb p&aring; patentkontoret: d&auml;r granskar man
-        uppfinningar och avg&ouml;r om de fungerar. Albert och Mileva gifter sig och f&aring;r
-        sonen Hans Albert. Och mellan patenten&hellip; t&auml;nker Albert.
-      </p>
+        <strong>1600-talet.</strong> Sverige har blivit en stormakt. Kungen Gustav II
+        Adolf f&ouml;r krig l&aring;ngt nere i Tyskland, och svenska soldater marscherar genom
+        Europa. Salteby ligger vid havet &mdash; h&auml;rifr&aring;n seglar skepp fulla med soldater
+        och kommer hem med byten och s&aring;r. Nu beh&ouml;ver riket b&aring;de m&auml;n, pengar och murar.</p>
       <audio id="narrator-ch4-title" src="" preload="auto"></audio>
       <button class="btn-primary" onclick="goToScreen('ch4-minigame')">Forts&auml;tt</button>
     </div>
@@ -1959,8 +1959,8 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
     <div id="ch4-minigame-old" style="display:none;">
       <div class="narrative-box">
-        <h2 class="narrative-heading">&#x1F50E; Patentgranskaren</h2>
-        <p class="narrative-text">Uppfinnarna k&ouml;ar utanf&ouml;r patentkontoret! Varje ritning har en sak som &auml;r fel &mdash; hitta den och tryck p&aring; den!</p>
+        <h2 class="narrative-heading">&#x1F3F0; Bygg f&auml;stningen</h2>
+        <p class="narrative-text">Placera murar och kanoner s&aring; att Saltebys hamn &auml;r skyddad mot fiendens skepp!</p>
       </div>
       <div class="mixing-container">
         <div class="mixing-sliders">
@@ -1989,37 +1989,31 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
   </div>
 
-  <!-- CH4: CHOICE 1 - Livet i Bern -->
+  <!-- CH4: CHOICE 1 -->
   <div class="screen" id="ch4-choice1">
     <div class="narrative-box">
-      <h2 class="narrative-heading">Livet i Bern</h2>
-      <p class="narrative-text">Dagarna p&aring; patentkontoret &auml;r l&aring;nga men roliga &mdash; Albert &auml;r snabb p&aring; att hitta felen i uppfinningarna. Kv&auml;llarna &auml;r hans egna. Hur anv&auml;nder han dem?</p>
+      <h2 class="narrative-heading">Kriget och staden</h2>
+      <p class="narrative-text">Kungens v&auml;rvare kommer till torget och beh&ouml;ver soldater till kriget i Tyskland. Samtidigt blomstrar handeln f&ouml;r den som stannar hemma. Vad satsar Salteby p&aring;?</p>
       <audio id="narrator-ch4-choice1" src="" preload="auto"></audio>
     </div>
     <div class="choices-container" id="ch4-choices1">
       <div class="choice-card" onclick="makeChoice('ch4',1,0)" data-choice="0">
         <div class="choice-card-number">1</div>
-        <div class="choice-card-title">Starta en t&auml;nkarklubb med v&auml;nnerna</div>
-        <div class="choice-card-desc">Albert och tv&aring; v&auml;nner l&auml;ser b&ouml;cker ihop och diskuterar till midnatt &mdash; Mileva &auml;r ofta med. De kallar sig sk&auml;mtsamt &rdquo;Akademien Olympia&rdquo;.</div>
-        <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x1F451; Makt</span>
-          <span class="effect-badge positive">+1 &#x1F4B0; Välstånd</span>
-        </div>
+        <div class="choice-card-title">Skicka stadens unga m&auml;n till kriget</div>
+        <div class="choice-card-desc">&Auml;ra och byte lockar, och kungen bel&ouml;nar den som st&auml;ller upp. Men m&aring;nga kommer aldrig hem igen.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F451; Makt</span><span class="effect-badge negative">-1 &#x1F91D; Folkets st&ouml;d</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch4',1,1)" data-choice="1">
         <div class="choice-card-number">2</div>
-        <div class="choice-card-title">Sk&ouml;ta jobbet perfekt</div>
-        <div class="choice-card-desc">Chefen ska aldrig kunna klaga. Familjen beh&ouml;ver l&ouml;nen &mdash; och Albert vill visa att han duger.</div>
-        <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x1F451; Makt</span>
-          <span class="effect-badge positive">+1 &#x1F91D; Folkets stöd</span>
-        </div>
+        <div class="choice-card-title">Satsa p&aring; handeln i st&auml;llet</div>
+        <div class="choice-card-desc">Medan andra krigar tj&auml;nar Salteby p&aring; att s&auml;lja tj&auml;ra, j&auml;rn och salt till hela &Ouml;stersj&ouml;n.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F4B0; V&auml;lst&aring;nd</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch4',1,2)" data-choice="2">
         <div class="choice-card-number">3</div>
-        <div class="choice-card-title">R&auml;kna fysik i smyg vid skrivbordet</div>
-        <div class="choice-card-desc">I skrivbordsl&aring;dan ligger Alberts egna ber&auml;kningar. Han kallar l&aring;dan p&aring; sk&auml;mt f&ouml;r sin &rdquo;avdelning f&ouml;r teoretisk fysik&rdquo;.</div>
-        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F451; Makt</span></div>
+        <div class="choice-card-title">Bygg f&ouml;rsvar hemma</div>
+        <div class="choice-card-desc">Murar och kanoner runt hamnen. Tryggt f&ouml;r folket &mdash; men dyrt f&ouml;r kassan.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F451; Makt</span><span class="effect-badge negative">-1 &#x1F4B0; V&auml;lst&aring;nd</span><span class="effect-badge positive">+1 &#x1F91D; Folkets st&ouml;d</span></div>
       </div>
     </div>
     <div class="result-box" id="ch4-result1"><div class="result-label">Resultat</div><div class="result-text" id="ch4-result1Text"></div></div>
@@ -2028,37 +2022,25 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
   </div>
 
-  <!-- CH4: CHOICE 2 - Mirakelåret -->
+  <!-- CH4: CHOICE 2 -->
   <div class="screen" id="ch4-choice2">
     <div class="narrative-box">
-      <h2 class="narrative-heading">Mirakel&aring;ret 1905</h2>
-      <p class="narrative-text">Det otroliga h&auml;nder: p&aring; ETT enda &aring;r skriver Albert flera artiklar som var och en r&auml;cker f&ouml;r att bli v&auml;rldsber&ouml;md. Men vilken id&eacute; v&aring;gar han skicka till tidskriften f&ouml;rst?</p>
+      <h2 class="narrative-heading">En hungrande vinter</h2>
+      <p class="narrative-text">Krigen kostar. Skatterna &auml;r tunga, sk&ouml;rden slog fel, och n&auml;r vintern kommer fryser och sv&auml;lter folk i Salteby. Vad g&ouml;r staden?</p>
       <audio id="narrator-ch4-choice2" src="" preload="auto"></audio>
     </div>
     <div class="choices-container" id="ch4-choices2">
       <div class="choice-card" onclick="makeChoice('ch4',2,0)" data-choice="0">
         <div class="choice-card-number">1</div>
-        <div class="choice-card-title">&rdquo;Ljuset best&aring;r av sm&aring; paket&rdquo;</div>
-        <div class="choice-card-desc">Ljus &auml;r inte bara en v&aring;g &mdash; det kommer i sm&aring; energipaket. Galen tanke? Kanske. Men den f&ouml;rklarar sådant ingen annan kan.</div>
-        <div class="choice-card-effect">
-          <span class="effect-badge positive">+1 &#x1F451; Makt</span>
-          <span class="effect-badge positive">+1 &#x1F4B0; Välstånd</span>
-        </div>
+        <div class="choice-card-title">&Ouml;ppna kronans f&ouml;rr&aring;d &aring;t folket</div>
+        <div class="choice-card-desc">Dela ut s&auml;d och salt ur f&ouml;rr&aring;den. Folket minns vem som hj&auml;lpte dem n&auml;r det var som k&auml;rvast. <em>(Kr&auml;ver att folket &auml;n litar p&aring; dig.)</em></div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F91D; Folkets st&ouml;d</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch4',2,1)" data-choice="1">
         <div class="choice-card-number">2</div>
-        <div class="choice-card-title">&rdquo;Tiden &auml;r inte likadan f&ouml;r alla&rdquo;</div>
-        <div class="choice-card-desc">Den vildaste id&eacute;n av alla: tiden g&aring;r olika fort beroende p&aring; hur man r&ouml;r sig. M&aring;nga kommer skaka p&aring; huvudet&hellip;</div>
-        <div class="choice-card-effect">
-          <span class="effect-badge negative">-1 &#x1F91D; Mod nu</span>
-          <span class="effect-badge special">&#x1F31F; Stor bonus i kapitel 5</span>
-        </div>
-      </div>
-      <div class="choice-card" onclick="makeChoice('ch4',2,2)" data-choice="2">
-        <div class="choice-card-number">3</div>
-        <div class="choice-card-title">&rdquo;Atomer finns p&aring; riktigt &mdash; h&auml;r &auml;r beviset&rdquo;</div>
-        <div class="choice-card-desc">Sm&aring; korn dansar i vatten &mdash; f&ouml;r att osynliga atomer knuffar dem! Ett s&auml;kert kort som forskarna kommer att gilla.</div>
-        <div class="choice-card-effect"><span class="effect-badge positive">+2 &#x1F451; Makt</span></div>
+        <div class="choice-card-title">L&aring;t folket klara sig sj&auml;lva</div>
+        <div class="choice-card-desc">Allt beh&ouml;vs till kriget. Vintern blir h&aring;rd, och n&aring;gra klarar den inte.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F451; Makt</span><span class="effect-badge negative">-1 &#x1F91D; Folkets st&ouml;d</span></div>
       </div>
     </div>
     <div class="result-box" id="ch4-result2"><div class="result-label">Resultat</div><div class="result-text" id="ch4-result2Text"></div></div>
@@ -2067,31 +2049,31 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
   </div>
 
-  <!-- CH4: CHOICE 3 - Mileva -->
+  <!-- CH4: CHOICE 3 -->
   <div class="screen" id="ch4-choice3">
     <div class="narrative-box">
-      <h2 class="narrative-heading">Vid k&ouml;ksbordet</h2>
-      <p class="narrative-text">Artiklarna &auml;r klara. Mileva har l&auml;st, r&auml;knat och diskuterat varje sida med Albert &mdash; kv&auml;ll efter kv&auml;ll vid k&ouml;ksbordet, medan lilla Hans Albert sover. P&aring; papperen st&aring;r bara Alberts namn. Vad s&auml;ger han till Mileva?</p>
+      <h2 class="narrative-heading">Skeppen kommer hem</h2>
+      <p class="narrative-text">P&aring; v&aring;ren seglar skeppen in i Saltebys hamn. De f&ouml;r med sig byten fr&aring;n kriget &mdash; men ocks&aring; s&aring;rade och tr&ouml;tta m&auml;n. Hur tar staden emot dem?</p>
       <audio id="narrator-ch4-choice3" src="" preload="auto"></audio>
     </div>
     <div class="choices-container" id="ch4-choices3">
       <div class="choice-card" onclick="makeChoice('ch4',3,0)" data-choice="0">
         <div class="choice-card-number">1</div>
-        <div class="choice-card-title">&rdquo;Utan dig hade jag aldrig klarat det&rdquo;</div>
-        <div class="choice-card-desc">Albert s&auml;ger det h&ouml;gt, s&aring; att hon h&ouml;r att han menar det.</div>
-        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F91D; Folkets stöd</span></div>
+        <div class="choice-card-title">Ta hand om de s&aring;rade</div>
+        <div class="choice-card-desc">Staden ordnar sjukstuga och mat. Det kostar &mdash; men ingen gl&ouml;mmer en stad som tar hand om sina egna.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F91D; Folkets st&ouml;d</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch4',3,1)" data-choice="1">
         <div class="choice-card-number">2</div>
-        <div class="choice-card-title">&rdquo;Nu tar vi n&auml;sta id&eacute; &mdash; tillsammans&rdquo;</div>
-        <div class="choice-card-desc">B&auml;sta t&auml;nkandet sker i par. Albert vill forts&auml;tta som de b&ouml;rjat.</div>
+        <div class="choice-card-title">Fira segern med parad p&aring; torget</div>
+        <div class="choice-card-desc">Fanor, trummor och kungens h&auml;lsning. Staden str&aring;lar av stormaktsstolthet.</div>
         <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F451; Makt</span></div>
       </div>
       <div class="choice-card" onclick="makeChoice('ch4',3,2)" data-choice="2">
         <div class="choice-card-number">3</div>
-        <div class="choice-card-title">&rdquo;Om id&eacute;erna n&aring;gonsin ger ett pris &mdash; d&aring; &auml;r pengarna dina&rdquo;</div>
-        <div class="choice-card-desc">Ett stort l&ouml;fte. Kanske t&auml;nker Albert att det aldrig beh&ouml;ver infrias&hellip;</div>
-        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F4B0; Välstånd</span></div>
+        <div class="choice-card-title">R&auml;kna och s&auml;lj krigsbytet</div>
+        <div class="choice-card-desc">Silver, tyg och koppar fr&aring;n kriget fyller stadens bodar. Handelsm&auml;nnen gnuggar h&auml;nderna.</div>
+        <div class="choice-card-effect"><span class="effect-badge positive">+1 &#x1F4B0; V&auml;lst&aring;nd</span></div>
       </div>
     </div>
     <div class="result-box" id="ch4-result3"><div class="result-label">Resultat</div><div class="result-text" id="ch4-result3Text"></div></div>
@@ -2100,30 +2082,27 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
   </div>
 
-  <!-- CH4: FACT --><!-- CH4: FACT -->
+  <!-- CH4: FACT --><!-- CH4: FACT --><!-- CH4: FACT -->
   <div class="screen" id="ch4-fact">
     <div class="fact-box">
       <span class="fact-icon">&#x1F4D6;</span>
       <div class="fact-label">Visste du att&hellip;</div>
       <p class="fact-text">
-        &Aring;r 1905 kallas &rdquo;mirakel&aring;ret&rdquo;. Albert var 26 &aring;r, jobbade heltid p&aring;
-        patentkontoret &mdash; och skrev &auml;nd&aring; fyra artiklar som f&ouml;r&auml;ndrade vetenskapen.
-        I en av dem fanns v&auml;rldens mest ber&ouml;mda formel: <strong>E&nbsp;=&nbsp;mc&sup2;</strong>
-        &mdash; energi och massa &auml;r tv&aring; sidor av samma sak.
+        P&aring; 1600-talet var Sverige en av Europas m&auml;ktigaste stater! Riket str&auml;ckte
+        sig runt stora delar av &Ouml;stersj&ouml;n &mdash; Finland, Estland, Lettland och delar av
+        Tyskland h&ouml;rde till. Man kallade &Ouml;stersj&ouml;n f&ouml;r &rdquo;ett svenskt innanhav&rdquo;.
       </p>
     </div>
     <div class="discussion-box">
-      <span class="discussion-icon">&#x1F50D;</span>
-      <div class="discussion-label">K&auml;llkoll</div>
+      <span class="discussion-icon">&#x1F5FA;&#xFE0F;</span>
+      <div class="discussion-label">P&aring; kartan</div>
       <p class="discussion-text">
-        Hur mycket hj&auml;lpte Mileva till med artiklarna? Forskarna &auml;r faktiskt oense
-        &auml;n idag. I sina brev skrev Albert ibland &rdquo;v&aring;rt arbete&rdquo; &mdash; men p&aring;
-        artiklarna st&aring;r bara hans namn. K&auml;llorna r&auml;cker inte f&ouml;r ett s&auml;kert svar.
-        D&aring; f&aring;r man s&auml;ga som forskarna: <em>vi vet inte riktigt</em> &mdash; och det &auml;r
-        ocks&aring; ett &auml;rligt svar.
+        Leta upp &Ouml;stersj&ouml;n p&aring; en karta. Runt den ligger Sverige, Finland, Estland,
+        Lettland, Polen, Tyskland och Danmark. Under stormaktstiden kontrollerade
+        Sverige n&auml;stan hela den h&auml;r kusten. T&auml;nk s&aring; annorlunda gr&auml;nserna s&aring;g ut d&aring;!
       </p>
     </div>
-      <audio id="narrator-ch4-fact" src="" preload="auto"></audio>
+    <audio id="narrator-ch4-fact" src="" preload="auto"></audio>
     <div style="text-align:center;">
       <button class="btn-primary" onclick="goToScreen('ch4-conclusion')">Forts&auml;tt</button>
     </div>
@@ -2132,10 +2111,10 @@ body.narrator-on .screen.active { padding-top: 46px; }
   <!-- CH4: CONCLUSION --><!-- CH4: CONCLUSION -->
   <div class="screen" id="ch4-conclusion">
     <div style="text-align:center; margin-bottom: 8px;"><div class="chapter-label" style="margin-bottom:8px;">Kapitel 4 avklarat</div></div>
-    <div class="celebration-text">&#x2728; Mirakel&aring;ret 1905! &#x2728;</div>
+    <div class="celebration-text">&#x2728; Kapitel 4 &auml;r avklarat! &#x2728;</div>
     <div class="divider"></div>
-    <div class="narrative-box"><h2 class="narrative-heading">Fyra artiklar som &auml;ndrar allt&hellip;</h2><p class="narrative-text" id="ch4-conclusionText"></p></div>
-    <div class="lesson-box"><div class="lesson-label">L&auml;rdom</div><p class="lesson-text">V&auml;rldens st&ouml;rsta id&eacute;er f&ouml;ddes inte p&aring; ett fint universitet &mdash; utan vid ett skrivbord p&aring; ett patentkontor. Det viktiga &auml;r inte var du t&auml;nker, utan att du v&aring;gar t&auml;nka.</p></div>
+    <div class="narrative-box"><h2 class="narrative-heading">En stormakt vid havet&hellip;</h2><p class="narrative-text" id="ch4-conclusionText"></p></div>
+    <div class="lesson-box"><div class="lesson-label">L&auml;rdom</div><p class="lesson-text">Ett rike kan bli m&auml;ktigt fort &mdash; med krig, byten och murar. Men allt som byggs p&aring; krig m&aring;ste ocks&aring; b&auml;ras av n&aring;gon. Fr&aring;gan &auml;r vem som betalar priset, och hur l&auml;nge de orkar.</p></div>
     <div class="divider"></div>
     <h3 style="text-align:center; font-family:var(--font-headline); font-size:1.1rem; color:var(--brown-medium); margin-bottom:16px;">Dina resurser efter kapitel 4</h3>
     <div class="final-resources">
@@ -2143,10 +2122,10 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F4B0;</span><span class="final-resource-label">Välstånd</span><span class="final-resource-value" id="ch4-finalVälstånd">0</span></div>
       <div class="final-resource-item"><span class="final-resource-icon">&#x1F91D;</span><span class="final-resource-label">Folkets stöd</span><span class="final-resource-value" id="ch4-finalStod">0</span></div>
     </div>
-    <p class="teaser-text">Forts&auml;ttning f&ouml;ljer&hellip;<br><em>Kapitel 5: Solf&ouml;rm&ouml;rkelsen</em></p>
+    <p class="teaser-text">Forts&auml;ttning f&ouml;ljer&hellip;<br><em>Kapitel 5: Fyra st&aring;nd, ett rike</em></p>
       <audio id="narrator-ch4-conclusion" src="" preload="auto"></audio>
     <div style="text-align:center; margin-top: 16px; margin-bottom: 12px;">
-      <button class="diary-btn" onclick="NobelDiary.show(4)">&#x1F4D6; Alberts fr&aring;gebok</button>
+      <button class="diary-btn" onclick="NobelDiary.show(4)">&#x1F4D6; Kr&ouml;nikan</button>
       <button class="diary-btn" onclick="showStickerBook()">&#x1F396;&#xFE0F; Samlarboken</button>
     </div>
     <div style="text-align:center; margin-top: 8px; margin-bottom: 40px;">
@@ -2973,19 +2952,18 @@ var choiceData = {
   },
   ch4: {
     1: [
-      { effects: { makt: 1, valstand: 1 }, resultText: 'Akademien Olympia! Tre v\u00e4nner, billigt te och v\u00e4rldens st\u00f6rsta fr\u00e5gor. De l\u00e4ser filosofi och fysik och skrattar h\u00f6gt. Alberts b\u00e4sta id\u00e9er f\u00f6ds i samtalen.' },
-      { effects: { makt: 1, stod: 1 }, resultText: 'Chefen nickar n\u00f6jt \u2014 Albert \u00e4r kontorets b\u00e4sta granskare. L\u00f6nen tryggar familjen, och att granska andras id\u00e9er tr\u00e4nar hans eget t\u00e4nkande.' },
-      { effects: { makt: 2 }, resultText: 'S\u00e5 fort chefen v\u00e4nder ryggen till \u00e5ker ber\u00e4kningarna fram ur l\u00e5dan. \u201dAvdelningen f\u00f6r teoretisk fysik\u201d har \u00f6ppet igen.' }
+      { effects: { makt: 2, stod: -1 }, resultText: 'Saltebys unga m\u00e4n seglar mot Tyskland med kungens h\u00e4r. Staden f\u00e5r \u00e4ra och kungens tack \u2014 men p\u00e5 torget st\u00e5r m\u00f6drar och v\u00e4ntar p\u00e5 dem som aldrig kommer hem.' },
+      { effects: { valstand: 2 }, resultText: 'Medan andra krigar s\u00e4ljer Salteby tj\u00e4ra, j\u00e4rn och salt. Hamnen fylls av skepp och kassan av silver \u2014 kriget g\u00f6r somliga rika.' },
+      { effects: { makt: 1, valstand: -1, stod: 1 }, resultText: 'Murar och kanoner reser sig runt hamnen. Det kostar p\u00e5 kassan \u2014 men folket sover tryggare bakom stadens f\u00f6rsvar.' }
     ],
     2: [
-      { effects: { makt: 1, valstand: 1 }, resultText: 'Ljuspaketen skickas in. M\u00e5nga forskare tvivlar \u2014 men artikeln f\u00f6rklarar det of\u00f6rklarliga. Sexton \u00e5r senare ger just den h\u00e4r id\u00e9n Albert Nobelpriset.' },
-      { effects: { stod: -1 }, ownFactories: true, requires: { valstand: 3 }, resultText: 'Tiden \u00e4r inte likadan f\u00f6r alla! Folk skakar p\u00e5 huvudet \u2014 en kontorist som p\u00e5st\u00e5r att klockorna ljuger? Men v\u00e4nta bara. En dag ska hela v\u00e4rlden f\u00f6rst\u00e5.' },
-      { effects: { makt: 2 }, resultText: 'Atombeviset skickas in. Forskarna nickar imponerat \u2014 dansen i vattendroppen avg\u00f6r en hundra \u00e5r gammal tvist. Atomerna \u00e4r verkliga!' }
+      { effects: { stod: 2 }, requires: { stod: 4 }, resultText: 'Kronans f\u00f6rr\u00e5d \u00f6ppnas och s\u00e4den delas ut. Ingen sv\u00e4lter den vintern, och folket minns l\u00e4nge vem som st\u00e4llde upp n\u00e4r det gällde.' },
+      { effects: { makt: 1, stod: -1 }, resultText: 'Allt sparas till kriget. Vintern blir h\u00e5rd och n\u00e5gra Saltebybor klarar den inte. Kungen \u00e4r n\u00f6jd \u2014 men torget \u00e4r tystare till v\u00e5ren.' }
     ],
     3: [
-      { effects: { stod: 1 }, resultText: '\u201dUtan dig hade jag aldrig klarat det.\u201d Mileva ler tr\u00f6tt men varmt. Orden kostar inget \u2014 och betyder allt.' },
-      { effects: { makt: 1 }, resultText: 'De b\u00f6jer sig \u00f6ver n\u00e4sta problem tillsammans, som alltid. Tv\u00e5 huvuden, ett k\u00f6ksbord, o\u00e4ndligt m\u00e5nga fr\u00e5gor.' },
-      { effects: { valstand: 1 }, resultText: '\u201dOm id\u00e9erna n\u00e5gonsin ger ett pris \u00e4r pengarna dina.\u201d Mileva skrattar. Men Albert menar det \u2014 och m\u00e5nga \u00e5r senare h\u00e5ller han faktiskt l\u00f6ftet.' }
+      { effects: { stod: 1 }, resultText: 'Staden ordnar sjukstuga \u00e5t de s\u00e5rade soldaterna. Det kostar \u2014 men ingen gl\u00f6mmer en stad som tar hand om sina egna.' },
+      { effects: { makt: 1 }, resultText: 'Fanor och trummor fyller torget n\u00e4r segern firas. Salteby str\u00e5lar av stormaktsstolthet, och kungens h\u00e4lsning l\u00e4ses h\u00f6gt.' },
+      { effects: { valstand: 1 }, resultText: 'Krigsbytet r\u00e4knas och s\u00e4ljs. Silver och tyg fyller stadens bodar, och handelsm\u00e4nnen gnuggar h\u00e4nderna \u00e5t vinsten.' }
     ]
   },
   ch5: {
@@ -3108,8 +3086,8 @@ function animateResource(resource, change) {
 /* ============================================
    RESOURCE REQUIREMENTS FOR CHOICES
    ============================================ */
-var resourceEmojis = { makt: '\uD83D\uDCDA', valstand: '\uD83D\uDCA1', stod: '\uD83E\uDD81', eftermale: '\u2728' };
-var resourceNames = { makt: 'Makt', valstand: 'Välstånd', stod: 'Mod', eftermale: 'Avtryck' };
+var resourceEmojis = { makt: '\uD83D\uDC51', valstand: '\uD83D\uDCB0', stod: '\uD83E\uDD1D', eftermale: '\u2728' };
+var resourceNames = { makt: 'Makt', valstand: 'Välstånd', stod: 'Folkets stöd', eftermale: 'Avtryck' };
 
 function checkRequirements(chapter, choiceGroup) {
   var choices = choiceData[chapter] && choiceData[chapter][choiceGroup];
@@ -3239,7 +3217,15 @@ function goToScreen(screenId) {
         applyChapterStart(3);
         if (gameState._coldStart) { var _r3 = document.getElementById('ch3-recap'); if (_r3) _r3.style.display = 'block'; }
       }
-      if (screenId === 'ch4-title') applyChapterStart(4);
+      if (screenId === 'ch4-title') {
+        applyChapterStart(4);
+        var _c4i = document.getElementById('ch4-introText');
+        if (gameState.overreach && _c4i) {
+          _c4i.innerHTML = '<strong>1600-talet.</strong> Sverige har blivit en stormakt och kungen krigar runt hela &Ouml;stersj&ouml;n. Men i Salteby pyr oron. Skatterna f&ouml;r krigen &auml;r tunga, och folk minns hur staden behandlades. P&aring; torget har n&aring;gon rest en upprorsfana. Riket &auml;r m&auml;ktigt &mdash; men st&aring;r p&aring; ostadig grund.';
+          if (!gameState._ch4CrisisDone) { gameState._ch4CrisisDone = true; gameState.stod = Math.max(0, gameState.stod - 1); updateResourceDisplay(); }
+        }
+        if (gameState._coldStart) { var _r4 = document.getElementById('ch4-recap'); if (_r4) _r4.style.display = 'block'; }
+      }
       if (screenId === 'ch5-title') applyChapterStart(5);
       if (screenId === 'ch7-title') applyChapterStart(7);
 
@@ -3331,9 +3317,9 @@ function makeChoice(chapter, choiceGroup, choiceIndex) {
   if (chapter === 'ch2' && choiceGroup === 2) gameState.choices.ch2_kloster = choiceIndex;
   if (chapter === 'ch3' && choiceGroup === 1) gameState.choices.ch3_dacke = choiceIndex;
   if (chapter === 'ch3' && choiceGroup === 2) gameState.choices.ch3_efter = choiceIndex;
-  if (chapter === 'ch4' && choiceGroup === 1) gameState.choices.ch4_bern = choiceIndex;
-  if (chapter === 'ch4' && choiceGroup === 2) gameState.choices.ch4_artikel = choiceIndex;
-  if (chapter === 'ch4' && choiceGroup === 3) gameState.choices.ch4_mileva = choiceIndex;
+  if (chapter === 'ch4' && choiceGroup === 1) gameState.choices.ch4_krig = choiceIndex;
+  if (chapter === 'ch4' && choiceGroup === 2) gameState.choices.ch4_vinter = choiceIndex;
+  if (chapter === 'ch4' && choiceGroup === 3) gameState.choices.ch4_hemkomst = choiceIndex;
   if (chapter === 'ch5' && choiceGroup === 1) gameState.choices.ch5_kriget = choiceIndex;
   if (chapter === 'ch5' && choiceGroup === 2) {
     gameState.choices.ch5_eddington = choiceIndex;
@@ -3459,7 +3445,15 @@ function getConclusionText(chapter) {
     return text;
   }
   if (chapter === 'ch4') {
-    return 'Fyra artiklar p\u00e5 ett \u00e5r \u2014 skrivna av en pappa med heltidsjobb, vid ett k\u00f6ksbord i Bern. Forskarna b\u00f6rjar viska om kontoristen som t\u00e4nker som ingen annan. Snart ska hela v\u00e4rlden f\u00e5 h\u00f6ra talas om honom.';
+    var k4 = gameState.choices.ch4_krig;
+    var text = '';
+    if (k4 === 0) text += 'Salteby gav kriget sina s\u00f6ner, och kungen minns det. ';
+    else if (k4 === 1) text += 'Salteby valde handeln framf\u00f6r kriget och blev rikt. ';
+    else text += 'Salteby byggde murar och satte folkets trygghet f\u00f6rst. ';
+    text += 'Sverige \u00e4r nu en av Europas m\u00e4ktigaste stater \u2014 flaggan vajar \u00f6ver halva \u00d6stersj\u00f6n. ';
+    if (gameState.stod < 4) text += 'Men folket b\u00f6rjar tr\u00f6ttna. Ett rike utan folkets st\u00f6d st\u00e5r ostadigt.';
+    else text += 'Men Korpen Minne ser l\u00e4ngre: det som v\u00e4xer fort kan ocks\u00e5 falla fort.';
+    return text;
   }
   if (chapter === 'ch5') {
     var c1 = gameState.choices.ch5_kriget;
