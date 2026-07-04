@@ -1,15 +1,21 @@
 # Speltest med fem barn-personas (juli 2026)
 
-> **Status:** Testning pågår. Fem AI-personas spelar spelet i browser
-> (Playwright, mobilvy) enligt metoden från Nobel-spelet. Rapporterna
-> fylls på här; fixar bockas av efter P0-batchen.
+> **Status:** 4 av 5 rapporter inne (Liam kvarstår). **Fixbatch A+B
+> genomförd och regressionstestad**: Bofors-läckan, ikonerna,
+> mjau→pling, medaljkravet, kap 7-grafiken, topplistans game-fält +
+> timeout, porträttet, världskartan, 🇩🇪-markeringen, dolda straff,
+> statiska tidslinjen, "lovade"-texten, Ulm/Long Island/Mai 1933,
+> Mileva-dagboken, Hiroshima-skärmen (ny!), Mileva-epilogen (ny!),
+> "Vad gjorde Albert på riktigt?"-facit (nytt!), Avtryck i st.f.
+> Eftermäle, fysik-ärlighetsnoter, klurig-kamouflage i Kompassjakten,
+> mjukare fiolkrav, maskot dold i kap 6. Kvar: Liams rapport, rösten.
 
 | Persona | Profil | Dom |
 |---|---|---|
 | Elsa, 7 | Nybörjarläsare, behöver uppläsning | **4/5 med vuxen, 2/5 ensam** |
 | Liam, 8 | Otålig gamer, skippar text, fuskar | _(spelar)_ |
 | Maja, 9 | Noggrann samlare, läser allt | **4,5/5** — klarade allt, 7/7 märken |
-| Noah, 10 | Faktanörd, gränstestare | _(spelar)_ |
+| Noah, 10 | Faktanörd, gränstestare | **4/5** — "nästan femma" |
 | Vera, 11 | "För cool", dömer hårt | **3,5/5** — kap 6 räddar spelet |
 
 ---
@@ -113,3 +119,53 @@ Kompassjakten 5/5 · Fiolens toner 4/5 · Ljusstrålen 5/5 (favorit) ·
 Patentgranskaren 2/5 (läsning) · Böj ljuset 3/5 · Propaganda 2/5
 (ämne+ord över åldern; grät nästan på "Tyvärr sant" om bokbålen) ·
 Då och nu 3/5 (långa ledtrådar, etikettöverlapp).
+
+
+---
+
+## Fynd från Noah (10 år) — 4/5
+
+Faktagranskning: 15+ historiska detaljer verifierade korrekta
+(Nobelpriset 1921 för ljuspaketen, 4 undertecknare av motuppropet,
+Eddington 29/5 1919, "hade jag fel hade det räckt med EN",
+presidenterbjudandet, Russell–Einstein-manifestet, Max Talmud m.m.).
+
+### Faktafel (alla fixade i batch B)
+34. Bofors-bonusen (= Majas/Veras fynd) — **fixad (borttagen)**.
+35. Statisk finaltidslinje motsade mod-låst val — **fixad (dynamisk)**.
+36. "precis som Albert en gång lovade" villkorslöst — **fixad**.
+37. Dagbok 4 gav Mileva relativitetsidén som faktum, mot spelets egen
+    källkritik — **fixad (delad nattdiskussion)**.
+38. "München, 1879–1889" (född i Ulm) — **fixad**.
+39. Bokbål i "März 1933" (skedde 10 maj) — **fixad (Mai)**.
+40. "Princeton, augusti 1939" (sommarhuset låg på Long Island) — **fixad**.
+41. "Vetenskap riv inte ner" — **fixad (river)**.
+42. Dolda resursstraff på Kuggad-skärmen — **fixade (borttagna)**.
+43. ch4:s 0-stjärnetext kopierad från ch6 ("rubriker") — **fixad**.
+44. Mod-förvarning fanns bara i kap 6, KONCEPT lovade kap 5+6 — **fixad**.
+45. Nörd-nitpicks: mässingsnyckel omagnetisk (**fixad, stål**), fysik-
+    förenklingar i minispel 1/3/5 (**fixade med ärlighetsnoter**).
+
+### Noahs önskemål — implementerat
+"Vad gjorde Albert på riktigt?"-ruta i finalen som jämför spelarens
+väg med historien (brevet/presidenten/manifestet). ✅
+
+## Genomförda P1/P2 från Vera/Elsa
+- **Hiroshima har nu en egen tyst skärm** (6 augusti 1945) före
+  medaljvalet; maskoten dold. ✅
+- **Mileva-epilog i finalen** (skilsmässan 1919, Zürich, sönerna,
+  prispengarna, återupprättelsen). ✅
+- Marie Curie-cameo i kap 5-fakta (KONCEPT-löftet). ✅
+- "Reklamraden" om förra spelet borttagen. ✅
+- Medaljvalet kräver nu exakt 5 ("Jag gjorde ju rätt?!"-fällan borta). ✅
+- Klistermärkes-popup 5,2 s + konfetti städas vid skärmbyte. ✅
+- Fortsätt-knappar får marginal ovanför resursfältet. ✅
+- "Berättelsen fortsätter av sig själv…"-rad i finalen. ✅
+
+## Medvetna beslut (ej ändrade)
+- "Källkoll"-rubriken behålls (Maja/Vera älskade den; Elsas problem
+  löses av uppläsningen).
+- Kap 4/6-stämpelspelens textmängd: uppläsningen är lösningen för
+  7-åringar, inte kortare kort.
+- Kap 7-valet president/manifest förblir ett val — facit-rutan
+  berättar att Albert hann med båda.
