@@ -1266,7 +1266,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <div id="introButtons" style="display:flex;flex-direction:column;align-items:center;gap:12px;">
         <button class="btn-primary" id="introStartBtn" onclick="startNewGameFromIntro()" style="font-size:1.05rem;padding:14px 36px;">B&ouml;rja resan</button>
         <button class="btn-primary" id="introContinueBtn" onclick="continueGameFromIntro()" style="display:none;font-size:1.05rem;padding:14px 36px;background:#c8a038;color:#2c1a12;border-color:#c8a038;">Forts&auml;tt resan</button>
-        <button id="introChapterBtn" onclick="openChapterPicker()" style="background:transparent;border:1px solid #c8a038;color:#c8a038;font-family:var(--font-body);font-size:0.9rem;cursor:pointer;padding:9px 22px;border-radius:8px;">&#x1F4D6; V&auml;lj kapitel (f&ouml;r l&auml;raren)</button>
+        <button id="introChapterBtn" onclick="openChapterPicker()" style="background:transparent;border:1px solid #c8a038;color:#c8a038;font-family:var(--font-body);font-size:0.9rem;cursor:pointer;padding:9px 22px;border-radius:8px;">&#x1F4D6; V&auml;lj kapitel</button>
         <button id="introNewGameBtn" onclick="newGameFromIntro()" style="display:none;background:transparent;border:none;color:#d8bfa0;font-family:var(--font-body);font-size:0.85rem;text-decoration:underline;cursor:pointer;padding:6px 12px;opacity:0.75;margin-top:4px;">Nytt spel (rensar sparning)</button>
         <a href="nedslag/gustav-vasa.html" style="margin-top:14px;color:#b0473f;font-family:var(--font-body);font-size:0.85rem;text-decoration:none;border-top:1px solid rgba(200,160,56,0.25);padding-top:14px;">&#x1F464; Nedslag: Gustav Vasa &mdash; ett liv &rsaquo;</a>
       </div>
@@ -1274,11 +1274,11 @@ body.narrator-on .screen.active { padding-top: 46px; }
     </div>
   </div>
 
-  <!-- CHAPTER PICKER (klassrum: hoppa till dagens kapitel) -->
+  <!-- CHAPTER PICKER: hoppa till valfritt kapitel -->
   <div class="screen" id="chapter-picker">
     <div class="narrative-box" style="margin-top:24px;">
       <h2 class="narrative-heading">V&auml;lj kapitel</h2>
-      <p class="narrative-text">Varje kapitel &auml;r en egen liten lektion (~10&ndash;15 min). Hoppa rakt till dagens kapitel &mdash; du beh&ouml;ver inte spela de tidigare f&ouml;rst.</p>
+      <p class="narrative-text">Varje kapitel &auml;r en egen liten del (~10&ndash;15 min). Hoppa direkt till det du vill spela &mdash; du beh&ouml;ver inte ha spelat de tidigare.</p>
     </div>
     <div id="chapter-picker-list" style="display:flex;flex-direction:column;gap:10px;max-width:420px;margin:0 auto;"></div>
     <div style="text-align:center;margin:20px 0 40px;">
@@ -1377,7 +1377,7 @@ body.narrator-on .screen.active { padding-top: 46px; }
       <div class="discussion-label">Lyssna &amp; spela</div>
       <p class="discussion-text">
         Tryck p&aring; <strong>Lyssna</strong>-knappen uppe till v&auml;nster s&aring; l&auml;ser ber&auml;ttaren
-        upp texten. Varje kapitel &auml;r en egen liten lektion, och i varje v&auml;ntar ett litet spel.
+        upp texten. Varje kapitel &auml;r en egen liten del, och i varje v&auml;ntar ett litet spel.
       </p>
     </div>
     <div style="text-align:center;">
@@ -5067,7 +5067,7 @@ function v2FallbackToOldMinigame(chPrefix) {
    laddar om spelet med ny query-sträng (= färsk hämtning).
    Sparningen ligger i localStorage så inget går förlorat.
    VID DEPLOY: bumpa GAME_BUILD här OCH siffran i version.txt. */
-var GAME_BUILD = 5;
+var GAME_BUILD = 6;
 
 function checkForNewVersion() {
   try {
