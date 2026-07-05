@@ -103,7 +103,10 @@ for (const [screenId, text] of Object.entries(manus)) {
     method: 'POST',
     body: JSON.stringify({
       text: text.replace(/\n/g, ' … '),
-      model_id: 'eleven_multilingual_v2',
+      // Tvinga svenska: multilingual_v2 auto-detekterar språk och tolkar ibland
+      // korta svenska klipp som tyska. turbo_v2_5 + language_code låser språket.
+      model_id: 'eleven_turbo_v2_5',
+      language_code: 'sv',
       voice_settings: { stability: 0.55, similarity_boost: 0.75, style: 0.25 }
     })
   });
